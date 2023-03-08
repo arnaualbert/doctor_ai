@@ -2,7 +2,7 @@
 
 ### Links AI
 
-Naturak lenguages: https://www.nltk.org/book/
+Natural lenguages: https://www.nltk.org/book/
 
 WIT AI: https://github.com/wit-ai/pywit
 

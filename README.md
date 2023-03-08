@@ -44,3 +44,18 @@ Fracture: https://www.kaggle.com/datasets/srinivasvishal7/fracture
 
 Skin: https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000
 
+Skin: https://www.kaggle.com/datasets/shubhamgoel27/dermnet
+
+Cancer: https://www.cancerimagingarchive.net/collections/
+
+x-ray chest: https://www.kaggle.com/competitions/vinbigdata-chest-xray-abnormalities-detection/data?select=test
+
+tuberculosis: https://www.kaggle.com/datasets/tawsifurrahman/tuberculosis-tb-chest-xray-dataset
+
+brain: https://www.kaggle.com/datasets/mateuszbuda/lgg-mri-segmentation
+
+brain: https://www.kaggle.com/code/boneacrabonjac/brain-tumor-classification-with-simple-cnn/input
+
+brain: https://www.kaggle.com/code/ruslankl/brain-tumor-detection-v1-0-cnn-vgg-16/input
+
+brain tumor: https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri

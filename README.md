@@ -2,9 +2,9 @@
 
 ### Links AI
 
-https://www.nltk.org/book/
+Naturak lenguages: https://www.nltk.org/book/
 
-https://github.com/wit-ai/pywit
+WIT AI: https://github.com/wit-ai/pywit
 
 https://github.com/GoogleCloudPlatform/cloudml-samples/blob/main/notebooks/tensorflow/getting-started-keras.ipynb
 

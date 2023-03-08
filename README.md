@@ -59,3 +59,5 @@ brain: https://www.kaggle.com/code/boneacrabonjac/brain-tumor-classification-wit
 brain: https://www.kaggle.com/code/ruslankl/brain-tumor-detection-v1-0-cnn-vgg-16/input
 
 brain tumor: https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri
+
+brain: https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset

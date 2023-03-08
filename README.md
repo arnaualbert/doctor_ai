@@ -14,7 +14,7 @@ https://developers.google.com/?hl=es-419%2F%3Fq%3Dmachine%20learning
 
 https://www.coursera.org/learn/machine-learning
 
-https://www.kaggle.com/c/digit-recognizer
+Digit recognizer (hello world ai): https://www.kaggle.com/c/digit-recognizer
 
 https://developers.google.com/machine-learning/foundational-courses?hl=es-419
 

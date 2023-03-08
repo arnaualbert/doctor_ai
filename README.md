@@ -33,3 +33,12 @@ https://pyimagesearch.com/2019/01/14/machine-learning-in-python/
 https://pyimagesearch.com/2019/01/14/machine-learning-in-python/
 
 https://www.projectpro.io/article/deep-learning-for-image-classification-in-python-with-cnn/418
+
+### Datasets
+
+Brain: https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset
+
+X-ray: https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
+
+Fracture: https://www.kaggle.com/datasets/srinivasvishal7/fracture
+

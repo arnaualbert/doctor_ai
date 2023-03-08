@@ -42,3 +42,5 @@ X-ray: https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
 
 Fracture: https://www.kaggle.com/datasets/srinivasvishal7/fracture
 
+Skin: https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000
+

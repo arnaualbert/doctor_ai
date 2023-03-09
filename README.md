@@ -28,7 +28,7 @@ Tutorial keras: https://github.com/GoogleCloudPlatform/cloudml-samples/blob/main
 
 Tutorial keras: https://cloud.google.com/ai-platform/docs/getting-started-keras?hl=es-419
 
-https://developers.google.com/?hl=es-419%2F%3Fq%3Dmachine%20learning
+Google courses: https://developers.google.com/?hl=es-419%2F%3Fq%3Dmachine%20learning
 
 Machine learning course: https://www.coursera.org/learn/machine-learning
 
@@ -36,7 +36,7 @@ Digit recognizer (hello world ai): https://www.kaggle.com/c/digit-recognizer
 
 Machine learning course: https://developers.google.com/machine-learning/foundational-courses?hl=es-419
 
-https://www.kaggle.com/c/titanic
+Machine learning course: https://www.kaggle.com/c/titanic
 
 Machine learning course: https://developers.google.com/machine-learning/crash-course?hl=es-419
 
@@ -48,7 +48,7 @@ Machine learning cprojects: https://www.projectpro.io/article/top-10-machine-lea
 
 Machine learning images: https://pyimagesearch.com/2019/01/14/machine-learning-in-python/
 
-https://www.projectpro.io/article/deep-learning-for-image-classification-in-python-with-cnn/418
+Image classification: https://www.projectpro.io/article/deep-learning-for-image-classification-in-python-with-cnn/418
 
 NLKT courses: https://docs.google.com/document/d/1eYubSwLkpB7ZgfQVxxAwgsmAqS__BRfbMyP9qV6ngD8/edit#
 

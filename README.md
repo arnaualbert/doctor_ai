@@ -54,6 +54,8 @@ NLKT courses: https://docs.google.com/document/d/1eYubSwLkpB7ZgfQVxxAwgsmAqS__BR
 
 ### Datasets
 
+Medical images: https://github.com/sfikas/medical-imaging-datasets
+
 Brain: https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset
 
 X-ray: https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia

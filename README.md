@@ -22,6 +22,8 @@ Natural lenguages: https://www.nltk.org/book/
 
 WIT AI: https://github.com/wit-ai/pywit
 
+Tutorial digit recognition: https://codelabs.developers.google.com/codelabs/tfjs-training-classfication/index.html?hl=es-419#0
+
 https://github.com/GoogleCloudPlatform/cloudml-samples/blob/main/notebooks/tensorflow/getting-started-keras.ipynb
 
 https://cloud.google.com/ai-platform/docs/getting-started-keras?hl=es-419

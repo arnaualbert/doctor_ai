@@ -70,3 +70,4 @@ image recognintion: https://codepen.io/jasonmayes/pen/POoZOG
 
 chat: https://www.nltk.org/_modules/nltk/chat/eliza.html#demo
 
+chats options: https://www.nltk.org/_modules/nltk/chat.html#chatbots

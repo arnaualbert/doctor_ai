@@ -68,6 +68,8 @@ brain: https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset
 
 image recognintion: https://codepen.io/jasonmayes/pen/POoZOG
 
-chat: https://www.nltk.org/_modules/nltk/chat/eliza.html#demo
+chat ai: https://www.nltk.org/_modules/nltk/chat/eliza.html#demo
 
 chats options: https://www.nltk.org/_modules/nltk/chat.html#chatbots
+
+chat ai: https://towardsdatascience.com/develop-a-conversational-ai-bot-in-4-simple-steps-1b57e98372e2

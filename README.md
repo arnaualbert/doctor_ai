@@ -1,5 +1,21 @@
 # doctor_ai
 
+### Options for frameworks
+
+Flask: https://flask.palletsprojects.com/en/2.2.x/
+
+Django: https://www.djangoproject.com/
+
+Tornado: https://www.tornadoweb.org/en/stable/
+
+Bottle: https://bottlepy.org/docs/dev/
+
+pyramid: https://trypyramid.com/
+
+TurboGears: https://turbogears.org/
+
+Uvicorn: https://www.uvicorn.org/
+
 ### Links AI
 
 Natural lenguages: https://www.nltk.org/book/

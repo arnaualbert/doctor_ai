@@ -34,6 +34,8 @@ https://pyimagesearch.com/2019/01/14/machine-learning-in-python/
 
 https://www.projectpro.io/article/deep-learning-for-image-classification-in-python-with-cnn/418
 
+NLKT courses: https://docs.google.com/document/d/1eYubSwLkpB7ZgfQVxxAwgsmAqS__BRfbMyP9qV6ngD8/edit#
+
 ### Datasets
 
 Brain: https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset

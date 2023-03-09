@@ -63,3 +63,10 @@ brain: https://www.kaggle.com/code/ruslankl/brain-tumor-detection-v1-0-cnn-vgg-1
 brain tumor: https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri
 
 brain: https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset
+
+### Examples
+
+image recognintion: https://codepen.io/jasonmayes/pen/POoZOG
+
+chat: https://www.nltk.org/_modules/nltk/chat/eliza.html#demo
+

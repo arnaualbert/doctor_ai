@@ -5,8 +5,9 @@ CREATE TABLE `UserTable` (
   `Name` varchar(255) default NULL,
   `Surname` varchar(255) default NULL,
   `Email` varchar(255) default NULL,
-  `Pass` varchar(34),
+  `Pass` varchar(255) default NULL,
   `Role` varchar(255) default NULL,
+   `encrypted_data` varbinary(max),
   PRIMARY KEY (`id`)
 ) AUTO_INCREMENT=1;
 
@@ -130,3 +131,14 @@ VALUES
   ("Ryan","Juarez","tincidunt@icloud.net","ME11345492358695577636","User"),
   ("Abraham","Hahn","sed@hotmail.org","SM3920895262552911373813346","Admin"),
   ("Miriam","Bond","velit.eu.sem@icloud.com","DE29578532290627455488","User");
+
+
+CREATE SYMMETRIC KEY encryption_key
+WITH ALGORITHM = AES_256
+ENCRYPTION BY PASSWORD = 'YourPassword';
+
+UPDATE UserTable
+SET encrypted_data = ENCRYPTBYKEY(KEY_GUID('encryption_key'), Pass);
+
+SELECT CONVERT(varchar(max), DECRYPTBYKEY(encrypted_data)) AS Pass
+FROM UserTable;

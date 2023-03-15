@@ -4,6 +4,8 @@
 
 Flask: https://flask.palletsprojects.com/en/2.2.x/
 
+Tutorial Flask: https://pythonbasics.org/flask-tutorial-hello-world/
+
 Django: https://www.djangoproject.com/
 
 Tornado: https://www.tornadoweb.org/en/stable/

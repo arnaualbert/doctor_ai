@@ -10,7 +10,7 @@ CREATE TABLE `UserTable` (
   PRIMARY KEY (`id`)
 ) AUTO_INCREMENT=1;
 
-INSERT INTO `UserTable` (`Name`,`Surname`,`Email`,`Pass`)
+INSERT INTO `UserTable` (`user_name`,`user_surname`,`user_email`,`user_pass`)
 VALUES
   ("Erasmus","Arnold","lacus@aol.net","AD2215657283042881814488"),
   ("Alvin","Wall","egestas.nunc.sed@google.com","FO4392218173247234"),
@@ -22,7 +22,7 @@ VALUES
   ("Kim","Clayton","enim@outlook.net","FI7543355314328946"),
   ("Moses","Acevedo","in.aliquet@outlook.edu","FR9580452537683581898771431"),
   ("Jordan","Ward","luctus.ut.pellentesque@google.ca","MC7883659950011445449517461");
-INSERT INTO `UserTable` (`Name`,`Surname`,`Email`,`Pass`)
+INSERT INTO `UserTable` (`user_name`,`user_surname`,`user_email`,`user_pass`)
 VALUES
   ("Cleo","Rivers","elit.aliquam.auctor@yahoo.org","GT10858640478935032793817174"),
   ("Evangeline","Shepherd","phasellus.ornare@aol.couk","MD7136597846388257747717"),
@@ -34,7 +34,7 @@ VALUES
   ("Daria","Cruz","et@protonmail.com","MT77PETV90711304622368521982136"),
   ("Rajah","Lee","interdum.sed@icloud.ca","SA1932040149116521924888"),
   ("Minerva","Hunt","posuere.vulputate@google.couk","HR3676237641346116562");
-INSERT INTO `UserTable` (`Name`,`Surname`,`Email`,`Pass`,`Role`)
+INSERT INTO `UserTable` (`user_name`,`user_surname`,`user_email`,`user_pass`)
 VALUES
   ("Lillith","Mclaughlin","vulputate.eu@yahoo.com","AZ59348569743822116952142489"),
   ("Chaim","Knapp","magna.ut.tincidunt@icloud.ca","PT24053814747343428391411"),
@@ -46,7 +46,7 @@ VALUES
   ("Tatum","Davenport","vel.lectus.cum@hotmail.org","DO67407904558326141612384078"),
   ("Maxwell","Acevedo","nunc@protonmail.com","MR6483272687273981424929553"),
   ("Emmanuel","Thomas","sagittis.felis.donec@google.com","IS434475399000772644313860");
-INSERT INTO `UserTable` (`Name`,`Surname`,`Email`,`Pass`,`Role`)
+INSERT INTO `UserTable` (`user_name`,`user_surname`,`user_email`,`user_pass`)
 VALUES
   ("Adria","Navarro","enim@google.ca","LI4816658728617642884"),
   ("Meghan","Foley","orci.donec@yahoo.org","ES8222281698647656292676"),
@@ -58,7 +58,7 @@ VALUES
   ("Stella","Barlow","lorem@hotmail.org","FI9256620643823712"),
   ("James","Brennan","mauris.nulla.integer@aol.edu","BG53GDJY52557378625274"),
   ("Willow","Thomas","proin@google.org","DE26465667221138963835");
-INSERT INTO `UserTable` (`Name`,`Surname`,`Email`,`Pass`,`Role`)
+INSERT INTO `UserTable` (`user_name`,`user_surname`,`user_email`,`user_pass`)
 VALUES
   ("Mallory","Diaz","quis.pede@google.com","BH90823327241439845415"),
   ("Elizabeth","Gill","non.enim@google.net","DK2340866746996603"),
@@ -70,7 +70,7 @@ VALUES
   ("Burton","Howard","ultrices@icloud.net","GE81808518458838881147"),
   ("Elijah","Randall","scelerisque.dui.suspendisse@aol.net","SE6293259859373685536162"),
   ("Raya","Wiley","enim.etiam@yahoo.edu","LI8072020736328944320");
-INSERT INTO `UserTable` (`Name`,`Surname`,`Email`,`Pass`,`Role`)
+INSERT INTO `UserTable` (`user_name`,`user_surname`,`user_email`,`user_pass`)
 VALUES
   ("Solomon","Gay","a.neque@protonmail.edu","SE5070077818223586081332"),
   ("Carson","Gregory","vestibulum.nec@aol.com","PS691543899243962197174327552"),
@@ -82,7 +82,7 @@ VALUES
   ("Nicole","Vance","augue.ac.ipsum@outlook.org","FR2137201454868367190652593"),
   ("Mercedes","Kidd","semper.egestas@google.ca","TR492278692568838675996973"),
   ("Armand","Velazquez","orci.phasellus.dapibus@icloud.couk","DK5093665874207653");
-INSERT INTO `UserTable` (`Name`,`Surname`,`Email`,`Pass`,`Role`)
+INSERT INTO `UserTable` (`user_name`,`user_surname`,`user_email`,`user_pass`)
 VALUES
   ("Rashad","Jimenez","nulla.dignissim@google.net","LV90XKWN7402197186122"),
   ("Kevin","Newton","scelerisque.mollis@icloud.com","DE58448194058775831778"),
@@ -94,7 +94,7 @@ VALUES
   ("Jordan","Douglas","tellus.imperdiet@google.org","GB14REPP73106252356476"),
   ("Lee","Odom","pede.et@google.couk","MC5162521312498229978535220"),
   ("Tanner","Hicks","dignissim.magna@aol.org","DE68667728598327753277");
-INSERT INTO `UserTable` (`Name`,`Surname`,`Email`,`Pass`,`Role`)
+INSERT INTO `UserTable` (`user_name`,`user_surname`,`user_email`,`user_pass`)
 VALUES
   ("Reese","Richardson","eu@hotmail.com","NO1914596774262"),
   ("Piper","Callahan","a.malesuada@icloud.edu","DE54447354505880155186"),
@@ -106,7 +106,7 @@ VALUES
   ("Daquan","Foreman","nunc.risus@google.edu","DE05433815415727563274"),
   ("Elliott","Gilbert","dictum.eu.placerat@aol.org","BH09533262132377385687"),
   ("Marvin","Merritt","proin.non@hotmail.com","AZ95281580297338588496981474");
-INSERT INTO `UserTable` (`Name`,`Surname`,`Email`,`Pass`,`Role`)
+INSERT INTO `UserTable` (`user_name`,`user_surname`,`user_email`,`user_pass`)
 VALUES
   ("Avram","Brady","lorem.donec@protonmail.net","FO4080834021771532"),
   ("TaShya","Holt","dolor@google.net","GR0570142538655769388779264"),
@@ -118,7 +118,7 @@ VALUES
   ("Mari","Dyer","ultrices.posuere@aol.ca","AL82758807897080107957423632"),
   ("Lars","Garner","fermentum.vel@icloud.edu","KW1295644152126886533461276734"),
   ("Ima","Rosa","ac.ipsum@hotmail.couk","HU40132619441238015423716253");
-INSERT INTO `UserTable` (`Name`,`Surname`,`Email`,`Pass`,`Role`)
+INSERT INTO `UserTable` (`user_name`,`user_surname`,`user_email`,`user_pass`)
 VALUES
   ("Chester","Lowe","ipsum.dolor.sit@icloud.net","AZ85047250545610078822010837"),
   ("Winifred","Franco","venenatis@outlook.ca","VG1411444547344054076462"),
@@ -134,10 +134,10 @@ VALUES
 
 CREATE SYMMETRIC KEY encryption_key
 WITH ALGORITHM = AES_256
-ENCRYPTION BY PASSWORD = 'YourPassword';
+ENCRYPTION BY user_passWORD = 'Youruser_password';
 
 UPDATE UserTable
-SET encrypted_data = ENCRYPTBYKEY(KEY_GUID('encryption_key'), Pass);
+SET encrypted_data = ENCRYPTBYKEY(KEY_GUID('encryption_key'), user_pass);
 
-SELECT CONVERT(varchar(max), DECRYPTBYKEY(encrypted_data)) AS Pass
+SELECT CONVERT(varchar(max), DECRYPTBYKEY(encrypted_data)) AS user_pass
 FROM UserTable;

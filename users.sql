@@ -1,11 +1,11 @@
 DROP TABLE IF EXISTS `UserTable`;
 
 CREATE TABLE `UserTable` (
-  `id` mediumint(8) unsigned NOT NULL auto_increment,
-  `Name` varchar(255) default NULL,
-  `Surname` varchar(255) default NULL,
-  `Email` varchar(255) default NULL,
-  `Pass` varchar(255) default NULL,
+  `user_id` mediumint(8) unsigned NOT NULL auto_increment,
+  `user_name` varchar(255) NOT NULL,
+  `user_surname` varchar(255) NOT NULL,
+  `user_email` varchar(255) NOT NULL,
+  `user_pass` varchar(255) NOT NULL,
    `encrypted_data` varbinary(max),
   PRIMARY KEY (`id`)
 ) AUTO_INCREMENT=1;

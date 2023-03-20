@@ -21,3 +21,5 @@ CREATE TABLE results (
   username VARCHAR(50) NOT NULL,
   FOREIGN KEY (username) REFERENCES users(username)
 );
+INSERT INTO users (username, name, surname, email, pass, role)
+VALUES ('user1', 'John', 'Doe', 'john.doe@example.com', ENCRYPT('password'), 'admin');

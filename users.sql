@@ -1,3 +1,8 @@
+CREATE TABLE role (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  role_name VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE users (
   id INT PRIMARY KEY AUTO_INCREMENT,
   username VARCHAR(50) UNIQUE NOT NULL,
@@ -9,11 +14,6 @@ CREATE TABLE users (
   FOREIGN KEY (role) REFERENCES role(role_name)
 );
 
-CREATE TABLE role (
-  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  role_name VARCHAR(50) NOT NULL
-);
-
 CREATE TABLE results (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   query VARCHAR(100) NOT NULL ,
@@ -21,5 +21,6 @@ CREATE TABLE results (
   username VARCHAR(50) NOT NULL,
   FOREIGN KEY (username) REFERENCES users(username)
 );
+INSERT INTO role VALUES ('admin');
 INSERT INTO users (username, name, surname, email, pass, role)
 VALUES ('user1', 'John', 'Doe', 'john.doe@example.com', ENCRYPT('password'), 'admin');

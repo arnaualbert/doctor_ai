@@ -84,6 +84,7 @@ def iamlr():
         return render_template('ia.html')
     return render_template('ia.html')
 
+
 @app.route('/underconstruction', methods=['GET', 'POST'])
 def under_construction():
     if request.method == 'POST':

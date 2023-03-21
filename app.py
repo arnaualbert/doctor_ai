@@ -12,6 +12,16 @@ This module is used to serve the backend of the application
 from flask import Flask, render_template,request
 import os
 import mysql.connector
+from flask_sqlalchemy import SQLAlchemy
+
+
+module_name = __name__
+app = Flask(__name__)
+
+__path__ = os.getcwd()
+
+# app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.sqlite3'
+# app.config['SECRET_KEY'] = "random string"
 
 conexion = mysql.connector.connect(
     host="localhost",
@@ -19,12 +29,6 @@ conexion = mysql.connector.connect(
     password="",
     database="user-uf4"
 )
-
-
-module_name = __name__
-app = Flask(__name__)
-
-__path__ = os.getcwd()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

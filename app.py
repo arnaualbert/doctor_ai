@@ -9,26 +9,21 @@ This module is used to serve the backend of the application
 """
 
 # Imports of the app
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request, session
 import os
 import mysql.connector
 from flask_sqlalchemy import SQLAlchemy
-
+import functions as f
 
 module_name = __name__
 app = Flask(__name__)
-
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 __path__ = os.getcwd()
 
 # app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.sqlite3'
 # app.config['SECRET_KEY'] = "random string"
 
-conexion = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="doctor_ai"
-)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -36,7 +31,6 @@ def index():
         return render_template('login.html')
     if request.method == 'GET':
         return render_template('login.html')
-    
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -44,25 +38,38 @@ def login():
 
         username =  request.form['username']
         password =  request.form['password']
-
-        # Creamos un cursor para ejecutar consultas SQL
-        cursor = conexion.cursor()
-
-        # Verificamos si el usuario y la contraseña son correctos
-        cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s", (username, password))
-        resultado = cursor.fetchone()
-        # user = get_user(username, password)
-
+        resultado = f.login(username, password)
         if resultado:
             print(resultado)
-            # login_user(user)
             message = "Login successful"
+            session['username'] = username
+            print(f"hola {session.get('username')}")
             return render_template('index.html')
         else:
-            return "Usuario o contraseña incorrectos"
-
+            return render_template("login.html")
 
     return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    print(f"adios {session.get('username')}")
+    return render_template('login.html')
+
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    if request.method == 'POST':
+        if session.get('username')  != None:
+            return render_template('index.html')
+        else:
+            return render_template('login.html')
+
+    if request.method == 'GET'and session.get('username')  != None:
+        if session.get('username')  != None:
+            return render_template('index.html')
+        else:
+            return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -79,11 +86,11 @@ def iamlr():
         return render_template('ia.html')
     return render_template('ia.html')
 
-@app.route('/under_construction', methods=['GET', 'POST'])
+@app.route('/underconstruction', methods=['GET', 'POST'])
 def under_construction():
     if request.method == 'POST':
-        return render_template('under_construction.html')
-    return render_template('under_construction.html')
+        return render_template('underconstruction.html')
+    return render_template('underconstruction.html')
 
 def create_app():
     return app

@@ -27,3 +27,7 @@
 #         # save user data to database or do other processing
 #     else:
 #         return render_template('register.html')
+
+
+# INSERT INTO users (username, name, surname, email, pass_hash, role_id)
+# VALUES ('jdoe', 'John', 'Doe', 'jdoe@example.com', PASSWORD('password123'), 1);

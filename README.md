@@ -127,7 +127,6 @@ You can replace the random data generation with your own data loading logic to c
 
 
 
-carde602@gmail.com
 the same but with images that i have localy
 Sure! Here's an example of how to create a TensorFlow dataset from local image files:
 

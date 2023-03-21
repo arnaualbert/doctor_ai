@@ -9,8 +9,17 @@ This module is used to serve the backend of the application
 """
 
 # Imports of the app
-from flask import Flask, render_template,request,redirect,url_for
+from flask import Flask, render_template,request
 import os
+import mysql.connector
+
+conexion = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="user-uf4"
+)
+
 
 module_name = __name__
 app = Flask(__name__)
@@ -27,7 +36,29 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    pass
+    if request.method == 'POST':
+
+        username =  request.form['username']
+        password =  request.form['password']
+
+        # Creamos un cursor para ejecutar consultas SQL
+        cursor = conexion.cursor()
+
+        # Verificamos si el usuario y la contraseña son correctos
+        cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s", (username, password))
+        resultado = cursor.fetchone()
+        # user = get_user(username, password)
+
+        if resultado:
+            print(resultado)
+            # login_user(user)
+            message = "Login successful"
+            return render_template('logged.html', message=message)
+        else:
+            return "Usuario o contraseña incorrectos"
+
+
+    return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

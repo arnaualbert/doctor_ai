@@ -185,26 +185,6 @@ Finally, we shuffle and batch the dataset using shuffle() and batch() methods an
 
 You can modify the image preprocessing function and the batch size to suit your needs.
 
-Digit recognizer (hello world ai): https://www.kaggle.com/c/digit-recognizer
-
-Machine learning course: https://developers.google.com/machine-learning/foundational-courses?hl=es-419
-
-Machine learning course: https://www.kaggle.com/c/titanic
-
-Machine learning course: https://developers.google.com/machine-learning/crash-course?hl=es-419
-
-Tutorial python: https://learn.microsoft.com/es-es/windows/python/beginners
-
-Machine learning course: https://machinelearningmastery.com/machine-learning-in-python-step-by-step/
-
-Machine learning cprojects: https://www.projectpro.io/article/top-10-machine-learning-projects-for-beginners-in-2021/397
-
-Machine learning images: https://pyimagesearch.com/2019/01/14/machine-learning-in-python/
-
-Image classification: https://www.projectpro.io/article/deep-learning-for-image-classification-in-python-with-cnn/418
-
-NLKT courses: https://docs.google.com/document/d/1eYubSwLkpB7ZgfQVxxAwgsmAqS__BRfbMyP9qV6ngD8/edit#
-
 ### Datasets
 
 Medical images: https://github.com/sfikas/medical-imaging-datasets
@@ -236,6 +216,26 @@ brain tumor: https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classific
 brain: https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset
 
 ### Examples
+
+Digit recognizer (hello world ai): https://www.kaggle.com/c/digit-recognizer
+
+Machine learning course: https://developers.google.com/machine-learning/foundational-courses?hl=es-419
+
+Machine learning course: https://www.kaggle.com/c/titanic
+
+Machine learning course: https://developers.google.com/machine-learning/crash-course?hl=es-419
+
+Tutorial python: https://learn.microsoft.com/es-es/windows/python/beginners
+
+Machine learning course: https://machinelearningmastery.com/machine-learning-in-python-step-by-step/
+
+Machine learning cprojects: https://www.projectpro.io/article/top-10-machine-learning-projects-for-beginners-in-2021/397
+
+Machine learning images: https://pyimagesearch.com/2019/01/14/machine-learning-in-python/
+
+Image classification: https://www.projectpro.io/article/deep-learning-for-image-classification-in-python-with-cnn/418
+
+NLKT courses: https://docs.google.com/document/d/1eYubSwLkpB7ZgfQVxxAwgsmAqS__BRfbMyP9qV6ngD8/edit#
 
 image recognintion: https://codepen.io/jasonmayes/pen/POoZOG
 

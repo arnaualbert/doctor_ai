@@ -19,7 +19,11 @@ __path__ = os.getcwd()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    pass
+    if request.method == 'POST':
+        return render_template('index.html')
+    if request.method == 'GET':
+        return render_template('index.html')
+    
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

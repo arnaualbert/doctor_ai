@@ -62,6 +62,12 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    name = request.form['name']
+    surname = request.form['surname']
+    username = request.form['username']
+    email = request.form['email']
+    password = request.form['password']
+    cursor = conexion.cursor()
     pass
 
 def create_app():

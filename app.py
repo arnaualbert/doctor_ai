@@ -10,6 +10,13 @@ __path__ = os.getcwd()
 def index():
     pass
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    pass
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    pass
 
 def create_app():
     return app

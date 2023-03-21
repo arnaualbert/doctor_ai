@@ -73,6 +73,13 @@ def register():
     password = request.form['password']
     pass
 
+@app.route('/iamlr',methods=['GET', 'POST'])
+def iamlr():
+    if request.method == 'POST':
+        return render_template('ia.html')
+    return render_template('ia.html')
+
+
 def create_app():
     return app
 

@@ -23,7 +23,12 @@ __path__ = os.getcwd()
 # app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.sqlite3'
 # app.config['SECRET_KEY'] = "random string"
 
-
+conexion = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="doctor_ai"
+)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

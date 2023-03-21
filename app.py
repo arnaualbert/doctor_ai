@@ -20,9 +20,6 @@ app = Flask(__name__)
 
 __path__ = os.getcwd()
 
-# app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.sqlite3'
-# app.config['SECRET_KEY'] = "random string"
-
 conexion = mysql.connector.connect(
     host="localhost",
     user="root",

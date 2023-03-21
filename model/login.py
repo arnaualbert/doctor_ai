@@ -12,7 +12,7 @@ def login(username, password):
         #create a cursor
         cursor = conexion.cursor()
         # Verify if the user is correct
-        cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s", (username, password))
+        cursor.execute("SELECT * FROM users WHERE username=%s AND pass_hash=%s", (username, password))
         resultado = cursor.fetchone()
 
         return resultado

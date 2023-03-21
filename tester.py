@@ -1,6 +1,6 @@
 ############################# IMPORTS #############################
 import model.login as test
-
+import model.user as user
 print()
 print("############################# TEST LOGIN #############################")
 
@@ -13,4 +13,7 @@ print('----------------------------------------------------------------------')
 print('Login success')
 print(test.login('user0','123456'))
 print('----------------------------------------------------------------------')
-print()
+res = test.login('user0','123456')
+print(res)
+print(type(res))
+print(user.User(*res))

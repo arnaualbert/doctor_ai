@@ -43,7 +43,6 @@ def login():
             print(resultado)
             message = "Login successful"
             session['username'] = username
-            print(f"hola {session.get('username')}")
             return render_template('index.html')
         else:
             return render_template("login.html")
@@ -53,7 +52,6 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
-    print(f"adios {session.get('username')}")
     return render_template('login.html')
 
 

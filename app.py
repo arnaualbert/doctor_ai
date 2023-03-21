@@ -1,3 +1,14 @@
+__authors__ = "Arnau Albert, Vicor Piñana, Alex Varela, Luis Cardenete"
+__credits__ = ["Arnau Albert", "Vicor Piñana", "Alex Varela","Luis Cardenete"]
+__version__ = "1.0"
+__maintainer__ = "Doctor AI"
+__status__ = "Production"
+
+"""
+This module is used to serve the backend of the application
+"""
+
+# Imports of the app
 from flask import Flask, render_template,request,redirect,url_for
 import os
 

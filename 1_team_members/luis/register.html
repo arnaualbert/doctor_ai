@@ -11,7 +11,36 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <form method="POST" action="/register">
+                    <div class="mb-3">
+                        <label for="name">Name:</label><br>
+                        <input type="text" id="name" name="name"><br><br>
+                    </div>
+                    <div class="mb-3">
+                        <label for="surname">Surname:</label><br>
+                        <input type="text" id="surname" name="surname"><br><br>
+                    </div>
+                    <div class="mb-3">
+                        <label for="username">Username:</label><br>
+                        <input type="text" id="username" name="username"><br><br>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email">Email:</label><br>
+                        <input type="email" id="email" name="email"><br><br>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password">Password:</label><br>
+                        <input type="password" id="password" name="password"><br><br>
+                    </div>
+                    <input type="submit" value="Register">
+                </form>
+            </div>
+        </div>
+    </div>
+        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -51,36 +80,7 @@
                 </form>
             </div>
         </div>
-    </nav>
-    <div class="container">
-        <div class="row justify-content-center mt-5">
-            <div class="col-md-6">
-                <form method="POST" action="/register">
-                    <div class="mb-3">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name"><br><br>
-                    </div>
-                    <div class="mb-3">
-                        <label for="surname">Surname:</label>
-                        <input type="text" id="surname" name="surname"><br><br>
-                    </div>
-                    <div class="mb-3">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" name="username"><br><br>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email"><br><br>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password"><br><br>
-                    </div>
-                    <input type="submit" value="Register">
-                </form>
-            </div>
-        </div>
-    </div>
+    </nav> -->
 </body>
 
 </html>

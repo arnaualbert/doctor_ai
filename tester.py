@@ -1,5 +1,5 @@
 ############################# IMPORTS #############################
-import functions as test
+import model.login as test
 
 print()
 print("############################# TEST LOGIN #############################")

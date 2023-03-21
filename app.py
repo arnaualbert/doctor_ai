@@ -13,7 +13,7 @@ from flask import Flask, render_template,request, session
 import os
 import mysql.connector
 from flask_sqlalchemy import SQLAlchemy
-import functions as f
+import model.login as f
 
 module_name = __name__
 app = Flask(__name__)

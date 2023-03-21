@@ -95,8 +95,6 @@ This will train the model for 10 epochs and validate on the test set after each 
 
 
 
-
-carde602@gmail.com
 create a dataset to load for tensorflow
 Sure, here's an example of how to create a simple dataset to load for TensorFlow:
 

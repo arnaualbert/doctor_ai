@@ -79,6 +79,11 @@ def iamlr():
         return render_template('ia.html')
     return render_template('ia.html')
 
+@app.route('under_construction', methods=['GET', 'POST'])
+def under_construction():
+    if request.method == 'POST':
+        return render_template('under_construction.html')
+    return render_template('under_construction.html')
 
 def create_app():
     return app

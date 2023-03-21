@@ -1,5 +1,5 @@
 import mysql.connector
-
+import model.user as user
 conexion = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -15,5 +15,5 @@ def login(username, password):
         cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s", (username, password))
         # resultado = cursor.fetchall()
         resultado = cursor.fetchone()
-
-        return resultado
+        u = user.User(*resultado)
+        return u

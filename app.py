@@ -27,15 +27,15 @@ conexion = mysql.connector.connect(
     host="localhost",
     user="root",
     password="",
-    database="user-uf4"
+    database="doctor_ai"
 )
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        return render_template('index.html')
+        return render_template('login.html')
     if request.method == 'GET':
-        return render_template('index.html')
+        return render_template('login.html')
     
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -57,7 +57,7 @@ def login():
             print(resultado)
             # login_user(user)
             message = "Login successful"
-            return render_template('logged.html', message=message)
+            return render_template('index.html')
         else:
             return "Usuario o contraseña incorrectos"
 
@@ -71,7 +71,6 @@ def register():
     username = request.form['username']
     email = request.form['email']
     password = request.form['password']
-    cursor = conexion.cursor()
     pass
 
 def create_app():

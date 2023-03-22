@@ -12,6 +12,8 @@ This module is used to serve the backend of the application
 from flask import Flask, render_template,request, session
 import os
 import model.login as logins
+import model.user as users
+from typing import Union
 
 module_name = __name__
 app = Flask(__name__)
@@ -30,9 +32,9 @@ def index():
 def login():
     """Show the login form and log the user in if the credentials are correct"""
     if request.method == 'POST':
-        username =  request.form['username']
-        password =  request.form['password']
-        resultado = logins.login(username, password)
+        username: str =  request.form['username']
+        password: str =  request.form['password']
+        resultado: Union[bool, users.User] = logins.login(username, password)
         if resultado:
             print(resultado)
             message = "Login successful"
@@ -55,13 +57,13 @@ def logout():
 def register():
     """Show the register page of the app """
     if request.method == 'POST':
-        username =  request.form['username']
-        name =  request.form['name']
-        surname =  request.form['surname']
-        email =  request.form['email']
-        password =  request.form['password']
-        role_id =  request.form['role_id']
-        resultado = logins.register(username, name, surname, email, password, role_id)
+        username: str =  request.form['username']
+        name: str =  request.form['name']
+        surname: str =  request.form['surname']
+        email: str =  request.form['email']
+        password: str =  request.form['password']
+        role_id: int =  request.form['role_id']
+        resultado: bool = logins.register(username, name, surname, email, password, role_id)
         if resultado:
             message = "Register successful"
             return render_template('register.html', message=message)

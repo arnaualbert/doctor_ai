@@ -11,10 +11,11 @@ conexion = mysql.connector.connect(
 )
 
 
-def login(username, password) -> Union[bool, user.User]:
+def login(username: str, password:str) -> Union[bool, user.User]:
     """Log in the user
     @param username: username
     @param password: password
+    @return: user or False
     """
     #create a cursor
     cursor = conexion.cursor()
@@ -26,7 +27,7 @@ def login(username, password) -> Union[bool, user.User]:
     else:
         return user.User(*resultado)
 
-def register(username,name,surname,email,password,role_id):
+def register(username: str,name: str,surname: str,email: str,password: str,role_id: int) -> bool:
     """Register a new user"""
     cursor = conexion.cursor()
     cursor.execute(f"SELECT * FROM users WHERE username = '{username}'")

@@ -15,7 +15,6 @@ def login(username, password) -> Union[bool, user.User]:
     """Log in the user
     @param username: username
     @param password: password
-    @return: user or False
     """
     #create a cursor
     cursor = conexion.cursor()
@@ -28,9 +27,7 @@ def login(username, password) -> Union[bool, user.User]:
         return user.User(*resultado)
 
 def register(username,name,surname,email,password,role_id):
-    """Register a new user
-    @param User atributes
-    """
+    """Register a new user"""
     cursor = conexion.cursor()
     cursor.execute(f"SELECT * FROM users WHERE username = '{username}'")
     resultado = cursor.fetchone()

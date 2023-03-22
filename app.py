@@ -47,7 +47,7 @@ def login():
         if resultado:
             print(resultado)
             message = "Login successful"
-            session['username'] = username
+            session['username'] = resultado.username
             print(f"hola {session.get('username')}")
             return render_template('index.html')
         else:

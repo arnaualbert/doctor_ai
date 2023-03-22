@@ -94,15 +94,6 @@ def home():
         else:
             return render_template('login.html')
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    name = request.form['name']
-    surname = request.form['surname']
-    username = request.form['username']
-    email = request.form['email']
-    password = request.form['password']
-    pass
-
 @app.route('/iamlr',methods=['GET', 'POST'])
 def iamlr():
     if request.method == 'POST':

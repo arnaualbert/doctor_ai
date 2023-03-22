@@ -18,3 +18,6 @@ def login(username, password):
             return False
         else:
             return user.User(*resultado)
+
+def register():
+    pass

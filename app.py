@@ -22,6 +22,7 @@ __path__ = os.getcwd()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    """Show the principal page of the app"""
     if request.method == 'POST':
         return render_template('login.html')
     if request.method == 'GET':
@@ -29,8 +30,8 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """Show the login form and log the user in if the credentials are correct"""
     if request.method == 'POST':
-
         username =  request.form['username']
         password =  request.form['password']
         resultado = logins.login(username, password)
@@ -47,12 +48,14 @@ def login():
 
 @app.route('/logout')
 def logout():
+    """Delete the session data, this will log the user out"""
     session.pop('username', None)
     return render_template('login.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """Show the register page of the app """
     if request.method == 'POST':
         username =  request.form['username']
         name =  request.form['name']
@@ -72,6 +75,7 @@ def register():
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
+    """Show the home page of the app if the user is logged in"""
     if request.method == 'POST':
         if session.get('username')  != None:
             return render_template('index.html')
@@ -86,20 +90,24 @@ def home():
 
 @app.route('/iamlr',methods=['GET', 'POST'])
 def iamlr():
+    """Show the image recognition page"""
     if request.method == 'POST':
         return render_template('ia.html')
     return render_template('ia.html')
 
-
 @app.route('/underconstruction', methods=['GET', 'POST'])
 def under_construction():
+    """Show the view under construction"""
     if request.method == 'POST':
         return render_template('underconstruction.html')
     return render_template('underconstruction.html')
 
+### Create the app
 def create_app():
     return app
 
+
+### START THE APP ###
 if __name__ == '__main__':
     from waitress import serve
     serve(app,host='127.0.0.1',port=5000)

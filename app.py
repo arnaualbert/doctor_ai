@@ -11,8 +11,6 @@ This module is used to serve the backend of the application
 # Imports of the app
 from flask import Flask, render_template,request, session
 import os
-import mysql.connector
-from flask_sqlalchemy import SQLAlchemy
 import model.login as logins
 
 module_name = __name__
@@ -65,7 +63,6 @@ def register():
         role_id =  request.form['role_id']
         resultado = logins.register(username, name, surname, email, password, role_id)
         if resultado:
-            print(resultado)
             message = "Register successful"
             return render_template('register.html', message=message)
         else:

@@ -61,6 +61,25 @@ def logout():
     return render_template('login.html')
 
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username =  request.form['username']
+        name =  request.form['name']
+        surname =  request.form['surname']
+        email =  request.form['email']
+        password =  request.form['password']
+        role_id =  request.form['role_id']
+        resultado = logins.register(username, name, surname, email, password, role_id)
+        if resultado:
+            print(resultado)
+            message = "Register successful"
+            return render_template('index.html')
+        else:
+            return render_template("register.html")
+    return render_template('register.html')
+
+
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':

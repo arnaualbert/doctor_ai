@@ -13,7 +13,7 @@ from flask import Flask, render_template,request, session
 import os
 import mysql.connector
 from flask_sqlalchemy import SQLAlchemy
-import model.login as f
+import model.login as login
 
 module_name = __name__
 app = Flask(__name__)
@@ -43,15 +43,16 @@ def login():
 
         username =  request.form['username']
         password =  request.form['password']
-        resultado = f.login(username, password)
+        resultado = login.login(username, password)
         if resultado:
             print(resultado)
             message = "Login successful"
+            session['username'] = resultado.username
+            print(f"hola {session.get('username')}")
             session['username'] = username
             return render_template('index.html')
         else:
             return render_template("login.html")
-
     return render_template('login.html')
 
 @app.route('/logout')

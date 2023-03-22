@@ -3,8 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
+-- Generation Time: Mar 22, 2023 at 04:37 PM
 -- Generation Time: Mar 21, 2023 at 08:43 PM
 -- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 -- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -45,15 +47,6 @@ CREATE TABLE `role` (
   `role_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `role`
---
-
-INSERT INTO `role` (`id`, `role_name`) VALUES
-(1, 'admin'),
-(2, 'doctor'),
-(3, 'user');
-
 -- --------------------------------------------------------
 
 --
@@ -69,24 +62,6 @@ CREATE TABLE `users` (
   `pass_hash` varchar(255) NOT NULL,
   `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `username`, `name`, `surname`, `email`, `pass_hash`, `role_id`) VALUES
-(1, 'cardenet', 'Luis', 'Cardenete', 'carde602@gmail.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 1),
-(2, 'arnau', 'Arnau', 'Albert', 'arnau@gmail.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 1),
-(3, 'alex', 'Alex', 'Varela', 'alex@gmail.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 1),
-(4, 'victor', 'Victor', 'Piñana', 'victor@gmail.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 1),
-(5, 'jdoe', 'John', 'Doe', 'jdoe@example.com', '*A0F874BC7F54EE086FCE60A37CE7887D8B31086B', 2),
-(6, 'aaren', 'Aaren', 'Montaña', 'Aaren@example.com', '*A0F874BC7F54EE086FCE60A37CE7887D8B31086B', 2),
-(7, 'Agnetha', 'Agnetha', 'Santo', 'Agnetha@example.com', '*A0F874BC7F54EE086FCE60A37CE7887D8B31086B', 2),
-(8, 'Algot', 'Algot', 'Noble', 'Algot@example.com', '*A0F874BC7F54EE086FCE60A37CE7887D8B31086B', 3),
-(9, 'Alrik', 'Alrik', 'Ann', 'Alrik@example.com', '*A0F874BC7F54EE086FCE60A37CE7887D8B31086B', 2),
-(10, 'Anneke', 'Anneke', 'Little', 'Anneke@example.com', '*A0F874BC7F54EE086FCE60A37CE7887D8B31086B', 3),
-(11, 'Argus', 'Argus', 'Vigilante', 'Argus@example.com', '*A0F874BC7F54EE086FCE60A37CE7887D8B31086B', 3),
-(12, 'Asbjorn', 'Asbjorn', 'Oso', 'Asbjorn@example.com', '*A0F874BC7F54EE086FCE60A37CE7887D8B31086B', 3);
 
 --
 -- Indexes for dumped tables
@@ -127,13 +102,13 @@ ALTER TABLE `result`
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

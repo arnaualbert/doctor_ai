@@ -13,7 +13,8 @@ def login(username, password):
         cursor = conexion.cursor()
         # Verify if the user is correct
         cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s", (username, password))
-        # resultado = cursor.fetchall()
         resultado = cursor.fetchone()
-        u = user.User(*resultado)
-        return u
+        if resultado is None:
+            return False
+        else:
+            return user.User(*resultado)

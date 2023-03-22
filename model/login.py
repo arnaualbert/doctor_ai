@@ -19,5 +19,7 @@ def login(username, password):
         else:
             return user.User(*resultado)
 
-def register():
-    pass
+def register(name,surname,username,email,password,role_id):
+    cursor = conexion.cursor()
+    cursor.execute("INSERT INTO users (username,name,surname,email,pass_hash,role_id) VALUES (%s,%s,%s,%s,%s,%s)",(username,name,surname,email,password,role_id))
+    conexion.commit()

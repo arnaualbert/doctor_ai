@@ -12,32 +12,32 @@
       <form method="POST" action="/register">
         <div class="form-group" >
           <label for="name">Nombre:</label>
-          <input type="text" class="form-control" id="name" name="name" placeholder="Ingresa tu nombre">
+          <input type="text" class="form-control" id="name" name="name" required placeholder="Ingresa tu nombre">
         </div>
         <div class="form-group">
           <label for="surname">Apellido:</label>
-          <input type="text" class="form-control" id="surname" name="surname" placeholder="Ingresa tu apellido">
+          <input type="text" class="form-control" id="surname" name="surname" required placeholder="Ingresa tu apellido">
         </div>
         <div class="form-group">
           <label for="username">Nombre de usuario:</label>
-          <input type="text" class="form-control" id="username" name="username" placeholder="Ingresa tu nombre de usuario">
+          <input type="text" class="form-control" id="username" name="username" required placeholder="Ingresa tu nombre de usuario">
         </div>
         <div class="form-group">
           <label for="email">Correo electrónico:</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa tu correo electrónico">
+          <input type="email" class="form-control" id="email" name="email" required placeholder="Ingresa tu correo electrónico">
         </div>
         <div class="form-group">
           <label for="password">Contraseña:</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña">
+          <input type="password" class="form-control" id="password" name="password" required placeholder="Ingresa tu contraseña">
         </div>
         <div class="form-group">
           <label for="role_id">Rol:</label>
-          <input type="number" class="form-control" id="role_id" name="role_id" min="1" max="3"><br><br>
+          <input type="number" class="form-control" id="role_id" name="role_id" value="1" required min="1" max="3"><br><br>
+          {{ message }}
         </div>
         <input type="submit" class="btn btn-primary" value="Register"/>
-        <a type="submit" class="btn btn-primary" href="/home">Home</a>
+        <atype="submit" class="btn btn-primary" href="/home">Home</atype=>
       </form>
-      
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

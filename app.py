@@ -67,9 +67,10 @@ def register():
         if resultado:
             print(resultado)
             message = "Register successful"
-            return render_template('index.html')
+            return render_template('register.html', message=message)
         else:
-            return render_template("register.html")
+            message = "Register failed"
+            return render_template('register.html', message=message)
     return render_template('register.html')
 
 

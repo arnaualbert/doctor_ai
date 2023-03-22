@@ -19,4 +19,6 @@ print(res.name)
 print(res.surname)
 print(res.email)
 print(res.pass_hash)
-test.register('username','name','surname','email','pass',1)
+
+print(test.register('asdfxcvxzcv','nasdasasdfafddame','surname','email','pass',1))
+print(test.register('asdasdasdasdasdasdas','asdasdasdasdasdasdas','surname','email','pass',1))

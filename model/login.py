@@ -1,5 +1,7 @@
 import mysql.connector
 import model.user as user
+from typing import Union
+
 conexion = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -8,7 +10,7 @@ conexion = mysql.connector.connect(
 )
 
 
-def login(username, password):
+def login(username, password) -> Union[bool, user.User]:
         #create a cursor
         cursor = conexion.cursor()
         # Verify if the user is correct

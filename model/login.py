@@ -15,6 +15,7 @@ def login(username, password) -> Union[bool, user.User]:
     """Log in the user
     @param username: username
     @param password: password
+    @return: user or False
     """
     #create a cursor
     cursor = conexion.cursor()
@@ -27,7 +28,9 @@ def login(username, password) -> Union[bool, user.User]:
         return user.User(*resultado)
 
 def register(username,name,surname,email,password,role_id):
-    """Register a new user"""
+    """Register a new user
+    @param User atributes
+    """
     cursor = conexion.cursor()
     cursor.execute("INSERT INTO users (username,name,surname,email,pass_hash,role_id) VALUES (%s,%s,%s,%s,%s,%s)",(username,name,surname,email,password,role_id))
     conexion.commit()

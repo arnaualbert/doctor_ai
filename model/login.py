@@ -11,7 +11,6 @@ def login(username: str, password:str) -> Union[bool, user.User]:
     @return: user or False
     """
     resultado = data.query(f'SELECT * FROM users WHERE username="{username}" AND pass_hash="{password}"')
-    print(resultado)
     if resultado is None:
         return False
     else:

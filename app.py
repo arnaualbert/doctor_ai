@@ -25,7 +25,37 @@ __path__ = os.getcwd()
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    message = "Sorry, the page you requested was not found."
+    return render_template('error.html', message=message), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
+
+@app.errorhandler(403)
+def forbidden(e):
+    return render_template('403.html'), 403
+
+@app.errorhandler(401)
+def unauthorized(e):
+    return render_template('401.html'), 401
+
+@app.errorhandler(405)
+def method_not_allowed(e):
+    return render_template('405.html'), 405
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    message = "Sorry, something went wrong on the server."
+    return render_template('error.html', message=message), 500
+
+@app.errorhandler(400)
+def bad_request(e):
+    return render_template('400.html'), 400
+
+@app.errorhandler(504)
+def gateway_timeout(e):
+    return render_template('504.html'), 504
 
 
 

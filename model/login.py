@@ -18,15 +18,18 @@ def login(username: str, password:str) -> Union[bool, user.User]:
         return user.User(*resultado)
 
 def register(username: str,name: str,surname: str,email: str,password: str,role_id: int) -> bool:
-    """Register a new user"""
-    # cursor = conexion.cursor()
-    # cursor.execute(f"SELECT * FROM users WHERE username = '{username}'")
-    # resultado = cursor.fetchone()
+    """Register a new user
+    @param username: username
+    @param name: name
+    @param surname: surname
+    @param email: email
+    @param password: password
+    @param role_id: role id
+    @return: True or False
+    """
     resultado = data.query(f"SELECT * FROM users WHERE username = '{username}'")
     if resultado is None:
         data.query(f"INSERT INTO users (username,name,surname,email,pass_hash,role_id) VALUES ('{username}','{name}','{surname}','{email}','{password}',{role_id})")
-        # cursor.execute("INSERT INTO users (username,name,surname,email,pass_hash,role_id) VALUES (%s,%s,%s,%s,%s,%s)",(username,name,surname,email,password,role_id))
-        # conexion.commit()
         return True
     else:
         return False

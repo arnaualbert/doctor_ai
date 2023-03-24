@@ -52,7 +52,6 @@ def service_unavailable_error(error):
     message = "Sorry, the server is currently unable to handle your request."
     return render_template('error.html', message=message), 503
 
-
 @app.errorhandler(404)
 def page_not_found(e):
     message = "Sorry, the page you requested was not found."

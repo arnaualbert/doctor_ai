@@ -22,15 +22,46 @@ __path__ = os.getcwd()
 
 
 ### ERRORS
+@app.errorhandler(400)
+def bad_request_error(error):
+    message = "Sorry, the request was malformed."
+    return render_template('error.html', message=message), 400
+
+@app.errorhandler(401)
+def unauthorized_error(error):
+    message = "Sorry, you are not authorized to access this page."
+    return render_template('error.html', message=message), 401
+
+@app.errorhandler(403)
+def forbidden_error(error):
+    message = "Sorry, you do not have permission to access this page."
+    return render_template('error.html', message=message), 403
+
+@app.errorhandler(408)
+def timeout_error(error):
+    message = "Sorry, the server timed out while processing your request."
+    return render_template('error.html', message=message), 408
+
+@app.errorhandler(502)
+def bad_gateway_error(error):
+    message = "Sorry, there was a problem with the server's connection to another server."
+    return render_template('error.html', message=message), 502
+
+@app.errorhandler(503)
+def service_unavailable_error(error):
+    message = "Sorry, the server is currently unable to handle your request."
+    return render_template('error.html', message=message), 503
+
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    message = "Sorry, the page you requested was not found."
+    return render_template('error.html', message=message), 404
 
-
-
-
-
+@app.errorhandler(500)
+def internal_server_error(e):
+    message = "Sorry, something went wrong on the server."
+    return render_template('error.html', message=message), 500
 ###
 
 @app.route('/', methods=['GET', 'POST'])

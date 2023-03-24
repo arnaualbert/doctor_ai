@@ -20,6 +20,19 @@ app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 __path__ = os.getcwd()
 
+
+### ERRORS
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
+
+
+
+###
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     """Show the principal page of the app"""

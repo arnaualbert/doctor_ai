@@ -5,10 +5,13 @@ import model.database as databases
 data = databases.Database("localhost","root","","doctor_ai")
 
 def login(username: str, password:str) -> Union[bool, user.User]:
-    """Log in the user
-    @param username: username
-    @param password: password
-    @return: user or False
+    """
+    Log in the user
+        Parameters:
+            username (str): The username that wants to log in
+            password (str): The password of the password that wants to log in
+        Returns:
+            bool: True if the login was successful, False otherwise
     """
     resultado = data.query(f'SELECT * FROM users WHERE username="{username}" AND pass_hash="{password}"')
     if resultado is None:
@@ -17,14 +20,18 @@ def login(username: str, password:str) -> Union[bool, user.User]:
         return user.User(*resultado)
 
 def register(username: str,name: str,surname: str,email: str,password: str,role_id: int) -> bool:
-    """Register a new user
-    @param username: username
-    @param name: name
-    @param surname: surname
-    @param email: email
-    @param password: password
-    @param role_id: role id
-    @return: True or False
+    """
+    Registers a new user with the provided information.
+    
+        Parameters:
+            username (str):  The username for the new user.
+            name (str): The name of the new user.
+            surname (str): The surname of the new user.
+            email (str): The email address of the new user.
+            password (str): The password for the new user.
+            role_id (int): The role ID for the new user.
+        Returns:
+            True if the user was registered successfully, False otherwise.
     """
     resultado = data.query(f"SELECT * FROM users WHERE username = '{username}'")
     if resultado is None:

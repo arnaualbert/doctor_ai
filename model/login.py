@@ -1,6 +1,17 @@
 import model.user as user
 from typing import Union
 import model.database as databases
+import mysql.connector
+
+
+### Connect to the database
+conexion = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="doctor_ai"
+)
+
 
 data = databases.Database("localhost","root","","doctor_ai")
 
@@ -33,9 +44,19 @@ def register(username: str,name: str,surname: str,email: str,password: str,role_
         Returns:
             True if the user was registered successfully, False otherwise.
     """
-    resultado = data.query(f"SELECT * FROM users WHERE username = '{username}'")
+    # resultado = data.query(f"SELECT * FROM users WHERE username = '{username}'")
+    # if resultado is None:
+    #     data.query(f"INSERT INTO users (username,name,surname,email,pass_hash,role_id) VALUES ('{username}','{name}','{surname}','{email}','{password}',{role_id})")
+    #     return True
+    # else:
+    #     return False
+    cursor = conexion.cursor()
+    cursor.execute(f"SELECT * FROM users WHERE username = '{username}'")
+    resultado = cursor.fetchone()
     if resultado is None:
-        data.query(f"INSERT INTO users (username,name,surname,email,pass_hash,role_id) VALUES ('{username}','{name}','{surname}','{email}','{password}',{role_id})")
+        cursor.execute("INSERT INTO users (username,name,surname,email,pass_hash,role_id) VALUES (%s,%s,%s,%s,%s,%s)",(username,name,surname,email,password,role_id))
+        conexion.commit()
         return True
     else:
         return False
+

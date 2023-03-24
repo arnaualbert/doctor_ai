@@ -1,8 +1,10 @@
 import mysql.connector
 import model.user as user
 from typing import Union
+import model.database as databases
 
-### Connect to the database
+
+## Connect to the database
 conexion = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -10,6 +12,7 @@ conexion = mysql.connector.connect(
     database="doctor_ai"
 )
 
+data = databases.Database("localhost","root","","doctor_ai")
 
 def login(username: str, password:str) -> Union[bool, user.User]:
     """Log in the user
@@ -18,10 +21,13 @@ def login(username: str, password:str) -> Union[bool, user.User]:
     @return: user or False
     """
     #create a cursor
-    cursor = conexion.cursor()
-    # Verify if the user is correct
-    cursor.execute("SELECT * FROM users WHERE username=%s AND pass_hash=%s", (username, password))
-    resultado = cursor.fetchone()
+    # cursor = conexion.cursor()
+    # # Verify if the user is correct
+    # cursor.execute("SELECT * FROM users WHERE username=%s AND pass_hash=%s", (username, password))
+    # resultado = cursor.fetchone()
+    # resultado = data.query("SELECT * FROM users WHERE username=%s AND pass_hash=%s", (username, password))
+    resultado = data.query(f'SELECT * FROM users WHERE username="{username}" AND pass_hash="{password}"')
+    print(resultado)
     if resultado is None:
         return False
     else:

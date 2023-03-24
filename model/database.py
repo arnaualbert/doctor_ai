@@ -16,3 +16,9 @@ class Database:
             database=self.database
         )
         self.cursor = self.conn.cursor()
+
+
+    def query(self, query):
+        """Execute a query"""
+        self.cursor.execute(query)
+        return self.cursor.fetchone()

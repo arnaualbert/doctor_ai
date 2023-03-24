@@ -5,8 +5,8 @@ from typing import Union
 ### Connect to the database
 conexion = mysql.connector.connect(
     host="localhost",
-    user="admin",
-    password="1234",
+    user="root",
+    password="",
     database="doctor_ai"
 )
 

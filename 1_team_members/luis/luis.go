@@ -1,7 +1,6 @@
 package main
 
 import (
-    "bufio"
     "fmt"
     "os"
     "strings"
@@ -9,11 +8,13 @@ import (
 )
 
 func main() {
-    // Prompt user to enter a string
-    fmt.Print("Enter a DNA sequence: ")
-    scanner := bufio.NewScanner(os.Stdin)
-    scanner.Scan()
-    input := scanner.Text()
+
+     // Get DNA sequence from command-line arguments
+     if len(os.Args) < 2 {
+        fmt.Println("Please enter a DNA sequence as a command-line argument.")
+        os.Exit(1)
+    }
+    input := os.Args[1]
 
     // Convert input to uppercase
     

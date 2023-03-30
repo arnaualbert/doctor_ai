@@ -7,13 +7,13 @@ import mysql.connector
 ### Connect to the database
 conexion = mysql.connector.connect(
     host="localhost",
-    user="admin",
-    password="1234",
+    user="root",
+    password="",
     database="doctor_ai"
 )
 
 
-data = databases.Database("localhost","admin","1234","doctor_ai")
+data = databases.Database("localhost","root","","doctor_ai")
 
 def login(username: str, password:str) -> Union[bool, user.User]:
     """

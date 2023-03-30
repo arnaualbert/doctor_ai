@@ -36,7 +36,7 @@ num_correct = np.sum(predictions == 1)
 
 print("Number of correct predictions for the digit 5:", num_correct)
 # num_images = 10
-num_images = num_correct
+num_images = 10
 fig, axes = plt.subplots(1, num_images, figsize=(6, 6))
 fives_indices = np.where(y_train == 5)[0]
 for i in range(num_images):

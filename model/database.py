@@ -22,3 +22,12 @@ class Database:
         """Execute a query"""
         self.cursor.execute(query)
         return self.cursor.fetchone()
+    
+    def commit(self):
+        """Commit changes"""
+        self.conn.commit()
+    
+    def close(self):
+        """Close the connection"""
+        self.cursor.close()
+        self.conn.close()

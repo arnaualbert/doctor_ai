@@ -14,7 +14,11 @@ import os
 import model.login as logins
 import model.user as users
 from typing import Union
-
+########
+from multiprocessing import Pool
+import subprocess
+import multiprocessing
+########
 module_name = __name__
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -144,6 +148,16 @@ def under_construction():
     if request.method == 'POST':
         return render_template('underconstruction.html')
     return render_template('underconstruction.html')
+
+@app.route('/dnatorna', methods=['GET', 'POST'])
+def dnatorna():
+    """Show the dnatorna page"""
+    if request.method == 'POST':
+        sequence: str =  request.form['sequence']
+        print(sequence)
+        res = subprocess.run(["./1_team_members/luis/luis", sequence])
+        return render_template('dna_rna.html')
+    return render_template('dna_rna.html')
 
 ### Create the app
 def create_app():

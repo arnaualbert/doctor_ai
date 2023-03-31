@@ -1,15 +1,7 @@
 import nltk
 from nltk.chat.util import Chat, reflections
-# nltk ui download 
-# nltk.download()
 
-# pairs = [
-#     ['hi|hello|hey', ['Hello!', 'Hi there!',hi 'Hey!']],
-#     ['what is your name?|what\'s your name?', ['My name is Doctor_AI.']],
-#     ['how are you?', ['I am doing well, thank you. How about you?']],
-#     ['I am fine', ['Glad to hear it.']],
-#     ['bye|goodbye', ['Goodbye!', 'Have a nice day!']]
-# ]
+
 
 pairs = [
     ['hi|hello|hey', ['Hello!', 'Hi there!', 'Hey!']],
@@ -41,6 +33,7 @@ pairs = [
     ['what is your favorite animal', ['As an AI, I do not have the ability to have a favorite animal.']],
     ['what is your favorite color', ['As an AI, I do not have the ability to perceive or have a favorite color.']],
 ]
+
 
 
 chatbot = Chat(pairs, reflections)

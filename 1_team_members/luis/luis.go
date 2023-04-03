@@ -6,6 +6,22 @@ import (
 	"strings"
 	"unicode"
 )
+func Transcribe(char string) (string, error) {
+
+	// Check if input contains any non-uppercase or non-letter characters
+	for _, char := range input {
+		if !unicode.IsLetter(char) || !strings.ContainsAny(string(char), "ATGC") {
+			fmt.Println("Invalid input! Please enter an DNA sequence without numbers, special characters or non DNA string.")
+			os.Exit(1)
+		}
+	}
+
+	// Replace all occurrences of "T" with "U"
+	output := strings.ReplaceAll(input, "T", "U")
+
+	// Print the result
+	return output, nil
+}
 
 func main() {
 
@@ -20,17 +36,12 @@ func main() {
 
 	input = strings.ToUpper(input)
 
-	// Check if input contains any non-uppercase or non-letter characters
-	for _, char := range input {
-		if !unicode.IsLetter(char) || !strings.ContainsAny(string(char), "ATGC") {
-			fmt.Println("Invalid input! Please enter an DNA sequence without numbers, special characters or non DNA string.")
-			os.Exit(1)
-		}
-	}
 
-	// Replace all occurrences of "T" with "U"
-	output := strings.ReplaceAll(input, "T", "U")
+	rna, err := Transcribe(input)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
 
-	// Print the result
-	fmt.Println("Result: ", output)
+	
 }

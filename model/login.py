@@ -33,7 +33,7 @@ def login(username: str, password:str) -> Union[bool, user.User]:
 def register(username: str,name: str,surname: str,email: str,password: str,role_id: int) -> bool:
     """
     Registers a new user with the provided information.
-    
+
         Parameters:
             username (str):  The username for the new user.
             name (str): The name of the new user.

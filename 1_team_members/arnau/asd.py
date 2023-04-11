@@ -16,7 +16,7 @@ x_test = x[1000:]
 y_test = digits.target[1000:]
 
 # Find all instances of the number 5 in the training set
-fives_train = x_train[np.where(y_train == 5)]
+fives_train = x_train[np.where(y_train == 7)]
 
 # Initialize a multi-layer perceptron classifier with 2 hidden layers of 50 neurons each
 mlp = MLPClassifier(hidden_layer_sizes=(50, 50), activation='relu', alpha=0.0001,
@@ -26,7 +26,7 @@ mlp = MLPClassifier(hidden_layer_sizes=(50, 50), activation='relu', alpha=0.0001
 mlp.fit(fives_train, np.ones(len(fives_train)))
 
 # Find all instances of the number 5 in the test set
-fives_test = x_test[np.where(y_test == 5)]
+fives_test = x_test[np.where(y_test == 7)]
 
 # Use the model to predict whether each instance of the 5 is actually a 5
 predictions = mlp.predict(fives_test)
@@ -38,7 +38,7 @@ print("Number of correct predictions for the digit 5:", num_correct)
 # num_images = 10
 num_images = 10
 fig, axes = plt.subplots(1, num_images, figsize=(6, 6))
-fives_indices = np.where(y_train == 5)[0]
+fives_indices = np.where(y_train == 7)[0]
 for i in range(num_images):
     axes[i].imshow(x_train[fives_indices[i]].reshape(8, 8), cmap=plt.cm.gray_r, interpolation='nearest')
     axes[i].axis('off')

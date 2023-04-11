@@ -8,6 +8,10 @@ __status__ = "Production"
 This module is used to serve the backend of the application
 """
 
+
+
+
+
 # Imports of the app
 from flask import Flask, render_template,request, session
 import os
@@ -23,7 +27,14 @@ module_name = __name__
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 __path__ = os.getcwd()
+path = os.getcwd()
+print(path)
 
+# file Upload
+CDSEXT = os.path.join(path, 'cdsext')
+
+if not os.path.isdir(CDSEXT):
+    os.mkdir(CDSEXT)
 
 ### ERRORS
 @app.errorhandler(400)
@@ -146,6 +157,13 @@ def iamlr():
 def cdsextract():
     """Show the cds extract page"""
     if request.method == 'POST':
+        file = request.files['extractcds']
+        if file:
+            filename = file.filename
+            file.save(os.path.join("/home/alex/doctor_ai/cdsext", filename))
+            fullroute=os.path.join("/home/alex/doctor_ai/cdsext", filename)
+            subprocess.run(["./starting",fullroute])
+            
         return render_template('cds.html')
     return render_template('cds.html')
 

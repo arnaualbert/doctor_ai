@@ -1,12 +1,15 @@
 from multiprocessing import Pool
 import subprocess
+import multiprocessing
 
-def f(x):
-    return subprocess.check_output(["./1_team_members/arnau/hello", str(x)])
+
+def z(x):
+    return subprocess.run(["./1_team_members/luis/luis",x])
+def i(x):
+    return subprocess.run(["./1_team_members/arnau/hello"])
 
 if __name__ == '__main__':
-    with Pool(5) as p:
-        results = p.map(f, [1, 2, 3, 4, 5])
-    for result in results:
-        print(result)
-
+    cpu = multiprocessing.cpu_count() - 1
+    with Pool(5)as p:
+        results = p.map(z, ["atgctagctagctgact", "atcgatcga","gtcagtcgatgctgactgatgcta"])
+        results = p.map(i, ["atgctagctagctgact", "atcgatcga"])

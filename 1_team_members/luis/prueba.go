@@ -18,6 +18,16 @@ func ReplaceLetterWithU(input string, letter string) string {
     // Replace all occurrences of the letter with "U"
     output := strings.ReplaceAll(input, letter, "U")
 
+    // Add a line break every 50 characters
+    var builder strings.Builder
+    for i, char := range output {
+         builder.WriteRune(char)
+        if (i+1)%50 == 0 {
+             builder.WriteString("\n")
+        }
+    }
+    output = builder.String()
+
     // Return the result
     return output
 }

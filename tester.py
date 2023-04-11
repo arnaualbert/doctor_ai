@@ -1,6 +1,7 @@
 ############################# IMPORTS #############################
 import model.login as test
 import model.user as user
+import multiprocessing
 print()
 print("############################# TEST LOGIN #############################")
 

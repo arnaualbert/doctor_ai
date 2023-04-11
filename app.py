@@ -142,6 +142,13 @@ def iamlr():
         return render_template('ia.html')
     return render_template('ia.html')
 
+@app.route('/cdsextract',methods=['GET', 'POST'])
+def cdsextract():
+    """Show the cds extract page"""
+    if request.method == 'POST':
+        return render_template('cds.html')
+    return render_template('cds.html')
+
 @app.route('/underconstruction', methods=['GET', 'POST'])
 def under_construction():
     """Show the view under construction"""

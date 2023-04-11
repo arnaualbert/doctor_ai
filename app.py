@@ -160,10 +160,9 @@ def cdsextract():
         file = request.files['extractcds']
         if file:
             filename = file.filename
-            file.save(os.path.join("/home/alex/doctor_ai/cdsext", filename))
-            fullroute=os.path.join("/home/alex/doctor_ai/cdsext", filename)
+            file.save(os.path.join(CDSEXT, filename))
+            fullroute=os.path.join(CDSEXT, filename)
             subprocess.run(["./starting",fullroute])
-            
         return render_template('cds.html')
     return render_template('cds.html')
 

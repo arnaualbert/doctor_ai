@@ -161,13 +161,25 @@ def cdsextract():
         file = request.files['extractcds']
         if file:
             filename = file.filename
-            file.save(os.path.join("/home/alex/doctor_ai/cdsext", filename))
-            fullroute=os.path.join("/home/alex/doctor_ai/cdsext", filename)
+            file.save(os.path.join(CDSEXT, filename))
+            fullroute=os.path.join(CDSEXT, filename)
             subprocess.run(["./starting",fullroute])
-            
         return render_template('cds.html')
         #return send_file('cds.html', as_attachment=True)
     return render_template('cds.html')
+
+@app.route('/gbtofasta',methods=['GET', 'POST'])
+def gb_to_fasta():
+    """Show the cds extract page"""
+    if request.method == 'POST':
+        file = request.files['gbfile']
+        if file:
+            filename = file.filename
+            file.save(os.path.join(CDSEXT, filename))
+            fullroute=os.path.join(CDSEXT, filename)
+            subprocess.run(["./genbankToFasta",fullroute])
+        return render_template('gbtofasta.html')
+    return render_template('gbtofasta.html')
 
 @app.route('/underconstruction', methods=['GET', 'POST'])
 def under_construction():

@@ -32,6 +32,8 @@ class IAML:
         result=int(classes[0][0])
         print(result)
         if result==0:
+            print("pne")
             return "Result is Pneumonia"
         else:
+            print("Normal")
             return "Result is Normal"

@@ -17,6 +17,7 @@ from flask import Flask, render_template,request, session,send_file
 import os
 import model.login as logins
 import model.user as users
+import model.iaxray as ia
 from typing import Union
 ########
 from multiprocessing import Pool
@@ -158,6 +159,12 @@ def home():
 def iamlr():
     """Show the image recognition page"""
     if request.method == 'POST':
+        file = request.files['image']
+        if file:
+            filename = file.filename
+            file.save(os.path.join(AIPICS, filename))
+            fullroute=os.path.join(AIPICS, filename)
+            ia.IAML.ask(fullroute)
         return render_template('ia.html')
     return render_template('ia.html')
 

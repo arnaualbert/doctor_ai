@@ -47,7 +47,7 @@
           {{ message }}
         </div>
         <input type="submit" class="btn btn-primary" value="Register"/>
-        <input type="reset" class="btn btn-primary" value="Reset" /><br />
+        <button type="button" class="btn btn-primary" onclick="limpiarCampos()">Reset</button><br />
       </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -55,3 +55,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   </body>
 </html>
+
+<script>
+  function limpiarCampos() {
+    document.getElementById("name").value = "";
+    document.getElementById("surname").value = "";
+    document.getElementById("username").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("role_id").value = "";
+  }
+</script>

@@ -13,7 +13,7 @@ This module is used to serve the backend of the application
 
 
 # Imports of the app
-from flask import Flask, render_template,request, session
+from flask import Flask, render_template,request, session,send_file
 import os
 import model.login as logins
 import model.user as users
@@ -22,6 +22,7 @@ from typing import Union
 from multiprocessing import Pool
 import subprocess
 import multiprocessing
+
 ########
 module_name = __name__
 app = Flask(__name__)
@@ -165,6 +166,7 @@ def cdsextract():
             subprocess.run(["./starting",fullroute])
             
         return render_template('cds.html')
+        #return send_file('cds.html', as_attachment=True)
     return render_template('cds.html')
 
 @app.route('/underconstruction', methods=['GET', 'POST'])

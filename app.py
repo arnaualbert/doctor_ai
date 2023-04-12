@@ -37,6 +37,13 @@ CDSEXT = os.path.join(path, 'cdsext')
 if not os.path.isdir(CDSEXT):
     os.mkdir(CDSEXT)
 
+
+AIPICS = os.path.join(path, 'pics')
+
+if not os.path.isdir(AIPICS):
+    os.mkdir(AIPICS)
+
+
 ### ERRORS
 @app.errorhandler(400)
 def bad_request_error(error):

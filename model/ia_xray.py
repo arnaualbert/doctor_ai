@@ -21,24 +21,16 @@ class IAML:
     def __init__(self):
         pass
 
-    def ask():
-
+    def ask(img_path):
         model=load_model('chest_xray.h5')
-
-        img=tf.keras.utils.load_img('/home/arnaualbert/Desktop/pneumonia_dl/chest_xray_pneumonia/chest_xray/val/NORMAL/NORMAL2-IM-1427-0001.jpeg',target_size=(224,224))
-
+        img=tf.keras.utils.load_img(img_path,target_size=(224,224))
         x = tf.keras.utils.img_to_array(img)
-
         x=np.expand_dims(x, axis=0)
-
         img_data=preprocess_input(x)
-
         classes=model.predict(img_data)
         print(classes)
-
         result=int(classes[0][0])
         print(result)
-
         if result==0:
             return "Result is Pneumonia"
         else:

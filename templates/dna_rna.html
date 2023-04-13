@@ -25,13 +25,12 @@
 
 
     <h3>DNA to RNA</h3>
-    <form method="post" action="/dnatorna">
         <div class="row-cols-4">
-            <div class="col">
-                <input class="form-control" type="file" id="formFile">
-            </div>
-        </div>
-        <br>
-        <button class="btn btn-primary">Submit</button>
-    </form>
+            <form method=post action="/dnatorna" enctype=multipart/form-data>
+                <div class="col">
+                    <input class="form-control" type="file" name="dnarna" id="formFile">
+                </div>
+                </div><br>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
 </body>

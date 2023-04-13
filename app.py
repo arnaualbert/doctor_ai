@@ -43,6 +43,16 @@ AIPICS = os.path.join(path, 'pics')
 if not os.path.isdir(AIPICS):
     os.mkdir(AIPICS)
 
+DNATORNA = os.path.join(path, 'dnatorna')
+
+if not os.path.isdir(DNATORNA):
+    os.mkdir(DNATORNA)
+
+DNATOPROTEIN = os.path.join(path, 'dnaprotein')
+
+if not os.path.isdir(DNATOPROTEIN):
+    os.mkdir(DNATOPROTEIN)
+
 
 ### ERRORS
 @app.errorhandler(400)
@@ -166,7 +176,30 @@ def iamlr():
             solve = ia.IAML.ask(fullroute)
         return render_template('ia.html', solve=solve)
     return render_template('ia.html')
-
+@app.route('/dnatoprotein',methods=['GET', 'POST'])
+def DNA_to_protein():
+    """Show the cds page"""
+    if request.method == 'POST':
+        file = request.files['dnaprotein']
+        if file:
+            filename = file.filename
+            file.save(os.path.join(CDSEXT, filename))
+            fullroute=os.path.join(CDSEXT, filename)
+            subprocess.run(["./starting",fullroute])
+        return render_template('dna_protein.html')
+    return render_template('dna_protein.html')
+@app.route('/dnatorna',methods=['GET', 'POST'])
+def DNA_to_RNA():
+    """Show the cds page"""
+    if request.method == 'POST':
+        file = request.files['dnarna']
+        if file:
+            filename = file.filename
+            file.save(os.path.join(CDSEXT, filename))
+            fullroute=os.path.join(CDSEXT, filename)
+            subprocess.run(["./starting",fullroute])
+        return render_template('dna_rna.html')
+    return render_template('dna_rna.html')
 @app.route('/cdsextract',methods=['GET', 'POST'])
 def cdsextract():
     """Show the cds extract page"""
@@ -228,15 +261,15 @@ def under_construction():
         return render_template('underconstruction.html')
     return render_template('underconstruction.html')
 
-@app.route('/dnatorna', methods=['GET', 'POST'])
-def dnatorna():
-    """Show the dnatorna page"""
-    if request.method == 'POST':
-        sequence: str =  request.form['sequence']
-        print(sequence)
-        res = subprocess.run(["./1_team_members/luis/luis", sequence])
-        return render_template('dna_rna.html')
-    return render_template('dna_rna.html')
+# @app.route('/dnatorna', methods=['GET', 'POST'])
+# def dnatorna():
+#     """Show the dnatorna page"""
+#     if request.method == 'POST':
+#         sequence: str =  request.form['sequence']
+#         print(sequence)
+#         res = subprocess.run(["./1_team_members/luis/luis", sequence])
+#         return render_template('dna_rna.html')
+#     return render_template('dna_rna.html')
 
 ### Create the app
 def create_app():

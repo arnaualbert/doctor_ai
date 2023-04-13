@@ -1,0 +1,3 @@
+Aligned sequence 1: ASDASDASD
+Aligned sequence 2: ASDASDASD
+Alignment score: 9

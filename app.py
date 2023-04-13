@@ -32,9 +32,12 @@ print(path)
 
 # file Upload
 CDSEXT = os.path.join(path, 'cdsext')
+GB2FASTA = os.path.join(path, 'gb2fasta')
 
 if not os.path.isdir(CDSEXT):
     os.mkdir(CDSEXT)
+if not os.path.isdir(GB2FASTA):
+    os.mkdir(GB2FASTA)
 
 ### ERRORS
 @app.errorhandler(400)
@@ -166,6 +169,8 @@ def cdsextract():
         return render_template('cds.html')
     return render_template('cds.html')
 
+# Genbank to fasta 
+#-------------------------------------------
 @app.route('/gbtofasta',methods=['GET', 'POST'])
 def gb_to_fasta():
     """Show the cds extract page"""
@@ -173,9 +178,11 @@ def gb_to_fasta():
         file = request.files['gbfile']
         if file:
             filename = file.filename
-            file.save(os.path.join(CDSEXT, filename))
-            fullroute=os.path.join(CDSEXT, filename)
+            file.save(os.path.join(GB2FASTA, filename))
+            fullroute = os.path.join(GB2FASTA, filename)
+
             subprocess.run(["./genbankToFasta",fullroute])
+
         return render_template('gbtofasta.html')
     return render_template('gbtofasta.html')
 

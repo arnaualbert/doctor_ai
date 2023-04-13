@@ -160,8 +160,9 @@ def iamlr():
             filename = file.filename
             file.save(os.path.join(AIPICS, filename))
             fullroute=os.path.join(AIPICS, filename)
-            ia.IAML.ask(fullroute)
-        return render_template('ia.html')
+            solve = ia.IAML.ask(fullroute)
+        return render_template('ia.html', solve=solve)
+        # return render_template('ia.html')
     return render_template('ia.html')
 
 @app.route('/cdsextract',methods=['GET', 'POST'])

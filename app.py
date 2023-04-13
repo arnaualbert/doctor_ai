@@ -188,6 +188,7 @@ def DNA_to_protein():
             subprocess.run(["./dna_protein",fullroute])
         return render_template('dna_protein.html')
     return render_template('dna_protein.html')
+
 @app.route('/dnatorna',methods=['GET', 'POST'])
 def DNA_to_RNA():
     """Show the cds page"""
@@ -200,6 +201,7 @@ def DNA_to_RNA():
             subprocess.run(["./dna_rna",fullroute])
         return render_template('dna_rna.html')
     return render_template('dna_rna.html')
+
 @app.route('/cdsextract',methods=['GET', 'POST'])
 def cdsextract():
     """Show the cds extract page"""

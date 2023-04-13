@@ -30,13 +30,12 @@ print(path)
 
 # file Upload
 CDSEXT   = os.path.join(path, 'cdsext')
-GB2FASTA = os.path.join(path, 'gb2fasta')
-
 if not os.path.isdir(CDSEXT):
     os.mkdir(CDSEXT)
+
+GB2FASTA = os.path.join(path, 'gb2fasta')
 if not os.path.isdir(GB2FASTA):
     os.mkdir(GB2FASTA)
-
 
 AIPICS = os.path.join(path, 'pics')
 
@@ -226,8 +225,7 @@ def gb_to_fasta():
         if file:
             filename = file.filename
             file.save(os.path.join(GB2FASTA, filename))
-            fullroute = os.path.join(GB2FASTA, filename)
-
+            fullroute=os.path.join(GB2FASTA, filename)
             result = subprocess.run(["./genbankToFastaV3",fullroute], stdout=subprocess.PIPE, text=True)
 
         return render_template('gbtofasta.html', message=result.stdout, filename=filename)

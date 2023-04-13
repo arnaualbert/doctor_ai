@@ -183,8 +183,8 @@ def DNA_to_protein():
         file = request.files['dnaprotein']
         if file:
             filename = file.filename
-            file.save(os.path.join(CDSEXT, filename))
-            fullroute=os.path.join(CDSEXT, filename)
+            file.save(os.path.join(DNATOPROTEIN, filename))
+            fullroute=os.path.join(DNATOPROTEIN, filename)
             subprocess.run(["./dna_protein",fullroute])
         return render_template('dna_protein.html')
     return render_template('dna_protein.html')
@@ -195,8 +195,8 @@ def DNA_to_RNA():
         file = request.files['dnarna']
         if file:
             filename = file.filename
-            file.save(os.path.join(CDSEXT, filename))
-            fullroute=os.path.join(CDSEXT, filename)
+            file.save(os.path.join(DNATORNA, filename))
+            fullroute=os.path.join(DNATORNA, filename)
             subprocess.run(["./dna_rna",fullroute])
         return render_template('dna_rna.html')
     return render_template('dna_rna.html')

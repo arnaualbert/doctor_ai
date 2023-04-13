@@ -176,6 +176,7 @@ def iamlr():
             solve = ia.IAML.ask(fullroute)
         return render_template('ia.html', solve=solve)
     return render_template('ia.html')
+
 @app.route('/dnatoprotein',methods=['GET', 'POST'])
 def DNA_to_protein():
     """Show the cds page"""
@@ -226,9 +227,7 @@ def gb_to_fasta():
             filename = file.filename
             file.save(os.path.join(GB2FASTA, filename))
             fullroute = os.path.join(GB2FASTA, filename)
-
             subprocess.run(["./genbankToFasta",fullroute])
-
         return render_template('gbtofasta.html')
     return render_template('gbtofasta.html')
 
@@ -254,6 +253,13 @@ def global_alignment():
 
         return render_template('global_aligment.html')
     return render_template('global_aligment.html')
+
+@app.route('/random_sequence', methods=['GET', 'POST'])
+def random_sequence():
+    """Show the random sequence page"""
+    if request.method == 'POST':                                            
+        return render_template('random_sequence.html')
+    return render_template('random_sequence.html')
 
 
 @app.route('/underconstruction', methods=['GET', 'POST'])

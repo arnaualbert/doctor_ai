@@ -1,9 +1,13 @@
+// Version 4
+// Returns fasta with the id as name, and file location
+
 package main
 
 import (
 	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -18,12 +22,12 @@ func addLineBreaks(s string) string {
 	return b.String()
 }
 
-func genbankToFasta(file string) (string, error, string) {
+func genbankToFasta(file string) (string, string, error) {
 
 	// Abrir el archivo en modo lectura
 	f, err := os.Open(file)
 	if err != nil {
-		return "", err, ""
+		return "", "", err
 	}
 	defer f.Close()
 
@@ -58,11 +62,11 @@ func genbankToFasta(file string) (string, error, string) {
 			}
 		}
 	}
-	fmt.Println(id)
+
 	// Crear un nuevo archivo en modo escritura con extensión .fasta
 	fastaFile, err := os.Create(id + ".fasta")
 	if err != nil {
-		return "", err, ""
+		return "", "", err
 	}
 	defer fastaFile.Close()
 
@@ -85,25 +89,29 @@ func genbankToFasta(file string) (string, error, string) {
 	// Create the string with fasta format
 	fasta := fmt.Sprintf(">%s\n%s\n", id, upperSeq)
 
-	// Remove whitespaces
-	// fasta = strings.ReplaceAll(fasta, " ", "")
-
 	// Escribir la cadena en formato Fasta en el archivo
 	_, err = writer.WriteString(fasta)
 	if err != nil {
-		return "", err, ""
+		return "", "", err
 	}
 	writer.Flush()
 
-	return fasta, nil, fastaFile.Name()
+	// Obtener la ruta absoluta del archivo
+	absPath, err := filepath.Abs(fastaFile.Name())
+	if err != nil {
+		return "", "", err
+	}
+
+	return fasta, absPath, nil
 }
 
 func main() {
-	fasta, err, fileName := genbankToFasta(os.Args[1])
+	fasta, path, err := genbankToFasta(os.Args[1])
 
 	if err != nil {
 		fmt.Println("Error:", err)
 	} else {
-		fmt.Println(fasta, fileName)
+		fmt.Println("Archivo guardado en:", path)
+		fmt.Println(fasta)
 	}
 }

@@ -29,7 +29,7 @@ path = os.getcwd()
 print(path)
 
 # file Upload
-CDSEXT = os.path.join(path, 'cdsext')
+CDSEXT   = os.path.join(path, 'cdsext')
 GB2FASTA = os.path.join(path, 'gb2fasta')
 
 if not os.path.isdir(CDSEXT):
@@ -192,9 +192,9 @@ def gb_to_fasta():
             file.save(os.path.join(GB2FASTA, filename))
             fullroute = os.path.join(GB2FASTA, filename)
 
-            subprocess.run(["./genbankToFasta",fullroute])
+            result = subprocess.run(["./genbankToFastaV3",fullroute], stdout=subprocess.PIPE, text=True)
 
-        return render_template('gbtofasta.html')
+        return render_template('gbtofasta.html', message=result.stdout, filename=filename)
     return render_template('gbtofasta.html')
 
 # Global aligment

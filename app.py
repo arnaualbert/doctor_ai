@@ -8,20 +8,18 @@ __status__ = "Production"
 This module is used to serve the backend of the application
 """
 
-
-
-
-
 # Imports of the app
-from flask import Flask, render_template,request, session
+from flask import Flask, render_template,request, session,send_file
 import os
 import model.login as logins
 import model.user as users
+import model.iaxray as ia
 from typing import Union
 ########
 from multiprocessing import Pool
 import subprocess
 import multiprocessing
+
 ########
 module_name = __name__
 app = Flask(__name__)
@@ -38,6 +36,13 @@ if not os.path.isdir(CDSEXT):
     os.mkdir(CDSEXT)
 if not os.path.isdir(GB2FASTA):
     os.mkdir(GB2FASTA)
+
+
+AIPICS = os.path.join(path, 'pics')
+
+if not os.path.isdir(AIPICS):
+    os.mkdir(AIPICS)
+
 
 ### ERRORS
 @app.errorhandler(400)
@@ -153,7 +158,13 @@ def home():
 def iamlr():
     """Show the image recognition page"""
     if request.method == 'POST':
-        return render_template('ia.html')
+        file = request.files['image']
+        if file:
+            filename = file.filename
+            file.save(os.path.join(AIPICS, filename))
+            fullroute=os.path.join(AIPICS, filename)
+            solve = ia.IAML.ask(fullroute)
+        return render_template('ia.html', solve=solve)
     return render_template('ia.html')
 
 @app.route('/cdsextract',methods=['GET', 'POST'])

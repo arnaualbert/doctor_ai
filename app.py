@@ -43,6 +43,16 @@ AIPICS = os.path.join(path, 'pics')
 if not os.path.isdir(AIPICS):
     os.mkdir(AIPICS)
 
+DNATORNA = os.path.join(path, 'dnatorna')
+
+if not os.path.isdir(DNATORNA):
+    os.mkdir(DNATORNA)
+
+DNATOPROTEIN = os.path.join(path, 'dnaprotein')
+
+if not os.path.isdir(DNATOPROTEIN):
+    os.mkdir(DNATOPROTEIN)
+
 
 ### ERRORS
 @app.errorhandler(400)
@@ -167,6 +177,32 @@ def iamlr():
         return render_template('ia.html', solve=solve)
     return render_template('ia.html')
 
+@app.route('/dnatoprotein',methods=['GET', 'POST'])
+def DNA_to_protein():
+    """Show the cds page"""
+    if request.method == 'POST':
+        file = request.files['dnaprotein']
+        if file:
+            filename = file.filename
+            file.save(os.path.join(DNATOPROTEIN, filename))
+            fullroute=os.path.join(DNATOPROTEIN, filename)
+            subprocess.run(["./dna_protein",fullroute])
+        return render_template('dna_protein.html')
+    return render_template('dna_protein.html')
+
+@app.route('/dnatorna',methods=['GET', 'POST'])
+def DNA_to_RNA():
+    """Show the cds page"""
+    if request.method == 'POST':
+        file = request.files['dnarna']
+        if file:
+            filename = file.filename
+            file.save(os.path.join(DNATORNA, filename))
+            fullroute=os.path.join(DNATORNA, filename)
+            subprocess.run(["./dna_rna",fullroute])
+        return render_template('dna_rna.html')
+    return render_template('dna_rna.html')
+
 @app.route('/cdsextract',methods=['GET', 'POST'])
 def cdsextract():
     """Show the cds extract page"""
@@ -220,6 +256,13 @@ def global_alignment():
         return render_template('global_aligment.html')
     return render_template('global_aligment.html')
 
+@app.route('/random_sequence', methods=['GET', 'POST'])
+def random_sequence():
+    """Show the random sequence page"""
+    if request.method == 'POST':                                            
+        return render_template('random_sequence.html')
+    return render_template('random_sequence.html')
+
 
 @app.route('/underconstruction', methods=['GET', 'POST'])
 def under_construction():
@@ -228,15 +271,15 @@ def under_construction():
         return render_template('underconstruction.html')
     return render_template('underconstruction.html')
 
-@app.route('/dnatorna', methods=['GET', 'POST'])
-def dnatorna():
-    """Show the dnatorna page"""
-    if request.method == 'POST':
-        sequence: str =  request.form['sequence']
-        print(sequence)
-        res = subprocess.run(["./1_team_members/luis/luis", sequence])
-        return render_template('dna_rna.html')
-    return render_template('dna_rna.html')
+# @app.route('/dnatorna', methods=['GET', 'POST'])
+# def dnatorna():
+#     """Show the dnatorna page"""
+#     if request.method == 'POST':
+#         sequence: str =  request.form['sequence']
+#         print(sequence)
+#         res = subprocess.run(["./1_team_members/luis/luis", sequence])
+#         return render_template('dna_rna.html')
+#     return render_template('dna_rna.html')
 
 ### Create the app
 def create_app():

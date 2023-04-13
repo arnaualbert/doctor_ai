@@ -11,11 +11,11 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Expose ports for the container
-EXPOSE 5000 
+EXPOSE 80 
 
 # Set environment variables
 ENV FLASK_APP=app.py
 ENV FLASK_DEBUG=1
 
 # Run the application with Waitress
-CMD waitress-serve --listen=*:5000 app:app
+CMD waitress-serve --listen=*:80 app:app

@@ -8,10 +8,6 @@ __status__ = "Production"
 This module is used to serve the backend of the application
 """
 
-
-
-
-
 # Imports of the app
 from flask import Flask, render_template,request, session,send_file
 import os

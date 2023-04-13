@@ -162,7 +162,6 @@ def iamlr():
             fullroute=os.path.join(AIPICS, filename)
             solve = ia.IAML.ask(fullroute)
         return render_template('ia.html', solve=solve)
-        # return render_template('ia.html')
     return render_template('ia.html')
 
 @app.route('/cdsextract',methods=['GET', 'POST'])
@@ -176,7 +175,6 @@ def cdsextract():
             fullroute=os.path.join(CDSEXT, filename)
             subprocess.run(["./starting",fullroute])
         return render_template('cds.html')
-        #return send_file('cds.html', as_attachment=True)
     return render_template('cds.html')
 
 @app.route('/gbtofasta',methods=['GET', 'POST'])

@@ -185,7 +185,7 @@ def DNA_to_protein():
             filename = file.filename
             file.save(os.path.join(CDSEXT, filename))
             fullroute=os.path.join(CDSEXT, filename)
-            subprocess.run(["./starting",fullroute])
+            subprocess.run(["./dna_protein",fullroute])
         return render_template('dna_protein.html')
     return render_template('dna_protein.html')
 @app.route('/dnatorna',methods=['GET', 'POST'])
@@ -197,7 +197,7 @@ def DNA_to_RNA():
             filename = file.filename
             file.save(os.path.join(CDSEXT, filename))
             fullroute=os.path.join(CDSEXT, filename)
-            subprocess.run(["./starting",fullroute])
+            subprocess.run(["./dna_rna",fullroute])
         return render_template('dna_rna.html')
     return render_template('dna_rna.html')
 @app.route('/cdsextract',methods=['GET', 'POST'])

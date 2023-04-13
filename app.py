@@ -15,6 +15,7 @@ import model.login as logins
 import model.user as users
 import model.iaxray as ia
 from typing import Union
+import re
 ########
 from multiprocessing import Pool
 import subprocess
@@ -186,7 +187,8 @@ def DNA_to_protein():
             file.save(os.path.join(DNATOPROTEIN, filename))
             fullroute=os.path.join(DNATOPROTEIN, filename)
             subprocess.run(["./dna_protein",fullroute])
-        return render_template('dna_protein.html')
+            new_filename = re.sub(r'\.fasta$', '_protein.fasta', filename)
+        return send_file("dnaprotein/"+new_filename, as_attachment=True)
     return render_template('dna_protein.html')
 
 @app.route('/dnatorna',methods=['GET', 'POST'])

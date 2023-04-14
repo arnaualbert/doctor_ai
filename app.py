@@ -281,6 +281,33 @@ def global_alignment():
 
     return render_template('global_aligment.html')
 
+# Local aligment
+#-------------------------------------------
+# @app.route('/globalalignment',methods=['GET', 'POST'])
+# def global_alignment():
+#     """Show the cds extract page"""
+
+#     if request.method == 'POST':
+#         fasta1 = request.files['fasta1']
+#         fasta2 = request.files['fasta2']
+#         if fasta1 and fasta2:
+#             fasta1_filename = fasta1.filename
+#             fasta2_filename = fasta2.filename
+
+#             fasta1.save(os.path.join(GBLALIGN, fasta1_filename))
+#             fasta1.save(os.path.join(GBLALIGN, fasta2_filename))
+
+#             fasta1_filepath = os.path.join(GBLALIGN, fasta1_filename)
+#             fasta2_filepath = os.path.join(GBLALIGN, fasta2_filename)
+#             print(fasta1_filepath)
+#             print(fasta2_filepath)
+#             subprocess.run(["./globalAligmentV2ArgsFileIn",fasta1_filepath, fasta2_filepath])
+
+#             # new_filename = re.sub(r'\.gb$', '.fasta', 'result.txt')
+#         # return send_file("globalAlign/" + new_filename, as_attachment=True)        
+
+#     return render_template('global_aligment.html')
+
 @app.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
     """Show the random sequence page"""

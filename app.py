@@ -1,6 +1,6 @@
 __authors__ = "Arnau Albert, Vicor Piñana, Alex Varela, Luis Cardenete"
 __credits__ = ["Arnau Albert", "Vicor Piñana", "Alex Varela","Luis Cardenete"]
-__version__ = "1.0"
+__version__ = "2.0"
 __maintainer__ = "Doctor AI"
 __status__ = "Production"
 
@@ -14,10 +14,12 @@ import os
 import model.login as logins
 import model.user as users
 import model.iaxray as ia
+import model.upload_results as upload
 from typing import Union
 import re
 ########
 from multiprocessing import Pool
+from random import *
 import subprocess
 import multiprocessing
 
@@ -123,6 +125,7 @@ def login():
             print(resultado)
             message = "Login successful"
             session['username'] = resultado.username
+            session["user_id"] = resultado.id
             print(f"hola {session.get('username')}")
             session['username'] = username
             return render_template('index.html', message=message)
@@ -211,6 +214,11 @@ def DNA_to_RNA():
             fullroute=os.path.join(DNATORNA, filename)
             subprocess.run(["./dna_rna",fullroute])
             new_filename = re.sub(r'\.fasta$', '_modified.fasta', filename)
+            file_up = "dnatorna/"+new_filename
+            user_id = session.get('user_id')
+            id = randint(1,9999999)
+            query = "dna_to_rna"
+            upload.upload_results(id,query,file_up,user_id)
         return send_file("dnatorna/"+new_filename, as_attachment=True)
     return render_template('dna_rna.html')
 
@@ -223,8 +231,8 @@ def cdsextract():
             filename = file.filename
             file.save(os.path.join(CDSEXT, filename))
             fullroute=os.path.join(CDSEXT, filename)
-            subprocess.run(["./starting",fullroute])
-        return render_template('cds.html')
+            subprocess.run(["./extract_cds",fullroute])
+        return send_file("resultado.fasta",as_attachment=True)
     return render_template('cds.html')
 
 # Genbank to fasta 
@@ -276,8 +284,10 @@ def global_alignment():
 @app.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
     """Show the random sequence page"""
-    if request.method == 'POST':                                            
-        return render_template('random_sequence.html')
+    if request.method == 'POST':       
+        number = request.form['number']
+        subprocess.run(["./random",number])                                 
+        return send_file("dna.fasta",as_attachment=True)
     return render_template('random_sequence.html')
 
 

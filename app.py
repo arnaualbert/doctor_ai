@@ -282,12 +282,11 @@ def global_alignment():
 
             fasta1_filepath = os.path.join(GBLALIGN, fasta1_filename)
             fasta2_filepath = os.path.join(GBLALIGN, fasta2_filename)
-            print(fasta1_filepath)
-            print(fasta2_filepath)
-            subprocess.run(["./globalAligmentV2ArgsFileIn",fasta1_filepath, fasta2_filepath])
+
+            subprocess.run(["./global_aligment",fasta1_filepath, fasta2_filepath])
 
             # new_filename = re.sub(r'\.gb$', '.fasta', 'result.txt')
-        # return send_file("globalAlign/" + new_filename, as_attachment=True)        
+            return send_file("aligment_result.txt", as_attachment=True)        
 
     return render_template('global_aligment.html')
 

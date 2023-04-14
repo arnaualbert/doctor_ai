@@ -48,6 +48,11 @@ GBLALIGN = os.path.join(path, 'globalAlign')
 if not os.path.isdir(GBLALIGN):
     os.mkdir(GBLALIGN)
 
+LCLALIGN = os.path.join(path, 'localAlign')
+if not os.path.isdir(LCLALIGN):
+    os.mkdir(LCLALIGN)
+
+
 AIPICS = os.path.join(path, 'pics')
 
 if not os.path.isdir(AIPICS):
@@ -299,11 +304,11 @@ def local_alignment():
             fasta1_filename = fasta1.filename
             fasta2_filename = fasta2.filename
 
-            fasta1.save(os.path.join(GBLALIGN, fasta1_filename))
-            fasta2.save(os.path.join(GBLALIGN, fasta2_filename))
+            fasta1.save(os.path.join(LCLALIGN, fasta1_filename))
+            fasta2.save(os.path.join(LCLALIGN, fasta2_filename))
 
-            fasta1_filepath = os.path.join(CDSEXT, fasta1_filename)
-            fasta2_filepath = os.path.join(CDSEXT, fasta2_filename)
+            fasta1_filepath = os.path.join(LCLALIGN, fasta1_filename)
+            fasta2_filepath = os.path.join(LCLALIGN, fasta2_filename)
             subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath])
 
             return send_file("alignment_result.txt",as_attachment=True)     

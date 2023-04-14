@@ -300,12 +300,10 @@ def local_alignment():
             fasta2_filename = fasta2.filename
 
             fasta1.save(os.path.join(GBLALIGN, fasta1_filename))
-            fasta1.save(os.path.join(GBLALIGN, fasta2_filename))
+            fasta2.save(os.path.join(GBLALIGN, fasta2_filename))
 
-            fasta1_filepath = os.path.join(GBLALIGN, fasta1_filename)
-            fasta2_filepath = os.path.join(GBLALIGN, fasta2_filename)
-            print(fasta1_filepath)
-            print(fasta2_filepath)
+            fasta1_filepath = os.path.join(CDSEXT, fasta1_filename)
+            fasta2_filepath = os.path.join(CDSEXT, fasta2_filename)
             subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath])
 
             return send_file("alignment_result.txt",as_attachment=True)     

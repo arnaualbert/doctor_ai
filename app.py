@@ -263,7 +263,7 @@ def random_sequence():
     if request.method == 'POST':       
         number = request.form['number']
         subprocess.run(["./random",number])                                 
-        return render_template('random_sequence.html')
+        return send_file("dna.fasta",as_attachment=True)
     return render_template('random_sequence.html')
 
 

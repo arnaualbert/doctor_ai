@@ -14,6 +14,7 @@ import os
 import model.login as logins
 import model.user as users
 import model.iaxray as ia
+import model.upload_results as upload
 from typing import Union
 import re
 ########
@@ -115,6 +116,7 @@ def login():
             print(resultado)
             message = "Login successful"
             session['username'] = resultado.username
+            session["user_id"] = resultado.id
             print(f"hola {session.get('username')}")
             session['username'] = username
             return render_template('index.html')
@@ -202,6 +204,7 @@ def DNA_to_RNA():
             fullroute=os.path.join(DNATORNA, filename)
             subprocess.run(["./dna_rna",fullroute])
             new_filename = re.sub(r'\.fasta$', '_modified.fasta', filename)
+            upload.upload_results()
         return send_file("dnatorna/"+new_filename, as_attachment=True)
     return render_template('dna_rna.html')
 

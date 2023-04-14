@@ -200,6 +200,11 @@ def DNA_to_protein():
             fullroute=os.path.join(DNATOPROTEIN, filename)
             subprocess.run(["./dna_protein",fullroute])
             new_filename = re.sub(r'\.fasta$', '_protein.fasta', filename)
+            file_up = "dnaprotein/"+new_filename
+            user_id = session.get('user_id')
+            id = randint(1,9999999)
+            query = "dnaprotein"
+            upload.upload_results(id,query,file_up,user_id)
         return send_file("dnaprotein/"+new_filename, as_attachment=True)
     return render_template('dna_protein.html')
 

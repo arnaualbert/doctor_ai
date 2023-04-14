@@ -201,7 +201,9 @@ def DNA_to_RNA():
             file.save(os.path.join(DNATORNA, filename))
             fullroute=os.path.join(DNATORNA, filename)
             subprocess.run(["./dna_rna",fullroute])
-        return render_template('dna_rna.html')
+        # return render_template('dna_rna.html')
+            new_filename = re.sub(r'\.fasta$', '_modified.fasta', filename)
+        return send_file("dnatorna/"+new_filename, as_attachment=True)
     return render_template('dna_rna.html')
 
 @app.route('/cdsextract',methods=['GET', 'POST'])

@@ -9,7 +9,7 @@ This module is used to serve the backend of the application
 """
 
 # Imports of the app
-from flask import Flask, render_template,request, session,send_file
+from flask import Flask, render_template, request, session,send_file
 import os
 import model.login as logins
 import model.user as users
@@ -29,6 +29,10 @@ __path__ = os.getcwd()
 path = os.getcwd()
 print(path)
 
+TOOLS_PATH =  os.path.join(path, 'tools')
+if not os.path.isdir(TOOLS_PATH):
+    os.mkdir(TOOLS_PATH)
+    
 # file Upload
 CDSEXT   = os.path.join(path, 'cdsext')
 if not os.path.isdir(CDSEXT):
@@ -37,6 +41,10 @@ if not os.path.isdir(CDSEXT):
 GB2FASTA = os.path.join(path, 'gb2fasta')
 if not os.path.isdir(GB2FASTA):
     os.mkdir(GB2FASTA)
+
+GBLALIGN = os.path.join(path, 'globalAlign')
+if not os.path.isdir(GBLALIGN):
+    os.mkdir(GBLALIGN)
 
 AIPICS = os.path.join(path, 'pics')
 
@@ -117,9 +125,10 @@ def login():
             session['username'] = resultado.username
             print(f"hola {session.get('username')}")
             session['username'] = username
-            return render_template('index.html')
+            return render_template('index.html', message=message)
         else:
-            return render_template("login.html")
+            message = 'Login failed'
+            return render_template("login.html", message=message)
     return render_template('login.html')
 
 @app.route('/logout')
@@ -231,7 +240,10 @@ def gb_to_fasta():
             fullroute=os.path.join(GB2FASTA, filename)
             result = subprocess.run(["./genbankToFastaV3",fullroute], stdout=subprocess.PIPE, text=True)
 
-        return render_template('gbtofasta.html', message=result.stdout, filename=filename)
+            new_filename = re.sub(r'\.gb$', '.fasta', filename)
+
+        return send_file("gb2fasta/" + new_filename, as_attachment=True)
+        # return render_template('gbtofasta.html', message=result.stdout, filename=filename)
     return render_template('gbtofasta.html')
 
 # Global aligment
@@ -239,6 +251,7 @@ def gb_to_fasta():
 @app.route('/globalalignment',methods=['GET', 'POST'])
 def global_alignment():
     """Show the cds extract page"""
+
     if request.method == 'POST':
         fasta1 = request.files['fasta1']
         fasta2 = request.files['fasta2']
@@ -246,15 +259,18 @@ def global_alignment():
             fasta1_filename = fasta1.filename
             fasta2_filename = fasta2.filename
 
-            fasta1.save(os.path.join(GB2FASTA, fasta1_filename))
-            fasta1.save(os.path.join(GB2FASTA, fasta2_filename))
+            fasta1.save(os.path.join(GBLALIGN, fasta1_filename))
+            fasta1.save(os.path.join(GBLALIGN, fasta2_filename))
 
-            fasta1_filepath = os.path.join(GB2FASTA, fasta1_filename)
-            fasta2_filepath = os.path.join(GB2FASTA, fasta2_filename)
-
+            fasta1_filepath = os.path.join(GBLALIGN, fasta1_filename)
+            fasta2_filepath = os.path.join(GBLALIGN, fasta2_filename)
+            print(fasta1_filepath)
+            print(fasta2_filepath)
             subprocess.run(["./globalAligmentV2ArgsFileIn",fasta1_filepath, fasta2_filepath])
 
-        return render_template('global_aligment.html')
+            # new_filename = re.sub(r'\.gb$', '.fasta', 'result.txt')
+        # return send_file("globalAlign/" + new_filename, as_attachment=True)        
+
     return render_template('global_aligment.html')
 
 @app.route('/random_sequence', methods=['GET', 'POST'])

@@ -273,16 +273,6 @@ def under_construction():
         return render_template('underconstruction.html')
     return render_template('underconstruction.html')
 
-# @app.route('/dnatorna', methods=['GET', 'POST'])
-# def dnatorna():
-#     """Show the dnatorna page"""
-#     if request.method == 'POST':
-#         sequence: str =  request.form['sequence']
-#         print(sequence)
-#         res = subprocess.run(["./1_team_members/luis/luis", sequence])
-#         return render_template('dna_rna.html')
-#     return render_template('dna_rna.html')
-
 ### Create the app
 def create_app():
     return app

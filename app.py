@@ -214,8 +214,8 @@ def cdsextract():
             filename = file.filename
             file.save(os.path.join(CDSEXT, filename))
             fullroute=os.path.join(CDSEXT, filename)
-            subprocess.run(["./starting",fullroute])
-        return render_template('cds.html')
+            subprocess.run(["./extract_cds",fullroute])
+        return send_file("resultado.fasta",as_attachment=True)
     return render_template('cds.html')
 
 # Genbank to fasta 

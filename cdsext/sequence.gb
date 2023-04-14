@@ -1,280 +1,328 @@
-LOCUS       NM_001297738            2428 bp    mRNA    linear   PRI 28-DEC-2022
-DEFINITION  Homo sapiens tubulin folding cofactor A (TBCA), transcript variant
-            1, mRNA.
-ACCESSION   NM_001297738 XM_005248586
-VERSION     NM_001297738.2
+LOCUS       NM_166554               2252 bp    mRNA    linear   INV 15-NOV-2022
+DEFINITION  Drosophila melanogaster bellwether (blw), mRNA.
+ACCESSION   NM_166554
+VERSION     NM_166554.3
+DBLINK      BioProject: PRJNA164
+            BioSample: SAMN02803731
 KEYWORDS    RefSeq.
-SOURCE      Homo sapiens (human)
-  ORGANISM  Homo sapiens
-            Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
-            Mammalia; Eutheria; Euarchontoglires; Primates; Haplorrhini;
-            Catarrhini; Hominidae; Homo.
-REFERENCE   1  (bases 1 to 2428)
-  AUTHORS   Gordon DE, Hiatt J, Bouhaddou M, Rezelj VV, Ulferts S, Braberg H,
-            Jureka AS, Obernier K, Guo JZ, Batra J, Kaake RM, Weckstein AR,
-            Owens TW, Gupta M, Pourmal S, Titus EW, Cakir M, Soucheray M,
-            McGregor M, Cakir Z, Jang G, O'Meara MJ, Tummino TA, Zhang Z,
-            Foussard H, Rojc A, Zhou Y, Kuchenov D, Huttenhain R, Xu J,
-            Eckhardt M, Swaney DL, Fabius JM, Ummadi M, Tutuncuoglu B, Rathore
-            U, Modak M, Haas P, Haas KM, Naing ZZC, Pulido EH, Shi Y,
-            Barrio-Hernandez I, Memon D, Petsalaki E, Dunham A, Marrero MC,
-            Burke D, Koh C, Vallet T, Silvas JA, Azumaya CM, Billesbolle C,
-            Brilot AF, Campbell MG, Diallo A, Dickinson MS, Diwanji D, Herrera
-            N, Hoppe N, Kratochvil HT, Liu Y, Merz GE, Moritz M, Nguyen HC,
-            Nowotny C, Puchades C, Rizo AN, Schulze-Gahmen U, Smith AM, Sun M,
-            Young ID, Zhao J, Asarnow D, Biel J, Bowen A, Braxton JR, Chen J,
-            Chio CM, Chio US, Deshpande I, Doan L, Faust B, Flores S, Jin M,
-            Kim K, Lam VL, Li F, Li J, Li YL, Li Y, Liu X, Lo M, Lopez KE, Melo
-            AA, Moss FR 3rd, Nguyen P, Paulino J, Pawar KI, Peters JK, Pospiech
-            TH Jr, Safari M, Sangwan S, Schaefer K, Thomas PV, Thwin AC,
-            Trenker R, Tse E, Tsui TKM, Wang F, Whitis N, Yu Z, Zhang K, Zhang
-            Y, Zhou F, Saltzberg D, Hodder AJ, Shun-Shion AS, Williams DM,
-            White KM, Rosales R, Kehrer T, Miorin L, Moreno E, Patel AH, Rihn
-            S, Khalid MM, Vallejo-Gracia A, Fozouni P, Simoneau CR, Roth TL, Wu
-            D, Karim MA, Ghoussaini M, Dunham I, Berardi F, Weigang S, Chazal
-            M, Park J, Logue J, McGrath M, Weston S, Haupt R, Hastie CJ,
-            Elliott M, Brown F, Burness KA, Reid E, Dorward M, Johnson C,
-            Wilkinson SG, Geyer A, Giesel DM, Baillie C, Raggett S, Leech H,
-            Toth R, Goodman N, Keough KC, Lind AL, Klesh RJ, Hemphill KR,
-            Carlson-Stevermer J, Oki J, Holden K, Maures T, Pollard KS, Sali A,
-            Agard DA, Cheng Y, Fraser JS, Frost A, Jura N, Kortemme T, Manglik
-            A, Southworth DR, Stroud RM, Alessi DR, Davies P, Frieman MB,
-            Ideker T, Abate C, Jouvenet N, Kochs G, Shoichet B, Ott M,
-            Palmarini M, Shokat KM, Garcia-Sastre A, Rassen JA, Grosse R,
-            Rosenberg OS, Verba KA, Basler CF, Vignuzzi M, Peden AA, Beltrao P
-            and Krogan NJ.
-  CONSRTM   QCRG Structural Biology Consortium; Zoonomia Consortium
-  TITLE     Comparative host-coronavirus protein interaction networks reveal
-            pan-viral disease mechanisms
-  JOURNAL   Science 370 (6521) (2020)
-   PUBMED   33060197
-REFERENCE   2  (bases 1 to 2428)
-  AUTHORS   Gordon DE, Jang GM, Bouhaddou M, Xu J, Obernier K, White KM,
-            O'Meara MJ, Rezelj VV, Guo JZ, Swaney DL, Tummino TA, Huttenhain R,
-            Kaake RM, Richards AL, Tutuncuoglu B, Foussard H, Batra J, Haas K,
-            Modak M, Kim M, Haas P, Polacco BJ, Braberg H, Fabius JM, Eckhardt
-            M, Soucheray M, Bennett MJ, Cakir M, McGregor MJ, Li Q, Meyer B,
-            Roesch F, Vallet T, Mac Kain A, Miorin L, Moreno E, Naing ZZC, Zhou
-            Y, Peng S, Shi Y, Zhang Z, Shen W, Kirby IT, Melnyk JE, Chorba JS,
-            Lou K, Dai SA, Barrio-Hernandez I, Memon D, Hernandez-Armenta C,
-            Lyu J, Mathy CJP, Perica T, Pilla KB, Ganesan SJ, Saltzberg DJ,
-            Rakesh R, Liu X, Rosenthal SB, Calviello L, Venkataramanan S,
-            Liboy-Lugo J, Lin Y, Huang XP, Liu Y, Wankowicz SA, Bohn M, Safari
-            M, Ugur FS, Koh C, Savar NS, Tran QD, Shengjuler D, Fletcher SJ,
-            O'Neal MC, Cai Y, Chang JCJ, Broadhurst DJ, Klippsten S, Sharp PP,
-            Wenzell NA, Kuzuoglu-Ozturk D, Wang HY, Trenker R, Young JM, Cavero
-            DA, Hiatt J, Roth TL, Rathore U, Subramanian A, Noack J, Hubert M,
-            Stroud RM, Frankel AD, Rosenberg OS, Verba KA, Agard DA, Ott M,
-            Emerman M, Jura N, von Zastrow M, Verdin E, Ashworth A, Schwartz O,
-            d'Enfert C, Mukherjee S, Jacobson M, Malik HS, Fujimori DG, Ideker
-            T, Craik CS, Floor SN, Fraser JS, Gross JD, Sali A, Roth BL,
-            Ruggero D, Taunton J, Kortemme T, Beltrao P, Vignuzzi M,
-            Garcia-Sastre A, Shokat KM, Shoichet BK and Krogan NJ.
-  TITLE     A SARS-CoV-2 protein interaction map reveals targets for drug
-            repurposing
-  JOURNAL   Nature 583 (7816), 459-468 (2020)
-   PUBMED   32353859
-REFERENCE   3  (bases 1 to 2428)
-  AUTHORS   Zhang P, Ma X, Song E, Chen W, Pang H, Ni D, Gao Y, Fan Y, Ding Q,
-            Zhang Y and Zhang X.
-  TITLE     Tubulin cofactor A functions as a novel positive regulator of ccRCC
-            progression, invasion and metastasis
-  JOURNAL   Int J Cancer 133 (12), 2801-2811 (2013)
-   PUBMED   23740643
-  REMARK    GeneRIF: overexpression of TBCA did not induce biocharacteristics
-            that directly contrasted to those of TBCA knockdown
-REFERENCE   4  (bases 1 to 2428)
-  AUTHORS   Baltz AG, Munschauer M, Schwanhausser B, Vasile A, Murakawa Y,
-            Schueler M, Youngs N, Penfold-Brown D, Drew K, Milek M, Wyler E,
-            Bonneau R, Selbach M, Dieterich C and Landthaler M.
-  TITLE     The mRNA-bound proteome and its global occupancy profile on
-            protein-coding transcripts
-  JOURNAL   Mol Cell 46 (5), 674-690 (2012)
-   PUBMED   22681889
-REFERENCE   5  (bases 1 to 2428)
-  AUTHORS   Lee OH, Kim H, He Q, Baek HJ, Yang D, Chen LY, Liang J, Chae HK,
-            Safari A, Liu D and Songyang Z.
-  TITLE     Genome-wide YFP fluorescence complementation screen identifies new
-            regulators for telomere signaling in human cells
-  JOURNAL   Mol Cell Proteomics 10 (2), M110.001628 (2011)
-   PUBMED   21044950
-REFERENCE   6  (bases 1 to 2428)
-  AUTHORS   Nolasco S, Bellido J, Goncalves J, Zabala JC and Soares H.
-  TITLE     Tubulin cofactor A gene silencing in mammalian cells induces
-            changes in microtubule cytoskeleton, cell cycle arrest and cell
-            death
-  JOURNAL   FEBS Lett 579 (17), 3515-3524 (2005)
-   PUBMED   15963512
-  REMARK    GeneRIF: TBCA is essential for cell viability and its knockdown
-            produces a decrease in the amount of soluble tubulin, modifications
-            in microtubules and G1 cell cycle arrest.
-REFERENCE   7  (bases 1 to 2428)
-  AUTHORS   Guasch A, Aloria K, Perez R, Avila J, Zabala JC and Coll M.
-  TITLE     Three-dimensional structure of human tubulin chaperone cofactor A
-  JOURNAL   J Mol Biol 318 (4), 1139-1149 (2002)
-   PUBMED   12054808
-REFERENCE   8  (bases 1 to 2428)
-  AUTHORS   Mao M, Fu G, Wu JS, Zhang QH, Zhou J, Kan LX, Huang QH, He KL, Gu
-            BW, Han ZG, Shen Y, Gu J, Yu YP, Xu SH, Wang YX, Chen SJ and Chen
-            Z.
-  TITLE     Identification of genes expressed in human CD34(+) hematopoietic
-            stem/progenitor cells by expressed sequence tags and efficient
-            full-length cDNA cloning
-  JOURNAL   Proc Natl Acad Sci U S A 95 (14), 8175-8180 (1998)
-   PUBMED   9653160
-REFERENCE   9  (bases 1 to 2428)
-  AUTHORS   Tian G, Huang Y, Rommelaere H, Vandekerckhove J, Ampe C and Cowan
-            NJ.
-  TITLE     Pathway leading to correctly folded beta-tubulin
-  JOURNAL   Cell 86 (2), 287-296 (1996)
-   PUBMED   8706133
-REFERENCE   10 (bases 1 to 2428)
-  AUTHORS   Lewis SA, Tian G, Vainberg IE and Cowan NJ.
-  TITLE     Chaperonin-mediated folding of actin and tubulin
-  JOURNAL   J Cell Biol 132 (1-2), 1-4 (1996)
-   PUBMED   8567715
-  REMARK    Review article
-COMMENT     REVIEWED REFSEQ: This record has been curated by NCBI staff. The
-            reference sequence was derived from DC312139.1, AK300031.1 and
-            AC026717.4.
+SOURCE      Drosophila melanogaster (fruit fly)
+  ORGANISM  Drosophila melanogaster
+            Eukaryota; Metazoa; Ecdysozoa; Arthropoda; Hexapoda; Insecta;
+            Pterygota; Neoptera; Endopterygota; Diptera; Brachycera;
+            Muscomorpha; Ephydroidea; Drosophilidae; Drosophila; Sophophora.
+REFERENCE   1  (bases 1 to 2252)
+  AUTHORS   Matthews,B.B., Dos Santos,G., Crosby,M.A., Emmert,D.B., St
+            Pierre,S.E., Gramates,L.S., Zhou,P., Schroeder,A.J., Falls,K.,
+            Strelets,V., Russo,S.M. and Gelbart,W.M.
+  CONSRTM   FlyBase Consortium
+  TITLE     Gene Model Annotations for Drosophila melanogaster: Impact of
+            High-Throughput Data
+  JOURNAL   G3 (Bethesda) 5 (8), 1721-1736 (2015)
+   PUBMED   26109357
+  REMARK    Publication Status: Online-Only
+REFERENCE   2  (bases 1 to 2252)
+  AUTHORS   Crosby,M.A., Gramates,L.S., Dos Santos,G., Matthews,B.B., St
+            Pierre,S.E., Zhou,P., Schroeder,A.J., Falls,K., Emmert,D.B.,
+            Russo,S.M. and Gelbart,W.M.
+  CONSRTM   FlyBase Consortium
+  TITLE     Gene Model Annotations for Drosophila melanogaster: The
+            Rule-Benders
+  JOURNAL   G3 (Bethesda) 5 (8), 1737-1749 (2015)
+   PUBMED   26109356
+  REMARK    Publication Status: Online-Only
+REFERENCE   3  (bases 1 to 2252)
+  AUTHORS   Hoskins,R.A., Carlson,J.W., Wan,K.H., Park,S., Mendez,I.,
+            Galle,S.E., Booth,B.W., Pfeiffer,B.D., George,R.A., Svirskas,R.,
+            Krzywinski,M., Schein,J., Accardo,M.C., Damia,E., Messina,G.,
+            Mendez-Lago,M., de Pablos,B., Demakova,O.V., Andreyeva,E.N.,
+            Boldyreva,L.V., Marra,M., Carvalho,A.B., Dimitri,P., Villasante,A.,
+            Zhimulev,I.F., Rubin,G.M., Karpen,G.H. and Celniker,S.E.
+  TITLE     The Release 6 reference sequence of the Drosophila melanogaster
+            genome
+  JOURNAL   Genome Res 25 (3), 445-458 (2015)
+   PUBMED   25589440
+REFERENCE   4  (bases 1 to 2252)
+  AUTHORS   Hoskins,R.A., Carlson,J.W., Kennedy,C., Acevedo,D., Evans-Holm,M.,
+            Frise,E., Wan,K.H., Park,S., Mendez-Lago,M., Rossi,F.,
+            Villasante,A., Dimitri,P., Karpen,G.H. and Celniker,S.E.
+  TITLE     Sequence finishing and mapping of Drosophila melanogaster
+            heterochromatin
+  JOURNAL   Science 316 (5831), 1625-1628 (2007)
+   PUBMED   17569867
+REFERENCE   5  (bases 1 to 2252)
+  AUTHORS   Smith,C.D., Shu,S., Mungall,C.J. and Karpen,G.H.
+  TITLE     The Release 5.1 annotation of Drosophila melanogaster
+            heterochromatin
+  JOURNAL   Science 316 (5831), 1586-1591 (2007)
+   PUBMED   17569856
+  REMARK    Erratum:[Science. 2007 Sep 7;317(5843):1325]
+REFERENCE   6  (bases 1 to 2252)
+  AUTHORS   Quesneville,H., Bergman,C.M., Andrieu,O., Autard,D., Nouaud,D.,
+            Ashburner,M. and Anxolabehere,D.
+  TITLE     Combined evidence annotation of transposable elements in genome
+            sequences
+  JOURNAL   PLoS Comput Biol 1 (2), 166-175 (2005)
+   PUBMED   16110336
+REFERENCE   7  (bases 1 to 2252)
+  AUTHORS   Hoskins,R.A., Smith,C.D., Carlson,J.W., Carvalho,A.B., Halpern,A.,
+            Kaminker,J.S., Kennedy,C., Mungall,C.J., Sullivan,B.A.,
+            Sutton,G.G., Yasuhara,J.C., Wakimoto,B.T., Myers,E.W.,
+            Celniker,S.E., Rubin,G.M. and Karpen,G.H.
+  TITLE     Heterochromatic sequences in a Drosophila whole-genome shotgun
+            assembly
+  JOURNAL   Genome Biol 3 (12), RESEARCH0085 (2002)
+   PUBMED   12537574
+REFERENCE   8  (bases 1 to 2252)
+  AUTHORS   Kaminker,J.S., Bergman,C.M., Kronmiller,B., Carlson,J.,
+            Svirskas,R., Patel,S., Frise,E., Wheeler,D.A., Lewis,S.E.,
+            Rubin,G.M., Ashburner,M. and Celniker,S.E.
+  TITLE     The transposable elements of the Drosophila melanogaster
+            euchromatin: a genomics perspective
+  JOURNAL   Genome Biol 3 (12), RESEARCH0084 (2002)
+   PUBMED   12537573
+REFERENCE   9  (bases 1 to 2252)
+  AUTHORS   Misra,S., Crosby,M.A., Mungall,C.J., Matthews,B.B., Campbell,K.S.,
+            Hradecky,P., Huang,Y., Kaminker,J.S., Millburn,G.H., Prochnik,S.E.,
+            Smith,C.D., Tupy,J.L., Whitfied,E.J., Bayraktaroglu,L.,
+            Berman,B.P., Bettencourt,B.R., Celniker,S.E., de Grey,A.D.,
+            Drysdale,R.A., Harris,N.L., Richter,J., Russo,S., Schroeder,A.J.,
+            Shu,S.Q., Stapleton,M., Yamada,C., Ashburner,M., Gelbart,W.M.,
+            Rubin,G.M. and Lewis,S.E.
+  TITLE     Annotation of the Drosophila melanogaster euchromatic genome: a
+            systematic review
+  JOURNAL   Genome Biol 3 (12), RESEARCH0083 (2002)
+   PUBMED   12537572
+REFERENCE   10 (bases 1 to 2252)
+  AUTHORS   Celniker,S.E., Wheeler,D.A., Kronmiller,B., Carlson,J.W.,
+            Halpern,A., Patel,S., Adams,M., Champe,M., Dugan,S.P., Frise,E.,
+            Hodgson,A., George,R.A., Hoskins,R.A., Laverty,T., Muzny,D.M.,
+            Nelson,C.R., Pacleb,J.M., Park,S., Pfeiffer,B.D., Richards,S.,
+            Sodergren,E.J., Svirskas,R., Tabor,P.E., Wan,K., Stapleton,M.,
+            Sutton,G.G., Venter,C., Weinstock,G., Scherer,S.E., Myers,E.W.,
+            Gibbs,R.A. and Rubin,G.M.
+  TITLE     Finishing a whole-genome shotgun: release 3 of the Drosophila
+            melanogaster euchromatic genome sequence
+  JOURNAL   Genome Biol 3 (12), RESEARCH0079 (2002)
+   PUBMED   12537568
+REFERENCE   11 (bases 1 to 2252)
+  AUTHORS   Adams,M.D., Celniker,S.E., Holt,R.A., Evans,C.A., Gocayne,J.D.,
+            Amanatides,P.G., Scherer,S.E., Li,P.W., Hoskins,R.A., Galle,R.F.,
+            George,R.A., Lewis,S.E., Richards,S., Ashburner,M., Henderson,S.N.,
+            Sutton,G.G., Wortman,J.R., Yandell,M.D., Zhang,Q., Chen,L.X.,
+            Brandon,R.C., Rogers,Y.H., Blazej,R.G., Champe,M., Pfeiffer,B.D.,
+            Wan,K.H., Doyle,C., Baxter,E.G., Helt,G., Nelson,C.R., Gabor,G.L.,
+            Abril,J.F., Agbayani,A., An,H.J., Andrews-Pfannkoch,C., Baldwin,D.,
+            Ballew,R.M., Basu,A., Baxendale,J., Bayraktaroglu,L., Beasley,E.M.,
+            Beeson,K.Y., Benos,P.V., Berman,B.P., Bhandari,D., Bolshakov,S.,
+            Borkova,D., Botchan,M.R., Bouck,J., Brokstein,P., Brottier,P.,
+            Burtis,K.C., Busam,D.A., Butler,H., Cadieu,E., Center,A.,
+            Chandra,I., Cherry,J.M., Cawley,S., Dahlke,C., Davenport,L.B.,
+            Davies,P., de Pablos,B., Delcher,A., Deng,Z., Mays,A.D., Dew,I.,
+            Dietz,S.M., Dodson,K., Doup,L.E., Downes,M., Dugan-Rocha,S.,
+            Dunkov,B.C., Dunn,P., Durbin,K.J., Evangelista,C.C., Ferraz,C.,
+            Ferriera,S., Fleischmann,W., Fosler,C., Gabrielian,A.E., Garg,N.S.,
+            Gelbart,W.M., Glasser,K., Glodek,A., Gong,F., Gorrell,J.H., Gu,Z.,
+            Guan,P., Harris,M., Harris,N.L., Harvey,D., Heiman,T.J.,
+            Hernandez,J.R., Houck,J., Hostin,D., Houston,K.A., Howland,T.J.,
+            Wei,M.H., Ibegwam,C., Jalali,M., Kalush,F., Karpen,G.H., Ke,Z.,
+            Kennison,J.A., Ketchum,K.A., Kimmel,B.E., Kodira,C.D., Kraft,C.,
+            Kravitz,S., Kulp,D., Lai,Z., Lasko,P., Lei,Y., Levitsky,A.A.,
+            Li,J., Li,Z., Liang,Y., Lin,X., Liu,X., Mattei,B., McIntosh,T.C.,
+            McLeod,M.P., McPherson,D., Merkulov,G., Milshina,N.V., Mobarry,C.,
+            Morris,J., Moshrefi,A., Mount,S.M., Moy,M., Murphy,B., Murphy,L.,
+            Muzny,D.M., Nelson,D.L., Nelson,D.R., Nelson,K.A., Nixon,K.,
+            Nusskern,D.R., Pacleb,J.M., Palazzolo,M., Pittman,G.S., Pan,S.,
+            Pollard,J., Puri,V., Reese,M.G., Reinert,K., Remington,K.,
+            Saunders,R.D., Scheeler,F., Shen,H., Shue,B.C., Siden-Kiamos,I.,
+            Simpson,M., Skupski,M.P., Smith,T., Spier,E., Spradling,A.C.,
+            Stapleton,M., Strong,R., Sun,E., Svirskas,R., Tector,C., Turner,R.,
+            Venter,E., Wang,A.H., Wang,X., Wang,Z.Y., Wassarman,D.A.,
+            Weinstock,G.M., Weissenbach,J., Williams,S.M., WoodageT,
+            Worley,K.C., Wu,D., Yang,S., Yao,Q.A., Ye,J., Yeh,R.F.,
+            Zaveri,J.S., Zhan,M., Zhang,G., Zhao,Q., Zheng,L., Zheng,X.H.,
+            Zhong,F.N., Zhong,W., Zhou,X., Zhu,S., Zhu,X., Smith,H.O.,
+            Gibbs,R.A., Myers,E.W., Rubin,G.M. and Venter,J.C.
+  TITLE     The genome sequence of Drosophila melanogaster
+  JOURNAL   Science 287 (5461), 2185-2195 (2000)
+   PUBMED   10731132
+REFERENCE   12 (bases 1 to 2252)
+  AUTHORS   Celniker,S., Carlson,J., Wan,K., Pfeiffer,B., Frise,E., George,R.,
+            Hoskins,R., Stapleton,M., Pacleb,J., Park,S., Svirskas,R.,
+            Smith,E., Yu,C. and Rubin,G.
+  CONSRTM   Berkeley Drosophila Genome Project
+  TITLE     Drosophila melanogaster release 4 sequence
+  JOURNAL   Unpublished
+REFERENCE   13 (bases 1 to 2252)
+  CONSRTM   NCBI Genome Project
+  TITLE     Direct Submission
+  JOURNAL   Submitted (15-NOV-2022) National Center for Biotechnology
+            Information, NIH, Bethesda, MD 20894, USA
+REFERENCE   14 (bases 1 to 2252)
+  CONSRTM   FlyBase
+  TITLE     Direct Submission
+  JOURNAL   Submitted (19-OCT-2022) FlyBase, Harvard University, Biological
+            Laboratories, 16 Divinity Ave, Cambridge, MA 02138, USA
+REFERENCE   15 (bases 1 to 2252)
+  CONSRTM   FlyBase
+  TITLE     Direct Submission
+  JOURNAL   Submitted (20-APR-2020) FlyBase, Harvard University, Biological
+            Laboratories, 16 Divinity Ave, Cambridge, MA 02138, USA
+REFERENCE   16 (bases 1 to 2252)
+  CONSRTM   FlyBase
+  TITLE     Direct Submission
+  JOURNAL   Submitted (22-APR-2019) FlyBase, Harvard University, Biological
+            Laboratories, 16 Divinity Ave, Cambridge, MA 02138, USA
+REFERENCE   17 (bases 1 to 2252)
+  CONSRTM   FlyBase
+  TITLE     Direct Submission
+  JOURNAL   Submitted (24-MAY-2018) FlyBase, Harvard University, Biological
+            Laboratories, 16 Divinity Ave, Cambridge, MA 02138, USA
+REFERENCE   18 (bases 1 to 2252)
+  CONSRTM   FlyBase
+  TITLE     Direct Submission
+  JOURNAL   Submitted (07-DEC-2016) FlyBase, Harvard University, Biological
+            Laboratories, 16 Divinity Ave, Cambridge, MA 02138, USA
+REFERENCE   19 (bases 1 to 2252)
+  CONSRTM   FlyBase
+  TITLE     Direct Submission
+  JOURNAL   Submitted (07-OCT-2015) FlyBase, Harvard University, Biological
+            Laboratories, 16 Divinity Ave, Cambridge, MA 02138, USA
+REFERENCE   20 (bases 1 to 2252)
+  AUTHORS   Celniker,S., Carlson,J., Kennedy,C., Wan,K., Frise,E., Hoskins,R.,
+            Park,S., Svirskas,R. and Karpen,G.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (10-AUG-2006) Berkeley Drosophila Genome Project,
+            Lawrence Berkeley National Laboratory, One #Cyclotron RoadOne
+            Cyclotron Road, MS 64-121, Berkeley, CA 94720, USA
+  REMARK    Direct Submission
+REFERENCE   21 (bases 1 to 2252)
+  AUTHORS   Celniker,S., Carlson,J., Wan,K., Frise,E., Hoskins,R., Park,S.,
+            Svirskas,R. and Rubin,G.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (10-AUG-2006) Berkeley Drosophila Genome Project,
+            Lawrence Berkeley National Laboratory, One Cyclotron Road, MS
+            64-121, Berkeley, CA 94720, USA
+  REMARK    Direct Submission
+REFERENCE   22 (bases 1 to 2252)
+  AUTHORS   Smith,C.D., Shu,S., Mungall,C.J. and Karpen,G.H.
+  CONSRTM   Drosophila Heterochromatin Genome Project
+  TITLE     Direct Submission
+  JOURNAL   Submitted (01-AUG-2006) Drosophila Heterochromatin Genome Project,
+            Ernest Orlando Lawrence Berkeley National Laboratory, 1 Cyclotron
+            Road, Mailstop 64-121, Berkeley, CA 94720, USA
+REFERENCE   23 (bases 1 to 2252)
+  AUTHORS   Adams,M.D., Celniker,S.E., Gibbs,R.A., Rubin,G.M. and Venter,C.J.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (21-MAR-2000) Celera Genomics, 45 West Gude Drive,
+            Rockville, MD 20850, USA
+COMMENT     REVIEWED REFSEQ: This record has been curated by FlyBase. This
+            record is derived from an annotated genomic sequence (NT_033778).
             
-            On Jun 2, 2019 this sequence version replaced NM_001297738.1.
+            On Jul 15, 2014 this sequence version replaced NM_166554.2.
             
-            Summary: The product of this gene is one of four proteins
-            (cofactors A, D, E, and C) involved in the pathway leading to
-            correctly folded beta-tubulin from folding intermediates. Cofactors
-            A and D are believed to play a role in capturing and stabilizing
-            beta-tubulin intermediates in a quasi-native confirmation. Cofactor
-            E binds to the cofactor D/beta-tubulin complex; interaction with
-            cofactor C then causes the release of beta-tubulin polypeptides
-            that are committed to the native state. This gene encodes
-            chaperonin cofactor A. Multiple alternatively spliced transcript
-            variants encoding different isoforms have been found for this gene.
-            [provided by RefSeq, Jul 2014].
-            
-            Transcript Variant: This variant (1) encodes the longest isoform
-            (1).
-            
-            Sequence Note: This RefSeq record was created from transcript and
-            genomic sequence data to make the sequence consistent with the
-            reference genome assembly. The genomic coordinates used for the
-            transcript record were based on transcript alignments.
-            
-            Publication Note:  This RefSeq record includes a subset of the
-            publications that are available for this gene. Please see the Gene
-            record to access additional publications.
-            
-            ##Evidence-Data-START##
-            Transcript exon combination :: SRR1660805.85751.1,
-                                           SRR1660803.248846.1 [ECO:0000332]
-            RNAseq introns              :: single sample supports all introns
-                                           SAMEA1965299, SAMEA1966682
-                                           [ECO:0000348]
-            ##Evidence-Data-END##
-PRIMARY     REFSEQ_SPAN         PRIMARY_IDENTIFIER PRIMARY_SPAN        COMP
-            1-56                DC312139.1         23-78
-            57-1059             AK300031.1         1-1003
-            1060-2428           AC026717.4         15491-16859         c
+            ##Genome-Annotation-Data-START##
+            Annotation Provider :: FlyBase
+            Annotation Status   :: Full annotation
+            Annotation Version  :: Release 6.46
+            URL                 :: http://flybase.org
+            ##Genome-Annotation-Data-END##
 FEATURES             Location/Qualifiers
-     source          1..2428
-                     /organism="Homo sapiens"
+     source          1..2252
+                     /organism="Drosophila melanogaster"
                      /mol_type="mRNA"
-                     /db_xref="taxon:9606"
-                     /chromosome="5"
-                     /map="5q14.1"
-     gene            1..2428
-                     /gene="TBCA"
-                     /note="tubulin folding cofactor A"
-                     /db_xref="GeneID:6902"
-                     /db_xref="HGNC:HGNC:11579"
-                     /db_xref="MIM:610058"
-     exon            1..135
-                     /gene="TBCA"
-                     /inference="alignment:Splign:2.1.0"
-     misc_feature    2..4
-                     /gene="TBCA"
-                     /note="upstream in-frame stop codon"
-     CDS             83..472
-                     /gene="TBCA"
-                     /note="isoform 1 is encoded by transcript variant 1;
-                     tubulin-specific chaperone a; chaperonin cofactor A; CFA;
-                     TCP1-chaperonin cofactor A; epididymis secretory sperm
-                     binding protein"
+                     /db_xref="taxon:7227"
+                     /chromosome="2R"
+                     /genotype="y[1]; Gr22b[1] Gr22d[1] cn[1] CG33964[R4.2]
+                     bw[1] sp[1]; LysC[1] MstProx[1] GstD5[1] Rh6[1]"
+     gene            1..2252
+                     /gene="blw"
+                     /locus_tag="Dmel_CG3612"
+                     /gene_synonym="A2(2nd)27; ATP syn-alpha; Atp5a; ATP5a;
+                     ATP5A; ATP5alpha; ATP5F1A; ATPA; ATPA_DROME; ATPsyn-a;
+                     ATPsyn-alpha; ATPsynalpha; Blw; C-V-alpha; C-Va; CG3612;
+                     CValpha; CxV; dATP5A; Dmel\CG3612; l(2)01410; l(2)03972;
+                     l(2)59ABa; l(2)k00212; ms(2)01504; ms(2)Pry58F"
+                     /note="bellwether"
+                     /map="59B2-59B2"
+                     /db_xref="FLYBASE:FBgn0011211"
+                     /db_xref="GeneID:37617"
+     CDS             106..1764
+                     /gene="blw"
+                     /locus_tag="Dmel_CG3612"
+                     /gene_synonym="A2(2nd)27; ATP syn-alpha; Atp5a; ATP5a;
+                     ATP5A; ATP5alpha; ATP5F1A; ATPA; ATPA_DROME; ATPsyn-a;
+                     ATPsyn-alpha; ATPsynalpha; Blw; C-V-alpha; C-Va; CG3612;
+                     CValpha; CxV; dATP5A; Dmel\CG3612; l(2)01410; l(2)03972;
+                     l(2)59ABa; l(2)k00212; ms(2)01504; ms(2)Pry58F"
+                     /EC_number="7.1.2.2"
+                     /note="CG3612 gene product from transcript CG3612-RA;
+                     CG3612-PA; blw-PA; F0/F1 ATP synthase alpha; bellweather;
+                     ATP synthase alpha subunit of complex V; ATP synthase
+                     subunit alpha; ATP synthase, alpha subunit; mitochondrial
+                     ATP synthase alpha subunit; complex valpha subunit; ATP
+                     synthase, subunit alpha; mitochondrial ATP synthase
+                     subunit alpha of complex V; ATP synthetase alpha chain;
+                     ATP SYNTHASE ALPHA; mitochondrial ATP synthase subunit B;
+                     alpha subunit of the mitochondrial F[[1]]F[[0]] ATPase;
+                     colibri; ATP synthase alpha chain; complex V alpha; ATP
+                     synthase subunits alpha; alpha subunit of ATP synthase;
+                     alpha-subunit of ATP synthase; mitochondrial ATPase
+                     complex V-subunit alpha; alpha-ATP synthase; COMPLEX V:
+                     alpha chain"
                      /codon_start=1
-                     /product="tubulin-specific chaperone A isoform 1"
-                     /protein_id="NP_001284667.1"
-                     /db_xref="CCDS:CCDS75263.1"
-                     /db_xref="GeneID:6902"
-                     /db_xref="HGNC:HGNC:11579"
-                     /db_xref="MIM:610058"
-                     /translation="MADPRVRQIKIKTGVVKRLVKEKVMYEKEAKQQEEKIEKMRAED
-                     GENYDIKKQAEILQESRMMIPDCQRRLEAAYLDLQRILVSKDFCVMFKFFFSIQYMES
-                     QKFKYLTLRTSWQYFLFTCPLYRYILK"
-     misc_feature    86..88
-                     /gene="TBCA"
-                     /note="N-acetylalanine.
-                     /evidence=ECO:0000250|UniProtKB:P80584; propagated from
-                     UniProtKB/Swiss-Prot (O75347.3); acetylation site"
-     exon            136..241
-                     /gene="TBCA"
-                     /inference="alignment:Splign:2.1.0"
-     exon            242..2428
-                     /gene="TBCA"
-                     /inference="alignment:Splign:2.1.0"
-     regulatory      2347..2352
-                     /regulatory_class="polyA_signal_sequence"
-                     /gene="TBCA"
-                     /note="hexamer: AATAAA"
-     polyA_site      2372
-                     /gene="TBCA"
-                     /note="major polyA site"
-     regulatory      2399..2404
-                     /regulatory_class="polyA_signal_sequence"
-                     /gene="TBCA"
-                     /note="hexamer: ATTAAA"
-     polyA_site      2428
-                     /gene="TBCA"
+                     /product="bellwether"
+                     /protein_id="NP_726243.1"
+                     /db_xref="FLYBASE:FBpp0071794"
+                     /db_xref="GeneID:37617"
+                     /db_xref="FLYBASE:FBgn0011211"
+                     /translation="MSIFSARLASSVARNLPKAANQVACKAAYPAASLAARKLHVAST
+                     QRSAEISNILEERILGVAPKADLEETGRVLSIGDGIARVYGLNNIQADEMVEFSSGLK
+                     GMALNLEPDNVGVVVFGNDKLIKQGDIVKRTGAIVDVPVGDELLGRVVDALGNAIDGK
+                     GAINTKDRFRVGIKAPGIIPRVSVREPMQTGIKAVDSLVPIGRGQRELIIGDRQTGKT
+                     ALAIDTIINQKRFNEAQDESKKLYCIYVAIGQKRSTVAQIVKRLTDSGAMGYSVIVSA
+                     TASDAAPLQYLAPYSGCAMGEYFRDKGKHALIIYDDLSKQAVAYRQMSLLLRRPPGRE
+                     AYPGDVFYLHSRLLERAAKMSPAMGGGSLTALPVIETQAGDVSAYIPTNVISITDGQI
+                     FLETELFYKGIRPAINVGLSVSRVGSAAQTKAMKQVAGSMKLELAQYREVAAFAQFGS
+                     DLDAATQQLLNRGVRLTELLKQGQYVPMAIEDQVAVIYCGVRGHLDKMDPAKITKFEK
+                     EFLQHIKTSEQALLDTIAKDGAISEASDAKLKDIVAKFMSTFQG"
 ORIGIN      
-        1 ctaaatagcc gcagcctctg cgcgtcgccc tccacggtta ccccggctct ccgcccctcc
-       61 ttctcgcggc gctcgaggga ccatggccga tcctcgcgtg agacagatca agatcaagac
-      121 cggcgtggtg aagcggttgg tcaaagaaaa agtgatgtat gaaaaagagg caaaacaaca
-      181 agaagaaaag attgaaaaaa tgagagctga agacggtgaa aattatgaca ttaaaaagca
-      241 ggcagagatc ctacaagaat ccaggatgat gatcccagat tgccagcgca ggttggaagc
-      301 cgcatatttg gatcttcaac ggatactagt aagcaaagac ttctgtgtca tgtttaaatt
-      361 ttttttttca atccaataca tggaaagcca aaagtttaaa tatttaacac tgagaactag
-      421 ttggcagtat ttcttattca cttgcccttt ataccgctat attttaaaat aattaatgga
-      481 gtttaaattg tgttttgaat tatgcctcca gtaaaagtac tgttttctag catgtttgtt
-      541 cagtttatta aaatttagct agttaaattt atttaagtta tgatagtacc agtattgtcc
-      601 agcaatgtct tgattatttg gttttcatac ataaagatct tttgagacat tgaggatgag
-      661 ttgactgatt aaaattttaa aagatctaat gtttcaaaag aatttgggat cttattaaaa
-      721 ggatcttgaa ttctttcaca ttcaaaccta gatcagtttg agagggggaa aaaacctggt
-      781 aatctatgta gtcccctcat actaacttgg agctgaataa cacttatact tgctggtata
-      841 aatgccttgt gatacagaag gtagataaag caggaaataa taactgttaa aatactatct
-      901 aagacaggaa gcatcatttg tatttcttga cagtttaaat gcttttttct ctcatgaatc
-      961 tagtagctga gaaagtaata gaaattgctt ggaaaaaaat aatgttggcc gccaggtgca
-     1021 gtggctcatg cctgtaatcc cagcactttg ggaggctgag gtgggtggat cacgagtcag
-     1081 gagttcaaga ccagcctgac caacatggtg aaatcctgtc tctactaaaa ataccaaaat
-     1141 aataataata ataataatgt atttggatga tatatttgta tgtgaagatg tattcaacaa
-     1201 tatctctgcc cttgaagagc ttgtatttac taacagagaa caaagatgtg tttaaggtat
-     1261 aacatggagg tttaagaaat tcttacgtat agtttgagct aagcaaattc tcagtcgttt
-     1321 tgctttcagt tttcatatta aatacacaca tactttattt cctctactgt ttgtatatct
-     1381 ccatctttta ttgacctgac ataaattgct aaccatagct tcatttaaaa atcaaacaaa
-     1441 atttcctgtg tactttagat aatattattt catttgtctg ttatcattac aatatattag
-     1501 taaaagttgc ctgtatatca gtattatgga aaaactcaat ctttaaatat cagaaaatga
-     1561 aagatgtatt ttgtttcctt tagtgtaggg tatgtaatac ccattagcaa gcaggcaatt
-     1621 catttgttta attcaaagat tatatttaac tctgttgtga catcagaagc cttctttgtc
-     1681 attgtgaata gtcagtggat tattttggcc tgaatgctgt catatatgta acatgttagt
-     1741 aaatcttcct ttttactttt ctcttttgta tgatgatgat gggtcaacaa aatgagaata
-     1801 aactttttct gaggttttta tttaattaat gctggtagct ttagaagact gttattcact
-     1861 tattttatga gaatatatac agtgaaacaa aaccaccagt tatttcttcc tttccttgta
-     1921 aagaaggaac agaatgtggg aaacctgtgg aattacaata tatttagatg aggcttggga
-     1981 ttttttactt ttaatttttt agttattaac attaatggtt tgtaatattt gagtaaataa
-     2041 caaagtactg aaacttgaaa aggataaact taatttttat tgtatttcat tttaggaaaa
-     2101 tgaaaaagac ttggaagaag ctgaggaata taaagaagca cgtttagtac tggattcagt
-     2161 gaagttagaa gcctgaaact tttctcgtat ggggtggttt ttgcattaaa tcctggggtc
-     2221 cattttacaa tccattattt ttgaccactg ctatgtgttc aagtagtatg agaatgtgat
-     2281 tgtttttatc tggttacata tatatttctt tgtctaattt aatatgtcaa ataaatgagt
-     2341 tcatctaata aaattgttta ttttatactt tacaaaattt ttaaattaac cttttatcat
-     2401 taaaccacat agactttatg acagagaa
+        1 cgtctggcca gcgaccatct tgtgaaaagt actacgagtg tggagaggag ttggcttagg
+       61 aattgtacaa ttacttctgc ggcgaacagt taaaaagcat taaaaatgtc gattttttcc
+      121 gcccgcctgg cgtcctcggt cgcccgtaac ctgcccaagg ctgccaacca ggtcgcctgc
+      181 aaagccgctt atcccgccgc cagtcttgct gcccgcaagc tccatgtggc cagcacgcag
+      241 cgtagcgctg agatctccaa catcctggag gagcgcatcc tgggcgtcgc ccccaaggct
+      301 gatctggagg aaaccggccg tgtgctgagc atcggtgacg gtatcgcccg tgtctacggt
+      361 ctgaacaaca tccaggccga tgagatggtg gagttctcct ccggactgaa gggcatggcc
+      421 cttaacttgg agcccgacaa cgtcggtgtt gtggtcttcg gtaacgataa gctgatcaag
+      481 cagggcgata tcgtcaagcg taccggtgcc atcgtggatg tgcccgtcgg tgatgagctg
+      541 ctgggtcgcg tcgtcgatgc cctgggaaat gccatcgacg gcaagggtgc catcaacacc
+      601 aaggaccgtt tccgtgtggg aatcaaggcc cccggcatca tcccccgtgt gtccgtgcgc
+      661 gagcccatgc agaccggtat caaggccgtc gactccctgg tgcccatcgg tcgtggtcag
+      721 cgtgagctga tcattggcga tcgtcagact ggtaagaccg ctctggccat cgacaccatc
+      781 atcaaccaga agcgcttcaa cgaggcccag gacgagtcca agaagctgta ctgcatctac
+      841 gtcgccattg gccagaagcg ttccaccgtc gcccagatcg tgaagcgtct gaccgactcc
+      901 ggcgccatgg gctactccgt gatcgtgtcg gccaccgcct ccgacgctgc tcctctgcag
+      961 tacttggccc cctactccgg atgcgccatg ggagagtact tccgcgacaa gggcaagcac
+     1021 gccctgatca tctacgatga tttgtccaag caggctgtgg cctaccgtca gatgtccctg
+     1081 ttgctgcgtc gtcccccagg tcgtgaggcc taccccggtg atgtgttcta cctgcattcg
+     1141 cgtctgctgg agcgtgccgc caagatgtcc cccgccatgg gaggcggttc cctgactgct
+     1201 ctgcccgtga tcgagaccca ggctggcgat gtgtccgcct acattccaac caacgtcatc
+     1261 tcgattaccg acggacagat cttcttggag accgagttgt tctacaaggg tatccgccct
+     1321 gccattaacg tcggtctgtc cgtgtcccgt gtgggttccg ctgcccagac caaggccatg
+     1381 aagcaggtgg ccggttccat gaagctggag ttggcccagt accgtgaggt cgctgccttc
+     1441 gcccagttcg gttccgatct ggatgccgcc acccagcagc tgctgaaccg tggtgtgcgc
+     1501 ctcactgagc tgctcaagca gggtcagtac gtgcccatgg ccattgagga tcaggtcgcc
+     1561 gttatctact gcggtgtgcg cggtcatctg gacaagatgg atcccgccaa gatcaccaag
+     1621 ttcgagaagg agttcttgca gcacatcaag acctccgagc aggctctgct cgacaccatc
+     1681 gccaaggacg gtgctatctc ggaggcgtcc gatgccaagc tgaaggacat tgttgccaag
+     1741 ttcatgtcca ccttccaggg ttaagcatca gcagcaaacg aagaatagga gtagcggtgc
+     1801 gtgcaattaa catcatagat ggctcgaata atgctgccat ccctgcgcgc catcaacaac
+     1861 aacaaataac aacctacaac ttaagataaa cagaaattat aaaacaaaaa caagagaaaa
+     1921 ctcctttgca cattcatgtt ttcctgcgca tcctgactgg atcgatcgcc ttcaatccgt
+     1981 ggttcggtgc cattatgccg caaaatcttg ggagagagag agccggccct ggctacggag
+     2041 tggacggcga gccccagccg gatgcacttt cgagtttcag cgaaaaatcc ttgcggttcc
+     2101 tccaacctcc aaaacgatag ataatccccc gttgttcttc tacctaaaat atgtaatcaa
+     2161 tatttgaaat attgtaatcg agaatagtcg aaataatgtc tgaggatgat tgtgaaacga
+     2221 tgatgaatta aaacgatact aaattatact ct
 //
 

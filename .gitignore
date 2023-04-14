@@ -1,3 +1,6 @@
 __pycache__/
 venv/
 chest_xray.h5
+model/__pycache__/database.cpython-310.pyc
+model/__pycache__/login.cpython-310.pyc
+model/__pycache__/user.cpython-310.pyc

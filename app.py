@@ -260,7 +260,9 @@ def global_alignment():
 @app.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
     """Show the random sequence page"""
-    if request.method == 'POST':                                            
+    if request.method == 'POST':       
+        number = request.form['number']
+        subprocess.run(["./random",number])                                 
         return render_template('random_sequence.html')
     return render_template('random_sequence.html')
 

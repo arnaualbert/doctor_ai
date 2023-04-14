@@ -19,6 +19,7 @@ from typing import Union
 import re
 ########
 from multiprocessing import Pool
+from random import *
 import subprocess
 import multiprocessing
 
@@ -204,7 +205,11 @@ def DNA_to_RNA():
             fullroute=os.path.join(DNATORNA, filename)
             subprocess.run(["./dna_rna",fullroute])
             new_filename = re.sub(r'\.fasta$', '_modified.fasta', filename)
-            upload.upload_results()
+            file_up = "dnatorna/"+new_filename
+            user_id = session.get('user_id')
+            id = randint(1,9999999)
+            query = "dna_to_rna"
+            upload.upload_results(id,query,file_up,user_id)
         return send_file("dnatorna/"+new_filename, as_attachment=True)
     return render_template('dna_rna.html')
 
@@ -233,7 +238,6 @@ def gb_to_fasta():
             file.save(os.path.join(GB2FASTA, filename))
             fullroute=os.path.join(GB2FASTA, filename)
             result = subprocess.run(["./genbankToFastaV3",fullroute], stdout=subprocess.PIPE, text=True)
-
         return render_template('gbtofasta.html', message=result.stdout, filename=filename)
     return render_template('gbtofasta.html')
 

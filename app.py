@@ -343,6 +343,10 @@ def under_construction():
         return render_template('underconstruction.html')
     return render_template('underconstruction.html')
 
+@app.route('/download/<path:filename>')
+def download_file(filename):
+    return send_file(filename, as_attachment=True)
+
 ### Create the app
 def create_app():
     return app

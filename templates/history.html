@@ -27,7 +27,7 @@
     <title>Document</title>
 </head>
 <body>
-    <table>
+    <!-- <table>
         <thead>
           <tr>
             <th>ID</th>
@@ -46,7 +46,24 @@
             </tr>
           {% endfor %}
         </tbody>
+      </table> -->
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Query</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for result in results %}
+          <tr>
+            <td>{{ result[0] }}</td>
+            <td>{{ result[1] }}</td>
+            <td><a href="{{ url_for('download_file', filename=result[2]) }}">Download</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
       </table>
-      
 </body>
 </html>

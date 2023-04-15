@@ -2,6 +2,7 @@
 import model.login as test
 import model.user as user
 import multiprocessing
+import hashlib
 print()
 print("############################# TEST LOGIN #############################")
 
@@ -12,9 +13,11 @@ print('----------------------------------------------------------------------')
 print()
 print('----------------------------------------------------------------------')
 print('Login success')
-print(test.login('arnau','1234'))
+password = "1234"
+enc_pass = hashlib.sha256(password.encode()).hexdigest()
+print(test.login('arnau',enc_pass))
 print('----------------------------------------------------------------------')
-res = test.login('arnau','1234')
+res = test.login('arnau',enc_pass)
 print(res.username)
 print(res.name)
 print(res.surname)

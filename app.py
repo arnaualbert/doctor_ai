@@ -14,7 +14,7 @@ import os
 import model.login as logins
 import model.user as users
 import model.iaxray as ia
-import model.upload_results as upload
+import model.upload as upload
 from typing import Union
 import re
 ########
@@ -327,9 +327,13 @@ def random_sequence():
 @app.route('/history', methods=['GET', 'POST'])
 def history():
     """Show the history page"""
-    if request.method == 'POST':
+    if request.method == 'GET':
         user_id = session.get('user_id')
-        return render_template('history.html')
+        list_of_results = upload.download_results(user_id)
+        print(list_of_results)
+        print(type(list_of_results))
+        rows = list_of_results
+        return render_template('history.html',rows=rows)
     return render_template('history.html')
 
 @app.route('/underconstruction', methods=['GET', 'POST'])

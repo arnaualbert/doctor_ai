@@ -9,11 +9,11 @@ conexion = mysql.connector.connect(
     host="localhost",
     user="root",
     password="",
-    database="pepe"
+    database="doctor_ai"
 )
 
 
-data = databases.Database("localhost","root","","pepe")
+data = databases.Database("localhost","root","","doctor_ai")
 
 def login(username: str, password:str) -> Union[bool, user.User]:
     """

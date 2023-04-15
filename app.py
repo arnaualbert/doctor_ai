@@ -276,10 +276,15 @@ def gb_to_fasta():
             file.save(os.path.join(GB2FASTA, filename))
             fullroute=os.path.join(GB2FASTA, filename)
             result = subprocess.run(["./genbankToFastaV3",fullroute], stdout=subprocess.PIPE, text=True)
-
-            new_filename = re.sub(r'\.gb$', '.fasta', filename)
-
-        return send_file("gb2fasta/" + new_filename, as_attachment=True)
+            id = randint(1,9999999)
+            ids = str(id)
+            file_up = Path('gb_to_fasta.fasta')
+            new_filename = Path(ids+'gb_to_fasta.fasta')
+            asd = file_up.rename(new_filename)
+            user_id = session.get('user_id')
+            query = "gb_to_fasta"
+            upload.upload_results(id,query,asd,user_id)                         
+        return send_file(new_filename, as_attachment=True)
     return render_template('gbtofasta.html')
 
 # Global aligment

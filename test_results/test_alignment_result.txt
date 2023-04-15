@@ -1,5 +1,0 @@
->secuencia_aleatoria
-TAG
->secuencia_aleatoria
-TAG
-Alignment score: 3

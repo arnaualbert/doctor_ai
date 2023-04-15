@@ -229,14 +229,15 @@ def DNA_to_RNA():
     if request.method == 'POST':
         file = request.files['dnarna']
         if file:
-            filename = file.filename
+            id = randint(1,9999999)
+            ids = str(id)
+            filename = ids+file.filename
             file.save(os.path.join(DNATORNA, filename))
             fullroute=os.path.join(DNATORNA, filename)
             subprocess.run(["./dna_rna",fullroute])
             new_filename = re.sub(r'\.fasta$', '_modified.fasta', filename)
             file_up = "dnatorna/"+new_filename
             user_id = session.get('user_id')
-            id = randint(1,9999999)
             query = "dna_to_rna"
             upload.upload_results(id,query,file_up,user_id)
         return send_file("dnatorna/"+new_filename, as_attachment=True)
@@ -310,7 +311,6 @@ def global_alignment():
 @app.route('/localalignment',methods=['GET', 'POST'])
 def local_alignment():
     """Show the cds extract page"""
-
     if request.method == 'POST':
         fasta1 = request.files['fasta1local']
         fasta2 = request.files['fasta2local']

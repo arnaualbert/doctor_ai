@@ -332,9 +332,23 @@ def history():
         list_of_results = upload.download_results(user_id)
         print(list_of_results)
         print(type(list_of_results))
-        rows = list_of_results
-        return render_template('history.html',rows=rows)
+        results = list_of_results
+        return render_template('history.html',results=results)
     return render_template('history.html')
+# import mysql.connector
+# cnx = mysql.connector.connect(user='root', password='',
+#                               host='localhost', database='doctor_ai')
+
+# @app.route('/history', methods=['GET', 'POST'])
+# def history():
+#     """Show the history page""" 
+#     # session.get('user_id')
+#     cursor = cnx.cursor()
+#     query = (f"SELECT * FROM results WHERE user_id = {session.get('user_id')}")
+#     cursor.execute(query)
+#     results = cursor.fetchall()
+#     cursor.close()
+#     return render_template('history.html', results=results)
 
 @app.route('/underconstruction', methods=['GET', 'POST'])
 def under_construction():

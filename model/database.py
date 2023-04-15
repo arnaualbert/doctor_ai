@@ -23,6 +23,11 @@ class Database:
         self.cursor.execute(query)
         return self.cursor.fetchone()
     
+    def long_query(self, query):
+        """Execute a query"""
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
+
     def commit(self):
         """Commit changes"""
         self.conn.commit()

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,5 +16,37 @@
             {%endfor%}
         </table>
     </div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Query</th>
+            <th>Result</th>
+            <th>User ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for result in results %}
+            <tr>
+              <td>{{ result[0] }}</td>
+              <td>{{ result[1] }}</td>
+              <td>{{ result[2] }}</td>
+              <td>{{ result[3] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
 </body>
 </html>

@@ -16,6 +16,10 @@ import model.user as users
 import model.iaxray as ia
 import model.upload as upload
 from typing import Union
+from datetime import datetime
+from pathlib import Path
+import shutil
+import glob
 import re
 ########
 from multiprocessing import Pool
@@ -67,6 +71,11 @@ DNATOPROTEIN = os.path.join(path, 'dnaprotein')
 
 if not os.path.isdir(DNATOPROTEIN):
     os.mkdir(DNATOPROTEIN)
+
+RANDOM_SEQ = os.path.join(path, 'randomseqs')
+
+if not os.path.isdir(RANDOM_SEQ):
+    os.mkdir(RANDOM_SEQ)
 
 
 ### ERRORS
@@ -322,15 +331,18 @@ def local_alignment():
 @app.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
     """Show the random sequence page"""
-    if request.method == 'POST':       
+    if request.method == 'POST':      
         number = request.form['number']
         subprocess.run(["./random",number])  
-        file_up = "dna.fasta"
-        user_id = session.get('user_id')
         id = randint(1,9999999)
+        ids = str(id)
+        file_up = "dna.fasta"
+        new_filename = re.sub(r'\.fasta$',ids+'random.fasta', file_up)
+        os.rename(file_up, new_filename)
+        user_id = session.get('user_id')
         query = "random_sequence"
-        upload.upload_results(id,query,file_up,user_id)                                
-        return send_file("dna.fasta",as_attachment=True)
+        upload.upload_results(id,query,new_filename,user_id)                   
+        return send_file(new_filename,as_attachment=True)
     return render_template('random_sequence.html')
 
 

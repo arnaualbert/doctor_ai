@@ -20,14 +20,29 @@
 </html> -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
 </head>
+
 <body>
-    <!-- <table>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+          <li class="nav-item">
+            <a class="btn btn-outline-success" aria-current="page" href="/home">Home</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><br>
+  <!-- <table>
         <thead>
           <tr>
             <th>ID</th>
@@ -47,23 +62,26 @@
           {% endfor %}
         </tbody>
       </table> -->
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Query</th>
-            <th>Result</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for result in results %}
-          <tr>
-            <td>{{ result[0] }}</td>
-            <td>{{ result[1] }}</td>
-            <td><a href="{{ url_for('download_file', filename=result[2]) }}">Download</a></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Query</th>
+        <th>Result</th>
+        <th>DAate</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+      <tr>
+        <td>{{ result[0] }}</td>
+        <td>{{ result[1] }}</td>
+        <td><a class="btn btn-primary" href="{{ url_for('download_file', filename=result[2]) }}">Download</a></td>
+        <td>{{ result[4]}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </body>
+
 </html>

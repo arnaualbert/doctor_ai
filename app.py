@@ -242,6 +242,11 @@ def cdsextract():
             file.save(os.path.join(CDSEXT, filename))
             fullroute=os.path.join(CDSEXT, filename)
             subprocess.run(["./extract_cds",fullroute])
+            file_up = "resultado.fasta"
+            user_id = session.get('user_id')
+            id = randint(1,9999999)
+            query = "extract_cds"
+            upload.upload_results(id,query,file_up,user_id)
         return send_file("resultado.fasta",as_attachment=True)
     return render_template('cds.html')
 

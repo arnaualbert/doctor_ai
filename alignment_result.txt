@@ -1,5 +1,0 @@
->secuencia_aleatoria
-TATGA
->secuencia_aleatoria
-TATGA
-Alignment score: 5

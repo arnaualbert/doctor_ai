@@ -324,7 +324,12 @@ def random_sequence():
     """Show the random sequence page"""
     if request.method == 'POST':       
         number = request.form['number']
-        subprocess.run(["./random",number])                                 
+        subprocess.run(["./random",number])  
+        file_up = "dna.fasta"
+        user_id = session.get('user_id')
+        id = randint(1,9999999)
+        query = "random_sequence"
+        upload.upload_results(id,query,file_up,user_id)                                
         return send_file("dna.fasta",as_attachment=True)
     return render_template('random_sequence.html')
 

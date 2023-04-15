@@ -87,23 +87,23 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `name`, `surname`, `email`, `pass_hash`, `role_id`) VALUES
-(1, 'cardenet', 'Luis', 'Cardenete', 'carde602@gmail.com', '1234', 1),
-(2, 'arnau', 'Arnau', 'Albert', 'arnau@gmail.com', '1234', 1),
-(3, 'alex', 'Alex', 'Varela', 'alex@gmail.com', '1234', 1),
-(4, 'victor', 'Victor', 'Piñana', 'victor@gmail.com', '1234', 1),
-(5, 'jdoe', 'John', 'Doe', 'jdoe@example.com', '12', 2),
-(6, 'aaren', 'Aaren', 'Montaña', 'Aaren@example.com', '12', 2),
-(7, 'Agnetha', 'Agnetha', 'Santo', 'Agnetha@example.com', '12', 2),
-(8, 'Algot', 'Algot', 'Noble', 'Algot@example.com', '12', 3),
-(9, 'Alrik', 'Alrik', 'Ann', 'Alrik@example.com', '12', 2),
-(10, 'Anneke', 'Anneke', 'Little', 'Anneke@example.com', '12', 3),
-(11, 'Argus', 'Argus', 'Vigilante', 'Argus@example.com', '12', 3),
-(12, 'Asbjorn', 'Asbjorn', 'Oso', 'Asbjorn@example.com', '12', 3),
-(13, 'pep', 'aaaa', 'aaa', 'aaa@asdsda', '1234', 1),
-(14, 'asdfxcvxzcv', 'nasdasasdfafddame', 'surname', 'email', 'pass', 1),
-(15, 'asdasdasdasdasdasdas', 'asdasdasdasdasdasdas', 'surname', 'email', 'pass', 1),
-(16, 'ola', 'ola', 'ola', 'ola', 'ola', 1),
-(17, 'asd', 'asd', 'asd', 'asd', 'asd', 1);
+(1, 'cardenet', 'Luis', 'Cardenete', 'carde602@gmail.com', SHA2('1234',256), 1),
+(2, 'arnau', 'Arnau', 'Albert', 'arnau@gmail.com', SHA2('1234',256), 1),
+(3, 'alex', 'Alex', 'Varela', 'alex@gmail.com', SHA2('1234',256), 1),
+(4, 'victor', 'Victor', 'Piñana', 'victor@gmail.com', SHA2('1234',256), 1),
+(5, 'jdoe', 'John', 'Doe', 'jdoe@example.com', SHA2('1234',256), 2),
+(6, 'aaren', 'Aaren', 'Montaña', 'Aaren@example.com', SHA2('1234',256), 2),
+(7, 'Agnetha', 'Agnetha', 'Santo', 'Agnetha@example.com', SHA2('1234',256), 2),
+(8, 'Algot', 'Algot', 'Noble', 'Algot@example.com', SHA2('1234',256), 3),
+(9, 'Alrik', 'Alrik', 'Ann', 'Alrik@example.com', SHA2('1234',256), 2),
+(10, 'Anneke', 'Anneke', 'Little', 'Anneke@example.com', SHA2('1234',256), 3),
+(11, 'Argus', 'Argus', 'Vigilante', 'Argus@example.com', SHA2('1234',256), 3),
+(12, 'Asbjorn', 'Asbjorn', 'Oso', 'Asbjorn@example.com', SHA2('1234',256), 3),
+(13, 'pep', 'aaaa', 'aaa', 'aaa@asdsda', SHA2('1234',256), 1),
+(14, 'asdfxcvxzcv', 'nasdasasdfafddame', 'surname', 'email', SHA2('1234',256), 1),
+(15, 'asdasdasdasdasdasdas', 'asdasdasdasdasdasdas', 'surname', 'email', SHA2('1234',256), 1),
+(16, 'ola', 'ola', 'ola', 'ola', SHA2('1234',256), 1),
+(17, 'asd', 'asd', 'asd', 'asd', SHA2('1234',256), 1);
 
 
 --

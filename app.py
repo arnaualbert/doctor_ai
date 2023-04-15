@@ -213,10 +213,11 @@ def DNA_to_protein():
             file.save(os.path.join(DNATOPROTEIN, filename))
             fullroute=os.path.join(DNATOPROTEIN, filename)
             subprocess.run(["./dna_protein",fullroute])
+            id = randint(1,9999999)
+            ids = str(id)
             new_filename = re.sub(r'\.fasta$', '_protein.fasta', filename)
             file_up = "dnaprotein/"+new_filename
             user_id = session.get('user_id')
-            id = randint(1,9999999)
             query = "dnaprotein"
             upload.upload_results(id,query,file_up,user_id)
         return send_file("dnaprotein/"+new_filename, as_attachment=True)
@@ -316,16 +317,12 @@ def local_alignment():
         if fasta1 and fasta2:
             fasta1_filename = fasta1.filename
             fasta2_filename = fasta2.filename
-
             fasta1.save(os.path.join(LCLALIGN, fasta1_filename))
             fasta2.save(os.path.join(LCLALIGN, fasta2_filename))
-
             fasta1_filepath = os.path.join(LCLALIGN, fasta1_filename)
             fasta2_filepath = os.path.join(LCLALIGN, fasta2_filename)
             subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath])
-
             return send_file("alignment_result.txt",as_attachment=True)     
-
     return render_template('local_aligment.html')
 
 @app.route('/random_sequence', methods=['GET', 'POST'])

@@ -1,0 +1,5 @@
+>secuencia_aleatoria
+GTTTGACCTCG
+>secuencia_aleatoria
+TGCTCACCTCG
+Alignment score: 7

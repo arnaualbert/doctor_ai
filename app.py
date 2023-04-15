@@ -253,12 +253,15 @@ def cdsextract():
             file.save(os.path.join(CDSEXT, filename))
             fullroute=os.path.join(CDSEXT, filename)
             subprocess.run(["./extract_cds",fullroute])
-            file_up = "resultado.fasta"
-            user_id = session.get('user_id')
             id = randint(1,9999999)
-            query = "extract_cds"
-            upload.upload_results(id,query,file_up,user_id)
-        return send_file("resultado.fasta",as_attachment=True)
+            ids = str(id)
+            file_up = Path('resultado.fasta')
+            new_filename = Path(ids+'resultado.txt')
+            asd = file_up.rename(new_filename)
+            user_id = session.get('user_id')
+            query = "cds_extract"
+            upload.upload_results(id,query,asd,user_id)                         
+        return send_file(asd,as_attachment=True)
     return render_template('cds.html')
 
 # Genbank to fasta 

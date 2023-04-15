@@ -215,8 +215,6 @@ def DNA_to_protein():
             file.save(os.path.join(DNATOPROTEIN, filename))
             fullroute=os.path.join(DNATOPROTEIN, filename)
             subprocess.run(["./dna_protein",fullroute])
-            # id = randint(1,9999999)
-            # ids = str(id)
             new_filename = re.sub(r'\.fasta$', '_protein.fasta', filename)
             file_up = "dnaprotein/"+new_filename
             user_id = session.get('user_id')

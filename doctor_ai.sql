@@ -105,6 +105,7 @@ INSERT INTO `users` (`id`, `username`, `name`, `surname`, `email`, `pass_hash`, 
 (16, 'ola', 'ola', 'ola', 'ola', 'ola', 1),
 (17, 'asd', 'asd', 'asd', 'asd', 'asd', 1);
 
+
 --
 -- Indexes for dumped tables
 --

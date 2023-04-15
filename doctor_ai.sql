@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
--- 
+--
 -- Host: localhost
--- Generation Time: Mar 22, 2023 at 04:37 PM
+-- Generation Time: Apr 15, 2023 at 10:55 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -24,15 +24,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `result`
+-- Table structure for table `results`
 --
 
-CREATE TABLE `result` (
-  `id` int(11) NOT NULL,
-  `query` varchar(255) NOT NULL,
-  `result` varchar(255) NOT NULL,
-  `user_id` int(11) DEFAULT NULL
+CREATE TABLE `results` (
+  `id` int(33) NOT NULL,
+  `query` varchar(99) NOT NULL,
+  `result` longblob NOT NULL,
+  `user_id` int(33) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `results`
+--
+
+INSERT INTO `results` (`id`, `query`, `result`, `user_id`) VALUES
+(33, 'asd', 0x646e61746f726e612f73657175656e63655f6d6f6469666965642e6661737461, 22),
+(33, 'asd', 0x646e61746f726e612f73657175656e63655f6d6f6469666965642e6661737461, 22),
+(33, 'asd', 0x646e61746f726e612f73657175656e63655f6d6f6469666965642e6661737461, 2),
+(2968524, 'dna_to_rna', 0x646e61746f726e612f73657175656e63655f6d6f6469666965642e6661737461, 2),
+(9542264, 'dnaprotein', 0x646e6170726f7465696e2f73657175656e63655f70726f7465696e2e6661737461, 2),
+(5082945, 'dna_to_rna', 0x646e61746f726e612f73657175656e63655f6d6f6469666965642e6661737461, 3);
 
 -- --------------------------------------------------------
 
@@ -86,18 +98,16 @@ INSERT INTO `users` (`id`, `username`, `name`, `surname`, `email`, `pass_hash`, 
 (9, 'Alrik', 'Alrik', 'Ann', 'Alrik@example.com', '12', 2),
 (10, 'Anneke', 'Anneke', 'Little', 'Anneke@example.com', '12', 3),
 (11, 'Argus', 'Argus', 'Vigilante', 'Argus@example.com', '12', 3),
-(12, 'Asbjorn', 'Asbjorn', 'Oso', 'Asbjorn@example.com', '12', 3);
+(12, 'Asbjorn', 'Asbjorn', 'Oso', 'Asbjorn@example.com', '12', 3),
+(13, 'pep', 'aaaa', 'aaa', 'aaa@asdsda', '1234', 1),
+(14, 'asdfxcvxzcv', 'nasdasasdfafddame', 'surname', 'email', 'pass', 1),
+(15, 'asdasdasdasdasdasdas', 'asdasdasdasdasdasdas', 'surname', 'email', 'pass', 1),
+(16, 'ola', 'ola', 'ola', 'ola', 'ola', 1),
+(17, 'asd', 'asd', 'asd', 'asd', 'asd', 1);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `result`
---
-ALTER TABLE `result`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_users_result` (`user_id`);
 
 --
 -- Indexes for table `role`
@@ -118,12 +128,6 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `result`
---
-ALTER TABLE `result`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
@@ -133,17 +137,11 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `result`
---
-ALTER TABLE `result`
-  ADD CONSTRAINT `fk_users_result` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `users`

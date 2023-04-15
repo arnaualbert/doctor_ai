@@ -2,7 +2,7 @@ import model.user as user
 from typing import Union
 import model.database as databases
 import mysql.connector
-
+import hashlib
 
 ### Connect to the database
 conexion = mysql.connector.connect(
@@ -24,7 +24,8 @@ def login(username: str, password:str) -> Union[bool, user.User]:
         Returns:
             bool: True if the login was successful, False otherwise
     """
-    resultado = data.query(f'SELECT * FROM users WHERE username="{username}" AND pass_hash="{password}"')
+    enc_pass = hashlib.sha256(password.encode()).hexdigest()
+    resultado = data.query(f'SELECT * FROM users WHERE username="{username}" AND pass_hash="{enc_pass}"')
     if resultado is None:
         return False
     else:

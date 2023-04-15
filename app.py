@@ -280,7 +280,6 @@ def gb_to_fasta():
             new_filename = re.sub(r'\.gb$', '.fasta', filename)
 
         return send_file("gb2fasta/" + new_filename, as_attachment=True)
-        # return render_template('gbtofasta.html', message=result.stdout, filename=filename)
     return render_template('gbtofasta.html')
 
 # Global aligment
@@ -321,7 +320,6 @@ def local_alignment():
             fasta1_filepath = os.path.join(LCLALIGN, fasta1_filename)
             fasta2_filepath = os.path.join(LCLALIGN, fasta2_filename)
             subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath])
-            #### NEW ####
             id = randint(1,9999999)
             ids = str(id)
             file_up = "alignment_result.txt"
@@ -330,8 +328,6 @@ def local_alignment():
             user_id = session.get('user_id')
             query = "local_alignment"
             upload.upload_results(id,query,new_filename,user_id)
-            #### NEW ####
-            # return send_file("alignment_result.txt",as_attachment=True)     
             return send_file(new_filename,as_attachment=True)     
     return render_template('local_aligment.html')
 

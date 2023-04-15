@@ -324,6 +324,14 @@ def random_sequence():
     return render_template('random_sequence.html')
 
 
+@app.route('/history', methods=['GET', 'POST'])
+def history():
+    """Show the history page"""
+    if request.method == 'POST':
+        user_id = session.get('user_id')
+        return render_template('history.html')
+    return render_template('history.html')
+
 @app.route('/underconstruction', methods=['GET', 'POST'])
 def under_construction():
     """Show the view under construction"""

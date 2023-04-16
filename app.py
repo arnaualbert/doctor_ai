@@ -132,9 +132,11 @@ def index():
 def login():
     """Show the login form and log the user in if the credentials are correct"""
     if request.method == 'POST':
+        # Get the data from the form
         username: str =  request.form['username']
         password: str =  request.form['password']
         resultado: Union[bool, users.User] = logins.login(username, password)
+        # If the credentials are correct log the user in and redirect to the home page else redirect to the login page
         if resultado:
             print(resultado)
             message = "Login successful"
@@ -159,6 +161,7 @@ def logout():
 def register():
     """Show the register page of the app """
     if request.method == 'POST':
+        # Get the data from the form
         username: str =  request.form['username']
         name: str =  request.form['name']
         surname: str =  request.form['surname']
@@ -194,11 +197,13 @@ def home():
 def iamlr():
     """Show the image recognition page"""
     if request.method == 'POST':
+        # Get the data from the form
         file = request.files['image']
         if file:
             filename = file.filename
             file.save(os.path.join(AIPICS, filename))
             fullroute=os.path.join(AIPICS, filename)
+            # Execute the image recognition program
             solve = ia.IAML.ask(fullroute)
         return render_template('ia.html', solve=solve)
     return render_template('ia.html')
@@ -207,6 +212,7 @@ def iamlr():
 def DNA_to_protein():
     """Show the cds page"""
     if request.method == 'POST':
+        # Get the data from the form
         file = request.files['dnaprotein']
         if file:
             id = randint(1,9999999)
@@ -214,6 +220,7 @@ def DNA_to_protein():
             filename = ids+file.filename
             file.save(os.path.join(DNATOPROTEIN, filename))
             fullroute=os.path.join(DNATOPROTEIN, filename)
+            # Excecute the dna to protein program
             subprocess.run(["./dna_protein",fullroute])
             new_filename = re.sub(r'\.fasta$', '_protein.fasta', filename)
             file_up = "dnaprotein/"+new_filename
@@ -227,6 +234,7 @@ def DNA_to_protein():
 def DNA_to_RNA():
     """Show the cds page"""
     if request.method == 'POST':
+        # Get the data from the form
         file = request.files['dnarna']
         if file:
             id = randint(1,9999999)
@@ -234,6 +242,7 @@ def DNA_to_RNA():
             filename = ids+file.filename
             file.save(os.path.join(DNATORNA, filename))
             fullroute=os.path.join(DNATORNA, filename)
+            # Excecute the dna to rna program
             subprocess.run(["./dna_rna",fullroute])
             new_filename = re.sub(r'\.fasta$', '_modified.fasta', filename)
             file_up = "dnatorna/"+new_filename
@@ -247,11 +256,13 @@ def DNA_to_RNA():
 def cdsextract():
     """Show the cds extract page"""
     if request.method == 'POST':
+        # Get the data from the form
         file = request.files['extractcds']
         if file:
             filename = file.filename
             file.save(os.path.join(CDSEXT, filename))
             fullroute=os.path.join(CDSEXT, filename)
+            # Excecute the cds extract program
             subprocess.run(["./extract_cds",fullroute])
             id = randint(1,9999999)
             ids = str(id)
@@ -270,11 +281,13 @@ def cdsextract():
 def gb_to_fasta():
     """Show the cds extract page"""
     if request.method == 'POST':
+        # Get the data from the form
         file = request.files['gbfile']
         if file:
             filename = file.filename
             file.save(os.path.join(GB2FASTA, filename))
             fullroute=os.path.join(GB2FASTA, filename)
+            # Excecute the genbank to fasta program
             result = subprocess.run(["./genbankToFastaV3",fullroute], stdout=subprocess.PIPE, text=True)
             id = randint(1,9999999)
             ids = str(id)
@@ -294,6 +307,7 @@ def global_alignment():
     """Show the cds extract page"""
 
     if request.method == 'POST':
+        # Get the data from the form
         fasta1 = request.files['fasta1']
         fasta2 = request.files['fasta2']
         if fasta1 and fasta2:
@@ -303,6 +317,7 @@ def global_alignment():
             fasta1.save(os.path.join(GBLALIGN, fasta2_filename))
             fasta1_filepath = os.path.join(GBLALIGN, fasta1_filename)
             fasta2_filepath = os.path.join(GBLALIGN, fasta2_filename)
+            # Execute the global aligment program
             subprocess.run(["./global_aligment",fasta1_filepath, fasta2_filepath])
           # new_filename = re.sub(r'\.gb$', '.fasta', 'result.txt')
             return send_file("aligment_result.txt", as_attachment=True)        
@@ -315,6 +330,7 @@ def global_alignment():
 def local_alignment():
     """Show the cds extract page"""
     if request.method == 'POST':
+        # Get the data from the form
         fasta1 = request.files['fasta1local']
         fasta2 = request.files['fasta2local']
         if fasta1 and fasta2:
@@ -324,6 +340,7 @@ def local_alignment():
             fasta2.save(os.path.join(LCLALIGN, fasta2_filename))
             fasta1_filepath = os.path.join(LCLALIGN, fasta1_filename)
             fasta2_filepath = os.path.join(LCLALIGN, fasta2_filename)
+            # Execute the local aligment program
             subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath])
             id = randint(1,9999999)
             ids = str(id)
@@ -339,8 +356,10 @@ def local_alignment():
 @app.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
     """Show the random sequence page"""
-    if request.method == 'POST':      
+    if request.method == 'POST':    
+        # Get the data from the form  
         number = request.form['number']
+        # Execute the random sequence program
         subprocess.run(["./random",number])  
         id = randint(1,9999999)
         ids = str(id)
@@ -358,6 +377,7 @@ def random_sequence():
 def history():
     """Show the history page"""
     if request.method == 'GET':
+        # Show the history
         user_id = session.get('user_id')
         list_of_results = upload.download_results(user_id)
         print(list_of_results)
@@ -375,6 +395,7 @@ def under_construction():
 
 @app.route('/download/<path:filename>')
 def download_file(filename):
+    """Download a file"""
     return send_file(filename, as_attachment=True)
 
 ### Create the app

@@ -310,17 +310,27 @@ def global_alignment():
         # Get the data from the form
         fasta1 = request.files['fasta1']
         fasta2 = request.files['fasta2']
+
         if fasta1 and fasta2:
             fasta1_filename = fasta1.filename
             fasta2_filename = fasta2.filename
+
             fasta1.save(os.path.join(GBLALIGN, fasta1_filename))
-            fasta1.save(os.path.join(GBLALIGN, fasta2_filename))
+            fasta2.save(os.path.join(GBLALIGN, fasta2_filename))
+
             fasta1_filepath = os.path.join(GBLALIGN, fasta1_filename)
             fasta2_filepath = os.path.join(GBLALIGN, fasta2_filename)
+
             # Execute the global aligment program
             subprocess.run(["./global_aligment",fasta1_filepath, fasta2_filepath])
-          # new_filename = re.sub(r'\.gb$', '.fasta', 'result.txt')
-            return send_file("aligment_result.txt", as_attachment=True)        
+            result_id = str(randint(1,9999999))
+            file_up = "global_alignment_result.txt"
+            new_filename = re.sub(r'\.txt$',result_id+'global_alignment_result.txt', file_up)
+            os.rename(file_up, new_filename)
+            user_id = session.get('user_id')
+            query = "global_alignment"
+            upload.upload_results(id,query,new_filename,user_id)
+            return send_file(new_filename, as_attachment=True)        
 
     return render_template('global_aligment.html')
 

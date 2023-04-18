@@ -7,13 +7,13 @@ import hashlib
 ### Connect to the database
 conexion = mysql.connector.connect(
     host="localhost",
-    user="admin",
-    password="1234",
+    user="root",
+    password="",
     database="doctor_ai"
 )
 
 
-data = databases.Database("localhost","admin","1234","doctor_ai")
+data = databases.Database("localhost","root","","doctor_ai")
 
 def login(username: str, password:str) -> Union[bool, user.User]:
     """
@@ -25,6 +25,9 @@ def login(username: str, password:str) -> Union[bool, user.User]:
             bool: True if the login was successful, False otherwise
     """
     enc_pass = hashlib.sha256(password.encode()).hexdigest()
+    print(
+        enc_pass
+    )
     resultado = data.query(f'SELECT * FROM users WHERE username="{username}" AND pass_hash="{enc_pass}"')
     if resultado is None:
         return False

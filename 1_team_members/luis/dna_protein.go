@@ -39,6 +39,12 @@ func main() {
 	}
 	inputFilename := os.Args[1]
 
+	// Check file extension
+	if !strings.HasSuffix(inputFilename, ".fasta") && !strings.HasSuffix(inputFilename, ".fa") {
+		fmt.Fprintf(os.Stderr, "Error: Input file must have a .fasta or .fa extension.\n")
+		os.Exit(1)
+	}
+
 	// Read the input FASTA file
 	fastaRecords, err := readFastaFile(inputFilename)
 	if err != nil {

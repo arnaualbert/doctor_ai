@@ -323,14 +323,27 @@ def global_alignment():
 
             # Execute the global aligment program
             subprocess.run(["./global_aligment",fasta1_filepath, fasta2_filepath])
-            result_id = str(randint(1,9999999))
-            file_up = "global_alignment_result.txt"
-            new_filename = re.sub(r'\.txt$',result_id+'global_alignment_result.txt', file_up)
+            # output = result.stdout.decode('utf-8')
+
+            # if output == 'EOF':
+                # message = 'data files is not correct'
+                # return render_template('global_aligment.html', message=message)
+
+            result_id:    str = str(randint(1,9999999))
+            print(result_id)
+            file_up:      str = "global_alignment_result.txt"
+            new_filename: str = re.sub(r'\.txt$',result_id+'global_alignment_result.txt', file_up)
             os.rename(file_up, new_filename)
+            print(new_filename)
             user_id = session.get('user_id')
-            query = "global_alignment"
-            upload.upload_results(id,query,new_filename,user_id)
+            query   = "global_alignment"
+            upload.upload_results(result_id,query,new_filename,user_id)
+
             return send_file(new_filename, as_attachment=True)        
+
+        if not fasta1 or not fasta2:
+            message = "Please upload both files"
+            return render_template('global_aligment.html', message=message)
 
     return render_template('global_aligment.html')
 

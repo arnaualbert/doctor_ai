@@ -53,7 +53,7 @@ INSERT INTO `results` (`id`, `query`, `result`, `user_id`) VALUES
 --
 
 CREATE TABLE `role` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL ,
   `role_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -79,31 +79,31 @@ CREATE TABLE `users` (
   `surname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `pass_hash` varchar(255) NOT NULL,
-  `role_id` int(11) NOT NULL
+  `type_role` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `name`, `surname`, `email`, `pass_hash`, `role_id`) VALUES
-(1, 'cardenet', 'Luis', 'Cardenete', 'carde602@gmail.com', SHA2('1234',256), 1),
-(2, 'arnau', 'Arnau', 'Albert', 'arnau@gmail.com', SHA2('1234',256), 1),
-(3, 'alex', 'Alex', 'Varela', 'alex@gmail.com', SHA2('1234',256), 1),
-(4, 'victor', 'Victor', 'Piñana', 'victor@gmail.com', SHA2('1234',256), 1),
-(5, 'jdoe', 'John', 'Doe', 'jdoe@example.com', SHA2('1234',256), 2),
-(6, 'aaren', 'Aaren', 'Montaña', 'Aaren@example.com', SHA2('1234',256), 2),
-(7, 'Agnetha', 'Agnetha', 'Santo', 'Agnetha@example.com', SHA2('1234',256), 2),
-(8, 'Algot', 'Algot', 'Noble', 'Algot@example.com', SHA2('1234',256), 3),
-(9, 'Alrik', 'Alrik', 'Ann', 'Alrik@example.com', SHA2('1234',256), 2),
-(10, 'Anneke', 'Anneke', 'Little', 'Anneke@example.com', SHA2('1234',256), 3),
-(11, 'Argus', 'Argus', 'Vigilante', 'Argus@example.com', SHA2('1234',256), 3),
-(12, 'Asbjorn', 'Asbjorn', 'Oso', 'Asbjorn@example.com', SHA2('1234',256), 3),
-(13, 'pep', 'aaaa', 'aaa', 'aaa@asdsda', SHA2('1234',256), 1),
-(14, 'asdfxcvxzcv', 'nasdasasdfafddame', 'surname', 'email', SHA2('1234',256), 1),
-(15, 'asdasdasdasdasdasdas', 'asdasdasdasdasdasdas', 'surname', 'email', SHA2('1234',256), 1),
-(16, 'ola', 'ola', 'ola', 'ola', SHA2('1234',256), 1),
-(17, 'asd', 'asd', 'asd', 'asd', SHA2('1234',256), 1);
+INSERT INTO `users` (`id`, `username`, `name`, `surname`, `email`, `pass_hash`, `type_role`) VALUES
+(1, 'cardenet', 'Luis', 'Cardenete', 'carde602@gmail.com', SHA2('1234',256), 'admin'),
+(2, 'arnau', 'Arnau', 'Albert', 'arnau@gmail.com', SHA2('1234',256), 'admin'),
+(3, 'alex', 'Alex', 'Varela', 'alex@gmail.com', SHA2('1234',256), 'admin'),
+(4, 'victor', 'Victor', 'Piñana', 'victor@gmail.com', SHA2('1234',256), 'admin'),
+(5, 'jdoe', 'John', 'Doe', 'jdoe@example.com', SHA2('1234',256), 'doctor'),
+(6, 'aaren', 'Aaren', 'Montaña', 'Aaren@example.com', SHA2('1234',256), 'doctor'),
+(7, 'Agnetha', 'Agnetha', 'Santo', 'Agnetha@example.com', SHA2('1234',256), 'doctor'),
+(8, 'Algot', 'Algot', 'Noble', 'Algot@example.com', SHA2('1234',256), 'doctor'),
+(9, 'Alrik', 'Alrik', 'Ann', 'Alrik@example.com', SHA2('1234',256), 'doctor'),
+(10, 'Anneke', 'Anneke', 'Little', 'Anneke@example.com', SHA2('1234',256), 'doctor'),
+(11, 'Argus', 'Argus', 'Vigilante', 'Argus@example.com', SHA2('1234',256), 'doctor'),
+(12, 'Asbjorn', 'Asbjorn', 'Oso', 'Asbjorn@example.com', SHA2('1234',256), 'doctor'),
+(13, 'pep', 'aaaa', 'aaa', 'aaa@asdsda', SHA2('1234',256), 'user'),
+(14, 'asdfxcvxzcv', 'nasdasasdfafddame', 'surname', 'email', SHA2('1234',256), 'user'),
+(15, 'asdasdasdasdasdasdas', 'asdasdasdasdasdasdas', 'surname', 'email', SHA2('1234',256), 'user'),
+(16, 'ola', 'ola', 'ola', 'ola', SHA2('1234',256), 'user'),
+(17, 'asd', 'asd', 'asd', 'asd', SHA2('1234',256), 'user');
 
 
 --
@@ -114,15 +114,15 @@ INSERT INTO `users` (`id`, `username`, `name`, `surname`, `email`, `pass_hash`, 
 -- Indexes for table `role`
 --
 ALTER TABLE `role`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY (`id`),
+  ADD PRIMARY KEY (`role_name`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD KEY `fk_users_role` (`role_id`);
+  ADD KEY `fk_users_role` (`type_role`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -132,7 +132,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -148,7 +148,7 @@ ALTER TABLE `users`
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `fk_users_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
+  ADD CONSTRAINT `fk_users_role` FOREIGN KEY (`type_role`) REFERENCES `role` (`role_name`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

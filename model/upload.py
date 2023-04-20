@@ -2,7 +2,7 @@ import model.database as databases
 from datetime import datetime
 import mysql.connector
 
-data = databases.Database("localhost","root","","doctor_ai")
+data = databases.Database("localhost","admin","1234","doctor_ai")
 
 def upload_results(id,query,result,user_id):
     """Upload the results to the database"""

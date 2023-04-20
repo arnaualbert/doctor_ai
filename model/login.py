@@ -7,13 +7,13 @@ import hashlib
 ### Connect to the database
 conexion = mysql.connector.connect(
     host="localhost",
-    user="root",
-    password="",
+    user="admin",
+    password="1234",
     database="doctor_ai"
 )
 
 
-data = databases.Database("localhost","root","","doctor_ai")
+data = databases.Database("localhost","admin","1234","doctor_ai")
 
 def login(username: str, password:str) -> Union[bool, user.User]:
     """

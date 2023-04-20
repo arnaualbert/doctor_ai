@@ -1,21 +1,22 @@
-FROM python:3.9
+FROM python:3.10
 
 # Set working directory
 WORKDIR /app
 
 # Copy requirements file and install dependencies
 COPY requirements.txt .
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Copy application files to working directory
 COPY . .
 
 # Expose ports for the container
-EXPOSE 80 
+EXPOSE 8080 
 
 # Set environment variables
 ENV FLASK_APP=app.py
 ENV FLASK_DEBUG=1
 
 # Run the application with Waitress
-CMD waitress-serve --listen=*:80 app:app
+CMD waitress-serve --listen=*:8080 app:app

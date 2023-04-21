@@ -396,7 +396,10 @@ def random_sequence():
         user_id = session.get('user_id')
         query = "random_sequence"
         upload.upload_results(id,query,new_filename,user_id)                   
-        return send_file(new_filename,as_attachment=True)
+        response = send_file(new_filename,as_attachment=True)
+        # return send_file(new_filename,as_attachment=True)
+        os.remove(new_filename)
+        return response
     return render_template('random_sequence.html')
 
 # import asyncio

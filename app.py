@@ -21,6 +21,7 @@ from pathlib import Path
 import shutil
 import glob
 import re
+from celery import Celery, Task
 ########
 from multiprocessing import Pool
 from random import *
@@ -30,10 +31,13 @@ import multiprocessing
 ########
 module_name = __name__
 app = Flask(__name__)
+####NO TOCAR
+###################
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 __path__ = os.getcwd()
 path = os.getcwd()
 print(path)
+
 
 TOOLS_PATH =  os.path.join(path, 'tools')
 if not os.path.isdir(TOOLS_PATH):
@@ -394,6 +398,74 @@ def random_sequence():
         upload.upload_results(id,query,new_filename,user_id)                   
         return send_file(new_filename,as_attachment=True)
     return render_template('random_sequence.html')
+
+# import asyncio
+# import aiohttp
+
+# @app.route('/random_sequence', methods=['GET', 'POST'])
+# async def random_sequence():
+#     """Show the random sequence page"""
+#     if request.method == 'POST':
+#         # Get the data from the form
+#         number = request.form['number']
+        
+#         # Execute the random sequence program asynchronously
+#         cmd = ["./random", number]
+#         proc = await asyncio.create_subprocess_exec(*cmd)
+#         await proc.communicate()
+
+#         # Rename and upload the generated file asynchronously
+#         id = randint(1,9999999)
+#         ids = str(id)
+#         file_up = "dna.fasta"
+#         new_filename = re.sub(r'\.fasta$',ids+'random.fasta', file_up)
+#         os.rename(file_up, new_filename)
+#         user_id = session.get('user_id')
+#         query = "random_sequence"
+#         await asyncio.gather(upload.upload_results(id, query, new_filename, user_id))
+
+#         # Return the generated file asynchronously
+#         async with aiohttp.ClientSession() as session:
+#             async with session.get(new_filename) as resp:
+#                 content = await resp.read()
+#         return send_file(io.BytesIO(content), as_attachment=True, attachment_filename=new_filename)
+        
+#     return render_template('random_sequence.html')
+
+# import asyncio
+# import aiohttp
+# import io
+
+# @app.route('/random_sequence', methods=['GET', 'POST'])
+# async def random_sequence():
+#     """Show the random sequence page"""
+#     if request.method == 'POST':
+#         # Get the data from the form
+#         number = request.form['number']
+        
+#         # Execute the random sequence program asynchronously
+#         cmd = ["./random", number]
+#         proc = await asyncio.create_subprocess_exec(*cmd)
+#         await proc.communicate()
+
+#         # Rename and upload the generated file asynchronously
+#         id = randint(1,9999999)
+#         ids = str(id)
+#         file_up = "dna.fasta"
+#         new_filename = re.sub(r'\.fasta$',ids+'random.fasta', file_up)
+#         os.rename(file_up, new_filename)
+#         user_id = session.get('user_id')
+#         query = "random_sequence"
+#         await asyncio.gather(upload.upload_results(id, query, new_filename, user_id))
+
+#         # Return the generated file asynchronously
+#         async with aiohttp.ClientSession() as session:
+#             async with session.get(new_filename) as resp:
+#                 content = await resp.read()
+
+#         send_file(io.BytesIO(content), as_attachment=True, attachment_filename=new_filename)
+#         return render_template('random_sequence.html')    
+#     return render_template('random_sequence.html')
 
 
 @app.route('/history', methods=['GET', 'POST'])

@@ -231,7 +231,12 @@ def DNA_to_protein():
             user_id = session.get('user_id')
             query = "dnaprotein"
             upload.upload_results(id,query,file_up,user_id)
-        return send_file("dnaprotein/"+new_filename, as_attachment=True)
+            ###NEW
+            response = send_file("dnaprotein/"+new_filename, as_attachment=True)
+            os.remove(file_up)
+            ####
+        # return send_file("dnaprotein/"+new_filename, as_attachment=True)
+        return response
     return render_template('dna_protein.html')
 
 @app.route('/dnatorna',methods=['GET', 'POST'])

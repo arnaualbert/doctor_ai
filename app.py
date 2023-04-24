@@ -389,7 +389,24 @@ def local_alignment():
             user_id = session.get('user_id')
             query = "local_alignment"
             upload.upload_results(id,query,new_filename,user_id)
-            return send_file(new_filename,as_attachment=True)     
+            return send_file(new_filename,as_attachment=True)
+
+        if not match or not mismatch or not gap or not fasta1 or not fasta2:
+            if not match:
+                message = "Please give the MATCH values"
+                return render_template('local_aligment.html', message=message)
+            if not mismatch:
+                message = "Please give the MISMATCH values"
+                return render_template('local_aligment.html', message=message)
+            if not gap:
+                message = "Please give the GAP values"
+                return render_template('local_aligment.html', message=message)
+            if not fasta1 or not fasta2:
+                message = "Please upload both files"
+                return render_template('local_aligment.html', message=message)
+            else:
+                message = "Please give the respective values"
+                return render_template('local_aligment.html', message=message)
     return render_template('local_aligment.html')
 
 @app.route('/random_sequence', methods=['GET', 'POST'])

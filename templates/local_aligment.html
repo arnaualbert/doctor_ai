@@ -35,37 +35,38 @@
           <div class="col">
             <div class="form-group">
               <label for="fasta1"> FASTA file 1</label>
-              <input class="form-control" type="file" id="fastafile1" name="fasta1local">
+              <input class="form-control" type="file" id="fastafile1" name="fasta1local" value="{{ request.form['fasta1local'] }}">
             </div>
           </div>
           <div class="col">
             <div class="form-group">
               <label for="fasta2"> FASTA file 2</label>
-              <input class="form-control" type="file" id="fastafile2" name="fasta2local">
+              <input class="form-control" type="file" id="fastafile2" name="fasta2local" value="{{ request.form['fasta2local'] }}">
             </div>
           </div>
             <div class="col">
               <label>Match number:</label>
               <div class="form-group">
-              <input class="form-control" type="number" name="match" id="match">
+              <input class="form-control" type="number" name="match" id="match" value="{{ request.form['match'] }}" >
             </div>
             </div>
             <div class="col">
               <label>Mismatch number:</label>
               <div class="form-group">
-              <input class="form-control" type="number" name="mismatch" id="mismatch">
+              <input class="form-control" type="number" name="mismatch" id="mismatch" value="{{ request.form['mismatch'] }}" >
             </div>
             </div>
 
             <div class="col">
               <label>Gap number:</label>
               <div class="form-group">
-              <input class="form-control" type="number" name="gap" id="gap">
+              <input class="form-control" type="number" name="gap" id="gap" value="{{ request.form['gap'] }}" >
             </div>
             </div>
         </div><br>
         <button class="btn btn-primary" type="submit">Enviar</button>
       </form>
+      <span>{{message}}</span>
     </div>
     
 </body>

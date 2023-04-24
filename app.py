@@ -397,13 +397,13 @@ def local_alignment():
 
         if not match or not mismatch or not gap or not fasta1 or not fasta2:
             if not match:
-                message = "Please give the MATCH values"
+                message = "Please give the MATCH value"
                 return render_template('local_aligment.html', message=message)
             if not mismatch:
-                message = "Please give the MISMATCH values"
+                message = "Please give the MISMATCH value"
                 return render_template('local_aligment.html', message=message)
             if not gap:
-                message = "Please give the GAP values"
+                message = "Please give the GAP value"
                 return render_template('local_aligment.html', message=message)
             if not fasta1 or not fasta2:
                 message = "Please upload both files"

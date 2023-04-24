@@ -233,7 +233,8 @@ def DNA_to_protein():
             upload.upload_results(id,query,file_up,user_id)
             ###NEW
             response = send_file("dnaprotein/"+new_filename, as_attachment=True)
-            os.remove(file_up)
+            os.remove("dnaprotein/"+new_filename)
+            os.remove(fullroute)
             ####
         # return send_file("dnaprotein/"+new_filename, as_attachment=True)
         return response

@@ -401,21 +401,8 @@ def local_alignment():
             return send_file(new_filename,as_attachment=True)
 
         if not match or not mismatch or not gap or not fasta1 or not fasta2:
-            if not match:
-                message = "Please give the MATCH value"
-                return render_template('local_aligment.html', message=message)
-            if not mismatch:
-                message = "Please give the MISMATCH value"
-                return render_template('local_aligment.html', message=message)
-            if not gap:
-                message = "Please give the GAP value"
-                return render_template('local_aligment.html', message=message)
-            if not fasta1 or not fasta2:
-                message = "Please upload both files"
-                return render_template('local_aligment.html', message=message)
-            else:
-                message = "Please give the respective values"
-                return render_template('local_aligment.html', message=message)
+            message = "Please fill all the fields"
+            return render_template('local_aligment.html', message=message)
     return render_template('local_aligment.html')
 
 @app.route('/random_sequence', methods=['GET', 'POST'])

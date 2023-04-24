@@ -253,7 +253,11 @@ def DNA_to_RNA():
             user_id = session.get('user_id')
             query = "dna_to_rna"
             upload.upload_results(id,query,file_up,user_id)
-        return send_file("dnatorna/"+new_filename, as_attachment=True)
+            ###NEW####
+            response = send_file("dnatorna/"+new_filename, as_attachment=True)
+            os.remove(new_filename)
+        # return send_file("dnatorna/"+new_filename, as_attachment=True)
+        return response
     return render_template('dna_rna.html')
 
 @app.route('/cdsextract',methods=['GET', 'POST'])

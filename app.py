@@ -360,6 +360,9 @@ def local_alignment():
         # Get the data from the form
         fasta1 = request.files['fasta1local']
         fasta2 = request.files['fasta2local']
+        match = request.form['match']
+        mismatch = request.form['mismatch']
+        gap = request.form['gap']
         if fasta1 and fasta2:
             fasta1_filename = fasta1.filename
             fasta2_filename = fasta2.filename
@@ -368,7 +371,7 @@ def local_alignment():
             fasta1_filepath = os.path.join(LCLALIGN, fasta1_filename)
             fasta2_filepath = os.path.join(LCLALIGN, fasta2_filename)
             # Execute the local aligment program
-            subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath])
+            subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap])
             id = randint(1,9999999)
             ids = str(id)
             file_up = "alignment_result.txt"

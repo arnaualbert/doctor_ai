@@ -322,24 +322,33 @@ def global_alignment():
             fasta2_filepath = os.path.join(GBLALIGN, fasta2_filename)
 
             # Execute the global aligment program
-            subprocess.run(["./global_aligment",fasta1_filepath, fasta2_filepath])
-            # output = result.stdout.decode('utf-8')
+            output = subprocess.run(["./global_aligment",fasta1_filepath, fasta2_filepath], capture_output=True)
+            print(output)
 
-            # if output == 'EOF':
-                # message = 'data files is not correct'
-                # return render_template('global_aligment.html', message=message)
+            if len(output.stdout) > 0:
+                message = 'Data file format is not correct.'
+                return render_template('global_aligment.html', message=message)
+            else:   
+                result_id: str = str(randint(1,9999999))
+                user_id:   str = session.get('user_id')
 
-            result_id:    str = str(randint(1,9999999))
-            print(result_id)
-            file_up:      str = "global_alignment_result.txt"
-            new_filename: str = re.sub(r'\.txt$',result_id+'global_alignment_result.txt', file_up)
-            os.rename(file_up, new_filename)
-            print(new_filename)
-            user_id = session.get('user_id')
-            query   = "global_alignment"
-            upload.upload_results(result_id,query,new_filename,user_id)
+                file_up:      str = "global_alignment_result.txt"
+                new_filename: str = re.sub(r'\.txt$',result_id+'.txt', file_up)
+                print(new_filename)
 
-            return send_file(new_filename, as_attachment=True)        
+                os.rename(file_up, new_filename)
+
+                # shutil.move(path+'/'+new_filename, './globalAlign/results/')
+                new_filename_path = './globalAlign/results/'+new_filename
+                print(new_filename_path)
+                query = "global_alignment"
+                upload.upload_results(result_id,query,new_filename_path,user_id)
+
+                if (fasta1_filepath and fasta2_filepath):
+                    os.remove(fasta1_filepath)
+                    os.remove(fasta2_filepath)
+
+                return send_file(new_filename, as_attachment=True)        
 
         if not fasta1 or not fasta2:
             message = "Please upload both files"

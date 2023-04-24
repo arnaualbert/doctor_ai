@@ -1,12 +1,15 @@
 import model.database as databases
 from datetime import datetime
 import mysql.connector
+import datetime
+import pytz
 
 data = databases.Database("localhost","root","","doctor_ai")
 
 def upload_results(id,query,result,user_id):
     """Upload the results to the database"""
-    now = datetime.now()
+    tz = pytz.timezone('Europe/Madrid')
+    now = datetime.datetime.now(tz)
     s = str(now)
     data.query(f"INSERT INTO results (id,query,result,user_id,date) VALUES ({id},'{query}','{result}',{user_id},'{s}')")
     data.commit()

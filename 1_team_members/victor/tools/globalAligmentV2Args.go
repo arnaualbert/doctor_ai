@@ -98,7 +98,7 @@ func main() {
 	defer file.Close()
 
 	// Escribimos en el archivo
-	fmt.Fprintln(file, "Aligned sequence 1:", alignedSeq1)
-	fmt.Fprintln(file, "Aligned sequence 2:", alignedSeq2)
-	fmt.Fprintln(file, "Alignment score:", score)
+	// fmt.Fprintln(file, "Aligned sequence 1:", alignedSeq1)
+	// fmt.Fprintln(file, "Aligned sequence 2:", alignedSeq2)
+	// fmt.Fprintln(file, "Alignment score:", score)
 }

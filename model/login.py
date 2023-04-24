@@ -25,6 +25,9 @@ def login(username: str, password:str) -> Union[bool, user.User]:
             bool: True if the login was successful, False otherwise
     """
     enc_pass = hashlib.sha256(password.encode()).hexdigest()
+    print(
+        enc_pass
+    )
     resultado = data.query(f'SELECT * FROM users WHERE username="{username}" AND pass_hash="{enc_pass}"')
     if resultado is None:
         return False

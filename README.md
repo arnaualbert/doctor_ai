@@ -242,3 +242,5 @@ chats options: https://www.nltk.org/_modules/nltk/chat.html#chatbots
 
 chat ai: https://towardsdatascience.com/develop-a-conversational-ai-bot-in-4-simple-steps-1b57e98372e2 -->
 # doctor_ai
+
+Docker: https://hub.docker.com/repository/docker/arnaualbert/doctor_ai/general

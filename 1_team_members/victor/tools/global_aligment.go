@@ -132,12 +132,12 @@ func main() {
 	alignedSeq1, alignedSeq2, score := globalAlignment(seq1, seq2)
 
 	// Print result in the terminal
-	fmt.Println("Aligned sequence 1:", alignedSeq1)
-	fmt.Println("Aligned sequence 2:", alignedSeq2)
-	fmt.Println("Alignment score:", score)
+	// fmt.Println("Aligned sequence 1:", alignedSeq1)
+	// fmt.Println("Aligned sequence 2:", alignedSeq2)
+	// fmt.Println("Alignment score:", score)
 
 	// Create the result file
-	fileOut, err := os.Create("aligment_result.txt")
+	fileOut, err := os.Create("global_alignment_result.txt")
 	if err != nil {
 		fmt.Println(err)
 		return

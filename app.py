@@ -231,7 +231,13 @@ def DNA_to_protein():
             user_id = session.get('user_id')
             query = "dnaprotein"
             upload.upload_results(id,query,file_up,user_id)
-        return send_file("dnaprotein/"+new_filename, as_attachment=True)
+            ###NEW
+            response = send_file("dnaprotein/"+new_filename, as_attachment=True)
+            os.remove("dnaprotein/"+new_filename)
+            os.remove(fullroute)
+            ####
+        # return send_file("dnaprotein/"+new_filename, as_attachment=True)
+        return response
     return render_template('dna_protein.html')
 
 @app.route('/dnatorna',methods=['GET', 'POST'])
@@ -396,21 +402,8 @@ def local_alignment():
             return send_file(new_filename,as_attachment=True)
 
         if not match or not mismatch or not gap or not fasta1 or not fasta2:
-            if not match:
-                message = "Please give the MATCH values"
-                return render_template('local_aligment.html', message=message)
-            if not mismatch:
-                message = "Please give the MISMATCH values"
-                return render_template('local_aligment.html', message=message)
-            if not gap:
-                message = "Please give the GAP values"
-                return render_template('local_aligment.html', message=message)
-            if not fasta1 or not fasta2:
-                message = "Please upload both files"
-                return render_template('local_aligment.html', message=message)
-            else:
-                message = "Please give the respective values"
-                return render_template('local_aligment.html', message=message)
+            message = "Please fill all the fields"
+            return render_template('local_aligment.html', message=message)
     return render_template('local_aligment.html')
 
 @app.route('/random_sequence', methods=['GET', 'POST'])

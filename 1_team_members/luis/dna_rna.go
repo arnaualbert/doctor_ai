@@ -44,7 +44,7 @@ func main() {
     inputFile, err := os.Open(inputFileName)
     if err != nil {
         fmt.Println("Error opening input file:", err)
-        os.Exit(1)
+		panic(err)
     }
     defer inputFile.Close()
 
@@ -53,7 +53,7 @@ func main() {
     outputFile, err := os.Create(outputFileName)
     if err != nil {
         fmt.Println("Error creating output file:", err)
-        os.Exit(1)
+		panic(err)
     }
     defer outputFile.Close()
 
@@ -86,7 +86,7 @@ func main() {
     // Check for errors during parsing
     if err := scanner.Err(); err != nil {
         fmt.Println("Error parsing input file:", err)
-        os.Exit(1)
+		panic(err)
     }
 
     // Print a success message

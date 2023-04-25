@@ -399,10 +399,6 @@ def local_alignment():
             query = "local_alignment"
             upload.upload_results(id,query,new_filename,user_id)
             return send_file(new_filename,as_attachment=True)
-
-        if not match or not mismatch or not gap or not fasta1 or not fasta2:
-            message = "Please fill all the fields"
-            return render_template('local_aligment.html', message=message)
     return render_template('local_aligment.html')
 
 @app.route('/random_sequence', methods=['GET', 'POST'])

@@ -11,7 +11,8 @@ func ReplaceLetterWithU(input string, letter string) string {
     // Check if input contains only A, T, G, C
     for _, char := range input {
         if !strings.ContainsAny(string(char), "ATGC") {
-            return "Invalid input! Please enter a DNA sequence containing only A, T, G, and C."
+            fmt.Fprintf(os.Stderr, "Invalid input! Please enter a DNA sequence containing only A, T, G, and C.\n")
+		    os.Exit(1)
         }
     }
 

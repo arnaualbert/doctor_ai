@@ -35,7 +35,7 @@ type FastaRecord struct {
 func main() {
 	if len(os.Args) != 2 {
 		fmt.Fprintf(os.Stderr, "Usage: %s input.fasta\n", os.Args[0])
-		os.Exit(1)
+        os.Exit(1)
 	}
 	inputFilename := os.Args[1]
 
@@ -49,7 +49,7 @@ func main() {
 	fastaRecords, err := readFastaFile(inputFilename)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error reading input FASTA file: %v\n", err)
-		os.Exit(1)
+		panic(err)
 	}
 
 	// Transcribe DNA sequences to protein sequences
@@ -62,13 +62,14 @@ func main() {
 	err = writeFastaFile(outputFilename, fastaRecords)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error writing output FASTA file: %v\n", err)
-		os.Exit(1)
+		panic(err)
 	}
 }
 
 func readFastaFile(filename string) ([]FastaRecord, error) {
 	file, err := os.Open(filename)
 	if err != nil {
+		panic(err)
 		return nil, err
 	}
 	defer file.Close()
@@ -83,8 +84,14 @@ func readFastaFile(filename string) ([]FastaRecord, error) {
 			if currentRecord.Name != "" {
 				records = append(records, currentRecord)
 			}
-		currentRecord = FastaRecord{Name: line[1:]}
+			currentRecord = FastaRecord{Name: line[1:]}
 		} else {
+			// Validate the DNA sequence
+			for _, base := range line {
+				if base != 'A' && base != 'C' && base != 'G' && base != 'T' {
+					return nil, fmt.Errorf("Error reading input FASTA file: Non-DNA base '%c' found in sequence", base)
+				}
+			}
 			// Append to current record
 			currentRecord.Content += line
 		}
@@ -92,10 +99,9 @@ func readFastaFile(filename string) ([]FastaRecord, error) {
 	// Append the last record
 	if currentRecord.Name != "" {
 		records = append(records, currentRecord)
-			}
-		return records, scanner.Err()
-}
-				
+	}
+	return records, scanner.Err()
+}				
 func dnaToProtein(dna string) string {
 	var protein strings.Builder
 	for i := 0; i < len(dna)-2; i += 3 {

@@ -11,7 +11,8 @@ func ReplaceLetterWithU(input string, letter string) string {
     // Check if input contains only A, T, G, C
     for _, char := range input {
         if !strings.ContainsAny(string(char), "ATGC") {
-            return "Invalid input! Please enter a DNA sequence containing only A, T, G, and C."
+            fmt.Fprintf(os.Stderr, "Invalid input! Please enter a DNA sequence containing only A, T, G, and C.\n")
+		    os.Exit(1)
         }
     }
 
@@ -44,7 +45,7 @@ func main() {
     inputFile, err := os.Open(inputFileName)
     if err != nil {
         fmt.Println("Error opening input file:", err)
-        os.Exit(1)
+		panic(err)
     }
     defer inputFile.Close()
 
@@ -53,7 +54,7 @@ func main() {
     outputFile, err := os.Create(outputFileName)
     if err != nil {
         fmt.Println("Error creating output file:", err)
-        os.Exit(1)
+		panic(err)
     }
     defer outputFile.Close()
 
@@ -86,7 +87,7 @@ func main() {
     // Check for errors during parsing
     if err := scanner.Err(); err != nil {
         fmt.Println("Error parsing input file:", err)
-        os.Exit(1)
+		panic(err)
     }
 
     // Print a success message

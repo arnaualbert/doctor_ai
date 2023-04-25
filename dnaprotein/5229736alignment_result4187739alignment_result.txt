@@ -1,5 +1,0 @@
->secuencia_aleatoria
-CGCATTCAATGGTTT
->secuencia_aleatoria
-CGAATTTCGTGTTTT
-Alignment score: 5

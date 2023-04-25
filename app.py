@@ -376,7 +376,7 @@ def global_alignment():
 #-------------------------------------------
 @app.route('/localalignment',methods=['GET', 'POST'])
 def local_alignment():
-    """Show the cds extract page"""
+    """Show the local alignment page"""
     if request.method == 'POST':
         # Get the data from the form
         fasta1 = request.files['fasta1local']
@@ -384,7 +384,7 @@ def local_alignment():
         match = request.form['match']
         mismatch = request.form['mismatch']
         gap = request.form['gap']
-        if fasta1 and fasta2:
+        if read_fasta_file(fasta1) and read_fasta_file(fasta2):
             fasta1_filename = fasta1.filename
             fasta2_filename = fasta2.filename
             fasta1.save(os.path.join(LCLALIGN, fasta1_filename))
@@ -402,6 +402,10 @@ def local_alignment():
             query = "local_alignment"
             upload.upload_results(id,query,new_filename,user_id)
             return send_file(new_filename,as_attachment=True)
+        else:
+            message = "Please the files must be fasta"
+            return render_template('local_aligment.html', message=message)
+
     return render_template('local_aligment.html')
 
 # @app.route('/random_sequence', methods=['GET', 'POST'])

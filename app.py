@@ -384,7 +384,7 @@ def local_alignment():
         match = request.form['match']
         mismatch = request.form['mismatch']
         gap = request.form['gap']
-        if read_fasta_file(fasta1) and read_fasta_file(fasta2):
+        if fasta1 and fasta2:
             fasta1_filename = fasta1.filename
             fasta2_filename = fasta2.filename
             fasta1.save(os.path.join(LCLALIGN, fasta1_filename))
@@ -402,9 +402,6 @@ def local_alignment():
             query = "local_alignment"
             upload.upload_results(id,query,new_filename,user_id)
             return send_file(new_filename,as_attachment=True)
-        else:
-            message = "Please the files must be fasta"
-            return render_template('local_aligment.html', message=message)
 
     return render_template('local_aligment.html')
 

@@ -459,6 +459,13 @@ def random_sequence():
     return render_template('random_sequence.html')
 
 
+def read_fasta_file(file_path):
+    file_extension = os.path.splitext(file_path)[1]
+    if file_extension not in ['.fasta', '.fa']:
+        # raise ValueError("File must be in .fasta or .fa format")
+        return False
+    else:
+        return True
 
 
 

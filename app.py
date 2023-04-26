@@ -739,6 +739,23 @@ def history():
         return render_template('history.html',results=results)
     return render_template('history.html')
 
+
+@app.route('/history_query', methods=['GET', 'POST'])
+def history_query():
+    """Show the history page"""
+    if request.method == 'POST':
+        # Show the history
+        user_id = session.get('user_id')
+        tool = request.form['query_order']
+        print(tool)
+        list_of_results = upload.select_by_tool(tool,user_id)
+        print(list_of_results)
+        print(type(list_of_results))
+        results = list_of_results
+        return render_template('history.html',results=results)
+    return render_template('history.html')
+
+
 @app.route('/underconstruction', methods=['GET', 'POST'])
 def under_construction():
     """Show the view under construction"""

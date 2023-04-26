@@ -63,14 +63,26 @@
           {% endfor %}
         </tbody>
       </table> -->
+  <form method="post" action="/history_query">
+    <select name="query_order" id="query_order">
+      <option value="random_sequence">random_sequence</option>
+      <option value="local_alignment">local_alignment</option>
+      <option value="global_alignment">global_alignment</option>
+      <option value="gb_to_fasta">gb_to_fasta</option>
+      <option value="cds_extract">cds_extract</option>
+      <option value="dna_to_rna">dna_to_rna</option>
+      <option value="dnaprotein">dnaprotein</option>
+    </select>
+    <button class="btn btn-primary" type="submit">Enviar</button>
+  </form>
   <table class="table">
     <thead>
       <tr>
         <th>ID</th>
         <th>Query</th>
         <th>Result</th>
-        <th>DAate</th>
-        <th>Action</th>
+        <th>Date</th>
+        <!-- <th>Action</th> -->
       </tr>
     </thead>
     <tbody>
@@ -80,8 +92,8 @@
         <td>{{ result[1] }}</td>
         <td><a class="btn btn-primary" href="{{ url_for('download_file', filename=result[2]) }}">Download</a></td>
         <td>{{ result[4]}}</td>
-        
-        <td><button onclick="deleteRow({{ result[0] }})">Eliminar</button></td>
+
+        <!-- <td><button onclick="deleteRow({{ result[0] }})">Eliminar</button></td> -->
       </tr>
       {% endfor %}
     </tbody>

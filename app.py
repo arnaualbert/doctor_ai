@@ -9,7 +9,7 @@ This module is used to serve the backend of the application
 """
 
 # Imports of the app
-from flask import Flask, render_template, request, session,send_file
+from flask import Flask, render_template, request, session,send_file, redirect, url_for
 import os
 import model.login as logins
 import model.user as users
@@ -318,13 +318,18 @@ def gb_to_fasta():
 #-------------------------------------------
 @app.route('/globalalignment',methods=['GET', 'POST'])
 def global_alignment():
-    """Show the cds extract page"""
+    """Gloabal alignment tool
+        - In this verison deletes the result form server
+    """
 
     if request.method == 'POST':
         # Get the data from the form
         fasta1 = request.files['fasta1']
         fasta2 = request.files['fasta2']
 
+        match    = request.form['match']
+        mismatch = request.form['mismatch']
+        gap      = request.form['gap']
         if fasta1 and fasta2:
             fasta1_filename = fasta1.filename
             fasta2_filename = fasta2.filename
@@ -336,7 +341,7 @@ def global_alignment():
             fasta2_filepath = os.path.join(GBLALIGN, fasta2_filename)
 
             # Execute the global aligment program
-            output = subprocess.run(["./global_aligment",fasta1_filepath, fasta2_filepath], capture_output=True)
+            output = subprocess.run(["./global_aligment_last",fasta1_filepath, fasta2_filepath, match, mismatch, gap], capture_output=True)
             print(output)
 
             if len(output.stdout) > 0:
@@ -349,20 +354,18 @@ def global_alignment():
                 file_up:      str = "global_alignment_result.txt"
                 new_filename: str = re.sub(r'\.txt$',result_id+'.txt', file_up)
                 print(new_filename)
-
-                os.rename(file_up, new_filename)
-
+                os.rename('./'+file_up, new_filename)
                 # shutil.move(path+'/'+new_filename, './globalAlign/results/')
-                new_filename_path = './globalAlign/results/'+new_filename
-                print(new_filename_path)
+                # new_filename_path = './globalAlign/results/'+new_filename
+                # print(new_filename_path)
                 query = "global_alignment"
-                upload.upload_results(result_id,query,new_filename_path,user_id)
-
-                if (fasta1_filepath and fasta2_filepath):
-                    os.remove(fasta1_filepath)
-                    os.remove(fasta2_filepath)
-
-                return send_file(new_filename, as_attachment=True)        
+                upload.upload_results(result_id,query,new_filename,user_id)
+                # if (fasta1_filepath and fasta2_filepath):
+                #     os.remove(fasta1_filepath)
+                #     os.remove(fasta2_filepath)
+                response = send_file(new_filename,as_attachment=True)
+                os.remove(new_filename)
+                return response
 
         if not fasta1 or not fasta2:
             message = "Please upload both files"
@@ -526,6 +529,12 @@ def download_file(filename):
 def create_app():
     return app
 
+@app.route('/delete-row/<int:id>', methods=['DELETE'])
+def eliminar_fila(id):
+    if request.method == "DELETE":
+        upload.delete_job(id)
+    
+    return redirect(url_for('history'))
 
 ### START THE APP ###
 if __name__ == '__main__':

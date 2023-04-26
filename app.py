@@ -521,9 +521,49 @@ def local_alignment():
 #         return render_template('index.html')
 #     return render_template('random_sequence.html')
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 from concurrent.futures import ThreadPoolExecutor
 from threading import Thread
-def random_sequence_task(number):
+# def random_sequence_task(number):
+#     """Execute the random sequence program and return the new filename"""
+#     subprocess.run(["./random", number])
+#     id = randint(1, 9999999)
+#     ids = str(id)
+#     file_up = "dna.fasta"
+#     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
+#     os.rename(file_up, new_filename)
+#     user_id = session.get('user_id')
+#     query = "random_sequence"
+#     a = upload.upload_results(id,query,new_filename,user_id)              
+#     print(a)     
+#     response = send_file(new_filename,as_attachment=True)
+#     # return send_file(new_filename,as_attachment=True)
+#     os.remove(new_filename)
+#     print(new_filename)
+#     return new_filename
+
+def random_sequence_task(number,user_id):
     """Execute the random sequence program and return the new filename"""
     subprocess.run(["./random", number])
     id = randint(1, 9999999)
@@ -531,6 +571,12 @@ def random_sequence_task(number):
     file_up = "dna.fasta"
     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
     os.rename(file_up, new_filename)
+    query = "random_sequence"
+    a = upload.upload_results(id,query,new_filename,user_id)              
+    print(a)     
+    response = send_file(new_filename,as_attachment=True)
+    # return send_file(new_filename,as_attachment=True)
+    os.remove(new_filename)
     print(new_filename)
     return new_filename
 
@@ -542,9 +588,8 @@ def random_sequence():
         number = request.form['number']
         user_id = session.get('user_id')
         # task = executor.submit(random_sequence_task, number)
-        daemon = Thread(target=random_sequence_task, args=(number,),daemon=True)
+        daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
         daemon.start()
-        
         # new_filename = task.result() # This line will block the main thread
         # Return a response indicating that the task is in progress
         return render_template('random_sequence.html')

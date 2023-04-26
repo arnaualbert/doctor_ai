@@ -1,5 +1,0 @@
->secuencia_aleatoria
-TAGCCTTCTAGTGATTGTTGACCGCACACCGA
->secuencia_aleatoria
-TGGACATTCTACCGGTCGGTGAGAGCCACCGA
-Alignment score: 14

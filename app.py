@@ -9,7 +9,7 @@ This module is used to serve the backend of the application
 """
 
 # Imports of the app
-from flask import Flask, render_template, request, session,send_file
+from flask import Flask, render_template, request, session,send_file, redirect, url_for
 import os
 import model.login as logins
 import model.user as users
@@ -23,7 +23,8 @@ import glob
 import re
 from celery import Celery, Task
 from multiprocessing import Process
-
+from concurrent.futures import ThreadPoolExecutor
+executor = ThreadPoolExecutor(5)
 ########
 from multiprocessing import Pool
 from random import *
@@ -320,13 +321,18 @@ def gb_to_fasta():
 #-------------------------------------------
 @app.route('/globalalignment',methods=['GET', 'POST'])
 def global_alignment():
-    """Show the cds extract page"""
+    """Gloabal alignment tool
+        - In this verison deletes the result form server
+    """
 
     if request.method == 'POST':
         # Get the data from the form
         fasta1 = request.files['fasta1']
         fasta2 = request.files['fasta2']
 
+        match    = request.form['match']
+        mismatch = request.form['mismatch']
+        gap      = request.form['gap']
         if fasta1 and fasta2:
             fasta1_filename = fasta1.filename
             fasta2_filename = fasta2.filename
@@ -338,7 +344,7 @@ def global_alignment():
             fasta2_filepath = os.path.join(GBLALIGN, fasta2_filename)
 
             # Execute the global aligment program
-            output = subprocess.run(["./global_aligment",fasta1_filepath, fasta2_filepath], capture_output=True)
+            output = subprocess.run(["./global_aligment_last",fasta1_filepath, fasta2_filepath, match, mismatch, gap], capture_output=True)
             print(output)
 
             if len(output.stdout) > 0:
@@ -351,20 +357,18 @@ def global_alignment():
                 file_up:      str = "global_alignment_result.txt"
                 new_filename: str = re.sub(r'\.txt$',result_id+'.txt', file_up)
                 print(new_filename)
-
-                os.rename(file_up, new_filename)
-
+                os.rename('./'+file_up, new_filename)
                 # shutil.move(path+'/'+new_filename, './globalAlign/results/')
-                new_filename_path = './globalAlign/results/'+new_filename
-                print(new_filename_path)
+                # new_filename_path = './globalAlign/results/'+new_filename
+                # print(new_filename_path)
                 query = "global_alignment"
-                upload.upload_results(result_id,query,new_filename_path,user_id)
-
-                if (fasta1_filepath and fasta2_filepath):
-                    os.remove(fasta1_filepath)
-                    os.remove(fasta2_filepath)
-
-                return send_file(new_filename, as_attachment=True)        
+                upload.upload_results(result_id,query,new_filename,user_id)
+                # if (fasta1_filepath and fasta2_filepath):
+                #     os.remove(fasta1_filepath)
+                #     os.remove(fasta2_filepath)
+                response = send_file(new_filename,as_attachment=True)
+                os.remove(new_filename)
+                return response
 
         if not fasta1 or not fasta2:
             message = "Please upload both files"
@@ -404,6 +408,7 @@ def local_alignment():
             return send_file(new_filename,as_attachment=True)
 
     return render_template('local_aligment.html')
+# import threading
 
 # @app.route('/random_sequence', methods=['GET', 'POST'])
 # def random_sequence():
@@ -428,8 +433,144 @@ def local_alignment():
 #     return render_template('random_sequence.html')
 
 
-def random_sequence_task(number, user_id):
-    # Execute the random sequence program
+# def random_sequence_task(number):
+#     """Execute the random sequence program and return the new filename"""
+#     subprocess.run(["./random", number])
+#     print("hello")
+#     id = randint(1, 9999999)
+#     ids = str(id)
+#     file_up = "dna.fasta"
+#     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
+#     os.rename(file_up, new_filename)
+#     return new_filename
+    
+# @app.route('/random_sequence', methods=['GET', 'POST'])
+# def random_sequence():
+#     """Show the random sequence page"""
+#     if request.method == 'POST':
+#         # Get the data from the form
+#         number = request.form['number']
+#         user_id = session.get('user_id')
+#         task = executor.submit(random_sequence_task, number)
+#         print(task.result())
+#         new_filename = task.result()
+#         # print(executor.submit(random_sequence_task, number))
+#         # manager = multiprocessing.Manager()
+#         # return_dict = manager.dict()
+#         # p = multiprocessing.Process(target=random_sequence_task, args=(number, user_id, return_dict))
+#         # p.start()
+#         # p.join()
+#         # new_filename = return_dict.get(user_id)
+#         # response = send_file(new_filename, as_attachment=True)
+#         return send_file(new_filename, as_attachment=True)
+
+
+
+#     return render_template('random_sequence.html')
+
+
+
+
+# @app.route('/random_sequence', methods=['GET', 'POST'])
+# def random_sequence():
+#     """Show the random sequence page"""
+#     if request.method == 'POST':    
+#         # Get the data from the form  
+#         number = request.form['number']
+#         # Execute the random sequence program
+#         subprocess.run(["./random",number,"&"])  
+#         id = randint(1,9999999)
+#         ids = str(id)
+#         file_up = "dna.fasta"
+#         new_filename = re.sub(r'\.fasta$',ids+'random.fasta', file_up)
+#         os.rename(file_up, new_filename)
+#         user_id = session.get('user_id')
+#         query = "random_sequence"
+#         upload.upload_results(id,query,new_filename,user_id)                   
+#         response = send_file(new_filename,as_attachment=True)
+#         # return send_file(new_filename,as_attachment=True)
+#         os.remove(new_filename)
+#         return response
+#     return render_template('random_sequence.html')
+
+
+# def random_sequence_task(number, user_id):
+#     # Execute the random sequence program
+#     subprocess.run(["./random", number])
+#     id = randint(1, 9999999)
+#     ids = str(id)
+#     file_up = "dna.fasta"
+#     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
+#     os.rename(file_up, new_filename)
+#     query = "random_sequence"
+#     upload.upload_results(id,query,new_filename,user_id)  
+#     # return send_file(new_filename,as_attachment=True)
+#     # return response
+
+# @app.route('/random_sequence', methods=['GET', 'POST'])
+# def random_sequence():
+#     """Show the random sequence page"""
+#     if request.method == 'POST':
+#         # Get the data from the form
+#         number = request.form['number']
+#         user_id = session.get('user_id')
+#         # Execute the task asynchronously with multiprocessing
+#         p = Process(target=random_sequence_task, args=(number, user_id))
+#         p.start()
+#         # return "Task started"
+#         return render_template('index.html')
+#     return render_template('random_sequence.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from concurrent.futures import ThreadPoolExecutor
+from threading import Thread
+# def random_sequence_task(number):
+#     """Execute the random sequence program and return the new filename"""
+#     subprocess.run(["./random", number])
+#     id = randint(1, 9999999)
+#     ids = str(id)
+#     file_up = "dna.fasta"
+#     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
+#     os.rename(file_up, new_filename)
+#     user_id = session.get('user_id')
+#     query = "random_sequence"
+#     a = upload.upload_results(id,query,new_filename,user_id)              
+#     print(a)     
+#     response = send_file(new_filename,as_attachment=True)
+#     # return send_file(new_filename,as_attachment=True)
+#     os.remove(new_filename)
+#     print(new_filename)
+#     return new_filename
+
+### new
+# from queue import Queue
+# result_queue = Queue()
+# ####
+
+
+def random_sequence_task(number,user_id):
+    """Execute the random sequence program and return the new filename"""
     subprocess.run(["./random", number])
     id = randint(1, 9999999)
     ids = str(id)
@@ -437,9 +578,14 @@ def random_sequence_task(number, user_id):
     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
     os.rename(file_up, new_filename)
     query = "random_sequence"
-    upload.upload_results(id,query,new_filename,user_id)  
+    a = upload.upload_results(id,query,new_filename,user_id)              
+    print(a)     
+    # response = send_file(new_filename,as_attachment=True)
     # return send_file(new_filename,as_attachment=True)
-    # return response
+    # os.remove(new_filename)
+    print(new_filename)
+    # result_queue.put(new_filename)
+    return new_filename
 
 @app.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
@@ -448,11 +594,16 @@ def random_sequence():
         # Get the data from the form
         number = request.form['number']
         user_id = session.get('user_id')
-        # Execute the task asynchronously with multiprocessing
-        p = Process(target=random_sequence_task, args=(number, user_id))
-        p.start()
-        # return "Task started"
-        return render_template('index.html')
+        # task = executor.submit(random_sequence_task, number)
+        daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
+        daemon.start()
+        # new_filename = task.result() # This line will block the main thread
+        # Return a response indicating that the task is in progress
+        # print(result_queue.get())
+        return render_template('random_sequence.html')
+
+        # Note that you cannot call `send_file` here because the task is not completed yet.
+
     return render_template('random_sequence.html')
 
 
@@ -588,6 +739,23 @@ def history():
         return render_template('history.html',results=results)
     return render_template('history.html')
 
+
+@app.route('/history_query', methods=['GET', 'POST'])
+def history_query():
+    """Show the history page"""
+    if request.method == 'POST':
+        # Show the history
+        user_id = session.get('user_id')
+        tool = request.form['query_order']
+        print(tool)
+        list_of_results = upload.select_by_tool(tool,user_id)
+        print(list_of_results)
+        print(type(list_of_results))
+        results = list_of_results
+        return render_template('history.html',results=results)
+    return render_template('history.html')
+
+
 @app.route('/underconstruction', methods=['GET', 'POST'])
 def under_construction():
     """Show the view under construction"""
@@ -604,6 +772,12 @@ def download_file(filename):
 def create_app():
     return app
 
+@app.route('/delete-row/<int:id>', methods=['DELETE'])
+def eliminar_fila(id):
+    if request.method == "DELETE":
+        upload.delete_job(id)
+    
+    return redirect(url_for('history'))
 
 ### START THE APP ###
 if __name__ == '__main__':

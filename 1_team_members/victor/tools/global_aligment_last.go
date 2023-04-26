@@ -189,10 +189,10 @@ func main() {
 
 	fmt.Fprintln(writer, "Alignment score:", score)
 
-	fmt.Fprintln(writer, "Aligned sequence 1:")
+	fmt.Fprintln(writer, ">Aligned sequence 1:")
 	writer.WriteString(fiftystring1 + "\n")
 
-	fmt.Fprintln(writer, "Aligned sequence 2:")
+	fmt.Fprintln(writer, ">Aligned sequence 2:")
 	writer.WriteString(fiftystring2 + "\n")
 
 	writer.Flush()

@@ -23,7 +23,8 @@ import glob
 import re
 from celery import Celery, Task
 from multiprocessing import Process
-
+from concurrent.futures import ThreadPoolExecutor
+executor = ThreadPoolExecutor(5)
 ########
 from multiprocessing import Pool
 from random import *
@@ -407,6 +408,7 @@ def local_alignment():
             return send_file(new_filename,as_attachment=True)
 
     return render_template('local_aligment.html')
+# import threading
 
 # @app.route('/random_sequence', methods=['GET', 'POST'])
 # def random_sequence():
@@ -431,18 +433,106 @@ def local_alignment():
 #     return render_template('random_sequence.html')
 
 
-def random_sequence_task(number, user_id):
-    # Execute the random sequence program
+# def random_sequence_task(number):
+#     """Execute the random sequence program and return the new filename"""
+#     subprocess.run(["./random", number])
+#     print("hello")
+#     id = randint(1, 9999999)
+#     ids = str(id)
+#     file_up = "dna.fasta"
+#     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
+#     os.rename(file_up, new_filename)
+#     return new_filename
+    
+# @app.route('/random_sequence', methods=['GET', 'POST'])
+# def random_sequence():
+#     """Show the random sequence page"""
+#     if request.method == 'POST':
+#         # Get the data from the form
+#         number = request.form['number']
+#         user_id = session.get('user_id')
+#         task = executor.submit(random_sequence_task, number)
+#         print(task.result())
+#         new_filename = task.result()
+#         # print(executor.submit(random_sequence_task, number))
+#         # manager = multiprocessing.Manager()
+#         # return_dict = manager.dict()
+#         # p = multiprocessing.Process(target=random_sequence_task, args=(number, user_id, return_dict))
+#         # p.start()
+#         # p.join()
+#         # new_filename = return_dict.get(user_id)
+#         # response = send_file(new_filename, as_attachment=True)
+#         return send_file(new_filename, as_attachment=True)
+
+
+
+#     return render_template('random_sequence.html')
+
+
+
+
+# @app.route('/random_sequence', methods=['GET', 'POST'])
+# def random_sequence():
+#     """Show the random sequence page"""
+#     if request.method == 'POST':    
+#         # Get the data from the form  
+#         number = request.form['number']
+#         # Execute the random sequence program
+#         subprocess.run(["./random",number,"&"])  
+#         id = randint(1,9999999)
+#         ids = str(id)
+#         file_up = "dna.fasta"
+#         new_filename = re.sub(r'\.fasta$',ids+'random.fasta', file_up)
+#         os.rename(file_up, new_filename)
+#         user_id = session.get('user_id')
+#         query = "random_sequence"
+#         upload.upload_results(id,query,new_filename,user_id)                   
+#         response = send_file(new_filename,as_attachment=True)
+#         # return send_file(new_filename,as_attachment=True)
+#         os.remove(new_filename)
+#         return response
+#     return render_template('random_sequence.html')
+
+
+# def random_sequence_task(number, user_id):
+#     # Execute the random sequence program
+#     subprocess.run(["./random", number])
+#     id = randint(1, 9999999)
+#     ids = str(id)
+#     file_up = "dna.fasta"
+#     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
+#     os.rename(file_up, new_filename)
+#     query = "random_sequence"
+#     upload.upload_results(id,query,new_filename,user_id)  
+#     # return send_file(new_filename,as_attachment=True)
+#     # return response
+
+# @app.route('/random_sequence', methods=['GET', 'POST'])
+# def random_sequence():
+#     """Show the random sequence page"""
+#     if request.method == 'POST':
+#         # Get the data from the form
+#         number = request.form['number']
+#         user_id = session.get('user_id')
+#         # Execute the task asynchronously with multiprocessing
+#         p = Process(target=random_sequence_task, args=(number, user_id))
+#         p.start()
+#         # return "Task started"
+#         return render_template('index.html')
+#     return render_template('random_sequence.html')
+
+from concurrent.futures import ThreadPoolExecutor
+from threading import Thread
+def random_sequence_task(number):
+    """Execute the random sequence program and return the new filename"""
     subprocess.run(["./random", number])
     id = randint(1, 9999999)
     ids = str(id)
     file_up = "dna.fasta"
     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
     os.rename(file_up, new_filename)
-    query = "random_sequence"
-    upload.upload_results(id,query,new_filename,user_id)  
-    # return send_file(new_filename,as_attachment=True)
-    # return response
+    print(new_filename)
+    return new_filename
 
 @app.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
@@ -451,11 +541,16 @@ def random_sequence():
         # Get the data from the form
         number = request.form['number']
         user_id = session.get('user_id')
-        # Execute the task asynchronously with multiprocessing
-        p = Process(target=random_sequence_task, args=(number, user_id))
-        p.start()
-        # return "Task started"
-        return render_template('index.html')
+        # task = executor.submit(random_sequence_task, number)
+        daemon = Thread(target=random_sequence_task, args=(number,),daemon=True)
+        daemon.start()
+        
+        # new_filename = task.result() # This line will block the main thread
+        # Return a response indicating that the task is in progress
+        return render_template('random_sequence.html')
+
+        # Note that you cannot call `send_file` here because the task is not completed yet.
+
     return render_template('random_sequence.html')
 
 

@@ -563,6 +563,12 @@ from threading import Thread
 #     print(new_filename)
 #     return new_filename
 
+### new
+# from queue import Queue
+# result_queue = Queue()
+# ####
+
+
 def random_sequence_task(number,user_id):
     """Execute the random sequence program and return the new filename"""
     subprocess.run(["./random", number])
@@ -574,10 +580,11 @@ def random_sequence_task(number,user_id):
     query = "random_sequence"
     a = upload.upload_results(id,query,new_filename,user_id)              
     print(a)     
-    response = send_file(new_filename,as_attachment=True)
+    # response = send_file(new_filename,as_attachment=True)
     # return send_file(new_filename,as_attachment=True)
-    os.remove(new_filename)
+    # os.remove(new_filename)
     print(new_filename)
+    # result_queue.put(new_filename)
     return new_filename
 
 @app.route('/random_sequence', methods=['GET', 'POST'])
@@ -592,6 +599,7 @@ def random_sequence():
         daemon.start()
         # new_filename = task.result() # This line will block the main thread
         # Return a response indicating that the task is in progress
+        # print(result_queue.get())
         return render_template('random_sequence.html')
 
         # Note that you cannot call `send_file` here because the task is not completed yet.

@@ -1,0 +1,3 @@
+>secuencia_aleatoria 0 TGAACTAG 8
+>secuencia_aleatoria 2 GG--CTAG 10
+Alignment score: 6

@@ -1,0 +1,3 @@
+>secuencia_aleatoria 44 CATAGG 50
+>secuencia_aleatoria 72 CATAGG 78
+Alignment score: 6

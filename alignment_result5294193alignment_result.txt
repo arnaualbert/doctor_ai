@@ -1,0 +1,9 @@
+>secuencia_aleatoria
+Start At: 1
+Finish At: 3
+TTA
+>a
+Start At: 6
+Finish At: 8
+TTA
+Alignment score: 3

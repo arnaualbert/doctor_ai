@@ -30,18 +30,18 @@
         </h3>
     </div><br>
     <div class="container">
-      <form method="post" action="/localalignment" enctype="multipart/form-data">
+      <form method="post" action="/localalignment" enctype="multipart/form-data" onsubmit="return validarFormulario()">
         <div class="row row-cols-2">
           <div class="col">
             <div class="form-group">
               <label for="fasta1"> FASTA file 1</label>
-              <input class="form-control" type="file" id="fastafile1" name="fasta1local" value="{{ request.form['fasta1local'] }}">
+              <input class="form-control" type="file" id="fastafile1" name="fasta1local" value="{{ request.form['fasta1local'] }}" accept=".fasta">
             </div>
           </div>
           <div class="col">
             <div class="form-group">
               <label for="fasta2"> FASTA file 2</label>
-              <input class="form-control" type="file" id="fastafile2" name="fasta2local" value="{{ request.form['fasta2local'] }}">
+              <input class="form-control" type="file" id="fastafile2" name="fasta2local" value="{{ request.form['fasta2local'] }}" accept=".fasta">
             </div>
           </div>
             <div class="col">
@@ -66,7 +66,25 @@
         </div><br>
         <button class="btn btn-primary" type="submit">Enviar</button>
       </form>
+      <span id="errorMessage">{{message}}</span>
       <span>{{message}}</span>
     </div>
+
+    <script>
+      function validarFormulario() {
+        var fastafile1 = document.getElementById("fastafile1").value;
+        var fastafile2 = document.getElementById("fastafile2").value;
+        var match = document.getElementById("match").value;
+        var mismatch = document.getElementById("mismatch").value;
+        var gap = document.getElementById("gap").value;
+
+        if (fastafile1 === "" || fastafile2 === "" || match === "" || mismatch === "" || gap === "") {
+          var errorMessage = document.getElementById("errorMessage");
+          errorMessage.innerHTML = "Please fill all the fields";
+          return false;
+        }
+        return true;
+      }
+    </script>
     
 </body>

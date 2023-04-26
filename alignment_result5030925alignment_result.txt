@@ -1,0 +1,5 @@
+>secuencia_aleatoria
+CCATACTAGACCTCCTCAGCTTTT
+>secuencia_aleatoria
+GCCTTAACAACGTCCTCACCTCTT
+Alignment score: 12

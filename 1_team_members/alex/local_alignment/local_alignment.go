@@ -15,7 +15,7 @@ func max(a, b int) int {
 	return b
 }
 
-func localAlignment(seq1, seq2 string, match, mismatch, gap int) (string, string, int) {
+func localAlignment(seq1, seq2 string, match, mismatch, gap int) (string, string, int, int, int, int, int) {
 	n := len(seq1)
 	m := len(seq2)
 	score := make([][]int, n+1)
@@ -66,7 +66,14 @@ func localAlignment(seq1, seq2 string, match, mismatch, gap int) (string, string
 			j--
 		}
 	}
-	return alignedSeq1, alignedSeq2, maxScore
+
+	first_seq_end := len(alignedSeq1) + i + 1
+	second_seq_end := len(alignedSeq2) + j + 1
+
+	first_seq := i + 1
+	second_seq := i + 1
+
+	return alignedSeq1, alignedSeq2, maxScore, first_seq, second_seq, first_seq_end, second_seq_end
 }
 
 func splitString(input string, lineLength int) string {
@@ -130,7 +137,7 @@ func main() {
 		panic(err)
 	}
 
-	alignedSeq1, alignedSeq2, score := localAlignment(seq1, seq2, match, mismatch, gap)
+	alignedSeq1, alignedSeq2, score, locI, locJ, locfI, locfJ := localAlignment(seq1, seq2, match, mismatch, gap)
 	outputFile, err := os.Create("alignment_result.txt")
 	if err != nil {
 		panic(err)
@@ -140,10 +147,8 @@ func main() {
 	fiftystring2 := splitString(alignedSeq2, 50)
 	defer outputFile.Close()
 	writer := bufio.NewWriter(outputFile)
-	writer.WriteString(header1 + "\n")
-	writer.WriteString(fiftystring1 + "\n")
-	writer.WriteString(header2 + "\n")
-	writer.WriteString(fiftystring2 + "\n")
+	writer.WriteString(fmt.Sprintf("%s %d %s %d\n", header1, locI, fiftystring1, locfI))
+	writer.WriteString(fmt.Sprintf("%s %d %s %d\n", header2, locJ, fiftystring2, locfJ))
 	writer.WriteString(fmt.Sprintf("Alignment score: %d\n", score))
 	writer.Flush()
 }

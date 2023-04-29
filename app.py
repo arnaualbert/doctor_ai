@@ -226,6 +226,15 @@ def iamlr():
         return render_template('ia.html', solve=solve)
     return render_template('ia.html')
 
+
+def dna_to_protein(fullroute,filename,user_id,id):
+    subprocess.run(["./dna_protein",fullroute])
+    new_filename = re.sub(r'\.fasta$', '_protein.fasta', filename)
+    file_up = "dnaprotein/"+new_filename
+    query = "dnaprotein"
+    upload.upload_results(id,query,file_up,user_id)
+
+
 @app.route('/dnatoprotein',methods=['GET', 'POST'])
 def DNA_to_protein():
     """Show the cds page"""
@@ -239,20 +248,52 @@ def DNA_to_protein():
             file.save(os.path.join(DNATOPROTEIN, filename))
             fullroute=os.path.join(DNATOPROTEIN, filename)
             # Excecute the dna to protein program
-            subprocess.run(["./dna_protein",fullroute])
-            new_filename = re.sub(r'\.fasta$', '_protein.fasta', filename)
-            file_up = "dnaprotein/"+new_filename
-            user_id = session.get('user_id')
-            query = "dnaprotein"
-            upload.upload_results(id,query,file_up,user_id)
+            if fullroute.endswith('.fasta'):
+                user_id = session.get('user_id')
+                daemon = Thread(target=dna_to_protein, args=(fullroute,filename,user_id,id))
+                daemon = daemon.start()
+            # subprocess.run(["./dna_protein",fullroute])
+            # new_filename = re.sub(r'\.fasta$', '_protein.fasta', filename)
+            # file_up = "dnaprotein/"+new_filename
+            # user_id = session.get('user_id')
+            # query = "dnaprotein"
+            # upload.upload_results(id,query,file_up,user_id)
             ###NEW
-            response = send_file("dnaprotein/"+new_filename, as_attachment=True)
-            os.remove("dnaprotein/"+new_filename)
-            os.remove(fullroute)
+            # response = send_file("dnaprotein/"+new_filename, as_attachment=True)
+            # os.remove("dnaprotein/"+new_filename)
+            # os.remove(fullroute)
             ####
         # return send_file("dnaprotein/"+new_filename, as_attachment=True)
-        return response
+            return render_template('dna_protein.html')        
     return render_template('dna_protein.html')
+
+# @app.route('/dnatoprotein',methods=['GET', 'POST'])
+# def DNA_to_protein():
+#     """Show the cds page"""
+#     if request.method == 'POST':
+#         # Get the data from the form
+#         file = request.files['dnaprotein']
+#         if file:
+#             id = randint(1,9999999)
+#             ids = str(id)
+#             filename = ids+file.filename
+#             file.save(os.path.join(DNATOPROTEIN, filename))
+#             fullroute=os.path.join(DNATOPROTEIN, filename)
+#             # Excecute the dna to protein program
+#             subprocess.run(["./dna_protein",fullroute])
+#             new_filename = re.sub(r'\.fasta$', '_protein.fasta', filename)
+#             file_up = "dnaprotein/"+new_filename
+#             user_id = session.get('user_id')
+#             query = "dnaprotein"
+#             upload.upload_results(id,query,file_up,user_id)
+#             ###NEW
+#             response = send_file("dnaprotein/"+new_filename, as_attachment=True)
+#             # os.remove("dnaprotein/"+new_filename)
+#             # os.remove(fullroute)
+#             ####
+#         # return send_file("dnaprotein/"+new_filename, as_attachment=True)
+#         return response
+#     return render_template('dna_protein.html')
 
 @app.route('/dnatorna',methods=['GET', 'POST'])
 def DNA_to_RNA():
@@ -275,7 +316,7 @@ def DNA_to_RNA():
             upload.upload_results(id,query,file_up,user_id)
             ###NEW####
             response = send_file("dnatorna/"+new_filename, as_attachment=True)
-            os.remove(new_filename)
+            # os.remove(new_filename)
         # return send_file("dnatorna/"+new_filename, as_attachment=True)
         return response
     return render_template('dna_rna.html')
@@ -378,7 +419,7 @@ def global_alignment():
                 #     os.remove(fasta1_filepath)
                 #     os.remove(fasta2_filepath)
                 response = send_file(new_filename,as_attachment=True)
-                os.remove(new_filename)
+                # os.remove(new_filename)
                 return response
 
         if not fasta1 or not fasta2:

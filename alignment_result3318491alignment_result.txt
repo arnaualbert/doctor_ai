@@ -1,3 +1,0 @@
->secuencia_aleatoria 9 GGACATTTT 18
->secuencia_aleatoria 9 GGCCATTTT 41
-Alignment score: 7

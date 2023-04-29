@@ -687,7 +687,10 @@ def read_fasta_file(file_path):
 
 def split_fasta_task(fasta, user_id,start,end):
     subprocess.run(["./split",fasta,start,end])
-    print(user_id)
+    id = randint(1, 9999999)
+    file_up = f"{id}output_{start}_{end}.fasta"
+    query = "split_fasta"
+    upload.upload_results(id,query,file_up,user_id)
     # pass
 
 

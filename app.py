@@ -285,6 +285,18 @@ def DNA_to_RNA():
         return render_template('dna_rna.html')
     return render_template('dna_rna.html')
 
+def cdsextract_task(fullroute,user_id):
+    subprocess.run(["./extract_cds",fullroute])
+    id = randint(1,9999999)
+    ids = str(id)
+    file_up = Path('resultado.fasta')
+    new_filename = Path(ids+'resultado.txt')
+    asd = file_up.rename(new_filename)
+    query = "cds_extract"
+    upload.upload_results(id,query,asd,user_id)                         
+   
+    pass
+
 
 @app.route('/cdsextract',methods=['GET', 'POST'])
 def cdsextract():
@@ -297,16 +309,11 @@ def cdsextract():
             file.save(os.path.join(CDSEXT, filename))
             fullroute=os.path.join(CDSEXT, filename)
             # Excecute the cds extract program
-            subprocess.run(["./extract_cds",fullroute])
-            id = randint(1,9999999)
-            ids = str(id)
-            file_up = Path('resultado.fasta')
-            new_filename = Path(ids+'resultado.txt')
-            asd = file_up.rename(new_filename)
-            user_id = session.get('user_id')
-            query = "cds_extract"
-            upload.upload_results(id,query,asd,user_id)                         
-        return send_file(asd,as_attachment=True)
+            if file.filename.endswith('.gb'):
+                user_id = session.get('user_id')
+                daemon = Thread(target=cdsextract_task, args=(fullroute,user_id))
+                daemon = daemon.start()
+                return render_template('cds.html')
     return render_template('cds.html')
 
 # Genbank to fasta 

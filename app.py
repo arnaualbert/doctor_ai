@@ -24,6 +24,8 @@ import re
 from celery import Celery, Task
 from multiprocessing import Process
 from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
+from threading import Thread
 executor = ThreadPoolExecutor(5)
 ########
 from multiprocessing import Pool
@@ -93,6 +95,19 @@ COMPLEMENTARY_FASTA = os.path.join(path, 'complementary_one')
 
 if not os.path.isdir(COMPLEMENTARY_FASTA):
     os.mkdir(COMPLEMENTARY_FASTA)
+
+### CHECK FASTA
+
+# from Bio import SeqIO
+
+# def is_fasta(file_name):
+#     try:
+#         with open(file_name) as handle:
+#             for record in SeqIO.parse(handle, "fasta"):
+#                 return True
+#     except:
+#         pass
+#     return False
 
 
 ### ERRORS
@@ -387,7 +402,56 @@ def global_alignment():
     return render_template('global_aligment.html')
 
 #Local aligment
-#-------------------------------------------
+# #-------------------------------------------
+# @app.route('/localalignment',methods=['GET', 'POST'])
+# def local_alignment():
+#     """Show the local alignment page"""
+#     if request.method == 'POST':
+#         # Get the data from the form
+#         fasta1 = request.files['fasta1local']
+#         fasta2 = request.files['fasta2local']
+#         match = request.form['match']
+#         mismatch = request.form['mismatch']
+#         gap = request.form['gap']
+#         if fasta1 and fasta2:
+#             fasta1_filename = fasta1.filename
+#             fasta2_filename = fasta2.filename
+#             fasta1.save(os.path.join(LCLALIGN, fasta1_filename))
+#             fasta2.save(os.path.join(LCLALIGN, fasta2_filename))
+#             fasta1_filepath = os.path.join(LCLALIGN, fasta1_filename)
+#             fasta2_filepath = os.path.join(LCLALIGN, fasta2_filename)
+#             # Execute the local aligment program
+#             subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap])
+#             id = randint(1,9999999)
+#             ids = str(id)
+#             file_up = "alignment_result.txt"
+#             new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
+#             os.rename(file_up, new_filename)
+#             user_id = session.get('user_id')
+#             query = "local_alignment"
+#             upload.upload_results(id,query,new_filename,user_id)
+#             return send_file(new_filename,as_attachment=True)
+
+#     return render_template('local_aligment.html')
+
+
+def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user_id):
+        # Execute the local aligment program
+    print("running local alignment")
+    subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap])
+    print("finished local alignment")
+    id = randint(1,9999999)
+    ids = str(id)
+    file_up = "alignment_result.txt"
+    new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
+    print(new_filename)
+    os.rename(file_up, new_filename)
+    # user_id = session.get('user_id')
+    query = "local_alignment"
+    upload.upload_results(id,query,new_filename,user_id)
+
+
+
 @app.route('/localalignment',methods=['GET', 'POST'])
 def local_alignment():
     """Show the local alignment page"""
@@ -405,82 +469,13 @@ def local_alignment():
             fasta2.save(os.path.join(LCLALIGN, fasta2_filename))
             fasta1_filepath = os.path.join(LCLALIGN, fasta1_filename)
             fasta2_filepath = os.path.join(LCLALIGN, fasta2_filename)
-            # Execute the local aligment program
-            subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap])
-            id = randint(1,9999999)
-            ids = str(id)
-            file_up = "alignment_result.txt"
-            new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
-            os.rename(file_up, new_filename)
             user_id = session.get('user_id')
-            query = "local_alignment"
-            upload.upload_results(id,query,new_filename,user_id)
-            return send_file(new_filename,as_attachment=True)
+            print("si")
+            daemon = Thread(target=local, args=(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user_id), daemon=True)
+            daemon.start()
+        return render_template('local_aligment.html')
 
     return render_template('local_aligment.html')
-
-
-
-@app.route('/split',methods=['GET', 'POST'])
-def split_fasta():
-    """Show the split fasta page"""
-    if request.method == 'POST':
-        fasta = request.files["split"]
-        start = request.form['start']
-        end = request.form['end']
-        fasta_ext = fasta.filename
-        fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
-        full_path = os.path.join(SPLIT_FASTA,fasta_ext)
-        if fasta_ext.endswith(".fasta") and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
-            daemon = Thread(target=split_fasta_task, args=(full_path,session.get('user_id'),start,end),daemon=True)
-            daemon.start()
-            return render_template('split_fasta.html', message="Doing the job")
-        else:
-            os.remove(full_path)
-            return render_template('split_fasta.html', message="File must be in .fasta format and inputs must be numbers bigger tha 0")
-    return render_template('split_fasta.html')
-
-
-def complementary_task(fasta):
-    out_name = "complementary.fasta"
-    subprocess.run(["./complementary",fasta,out_name])
-    return render_template('split_fasta.html')
-
-def count_letters_in_file(filename):
-    with open(filename, "r") as file:
-        next(file)
-        count = 0
-        for line in file:
-            count += len(line.strip())
-
-    return count
-
-def split_fasta_task(fasta, user_id,start,end):
-    subprocess.run(["./split",fasta,start,end])
-    print(user_id)
-
-
-@app.route('/complement',methods=['GET', 'POST'])
-def complement_sequence():
-    """Show the complementary sequence page"""
-    if request.method == 'POST':
-        fasta = request.files["complementary"]
-        fasta_ext = fasta.filename
-        fasta.save(os.path.join(COMPLEMENTARY_FASTA,fasta_ext))
-        full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
-        if fasta_ext.endswith(".fasta"):
-            deamon = Thread(target=complementary_task, args=(full_path,),daemon=True)
-            deamon.start()
-            return render_template('complementary.html', message="Doing the job")
-    return render_template('complementary.html')
-
-
-@app.route('/blast',methods=['GET', 'POST'])
-def blast():
-    """Show the blast page"""
-    if request.method == 'POST':
-        pass
-    return render_template('blast.html')
 # import threading
 
 # @app.route('/random_sequence', methods=['GET', 'POST'])
@@ -616,8 +611,11 @@ def blast():
 
 
 
-from concurrent.futures import ThreadPoolExecutor
-from threading import Thread
+# from concurrent.futures import ThreadPoolExecutor
+# from threading import Thread
+
+
+
 # def random_sequence_task(number):
 #     """Execute the random sequence program and return the new filename"""
 #     subprocess.run(["./random", number])
@@ -653,11 +651,7 @@ def random_sequence_task(number,user_id):
     query = "random_sequence"
     a = upload.upload_results(id,query,new_filename,user_id)              
     print(a)     
-    # response = send_file(new_filename,as_attachment=True)
-    # return send_file(new_filename,as_attachment=True)
-    # os.remove(new_filename)
     print(new_filename)
-    # result_queue.put(new_filename)
     return new_filename
 
 @app.route('/random_sequence', methods=['GET', 'POST'])
@@ -666,14 +660,16 @@ def random_sequence():
     if request.method == 'POST':
         # Get the data from the form
         number = request.form['number']
-        user_id = session.get('user_id')
-        # task = executor.submit(random_sequence_task, number)
-        daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
-        daemon.start()
-        # new_filename = task.result() # This line will block the main thread
-        # Return a response indicating that the task is in progress
-        # print(result_queue.get())
-        return render_template('random_sequence.html')
+        number_int = int(number)
+
+        if number_int <= 0 or number.isnumeric() == False:
+            return render_template('random_sequence.html', message="Number must be greater than 0")
+        else:
+            user_id = session.get('user_id')
+            # task = executor.submit(random_sequence_task, number)
+            daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
+            daemon.start()
+            return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
 
         # Note that you cannot call `send_file` here because the task is not completed yet.
 
@@ -689,11 +685,59 @@ def read_fasta_file(file_path):
         return True
 
 
+def split_fasta_task(fasta, user_id,start,end):
+    subprocess.run(["./split",fasta,start,end])
+    print(user_id)
+    # pass
 
 
 
+def count_letters_in_file(filename):
+    with open(filename, "r") as file:
+        next(file)
+        count = 0
+        for line in file:
+            count += len(line.strip())
+
+    return count
+
+@app.route('/split_fasta', methods=['GET', 'POST'])
+def split_fasta():
+    ""
+    if request.method == 'POST':
+        fasta = request.files["split"]
+        start = request.form['start']
+        end = request.form['end']
+        fasta_ext = fasta.filename
+        fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
+        full_path = os.path.join(SPLIT_FASTA,fasta_ext)
+        if fasta_ext.endswith(".fasta") and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
+            daemon = Thread(target=split_fasta_task, args=(full_path,session.get('user_id'),start,end),daemon=True)
+            daemon.start()
+            return render_template('split.html', message="Doing the job")
+        else:
+            os.remove(full_path)
+            return render_template('split.html', message="File must be in .fasta format and inputs must be numbers bigger tha 0")
+    return render_template('split.html')
 
 
+def complementary_task(fasta):
+    out_name = "complementary.fasta"
+    subprocess.run(["./complementary",fasta,out_name])
+
+
+@app.route("/complementary", methods=['GET', 'POST'])
+def complementary():
+    if request.method == 'POST':
+        fasta = request.files["complementary"]
+        fasta_ext = fasta.filename
+        fasta.save(os.path.join(COMPLEMENTARY_FASTA,fasta_ext))
+        full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
+        if fasta_ext.endswith(".fasta"):
+            deamon = Thread(target=complementary_task, args=(full_path,),daemon=True)
+            deamon.start()
+            return render_template('complementary.html', message="Doing the job")
+    return render_template('complementary.html')
 
 # def random_sequence_task(number, user_id):
 #     # Execute the random sequence program

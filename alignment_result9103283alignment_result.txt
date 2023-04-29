@@ -1,7 +1,0 @@
->a
-Start At: 6
-TAGGTTTCATGT
->secuencia_aleatoria
-Start At: 63
-TAGGTCTACTGT
-Alignment score: 6

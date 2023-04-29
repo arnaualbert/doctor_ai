@@ -1,3 +1,0 @@
->secuencia_aleatoria 0 TGAACT 6
->secuencia_aleatoria 2 GG--CT 8
-Alignment score: 4

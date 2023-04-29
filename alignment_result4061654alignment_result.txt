@@ -1,3 +1,0 @@
->secuencia_aleatoria 0  0
->secuencia_aleatoria 0  0
-Alignment score: 0

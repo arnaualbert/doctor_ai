@@ -24,6 +24,8 @@ import re
 from celery import Celery, Task
 from multiprocessing import Process
 from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
+from threading import Thread
 executor = ThreadPoolExecutor(5)
 ########
 from multiprocessing import Pool
@@ -377,7 +379,56 @@ def global_alignment():
     return render_template('global_aligment.html')
 
 #Local aligment
-#-------------------------------------------
+# #-------------------------------------------
+# @app.route('/localalignment',methods=['GET', 'POST'])
+# def local_alignment():
+#     """Show the local alignment page"""
+#     if request.method == 'POST':
+#         # Get the data from the form
+#         fasta1 = request.files['fasta1local']
+#         fasta2 = request.files['fasta2local']
+#         match = request.form['match']
+#         mismatch = request.form['mismatch']
+#         gap = request.form['gap']
+#         if fasta1 and fasta2:
+#             fasta1_filename = fasta1.filename
+#             fasta2_filename = fasta2.filename
+#             fasta1.save(os.path.join(LCLALIGN, fasta1_filename))
+#             fasta2.save(os.path.join(LCLALIGN, fasta2_filename))
+#             fasta1_filepath = os.path.join(LCLALIGN, fasta1_filename)
+#             fasta2_filepath = os.path.join(LCLALIGN, fasta2_filename)
+#             # Execute the local aligment program
+#             subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap])
+#             id = randint(1,9999999)
+#             ids = str(id)
+#             file_up = "alignment_result.txt"
+#             new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
+#             os.rename(file_up, new_filename)
+#             user_id = session.get('user_id')
+#             query = "local_alignment"
+#             upload.upload_results(id,query,new_filename,user_id)
+#             return send_file(new_filename,as_attachment=True)
+
+#     return render_template('local_aligment.html')
+
+
+def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user_id):
+        # Execute the local aligment program
+    print("running local alignment")
+    subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap])
+    print("finished local alignment")
+    id = randint(1,9999999)
+    ids = str(id)
+    file_up = "alignment_result.txt"
+    # new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
+    # print(new_filename)
+    # os.rename(file_up, new_filename)
+    # # user_id = session.get('user_id')
+    # query = "local_alignment"
+    # upload.upload_results(id,query,new_filename,user_id)
+
+
+
 @app.route('/localalignment',methods=['GET', 'POST'])
 def local_alignment():
     """Show the local alignment page"""
@@ -395,19 +446,27 @@ def local_alignment():
             fasta2.save(os.path.join(LCLALIGN, fasta2_filename))
             fasta1_filepath = os.path.join(LCLALIGN, fasta1_filename)
             fasta2_filepath = os.path.join(LCLALIGN, fasta2_filename)
-            # Execute the local aligment program
-            subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap])
-            id = randint(1,9999999)
-            ids = str(id)
-            file_up = "alignment_result.txt"
-            new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
-            os.rename(file_up, new_filename)
             user_id = session.get('user_id')
-            query = "local_alignment"
-            upload.upload_results(id,query,new_filename,user_id)
-            return send_file(new_filename,as_attachment=True)
+            print("si")
+            daemon = Thread(target=local, args=(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user_id), daemon=True)
+            daemon.start()
+        return render_template('local_aligment.html')
 
     return render_template('local_aligment.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # import threading
 
 # @app.route('/random_sequence', methods=['GET', 'POST'])
@@ -543,8 +602,11 @@ def local_alignment():
 
 
 
-from concurrent.futures import ThreadPoolExecutor
-from threading import Thread
+# from concurrent.futures import ThreadPoolExecutor
+# from threading import Thread
+
+
+
 # def random_sequence_task(number):
 #     """Execute the random sequence program and return the new filename"""
 #     subprocess.run(["./random", number])

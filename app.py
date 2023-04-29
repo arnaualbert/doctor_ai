@@ -84,6 +84,16 @@ RANDOM_SEQ = os.path.join(path, 'randomseqs')
 if not os.path.isdir(RANDOM_SEQ):
     os.mkdir(RANDOM_SEQ)
 
+SPLIT_FASTA = os.path.join(path, 'splits')
+
+if not os.path.isdir(SPLIT_FASTA):
+    os.mkdir(SPLIT_FASTA)
+
+COMPLEMENTARY_FASTA = os.path.join(path, 'complementary_one')
+
+if not os.path.isdir(COMPLEMENTARY_FASTA):
+    os.mkdir(COMPLEMENTARY_FASTA)
+
 
 ### ERRORS
 @app.errorhandler(400)
@@ -408,6 +418,69 @@ def local_alignment():
             return send_file(new_filename,as_attachment=True)
 
     return render_template('local_aligment.html')
+
+
+
+@app.route('/split',methods=['GET', 'POST'])
+def split_fasta():
+    """Show the split fasta page"""
+    if request.method == 'POST':
+        fasta = request.files["split"]
+        start = request.form['start']
+        end = request.form['end']
+        fasta_ext = fasta.filename
+        fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
+        full_path = os.path.join(SPLIT_FASTA,fasta_ext)
+        if fasta_ext.endswith(".fasta") and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
+            daemon = Thread(target=split_fasta_task, args=(full_path,session.get('user_id'),start,end),daemon=True)
+            daemon.start()
+            return render_template('split_fasta.html', message="Doing the job")
+        else:
+            os.remove(full_path)
+            return render_template('split_fasta.html', message="File must be in .fasta format and inputs must be numbers bigger tha 0")
+    return render_template('split_fasta.html')
+
+
+def complementary_task(fasta):
+    out_name = "complementary.fasta"
+    subprocess.run(["./complementary",fasta,out_name])
+    return render_template('split_fasta.html')
+
+def count_letters_in_file(filename):
+    with open(filename, "r") as file:
+        next(file)
+        count = 0
+        for line in file:
+            count += len(line.strip())
+
+    return count
+
+def split_fasta_task(fasta, user_id,start,end):
+    subprocess.run(["./split",fasta,start,end])
+    print(user_id)
+
+
+@app.route('/complement',methods=['GET', 'POST'])
+def complement_sequence():
+    """Show the complementary sequence page"""
+    if request.method == 'POST':
+        fasta = request.files["complementary"]
+        fasta_ext = fasta.filename
+        fasta.save(os.path.join(COMPLEMENTARY_FASTA,fasta_ext))
+        full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
+        if fasta_ext.endswith(".fasta"):
+            deamon = Thread(target=complementary_task, args=(full_path,),daemon=True)
+            deamon.start()
+            return render_template('complementary.html', message="Doing the job")
+    return render_template('complementary.html')
+
+
+@app.route('/blast',methods=['GET', 'POST'])
+def blast():
+    """Show the blast page"""
+    if request.method == 'POST':
+        pass
+    return render_template('blast.html')
 # import threading
 
 # @app.route('/random_sequence', methods=['GET', 'POST'])

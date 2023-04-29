@@ -24,16 +24,17 @@
       </nav><br>
 
     <div>
-        <h3>CDS EXTRACT</h3>
+        <h3>Split Fasta</h3>
     </div><br>
     <div class="row-cols-4">
-        <form method=post action="/cdsextract" enctype=multipart/form-data  onsubmit="return validarFormulario()">
+        <form method=post action="/split_fasta" enctype=multipart/form-data>
             <div class="col">
-                <input class="form-control" type="file" name="extractcds" id="formFile" value="{{ request.form['formFile'] }}" accept=".gb">
+                <input class="form-control" type="file" name="split" id="formFile">
+                <input class="form-control" type="number" name="start" id="formFile">
+                <input class="form-control" type="number" name="end" id="formFile">
             </div>
             </div><br>
             <button class="btn btn-primary" type="submit">Submit</button>
-            <span id="errorMessage">{{message}}</span>
         </form>
 
         <script>

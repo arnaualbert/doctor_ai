@@ -24,15 +24,15 @@
       </nav><br>
 
     <div>
-        <h3>CDS EXTRACT</h3>
+        <h3>Blast (Under Construction)</h3>
     </div><br>
     <div class="row-cols-4">
         <form method=post action="/cdsextract" enctype=multipart/form-data  onsubmit="return validarFormulario()">
             <div class="col">
-                <input class="form-control" type="file" name="extractcds" id="formFile" value="{{ request.form['formFile'] }}" accept=".gb">
+                <input class="form-control" type="file" name="complementary" id="formFile" value="{{ request.form['formFile'] }}" accept=".fasta" disabled>
             </div>
             </div><br>
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <button class="btn btn-primary" type="submit" disabled>Submit</button>
             <span id="errorMessage">{{message}}</span>
         </form>
 

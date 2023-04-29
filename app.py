@@ -317,6 +317,20 @@ def cdsextract():
 
 # Genbank to fasta 
 #-------------------------------------------
+
+def genbank_to_fasta(fullroute,user_id):
+    # result = subprocess.run(["./genbankToFastaV3",fullroute], stdout=subprocess.PIPE, text=True)
+    subprocess.run(["./genbankToFastaV3",fullroute])
+    id = randint(1,9999999)
+    ids = str(id)
+    file_up = Path('gb_to_fasta.fasta')
+    new_filename = Path(ids+'gb_to_fasta.fasta')
+    asd = file_up.rename(new_filename)
+    query = "gb_to_fasta"
+    upload.upload_results(id,query,asd,user_id)  
+
+
+
 @app.route('/gbtofasta',methods=['GET', 'POST'])
 def gb_to_fasta():
     """Show the cds extract page"""
@@ -328,16 +342,11 @@ def gb_to_fasta():
             file.save(os.path.join(GB2FASTA, filename))
             fullroute=os.path.join(GB2FASTA, filename)
             # Excecute the genbank to fasta program
-            result = subprocess.run(["./genbankToFastaV3",fullroute], stdout=subprocess.PIPE, text=True)
-            id = randint(1,9999999)
-            ids = str(id)
-            file_up = Path('gb_to_fasta.fasta')
-            new_filename = Path(ids+'gb_to_fasta.fasta')
-            asd = file_up.rename(new_filename)
-            user_id = session.get('user_id')
-            query = "gb_to_fasta"
-            upload.upload_results(id,query,asd,user_id)                         
-        return send_file(new_filename, as_attachment=True)
+            if file.filename.endswith('.gb'):
+                user_id = session.get('user_id')
+                daemon = Thread(target=genbank_to_fasta, args=(fullroute,user_id))
+                daemon = daemon.start()
+                return render_template('gbtofasta.html')
     return render_template('gbtofasta.html')
 
 # Global aligment

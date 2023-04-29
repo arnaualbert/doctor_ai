@@ -727,7 +727,7 @@ def split_fasta():
 def complementary_task(fasta,user_id):
     id = randint(1, 9999999)
     out_name = f"{id}complementary.fasta"
-    query = "split_fasta"
+    query = "complementary"
     subprocess.run(["./complementary",fasta,out_name])
     upload.upload_results(id,query,out_name,user_id)
 

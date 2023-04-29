@@ -724,9 +724,13 @@ def split_fasta():
     return render_template('split.html')
 
 
-def complementary_task(fasta):
-    out_name = "complementary.fasta"
+def complementary_task(fasta,user_id):
+    id = randint(1, 9999999)
+    out_name = f"{id}complementary.fasta"
+    query = "split_fasta"
     subprocess.run(["./complementary",fasta,out_name])
+    upload.upload_results(id,query,out_name,user_id)
+
 
 
 @app.route("/complementary", methods=['GET', 'POST'])
@@ -737,7 +741,7 @@ def complementary():
         fasta.save(os.path.join(COMPLEMENTARY_FASTA,fasta_ext))
         full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
         if fasta_ext.endswith(".fasta"):
-            deamon = Thread(target=complementary_task, args=(full_path,),daemon=True)
+            deamon = Thread(target=complementary_task, args=(full_path,session.get('user_id')),daemon=True)
             deamon.start()
             return render_template('complementary.html', message="Doing the job")
     return render_template('complementary.html')

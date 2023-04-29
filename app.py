@@ -642,11 +642,7 @@ def random_sequence_task(number,user_id):
     query = "random_sequence"
     a = upload.upload_results(id,query,new_filename,user_id)              
     print(a)     
-    # response = send_file(new_filename,as_attachment=True)
-    # return send_file(new_filename,as_attachment=True)
-    # os.remove(new_filename)
     print(new_filename)
-    # result_queue.put(new_filename)
     return new_filename
 
 @app.route('/random_sequence', methods=['GET', 'POST'])
@@ -655,14 +651,19 @@ def random_sequence():
     if request.method == 'POST':
         # Get the data from the form
         number = request.form['number']
-        user_id = session.get('user_id')
-        # task = executor.submit(random_sequence_task, number)
-        daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
-        daemon.start()
-        # new_filename = task.result() # This line will block the main thread
-        # Return a response indicating that the task is in progress
-        # print(result_queue.get())
-        return render_template('random_sequence.html')
+        number_int = int(number)
+
+        if number_int <= 0 or number.isnumeric() == False:
+            return render_template('random_sequence.html', message="Number must be greater than 0")
+        else:
+            user_id = session.get('user_id')
+            # task = executor.submit(random_sequence_task, number)
+            daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
+            daemon.start()
+            # new_filename = task.result() # This line will block the main thread
+            # Return a response indicating that the task is in progress
+            # print(result_queue.get())
+            return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
 
         # Note that you cannot call `send_file` here because the task is not completed yet.
 

@@ -91,6 +91,10 @@ SPLIT_FASTA = os.path.join(path, 'splits')
 if not os.path.isdir(SPLIT_FASTA):
     os.mkdir(SPLIT_FASTA)
 
+COMPLEMENTARY_FASTA = os.path.join(path, 'complementary')
+
+if not os.path.isdir(COMPLEMENTARY_FASTA):
+    os.mkdir(COMPLEMENTARY_FASTA)
 
 ### CHECK FASTA
 
@@ -731,8 +735,21 @@ def split_fasta():
     return render_template('split.html')
 
 
+def complementary_task(fasta):
+    out_name = "complementary.fasta"
+    subprocess.run(["./complementary",fasta,out_name])
 
 
+@app.route("/complementary", methods=['GET', 'POST'])
+def complementary():
+    if request.method == 'POST':
+        fasta = request.files["complementary"]
+        fasta_ext = fasta.filename
+        fasta.save(os.path.join(COMPLEMENTARY_FASTA,fasta_ext))
+        full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
+        complementary_task(full_path)
+        return render_template('complementary.html', message="Doing the job")
+    return render_template('complementary.html')
 
 # def random_sequence_task(number, user_id):
 #     # Execute the random sequence program

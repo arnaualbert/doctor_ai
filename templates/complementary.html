@@ -27,7 +27,7 @@
         <h3>Complementary Sequence</h3>
     </div><br>
     <div class="row-cols-4">
-        <form method=post action="/cdsextract" enctype=multipart/form-data  onsubmit="return validarFormulario()">
+        <form method=post action="/complementary" enctype=multipart/form-data  onsubmit="return validarFormulario()">
             <div class="col">
                 <input class="form-control" type="file" name="complementary" id="formFile" value="{{ request.form['formFile'] }}" accept=".fasta">
             </div>

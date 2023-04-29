@@ -96,20 +96,6 @@ COMPLEMENTARY_FASTA = os.path.join(path, 'complementary_one')
 if not os.path.isdir(COMPLEMENTARY_FASTA):
     os.mkdir(COMPLEMENTARY_FASTA)
 
-### CHECK FASTA
-
-# from Bio import SeqIO
-
-# def is_fasta(file_name):
-#     try:
-#         with open(file_name) as handle:
-#             for record in SeqIO.parse(handle, "fasta"):
-#                 return True
-#     except:
-#         pass
-#     return False
-
-
 ### ERRORS
 @app.errorhandler(400)
 def bad_request_error(error):

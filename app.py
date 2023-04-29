@@ -434,12 +434,12 @@ def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user_id):
     id = randint(1,9999999)
     ids = str(id)
     file_up = "alignment_result.txt"
-    # new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
-    # print(new_filename)
-    # os.rename(file_up, new_filename)
-    # # user_id = session.get('user_id')
-    # query = "local_alignment"
-    # upload.upload_results(id,query,new_filename,user_id)
+    new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
+    print(new_filename)
+    os.rename(file_up, new_filename)
+    # user_id = session.get('user_id')
+    query = "local_alignment"
+    upload.upload_results(id,query,new_filename,user_id)
 
 
 

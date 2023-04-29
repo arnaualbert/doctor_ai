@@ -294,8 +294,7 @@ def cdsextract_task(fullroute,user_id):
     asd = file_up.rename(new_filename)
     query = "cds_extract"
     upload.upload_results(id,query,asd,user_id)                         
-   
-    pass
+
 
 
 @app.route('/cdsextract',methods=['GET', 'POST'])

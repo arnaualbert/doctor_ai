@@ -91,7 +91,7 @@ SPLIT_FASTA = os.path.join(path, 'splits')
 if not os.path.isdir(SPLIT_FASTA):
     os.mkdir(SPLIT_FASTA)
 
-COMPLEMENTARY_FASTA = os.path.join(path, 'complementary')
+COMPLEMENTARY_FASTA = os.path.join(path, 'complementary_one')
 
 if not os.path.isdir(COMPLEMENTARY_FASTA):
     os.mkdir(COMPLEMENTARY_FASTA)
@@ -747,8 +747,10 @@ def complementary():
         fasta_ext = fasta.filename
         fasta.save(os.path.join(COMPLEMENTARY_FASTA,fasta_ext))
         full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
-        complementary_task(full_path)
-        return render_template('complementary.html', message="Doing the job")
+        if fasta_ext.endswith(".fasta"):
+            deamon = Thread(target=complementary_task, args=(full_path,),daemon=True)
+            deamon.start()
+            return render_template('complementary.html', message="Doing the job")
     return render_template('complementary.html')
 
 # def random_sequence_task(number, user_id):

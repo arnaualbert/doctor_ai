@@ -86,19 +86,24 @@ RANDOM_SEQ = os.path.join(path, 'randomseqs')
 if not os.path.isdir(RANDOM_SEQ):
     os.mkdir(RANDOM_SEQ)
 
+SPLIT_FASTA = os.path.join(path, 'splits')
+
+if not os.path.isdir(SPLIT_FASTA):
+    os.mkdir(SPLIT_FASTA)
+
 
 ### CHECK FASTA
 
-from Bio import SeqIO
+# from Bio import SeqIO
 
-def is_fasta(file_name):
-    try:
-        with open(file_name) as handle:
-            for record in SeqIO.parse(handle, "fasta"):
-                return True
-    except:
-        pass
-    return False
+# def is_fasta(file_name):
+#     try:
+#         with open(file_name) as handle:
+#             for record in SeqIO.parse(handle, "fasta"):
+#                 return True
+#     except:
+#         pass
+#     return False
 
 
 ### ERRORS
@@ -715,12 +720,14 @@ def split_fasta():
         fasta = request.files["split"]
         start = request.form['start']
         end = request.form['end']
-
         fasta_ext = fasta.filename
-        if fasta_ext.endswith(".fasta") and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(fasta) and int(end)<=count_letters_in_file(fasta):
-            fasta.save()
+        fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
+        full_path = os.path.join(SPLIT_FASTA,fasta_ext)
+        if fasta_ext.endswith(".fasta") and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
+
             return render_template('split.html', message="Doing the job")
         else:
+            os.remove(full_path)
             return render_template('split.html', message="File must be in .fasta format and inputs must be numbers bigger tha 0")
     return render_template('split.html')
 

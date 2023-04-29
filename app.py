@@ -609,7 +609,7 @@ def create_app():
 def eliminar_fila(id):
     if request.method == "DELETE":
         upload.delete_job(id)
-    
+
     return redirect(url_for('history'))
 
 ### START THE APP ###

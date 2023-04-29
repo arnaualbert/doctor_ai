@@ -87,6 +87,20 @@ if not os.path.isdir(RANDOM_SEQ):
     os.mkdir(RANDOM_SEQ)
 
 
+### CHECK FASTA
+
+from Bio import SeqIO
+
+def is_fasta(file_name):
+    try:
+        with open(file_name) as handle:
+            for record in SeqIO.parse(handle, "fasta"):
+                return True
+    except:
+        pass
+    return False
+
+
 ### ERRORS
 @app.errorhandler(400)
 def bad_request_error(error):
@@ -679,7 +693,36 @@ def read_fasta_file(file_path):
         return True
 
 
+def split_fasta(fasta, user_id,start,end):
+    subprocess.run(["./split",fasta,start,end])
+    pass
 
+
+
+def count_letters_in_file(filename):
+    with open(filename, "r") as file:
+        next(file)
+        count = 0
+        for line in file:
+            count += len(line.strip())
+
+    return count
+
+@app.route('/split_fasta', methods=['GET', 'POST'])
+def split_fasta():
+    ""
+    if request.method == 'POST':
+        fasta = request.files["split"]
+        start = request.form['start']
+        end = request.form['end']
+
+        fasta_ext = fasta.filename
+        if fasta_ext.endswith(".fasta") and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(fasta) and int(end)<=count_letters_in_file(fasta):
+            fasta.save()
+            return render_template('split.html', message="Doing the job")
+        else:
+            return render_template('split.html', message="File must be in .fasta format and inputs must be numbers bigger tha 0")
+    return render_template('split.html')
 
 
 

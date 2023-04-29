@@ -679,9 +679,6 @@ def random_sequence():
             # task = executor.submit(random_sequence_task, number)
             daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
             daemon.start()
-            # new_filename = task.result() # This line will block the main thread
-            # Return a response indicating that the task is in progress
-            # print(result_queue.get())
             return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
 
         # Note that you cannot call `send_file` here because the task is not completed yet.
@@ -698,9 +695,10 @@ def read_fasta_file(file_path):
         return True
 
 
-def split_fasta(fasta, user_id,start,end):
+def split_fasta_task(fasta, user_id,start,end):
     subprocess.run(["./split",fasta,start,end])
-    pass
+    print(user_id)
+    # pass
 
 
 
@@ -724,7 +722,8 @@ def split_fasta():
         fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
         full_path = os.path.join(SPLIT_FASTA,fasta_ext)
         if fasta_ext.endswith(".fasta") and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
-
+            daemon = Thread(target=split_fasta_task, args=(full_path,session.get('user_id'),start,end),daemon=True)
+            daemon.start()
             return render_template('split.html', message="Doing the job")
         else:
             os.remove(full_path)

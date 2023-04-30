@@ -24,14 +24,14 @@ def update_date(id,result,user_id):
     data.commit()
     return True
 
-# def upload_results(id,query,result,user_id):
-#     """Upload the results to the database"""
-#     tz = pytz.timezone('Europe/Madrid')
-#     now = datetime.datetime.now(tz)
-#     s = str(now)
-#     data.query(f"INSERT INTO results (id,query,result,user_id,date) VALUES ({id},'{query}','{result}',{user_id},'{s}')")
-#     data.commit()
-#     return True
+def upload_results_global(id,query,result,user_id):
+    """Upload the results to the database"""
+    tz = pytz.timezone('Europe/Madrid')
+    now = datetime.datetime.now(tz)
+    s = str(now)
+    data.query(f"INSERT INTO results (id,query,result,user_id,date) VALUES ({id},'{query}','{result}',{user_id},'{s}')")
+    data.commit()
+    return True
 
 def download_results(user_id):
     """Download the results from the database from a specified user"""

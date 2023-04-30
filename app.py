@@ -228,11 +228,12 @@ def iamlr():
 
 
 def dna_to_protein(fullroute,filename,user_id,id):
+    query = "dnaprotein"
+    upload.upload_results(id,query,user_id)
     subprocess.run(["./dna_protein",fullroute])
     new_filename = re.sub(r'\.fasta$', '_protein.fasta', filename)
     file_up = "dnaprotein/"+new_filename
-    query = "dnaprotein"
-    upload.upload_results(id,query,file_up,user_id)
+    upload.update_date(id,file_up,user_id)
 
 
 @app.route('/dnatoprotein',methods=['GET', 'POST'])
@@ -257,14 +258,13 @@ def DNA_to_protein():
 
 
 def dna_to_rna(fullroute,filename,user_id,id):
+    query = "dna_to_rna"
+    upload.upload_results(id,query,user_id)
     subprocess.run(["./dna_rna",fullroute])
     new_filename = re.sub(r'\.fasta$', '_modified.fasta', filename)
     file_up = "dnatorna/"+new_filename
-    query = "dna_to_rna"
-    upload.upload_results(id,query,file_up,user_id)
+    upload.update_date(id,file_up,user_id)
     
-
-
 @app.route('/dnatorna',methods=['GET', 'POST'])
 def DNA_to_RNA():
     """Show the cds page"""
@@ -286,16 +286,15 @@ def DNA_to_RNA():
     return render_template('dna_rna.html')
 
 def cdsextract_task(fullroute,user_id):
-    subprocess.run(["./extract_cds",fullroute])
     id = randint(1,9999999)
     ids = str(id)
     file_up = Path('resultado.fasta')
+    query = "cds_extract"
+    upload.upload_results(id,query,user_id)  
+    subprocess.run(["./extract_cds",fullroute])
     new_filename = Path(ids+'resultado.txt')
     asd = file_up.rename(new_filename)
-    query = "cds_extract"
-    upload.upload_results(id,query,asd,user_id)                         
-
-
+    upload.update_date(id,asd,user_id)
 
 @app.route('/cdsextract',methods=['GET', 'POST'])
 def cdsextract():
@@ -319,17 +318,15 @@ def cdsextract():
 #-------------------------------------------
 
 def genbank_to_fasta(fullroute,user_id):
-    # result = subprocess.run(["./genbankToFastaV3",fullroute], stdout=subprocess.PIPE, text=True)
-    subprocess.run(["./genbankToFastaV3",fullroute])
     id = randint(1,9999999)
     ids = str(id)
     file_up = Path('gb_to_fasta.fasta')
+    query = "gb_to_fasta"
+    upload.upload_results(id,query,user_id)  
+    subprocess.run(["./genbankToFastaV3",fullroute])
     new_filename = Path(ids+'gb_to_fasta.fasta')
     asd = file_up.rename(new_filename)
-    query = "gb_to_fasta"
-    upload.upload_results(id,query,asd,user_id)  
-
-
+    upload.update_date(id,asd,user_id)
 
 @app.route('/gbtofasta',methods=['GET', 'POST'])
 def gb_to_fasta():
@@ -394,7 +391,7 @@ def global_alignment():
                 # new_filename_path = './globalAlign/results/'+new_filename
                 # print(new_filename_path)
                 query = "global_alignment"
-                upload.upload_results(result_id,query,new_filename,user_id)
+                upload.upload_results_global(result_id,query,new_filename,user_id)
                 # if (fasta1_filepath and fasta2_filepath):
                 #     os.remove(fasta1_filepath)
                 #     os.remove(fasta2_filepath)
@@ -452,19 +449,6 @@ def local_alignment():
 
     return render_template('local_aligment.html')
 
-# def random_sequence_task(number,user_id):
-#     """Execute the random sequence program and return the new filename"""
-#     subprocess.run(["./random", number])
-#     id = randint(1, 9999999)
-#     ids = str(id)
-#     file_up = "dna.fasta"
-#     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
-#     os.rename(file_up, new_filename)
-#     query = "random_sequence"
-#     a = upload.upload_results(id,query,new_filename,user_id)              
-#     print(a)     
-#     print(new_filename)
-#     return new_filename
 
 def random_sequence_task(number,user_id):
     """Execute the random sequence program and return the new filename"""
@@ -494,13 +478,9 @@ def random_sequence():
             return render_template('random_sequence.html', message="Number must be greater than 0")
         else:
             user_id = session.get('user_id')
-            # task = executor.submit(random_sequence_task, number)
             daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
             daemon.start()
             return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
-
-        # Note that you cannot call `send_file` here because the task is not completed yet.
-
     return render_template('random_sequence.html')
 
 
@@ -556,8 +536,10 @@ def complementary_task(fasta,user_id):
     id = randint(1, 9999999)
     out_name = f"{id}complementary.fasta"
     query = "complementary"
+    upload.upload_results(id,query,user_id)
     subprocess.run(["./complementary",fasta,out_name])
-    upload.upload_results(id,query,out_name,user_id)
+    upload.update_date(id,out_name,user_id)
+    # upload.upload_results(id,query,out_name,user_id)
 
 
 

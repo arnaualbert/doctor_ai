@@ -494,12 +494,14 @@ def read_fasta_file(file_path):
 
 
 def split_fasta_task(fasta, user_id,start,end):
-    subprocess.run(["./split",fasta,start,end])
-    id = randint(1, 9999999)
-    file_up = f"output_{start}_{end}.fasta"
     query = "split_fasta"
-    upload.upload_results(id,query,file_up,user_id)
-    # pass
+    id = randint(1, 9999999)
+    upload.upload_results(id,query,user_id)
+    subprocess.run(["./split",fasta,start,end])
+    file_up = f"output_{start}_{end}.fasta"
+    new_filename = re.sub(r'\.fasta$', str(id)+'output_'+start+'_'+end+'.fasta', file_up)
+    os.rename(file_up, new_filename)
+    upload.update_date(id,new_filename,user_id)
 
 
 
@@ -555,6 +557,15 @@ def complementary():
             deamon.start()
             return render_template('complementary.html', message="Doing the job")
     return render_template('complementary.html')
+
+
+
+@app.route("/blast",methods=['GET', 'POST'])
+def blast():
+    if request.method == 'POST':
+        return render_template('blast.html')
+    return render_template('blast.html')
+
 
 @app.route('/history', methods=['GET', 'POST'])
 def history():

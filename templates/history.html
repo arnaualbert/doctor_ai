@@ -81,7 +81,8 @@
         <th>ID</th>
         <th>Query</th>
         <th>Result</th>
-        <th>Date</th>
+        <th>Start Date</th>
+        <th>Finish Date</th>
         <th>Action(NOT WORKING)</th>
       </tr>
     </thead>
@@ -91,7 +92,9 @@
         <td>{{ result[0] }}</td>
         <td>{{ result[1] }}</td>
         <td><a class="btn btn-primary" href="{{ url_for('download_file', filename=result[2]) }}">Download</a></td>
-        <td>{{ result[4]}}</td>
+        <td>{{ result[4] }}</td>
+        <td>{{ result[5]}}</td>
+
         <td><button class="btn btn-outline-success">Eliminar</button></td>
 
         <!-- <td><button onclick="deleteRow({{ result[0] }})">Eliminar</button></td> -->

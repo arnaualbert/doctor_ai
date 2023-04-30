@@ -6,14 +6,32 @@ import pytz
 
 data = databases.Database("localhost","root","","doctor_ai")
 
-def upload_results(id,query,result,user_id):
+def upload_results(id,query,user_id):
     """Upload the results to the database"""
     tz = pytz.timezone('Europe/Madrid')
     now = datetime.datetime.now(tz)
     s = str(now)
-    data.query(f"INSERT INTO results (id,query,result,user_id,date) VALUES ({id},'{query}','{result}',{user_id},'{s}')")
+    data.query(f"INSERT INTO results (id,query,user_id,start) VALUES ({id},'{query}',{user_id},'{s}')")
     data.commit()
     return True
+
+
+def update_date(id,result,user_id):
+    tz = pytz.timezone('Europe/Madrid')
+    now = datetime.datetime.now(tz)
+    date = str(now)
+    data.query(f"UPDATE results SET result='{result}',date='{date}' WHERE id={id} AND user_id={user_id}")
+    data.commit()
+    return True
+
+# def upload_results(id,query,result,user_id):
+#     """Upload the results to the database"""
+#     tz = pytz.timezone('Europe/Madrid')
+#     now = datetime.datetime.now(tz)
+#     s = str(now)
+#     data.query(f"INSERT INTO results (id,query,result,user_id,date) VALUES ({id},'{query}','{result}',{user_id},'{s}')")
+#     data.commit()
+#     return True
 
 def download_results(user_id):
     """Download the results from the database from a specified user"""

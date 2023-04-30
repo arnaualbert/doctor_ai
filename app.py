@@ -411,20 +411,39 @@ def global_alignment():
 #Local aligment
 # #-------------------------------------------
 
+
 def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user_id):
         # Execute the local aligment program
-    print("running local alignment")
-    subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap])
-    print("finished local alignment")
     id = randint(1,9999999)
     ids = str(id)
     file_up = "alignment_result.txt"
+    query = "local_alignment"
+    upload.upload_results(id,query,user_id)
+    print("running local alignment")
+    subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap])
+    print("finished local alignment")
     new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
     print(new_filename)
     os.rename(file_up, new_filename)
     # user_id = session.get('user_id')
-    query = "local_alignment"
-    upload.upload_results(id,query,new_filename,user_id)
+    upload.update_date(id,new_filename,user_id)
+
+
+
+# def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user_id):
+#         # Execute the local aligment program
+#     print("running local alignment")
+#     subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap])
+#     print("finished local alignment")
+#     id = randint(1,9999999)
+#     ids = str(id)
+#     file_up = "alignment_result.txt"
+#     new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
+#     print(new_filename)
+#     os.rename(file_up, new_filename)
+#     # user_id = session.get('user_id')
+#     query = "local_alignment"
+#     upload.upload_results(id,query,new_filename,user_id)
 
 
 
@@ -453,17 +472,33 @@ def local_alignment():
 
     return render_template('local_aligment.html')
 
+# def random_sequence_task(number,user_id):
+#     """Execute the random sequence program and return the new filename"""
+#     subprocess.run(["./random", number])
+#     id = randint(1, 9999999)
+#     ids = str(id)
+#     file_up = "dna.fasta"
+#     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
+#     os.rename(file_up, new_filename)
+#     query = "random_sequence"
+#     a = upload.upload_results(id,query,new_filename,user_id)              
+#     print(a)     
+#     print(new_filename)
+#     return new_filename
+
 def random_sequence_task(number,user_id):
     """Execute the random sequence program and return the new filename"""
-    subprocess.run(["./random", number])
     id = randint(1, 9999999)
     ids = str(id)
     file_up = "dna.fasta"
+    query = "random_sequence"
+    a = upload.upload_results(id,query,user_id)   
+    subprocess.run(["./random", number])
     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
     os.rename(file_up, new_filename)
-    query = "random_sequence"
-    a = upload.upload_results(id,query,new_filename,user_id)              
+    b = upload.update_date(id,new_filename,user_id)              
     print(a)     
+    print(b)
     print(new_filename)
     return new_filename
 

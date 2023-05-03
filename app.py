@@ -194,7 +194,7 @@ def iamlr():
 
 @app.route('/dnatoprotein',methods=['GET', 'POST'])
 def DNA_to_protein():
-    """Show the cds page"""
+    """Show the dna to protein page"""
     if session.get('username') != None and request.method == 'POST':
         # Get the data from the form
         file = request.files['dnaprotein']
@@ -202,7 +202,7 @@ def DNA_to_protein():
             id = randint(1,9999999)
             ids = str(id)
             filename = ids+file.filename
-            fullroute = sc.save_fasta_file_dna_prot(id,file,DNATOPROTEIN)
+            fullroute = sc.save_fasta_file_with_id(id,file,DNATOPROTEIN)
             # Excecute the dna to protein program
             if validate.is_fasta_file_with_only_ATGC(fullroute):
                 user_id = session.get('user_id')
@@ -217,23 +217,26 @@ def DNA_to_protein():
     
 @app.route('/dnatorna',methods=['GET', 'POST'])
 def DNA_to_RNA():
-    """Show the cds page"""
-    if request.method == 'POST':
+    """Show the dna to rna page"""
+    if session.get('username') != None and request.method == 'POST':
         # Get the data from the form
         file = request.files['dnarna']
         if file:
             id = randint(1,9999999)
             ids = str(id)
             filename = ids+file.filename
-            file.save(os.path.join(DNATORNA, filename))
-            fullroute=os.path.join(DNATORNA, filename)
-            # Excecute the dna to rna program
-            if fullroute.endswith('.fasta'):
+            fullroute = sc.save_fasta_file_with_id(id,file,DNATORNA)
+            if validate.is_fasta_file_with_only_ATGC(fullroute):
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.dna_to_rna, args=(fullroute,filename,user_id,id))
                 daemon = daemon.start()
+                return render_template('dna_rna.html')
+            else:
+                return render_template('dna_rna.html')
+    elif session.get('username') != None and request.method =='GET':
         return render_template('dna_rna.html')
-    return render_template('dna_rna.html')
+    else:
+        return render_template('login.html')
 
 
 @app.route('/cdsextract',methods=['GET', 'POST'])

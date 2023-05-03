@@ -26,7 +26,7 @@ def save_fasta_file(fasta, directory):
     return filepath
 
 
-def save_fasta_file_dna_prot(id,file, directory):
+def save_fasta_file_with_id(id,file, directory):
     """
     This function saves a fasta file to a directory and returns the filepath
     Input:

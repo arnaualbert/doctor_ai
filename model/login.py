@@ -34,25 +34,44 @@ def login(username: str, password:str) -> Union[bool, user.User]:
     else:
         return user.User(*resultado)
 
-def register(username: str,name: str,surname: str,email: str,password: str,role_id: int) -> bool:
+def register(user: user.User) -> bool:
     """
     Registers a new user with the provided information.
 
         Parameters:
-            username (str):  The username for the new user.
-            name (str): The name of the new user.
-            surname (str): The surname of the new user.
-            email (str): The email address of the new user.
-            password (str): The password for the new user.
-            role_id (int): The role ID for the new user.
+            user (user.User): The user that wants to register
         Returns:
             True if the user was registered successfully, False otherwise.
     """
-    resultado = data.query(f"SELECT * FROM users WHERE username = '{username}'")
+    resultado = data.query(f"SELECT * FROM users WHERE username = '{user.username}'")
     if resultado is None:
-        data.query(f"INSERT INTO users (username,name,surname,email,pass_hash,role_id) VALUES ('{username}','{name}','{surname}','{email}','{password}',{role_id})")
+        data.query(f"INSERT INTO users (username,name,surname,email,pass_hash,role_id) VALUES ('{user.username}','{user.name}','{user.surname}','{user.email}','{user.pass_hash}',{user.role_id})")
         data.commit()
         return True
     else:
         return False
+
+
+
+# def register(username: str,name: str,surname: str,email: str,password: str,role_id: int) -> bool:
+#     """
+#     Registers a new user with the provided information.
+
+#         Parameters:
+#             username (str):  The username for the new user.
+#             name (str): The name of the new user.
+#             surname (str): The surname of the new user.
+#             email (str): The email address of the new user.
+#             password (str): The password for the new user.
+#             role_id (int): The role ID for the new user.
+#         Returns:
+#             True if the user was registered successfully, False otherwise.
+#     """
+#     resultado = data.query(f"SELECT * FROM users WHERE username = '{username}'")
+#     if resultado is None:
+#         data.query(f"INSERT INTO users (username,name,surname,email,pass_hash,role_id) VALUES ('{username}','{name}','{surname}','{email}','{password}',{role_id})")
+#         data.commit()
+#         return True
+#     else:
+#         return False
 

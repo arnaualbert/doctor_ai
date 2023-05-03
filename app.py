@@ -34,6 +34,7 @@ from multiprocessing import Pool
 from random import *
 import subprocess
 import multiprocessing
+import hashlib
 
 ########
 module_name = __name__
@@ -66,7 +67,6 @@ if not os.path.isdir(GBLALIGN):
 LCLALIGN = os.path.join(path, 'localAlign')
 if not os.path.isdir(LCLALIGN):
     os.mkdir(LCLALIGN)
-
 
 AIPICS = os.path.join(path, 'pics')
 
@@ -188,7 +188,10 @@ def register():
         email: str =  request.form['email']
         password: str =  request.form['password']
         role_id: int =  request.form['role_id']
-        resultado: bool = logins.register(username, name, surname, email, password, role_id)
+        pass_hash =  hashlib.sha256(password.encode()).hexdigest()
+        user = users.User(username, name, surname, email, pass_hash, role_id)
+        # resultado: bool = logins.register(username, name, surname, email, password, role_id)
+        resultado: bool = logins.register(user)
         if resultado:
             message = "Register successful"
             return render_template('register.html', message=message)

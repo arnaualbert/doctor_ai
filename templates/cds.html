@@ -1,27 +1,28 @@
 {% include 'menu.html' %}
-    <div>
-        <h3>CDS EXTRACT</h3>
-    </div><br>
-    <div class="row-cols-4">
-        <form method=post action="/cdsextract" enctype=multipart/form-data  onsubmit="return validarFormulario()">
-            <div class="col">
-                <input class="form-control" type="file" name="extractcds" id="formFile" value="{{ request.form['formFile'] }}" accept=".gb">
-            </div>
-            </div><br>
-            <button class="btn btn-primary" type="submit">Submit</button>
-            <span id="errorMessage">{{message}}</span>
-        </form>
+<div class="container">
+  <h3>CDS EXTRACT</h3>
 
-        <script>
-          function validarFormulario() {
-            var formFile = document.getElementById("formFile").value;
-    
-            if (formFile === "") {
-              var errorMessage = document.getElementById("errorMessage");
-              errorMessage.innerHTML = "Please fill the field";
-              return false;
-            }
-            return true;
-          }
-        </script>
-</body>
+  <div class="row-cols-4">
+    <form method=post action="/cdsextract" enctype=multipart/form-data onsubmit="return validarFormulario()">
+      <div class="col">
+        <input class="form-control" type="file" name="extractcds" id="formFile" value="{{ request.form['formFile'] }}"
+          accept=".gb">
+      </div>
+  </div><br>
+  <button class="btn btn-primary" type="submit">Submit</button>
+  <span id="errorMessage">{{message}}</span>
+  </form>
+</div>
+  <script>
+    function validarFormulario() {
+      var formFile = document.getElementById("formFile").value;
+
+      if (formFile === "") {
+        var errorMessage = document.getElementById("errorMessage");
+        errorMessage.innerHTML = "Please fill the field";
+        return false;
+      }
+      return true;
+    }
+  </script>
+  </body>

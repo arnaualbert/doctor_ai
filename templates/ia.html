@@ -1,12 +1,14 @@
 {% include 'menu.html' %}
+<div class="container">
     <h3>IA Pneumonia</h3>
     <div class="row-cols-4">
         <form method=post action="/iamlr" enctype=multipart/form-data>
             <div class="col">
                 <input class="form-control" type="file" name="image" id="formFile">
             </div>
-            </div><br>
-            <button class="btn btn-primary" type="submit">Submit</button>
-        </form>
-      {{solve}}
+    </div><br>
+    <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+    {{solve}}
+</div>
 </body>

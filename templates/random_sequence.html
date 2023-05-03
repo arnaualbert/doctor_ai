@@ -1,10 +1,8 @@
 {% include 'menu.html' %}
-
-  <div>
-    <h3>
-      Random Sequence
-    </h3>
-  </div><br>
+<div class="container">
+  <h3>
+    Random Sequence
+  </h3>
   <div class="row-cols-4">
     <form method=post action="/random_sequence" enctype=multipart/form-data>
       <div class="col">
@@ -13,6 +11,6 @@
   </div><br>
   <button class="btn btn-primary" type="submit">Submit</button>
   </form>
-  </div>
-  {{message}}
+</div>
+{{message}}
 </body>

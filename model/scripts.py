@@ -1,48 +1,31 @@
 import  os 
 import subprocess
 import os
-import model.login as logins
-import model.user as users
-import model.iaxray as ia
 import model.upload as upload
-from typing import Union
-from datetime import datetime
 from pathlib import Path
-import shutil
-import glob
 import re
-from celery import Celery, Task
-from multiprocessing import Process
-from concurrent.futures import ThreadPoolExecutor
-from concurrent.futures import ThreadPoolExecutor
-from threading import Thread
-executor = ThreadPoolExecutor(5)
 ########
 from multiprocessing import Pool
 from random import *
 import subprocess
-import multiprocessing
 
 path = os.getcwd()
 
 def save_fasta_file(fasta, directory):
+    """
+    This function saves a fasta file to a directory and returns the filepath
+    Input:
+        fasta: fasta file
+        directory: directory to save the file
+    Output:
+        saved file path
+    """
     filename = fasta.filename
     filepath = os.path.join(directory, filename)
     fasta.save(filepath)
     return filepath
 
 
-
-def dna_rna(file):
-    subprocess.run([path+"/dna_rna", file])
-
-def dna_protein(file):
-    subprocess.run([path+"/dna_protein", file])
-
-def extract_cds(file):
-    subprocess.run([path+"/extract_cds", file])
-
-# def random_seq(length):
 def random_sequence_task(number,user_id):
     """Execute the random sequence program and return the new filename"""
     id = randint(1, 9999999)
@@ -58,16 +41,6 @@ def random_sequence_task(number,user_id):
     print(b)
     print(new_filename)
     return new_filename
-    # subprocess.run([path+"/random", length])
-
-def local_alignment(file1,file2):
-    subprocess.run([path+"/local_alignment", file1, file2])
-
-def global_alignment(file1,file2):
-    subprocess.run([path+"/global_aligment", file1, file2])
-
-def gb_to_fasta(file):
-    subprocess.run([path+"/genbankToFastaV3", file])
 
 
 def complementary_task(fasta,user_id):
@@ -132,7 +105,6 @@ def dna_to_protein(fullroute,filename,user_id,id):
 
 
 def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user_id):
-        # Execute the local aligment program
     id = randint(1,9999999)
     ids = str(id)
     file_up = "alignment_result.txt"

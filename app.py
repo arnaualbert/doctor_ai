@@ -148,9 +148,13 @@ def register():
         email: str =  request.form['email']
         password: str =  request.form['password']
         role_id: int =  request.form['role_id']
+        # Hash the password
         pass_hash =  hashlib.sha256(password.encode()).hexdigest()
+        # Create the user
         user = users.User(username, name, surname, email, pass_hash, role_id)
+        # Register the user
         resultado: bool = logins.register(user)
+        # If the user is registered redirect to the login page else redirect to the register page
         if resultado:
             message = "Register successful"
             return render_template('register.html', message=message)
@@ -176,13 +180,13 @@ def iamlr():
     if session.get('username') and request.method == 'POST':
         # Get the data from the form
         file = request.files['image']
-        if file:
-            filename = file.filename
-            file.save(os.path.join(AIPICS, filename))
-            fullroute=os.path.join(AIPICS, filename)
-            # Execute the image recognition program
+        fullroute = sc.save_fasta_file(file,AIPICS)    
+        # Execute the image recognition program
+        if validate.is_image_file(fullroute):
             solve = ia.IAML.ask(fullroute)
-        return render_template('ia.html', solve=solve)
+            return render_template('ia.html', solve=solve)
+        else:
+            return render_template('ia.html',solve="It needs to be an image")
     elif session.get('username') and request.method =='GET':
         return render_template('ia.html')
     else:

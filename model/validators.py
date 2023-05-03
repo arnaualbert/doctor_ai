@@ -1,4 +1,13 @@
 import os
+from PIL import Image 
+
+def is_image_file(filepath):
+    """Check if a file is an image trying to open it as an image""" 
+    try:
+        with Image.open(filepath) as image:
+            return True
+    except:
+        return False
 
 def is_fasta_file_with_only_ATGC(filename):
     if filename.endswith('.fasta'):

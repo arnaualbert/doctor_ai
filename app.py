@@ -190,7 +190,6 @@ def register():
         role_id: int =  request.form['role_id']
         pass_hash =  hashlib.sha256(password.encode()).hexdigest()
         user = users.User(username, name, surname, email, pass_hash, role_id)
-        # resultado: bool = logins.register(username, name, surname, email, password, role_id)
         resultado: bool = logins.register(user)
         if resultado:
             message = "Register successful"

@@ -16,13 +16,7 @@ import model.user as users
 import model.iaxray as ia
 import model.upload as upload
 from typing import Union
-from datetime import datetime
-from pathlib import Path
-import shutil
-import glob
 import re
-from celery import Celery, Task
-from multiprocessing import Process
 import model.validators as validate
 from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import ThreadPoolExecutor
@@ -30,10 +24,8 @@ from threading import Thread
 import model.scripts as sc
 executor = ThreadPoolExecutor(5)
 ########
-from multiprocessing import Pool
 from random import *
 import subprocess
-import multiprocessing
 import hashlib
 
 ########
@@ -100,44 +92,26 @@ if not os.path.isdir(COMPLEMENTARY_FASTA):
 
 ### ERRORS
 @app.errorhandler(400)
-def bad_request_error(error):
-    message = "Sorry, the request was malformed."
-    return render_template('error.html', message=message), 400
-
 @app.errorhandler(401)
-def unauthorized_error(error):
-    message = "Sorry, you are not authorized to access this page."
-    return render_template('error.html', message=message), 401
-
 @app.errorhandler(403)
-def forbidden_error(error):
-    message = "Sorry, you do not have permission to access this page."
-    return render_template('error.html', message=message), 403
-
 @app.errorhandler(408)
-def timeout_error(error):
-    message = "Sorry, the server timed out while processing your request."
-    return render_template('error.html', message=message), 408
-
-@app.errorhandler(502)
-def bad_gateway_error(error):
-    message = "Sorry, there was a problem with the server's connection to another server."
-    return render_template('error.html', message=message), 502
-
-@app.errorhandler(503)
-def service_unavailable_error(error):
-    message = "Sorry, the server is currently unable to handle your request."
-    return render_template('error.html', message=message), 503
-
 @app.errorhandler(404)
-def page_not_found(e):
-    message = "Sorry, the page you requested was not found."
-    return render_template('error.html', message=message), 404
-
+@app.errorhandler(502)
 @app.errorhandler(500)
-def internal_server_error(e):
-    message = "Sorry, something went wrong on the server."
-    return render_template('error.html', message=message), 500
+@app.errorhandler(503)
+def error_handler(error):
+    error_codes = {
+        400: "Sorry, the request was malformed.",
+        401: "Sorry, you are not authorized to access this page.",
+        403: "Sorry, you do not have permission to access this page.",
+        404: "Sorry, the page you requested does not exist.",
+        408: "Sorry, the server timed out while processing your request.",
+        500: "Sorry, the server encountered an internal error.",
+        502: "Sorry, there was a problem with the server's connection to another server.",
+        503: "Sorry, the service is temporarily unavailable."
+    }
+    message = error_codes.get(error.code, "Sorry, an error occurred.")
+    return render_template('error.html', message=message), error.code
 ###
 
 @app.route('/', methods=['GET', 'POST'])

@@ -39,56 +39,42 @@ path = os.getcwd()
 print(path)
 
 
-TOOLS_PATH =  os.path.join(path, 'tools')
-if not os.path.isdir(TOOLS_PATH):
-    os.mkdir(TOOLS_PATH)
-    
-# file Upload
-CDSEXT   = os.path.join(path, 'cdsext')
-if not os.path.isdir(CDSEXT):
-    os.mkdir(CDSEXT)
+def create_directory(path):
+    if not os.path.isdir(path):
+        os.mkdir(path)
+
+TOOLS_PATH = os.path.join(path, 'tools')
+create_directory(TOOLS_PATH)
+
+CDSEXT = os.path.join(path, 'cdsext')
+create_directory(CDSEXT)
 
 GB2FASTA = os.path.join(path, 'gb2fasta')
-if not os.path.isdir(GB2FASTA):
-    os.mkdir(GB2FASTA)
+create_directory(GB2FASTA)
 
 GBLALIGN = os.path.join(path, 'globalAlign')
-if not os.path.isdir(GBLALIGN):
-    os.mkdir(GBLALIGN)
+create_directory(GBLALIGN)
 
 LCLALIGN = os.path.join(path, 'localAlign')
-if not os.path.isdir(LCLALIGN):
-    os.mkdir(LCLALIGN)
+create_directory(LCLALIGN)
 
 AIPICS = os.path.join(path, 'pics')
-
-if not os.path.isdir(AIPICS):
-    os.mkdir(AIPICS)
+create_directory(AIPICS)
 
 DNATORNA = os.path.join(path, 'dnatorna')
-
-if not os.path.isdir(DNATORNA):
-    os.mkdir(DNATORNA)
+create_directory(DNATORNA)
 
 DNATOPROTEIN = os.path.join(path, 'dnaprotein')
-
-if not os.path.isdir(DNATOPROTEIN):
-    os.mkdir(DNATOPROTEIN)
+create_directory(DNATOPROTEIN)
 
 RANDOM_SEQ = os.path.join(path, 'randomseqs')
-
-if not os.path.isdir(RANDOM_SEQ):
-    os.mkdir(RANDOM_SEQ)
+create_directory(RANDOM_SEQ)
 
 SPLIT_FASTA = os.path.join(path, 'splits')
+create_directory(SPLIT_FASTA)
 
-if not os.path.isdir(SPLIT_FASTA):
-    os.mkdir(SPLIT_FASTA)
-
-COMPLEMENTARY_FASTA = os.path.join(path, 'complementary_one')
-
-if not os.path.isdir(COMPLEMENTARY_FASTA):
-    os.mkdir(COMPLEMENTARY_FASTA)
+COMPLEMENTARY_FASTA = os.path.join(path, 'complementary')
+create_directory(COMPLEMENTARY_FASTA)
 
 ### ERRORS
 @app.errorhandler(400)

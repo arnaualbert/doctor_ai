@@ -73,7 +73,7 @@ create_directory(RANDOM_SEQ)
 SPLIT_FASTA = os.path.join(path, 'splits')
 create_directory(SPLIT_FASTA)
 
-COMPLEMENTARY_FASTA = os.path.join(path, 'complementary')
+COMPLEMENTARY_FASTA = os.path.join(path, 'complementary_one')
 create_directory(COMPLEMENTARY_FASTA)
 
 ### ERRORS
@@ -340,17 +340,19 @@ def local_alignment():
         match = request.form['match']
         mismatch = request.form['mismatch']
         gap = request.form['gap']
-        if fasta1 and fasta2:
-            fasta1_filename = fasta1.filename
-            fasta2_filename = fasta2.filename
-            fasta1.save(os.path.join(LCLALIGN, fasta1_filename))
-            fasta2.save(os.path.join(LCLALIGN, fasta2_filename))
-            fasta1_filepath = os.path.join(LCLALIGN, fasta1_filename)
-            fasta2_filepath = os.path.join(LCLALIGN, fasta2_filename)
+        fasta1_filename = fasta1.filename
+        fasta2_filename = fasta2.filename
+        fasta1.save(os.path.join(LCLALIGN, fasta1_filename))
+        fasta2.save(os.path.join(LCLALIGN, fasta2_filename))
+        fasta1_filepath = os.path.join(LCLALIGN, fasta1_filename)
+        fasta2_filepath = os.path.join(LCLALIGN, fasta2_filename)
+        if validate.validate_local_aligment(fasta1_filepath, fasta2_filepath, match, mismatch, gap) == True:
             user_id = session.get('user_id')
             daemon = Thread(target=sc.local, args=(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user_id), daemon=True)
             daemon.start()
-        return render_template('local_aligment.html')
+            return render_template('local_aligment.html')
+        else:
+            return render_template('local_aligment.html')
 
     return render_template('local_aligment.html')
 

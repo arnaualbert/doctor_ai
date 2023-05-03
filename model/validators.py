@@ -37,3 +37,10 @@ def validate_split_fasta(full_path,start:str,end:str):
         return True
     else:
         return False
+
+
+def validate_local_aligment(fasta1,fasta2,match,mismatch,gap):
+    if is_fasta_file_with_only_ATGC(fasta1) and is_fasta_file_with_only_ATGC(fasta2) and match != None and mismatch != None and gap != None:
+        return True
+    else:
+        return False

@@ -25,6 +25,14 @@ import multiprocessing
 
 path = os.getcwd()
 
+def save_fasta_file(fasta, directory):
+    filename = fasta.filename
+    filepath = os.path.join(directory, filename)
+    fasta.save(filepath)
+    return filepath
+
+
+
 def dna_rna(file):
     subprocess.run([path+"/dna_rna", file])
 

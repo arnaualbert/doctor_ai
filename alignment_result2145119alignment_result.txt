@@ -1,0 +1,3 @@
+>secuencia_aleatoria 5 AGCTC 10
+>secuencia_aleatoria 5 CACTC 23
+Alignment score: 5

@@ -412,6 +412,19 @@ def random_sequence():
             return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
     return render_template('random_sequence.html')
 
+def is_fasta_file_with_only_ATGC(filename):
+    if filename.endswith('.fasta'):
+        with open(filename) as f:
+            first_line = f.readline().strip()
+            if not first_line.startswith('>') or first_line.startswith(';'):
+                return False
+            for line in f:
+                if any(letter not in 'ATGC' for letter in line.strip()):
+                    return False
+            return True
+    else:
+        return False
+
 
 def read_fasta_file(file_path):
     file_extension = os.path.splitext(file_path)[1]
@@ -441,12 +454,13 @@ def split_fasta():
         fasta_ext = fasta.filename
         fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
         full_path = os.path.join(SPLIT_FASTA,fasta_ext)
-        if fasta_ext.endswith(".fasta") and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
+        # if fasta_ext.endswith(".fasta") and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
+        if is_fasta_file_with_only_ATGC(full_path) and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
             daemon = Thread(target=sc.split_fasta_task, args=(full_path,session.get('user_id'),start,end),daemon=True)
             daemon.start()
             return render_template('split.html', message="Doing the job")
         else:
-            os.remove(full_path)
+            # os.remove(full_path)
             return render_template('split.html', message="File must be in .fasta format and inputs must be numbers bigger tha 0")
     return render_template('split.html')
 

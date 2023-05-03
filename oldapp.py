@@ -955,3 +955,35 @@ def eliminar_fila(id):
 if __name__ == '__main__':
     from waitress import serve
     serve(app,host='127.0.0.1',port=8080)
+
+def is_fasta_file_with_only_ATGC(filename):
+    if filename.endswith('.fasta'):
+        with open(filename) as f:
+            first_line = f.readline().strip()
+            if not first_line.startswith('>') or first_line.startswith(';'):
+                return False
+            for line in f:
+                if any(letter not in 'ATGC' for letter in line.strip()):
+                    return False
+            return True
+    else:
+        return False
+
+
+def read_fasta_file(file_path):
+    file_extension = os.path.splitext(file_path)[1]
+    if file_extension not in ['.fasta', '.fa']:
+        # raise ValueError("File must be in .fasta or .fa format")
+        return False
+    else:
+        return True
+
+
+def count_letters_in_file(filename):
+    with open(filename, "r") as file:
+        next(file)
+        count = 0
+        for line in file:
+            count += len(line.strip())
+
+    return count

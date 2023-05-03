@@ -242,20 +242,21 @@ def DNA_to_RNA():
 @app.route('/cdsextract',methods=['GET', 'POST'])
 def cdsextract():
     """Show the cds extract page"""
-    if request.method == 'POST':
+    if session.get('username') != None and request.method == 'POST':
         # Get the data from the form
         file = request.files['extractcds']
         if file:
-            filename = file.filename
-            file.save(os.path.join(CDSEXT, filename))
-            fullroute=os.path.join(CDSEXT, filename)
             # Excecute the cds extract program
+            fullroute=sc.save_fasta_file(file,CDSEXT)
             if file.filename.endswith('.gb'):
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.cdsextract_task, args=(fullroute,user_id))
                 daemon = daemon.start()
                 return render_template('cds.html')
-    return render_template('cds.html')
+    elif session.get('username') != None and request.method =='GET':
+        return render_template('cds.html')
+    else:
+        return render_template('login.html')
 
 # Genbank to fasta 
 #-------------------------------------------

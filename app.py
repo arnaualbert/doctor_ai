@@ -23,6 +23,7 @@ import glob
 import re
 from celery import Celery, Task
 from multiprocessing import Process
+import model.validators as validate
 from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import ThreadPoolExecutor
 from threading import Thread
@@ -455,7 +456,8 @@ def split_fasta():
         fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
         full_path = os.path.join(SPLIT_FASTA,fasta_ext)
         # if fasta_ext.endswith(".fasta") and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
-        if is_fasta_file_with_only_ATGC(full_path) and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
+        # if is_fasta_file_with_only_ATGC(full_path) and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
+        if validate.validate_split_fasta(full_path,start,end):
             daemon = Thread(target=sc.split_fasta_task, args=(full_path,session.get('user_id'),start,end),daemon=True)
             daemon.start()
             return render_template('split.html', message="Doing the job")

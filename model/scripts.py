@@ -26,6 +26,21 @@ def save_fasta_file(fasta, directory):
     return filepath
 
 
+def save_fasta_file_dna_prot(id,file, directory):
+    """
+    This function saves a fasta file to a directory and returns the filepath
+    Input:
+        fasta: fasta file
+        directory: directory to save the file
+    Output:
+        saved file path
+    """
+    ids = str(id)
+    filename = ids+file.filename
+    file.save(os.path.join(directory, filename))
+    fullroute=os.path.join(directory, filename)
+    return fullroute
+
 def random_sequence_task(number,user_id):
     """Execute the random sequence program and return the new filename"""
     id = randint(1, 9999999)

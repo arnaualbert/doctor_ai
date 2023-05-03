@@ -195,22 +195,24 @@ def iamlr():
 @app.route('/dnatoprotein',methods=['GET', 'POST'])
 def DNA_to_protein():
     """Show the cds page"""
-    if request.method == 'POST':
+    if session.get('username') != None and request.method == 'POST':
         # Get the data from the form
         file = request.files['dnaprotein']
         if file:
             id = randint(1,9999999)
             ids = str(id)
             filename = ids+file.filename
-            file.save(os.path.join(DNATOPROTEIN, filename))
-            fullroute=os.path.join(DNATOPROTEIN, filename)
+            fullroute = sc.save_fasta_file_dna_prot(id,file,DNATOPROTEIN)
             # Excecute the dna to protein program
-            if fullroute.endswith('.fasta'):
+            if validate.is_fasta_file_with_only_ATGC(fullroute):
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.dna_to_protein, args=(fullroute,filename,user_id,id))
                 daemon = daemon.start()
-            return render_template('dna_protein.html')        
-    return render_template('dna_protein.html')
+            return render_template('dna_protein.html')  
+    elif session.get('username') != None and request.method =='GET':               
+        return render_template('dna_protein.html')
+    else:
+        return render_template('login.html')
 
     
 @app.route('/dnatorna',methods=['GET', 'POST'])

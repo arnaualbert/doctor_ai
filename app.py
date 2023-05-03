@@ -383,8 +383,6 @@ def split_fasta():
         fasta_ext = fasta.filename
         fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
         full_path = os.path.join(SPLIT_FASTA,fasta_ext)
-        # if fasta_ext.endswith(".fasta") and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
-        # if is_fasta_file_with_only_ATGC(full_path) and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
         if validate.validate_split_fasta(full_path,start,end):
             daemon = Thread(target=sc.split_fasta_task, args=(full_path,session.get('user_id'),start,end),daemon=True)
             daemon.start()
@@ -428,7 +426,6 @@ def history():
         return render_template('history.html',results=results)
     return render_template('history.html')
 
-
 @app.route('/history_query', methods=['GET', 'POST'])
 def history_query():
     """Show the history page"""
@@ -457,13 +454,6 @@ def download_file(filename):
 ### Create the app
 def create_app():
     return app
-
-@app.route('/delete-row/<int:id>', methods=['DELETE'])
-def eliminar_fila(id):
-    if request.method == "DELETE":
-        upload.delete_job(id)
-
-    return redirect(url_for('history'))
 
 ### START THE APP ###
 if __name__ == '__main__':

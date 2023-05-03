@@ -189,6 +189,7 @@ def register():
         password: str =  request.form['password']
         role_id: int =  request.form['role_id']
         pass_hash =  hashlib.sha256(password.encode()).hexdigest()
+        print(role_id)
         user = users.User(username, name, surname, email, pass_hash, role_id)
         # resultado: bool = logins.register(username, name, surname, email, password, role_id)
         resultado: bool = logins.register(user)
@@ -204,22 +205,17 @@ def register():
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     """Show the home page of the app if the user is logged in"""
-    if request.method == 'POST':
-        if session.get('username')  != None:
-            return render_template('index.html')
-        else:
-            return render_template('login.html')
-
-    if request.method == 'GET'and session.get('username')  != None:
-        if session.get('username')  != None:
-            return render_template('index.html')
-        else:
-            return render_template('login.html')
+    if request.method == 'POST' and session.get('username') != None:
+        return render_template('index.html')
+    elif request.method == 'GET'and session.get('username')  != None:
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/iamlr',methods=['GET', 'POST'])
 def iamlr():
     """Show the image recognition page"""
-    if request.method == 'POST':
+    if session.get('username') and request.method == 'POST':
         # Get the data from the form
         file = request.files['image']
         if file:
@@ -229,8 +225,10 @@ def iamlr():
             # Execute the image recognition program
             solve = ia.IAML.ask(fullroute)
         return render_template('ia.html', solve=solve)
-    return render_template('ia.html')
-
+    elif session.get('username') and request.method =='GET':
+        return render_template('ia.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/dnatoprotein',methods=['GET', 'POST'])
 def DNA_to_protein():

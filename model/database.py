@@ -36,3 +36,8 @@ class Database:
         """Close the connection"""
         self.cursor.close()
         self.conn.close()
+
+    def row_count(self):
+        return self.cursor.rowcount()
+
+

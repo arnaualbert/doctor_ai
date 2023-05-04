@@ -6,6 +6,10 @@ import pytz
 
 data = databases.Database("localhost","root","","doctor_ai")
 
+def delete_job(id): 
+    data.query(f'DELETE FROM results WHERE id = {id}')
+    data.commit()
+    return data.row_count()
 def upload_results(id,query,result,user_id):
     """Upload the results to the database"""
     tz = pytz.timezone('Europe/Madrid')

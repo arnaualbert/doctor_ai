@@ -24,6 +24,11 @@ def download_results(user_id):
     result = data.long_query(f"SELECT * FROM results WHERE user_id={user_id}")
     return result
 
+def delete_a_results(user_id, id):
+    """Download the results from the database from a specified user"""
+    result = data.long_query(f"DELETE * FROM results WHERE user_id={user_id} AND id='{id}'")
+    return result
+
 def select_by_tool(tool,urser_id):
     """Select the results from the database by a specified tool"""
     result = data.long_query(f"SELECT * FROM results WHERE query='{tool}' AND user_id={urser_id}")

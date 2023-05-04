@@ -183,10 +183,10 @@ def edit_account():
         resultado = logins.edit(new_username, new_name, new_surname, new_email)
         if resultado:
             message = "Successful edited"
-            return render_template('edit_account.html', message=message)
+            return render_template('edit_account.html', message=message,name=new_name,surname=new_surname, username=new_username, email=new_email)
         else:
             message = "Failed edit"
-        return render_template('edit_account.html', message=message,name=new_name,surname=new_surname, username=new_username, email=new_email)
+        return render_template('edit_account.html', message=message)
     
     return render_template('edit_account.html', name=name,surname=surname, username=username, email=email)
 

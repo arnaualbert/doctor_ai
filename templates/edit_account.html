@@ -1,7 +1,7 @@
 {% include 'menu.html' %}
     <div class="container">
       <h1>Edit Account</h1>
-      <form method="POST" action="/edit_account">
+      <form method="POST" action="/edit_account" onsubmit="reloadPage()">
         <div class="form-group" >
           <label for="name">Name:</label>
           <input type="text" class="form-control" id="name" name="name" value="{{name}}"  required placeholder="Ingresa tu nombre">
@@ -17,11 +17,14 @@
         <div class="form-group">
           <label for="email">Email:</label>
           <input type="email" class="form-control" id="email" name="email" required value="{{email}}"  placeholder="Ingresa tu correo electrónico">
+          {{message}}
         </div><br>
+        
         <input type="submit" class="btn btn-primary" value="Edit"/>
         <button type="button" class="btn btn-primary" onclick="limpiarCampos()">Reset</button><br />
       </form>
     </div>
+    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -34,5 +37,9 @@
     document.getElementById("surname").value = "";
     document.getElementById("username").value = "";
     document.getElementById("email").value = "";
+  }
+
+  function reloadPage() {
+    location.reload();
   }
 </script>

@@ -10,6 +10,7 @@ def delete_job(id):
     data.query(f'DELETE FROM results WHERE id = {id}')
     data.commit()
     return data.row_count()
+
 def upload_results(id,query,result,user_id):
     """Upload the results to the database"""
     tz = pytz.timezone('Europe/Madrid')
@@ -19,9 +20,18 @@ def upload_results(id,query,result,user_id):
     data.commit()
     return True
 
+def update_date(id,result,user_id):
+    tz = pytz.timezone('Europe/Madrid')
+    now = datetime.datetime.now(tz)
+    date = str(now)
+    data.query(f"UPDATE results SET result='{result}',date='{date}' WHERE id={id} AND user_id={user_id}")
+    data.commit()
+    return True
+
 def download_results(user_id):
     """Download the results from the database from a specified user"""
     result = data.long_query(f"SELECT * FROM results WHERE user_id={user_id}")
+    print(result)
     return result
 
 def delete_a_results(user_id, id):

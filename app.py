@@ -398,10 +398,6 @@ def local_alignment():
 @app.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
     """Show the random sequence page"""
-    if not logins.is_logged(): return render_template('login.html') # Validate session
-
-    if request.method == 'GET':
-        return render_template('random_sequence.html')
     if request.method == 'POST':
         # Get the data from the form
         number = request.form['number']
@@ -415,7 +411,6 @@ def random_sequence():
             daemon = Thread(target=sc.random_sequence_task, args=(number,user_id),daemon=True)
             daemon.start()
             return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
-
     return render_template('random_sequence.html')
 
 

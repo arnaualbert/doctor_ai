@@ -142,6 +142,12 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     """Show the register page of the app """
+    if request.method == 'GET':
+        roles = (upload.select_from('role_name', 'role'))
+        roles_list = [(r['role_name']) for r in roles]
+
+        return render_template('register.html', roles=roles_list)
+
     if request.method == 'POST':
         # Get the data from the form
         username: str =  request.form['username']

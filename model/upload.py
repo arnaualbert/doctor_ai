@@ -32,3 +32,8 @@ def dddd():
     """Download the results from the database"""
     result = data.query(f"SELECT * FROM results")
     return result
+
+def select_from(field, table):
+    """Download the results from the database"""
+    result = data.fetch_all(f"SELECT {field} FROM {table}")
+    return result

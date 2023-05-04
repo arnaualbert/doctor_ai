@@ -40,4 +40,12 @@ class Database:
     def row_count(self):
         return self.cursor.rowcount()
 
+    def fetch_all(self, query):
+        """Execute a query"""
+        self.cursor.execute(query)
+        results = self.cursor.fetchall()
+        # Convertir los resultados a una lista de diccionarios
+        columns     = [desc[0] for desc in self.cursor.description]
+        result_list = [dict(zip(columns, row)) for row in results]
 
+        return result_list

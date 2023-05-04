@@ -9,24 +9,24 @@ This module is used to serve the backend of the application
 """
 
 # Imports of the app
-from flask import Flask, render_template, request, session,send_file, redirect, url_for
-import os
-import model.login as logins
-import model.user as users
-import model.iaxray as ia
-import model.upload as upload
-from typing import Union
-import re
+from flask              import Flask, render_template, request, session,send_file, redirect, url_for
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
+from threading          import Thread
+from typing             import Union
+from random             import *
 import model.validators as validate
-from concurrent.futures import ThreadPoolExecutor
-from concurrent.futures import ThreadPoolExecutor
-from threading import Thread
-import model.scripts as sc
-executor = ThreadPoolExecutor(5)
-########
-from random import *
+import model.scripts    as sc
+import model.login      as logins
+import model.user       as users
+import model.iaxray     as ia
+import model.upload     as upload
 import subprocess
 import hashlib
+import os
+import re
+executor = ThreadPoolExecutor(5)
+########
 
 ########
 module_name = __name__
@@ -111,6 +111,9 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """Show the login form and log the user in if the credentials are correct"""
+    if request.method == 'GET':
+        return render_template('index.html', message=message)
+
     if request.method == 'POST':
         # Get the data from the form
         username: str =  request.form['username']
@@ -128,7 +131,6 @@ def login():
         else:
             message = 'Login failed'
             return render_template("login.html", message=message)
-    return render_template('login.html')
 
 @app.route('/logout')
 def logout():
@@ -161,23 +163,26 @@ def register():
         else:
             message = "Register failed"
             return render_template('register.html', message=message)
+
     return render_template('register.html')
 
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     """Show the home page of the app if the user is logged in"""
-    if request.method == 'POST' and session.get('username') != None:
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+
+    if request.method == 'GET':
         return render_template('index.html')
-    elif request.method == 'GET'and session.get('username')  != None:
-        return render_template('index.html')
-    else:
-        return render_template('login.html')
 
 @app.route('/iamlr',methods=['GET', 'POST'])
 def iamlr():
     """Show the image recognition page"""
-    if session.get('username') and request.method == 'POST':
+    if not logins.is_logged(): return render_template('login.html')
+
+    if request.method == 'GET':
+        return render_template('ia.html')
+    if request.method == 'POST':
         # Get the data from the form
         file = request.files['image']
         fullroute = sc.save_fasta_file(file,AIPICS)    
@@ -187,15 +192,16 @@ def iamlr():
             return render_template('ia.html', solve=solve)
         else:
             return render_template('ia.html',solve="It needs to be an image")
-    elif session.get('username') and request.method =='GET':
-        return render_template('ia.html')
-    else:
-        return render_template('login.html')
 
 @app.route('/dnatoprotein',methods=['GET', 'POST'])
 def DNA_to_protein():
     """Show the dna to protein page"""
-    if session.get('username') != None and request.method == 'POST':
+    if not logins.is_logged(): return render_template('login.html')
+    
+    if request.method == 'GET': 
+        return render_template('dna_protein.html')
+    
+    if request.method == 'POST':
         # Get the data from the form
         file = request.files['dnaprotein']
         if file:
@@ -209,16 +215,17 @@ def DNA_to_protein():
                 daemon = Thread(target=sc.dna_to_protein, args=(fullroute,filename,user_id,id))
                 daemon = daemon.start()
             return render_template('dna_protein.html')  
-    elif session.get('username') != None and request.method =='GET':               
-        return render_template('dna_protein.html')
-    else:
-        return render_template('login.html')
+
 
     
 @app.route('/dnatorna',methods=['GET', 'POST'])
 def DNA_to_RNA():
     """Show the dna to rna page"""
-    if session.get('username') != None and request.method == 'POST':
+    if not logins.is_logged(): return render_template('login.html')
+
+    if request.method == 'GET': 
+        return render_template('dna_rna.html')
+    if request.method == 'POST':
         # Get the data from the form
         file = request.files['dnarna']
         if file:
@@ -233,16 +240,15 @@ def DNA_to_RNA():
                 return render_template('dna_rna.html')
             else:
                 return render_template('dna_rna.html')
-    elif session.get('username') != None and request.method =='GET':
-        return render_template('dna_rna.html')
-    else:
-        return render_template('login.html')
-
 
 @app.route('/cdsextract',methods=['GET', 'POST'])
 def cdsextract():
     """Show the cds extract page"""
-    if session.get('username') != None and request.method == 'POST':
+    if not logins.is_logged(): return render_template('login.html')
+
+    if request.method == 'GET': 
+        return render_template('cds.html')
+    if request.method == 'POST':
         # Get the data from the form
         file = request.files['extractcds']
         if file:
@@ -253,10 +259,7 @@ def cdsextract():
                 daemon = Thread(target=sc.cdsextract_task, args=(fullroute,user_id))
                 daemon = daemon.start()
                 return render_template('cds.html')
-    elif session.get('username') != None and request.method =='GET':
         return render_template('cds.html')
-    else:
-        return render_template('login.html')
 
 # Genbank to fasta 
 #-------------------------------------------
@@ -264,6 +267,10 @@ def cdsextract():
 @app.route('/gbtofasta',methods=['GET', 'POST'])
 def gb_to_fasta():
     """Show the cds extract page"""
+    if not logins.is_logged(): return render_template('login.html')
+
+    if request.method == 'GET':
+        return render_template('gbtofasta.html')
     if request.method == 'POST':
         # Get the data from the form
         file = request.files['gbfile']
@@ -277,8 +284,7 @@ def gb_to_fasta():
                 daemon = Thread(target=sc.genbank_to_fasta, args=(fullroute,user_id))
                 daemon = daemon.start()
                 return render_template('gbtofasta.html')
-    return render_template('gbtofasta.html')
-
+            
 # Global aligment
 #-------------------------------------------
 @app.route('/globalalignment',methods=['GET', 'POST'])
@@ -286,7 +292,10 @@ def global_alignment():
     """Gloabal alignment tool
         - In this verison deletes the result form server
     """
+    if not logins.is_logged(): return render_template('login.html')
 
+    if request.method == 'GET':
+        return render_template('global_aligment.html')
     if request.method == 'POST':
         # Get the data from the form
         fasta1 = request.files['fasta1']
@@ -318,16 +327,10 @@ def global_alignment():
 
                 file_up:      str = "global_alignment_result.txt"
                 new_filename: str = re.sub(r'\.txt$',result_id+'.txt', file_up)
-                print(new_filename)
+
                 os.rename('./'+file_up, new_filename)
-                # shutil.move(path+'/'+new_filename, './globalAlign/results/')
-                # new_filename_path = './globalAlign/results/'+new_filename
-                # print(new_filename_path)
                 query = "global_alignment"
                 upload.upload_results_global(result_id,query,new_filename,user_id)
-                # if (fasta1_filepath and fasta2_filepath):
-                #     os.remove(fasta1_filepath)
-                #     os.remove(fasta2_filepath)
                 response = send_file(new_filename,as_attachment=True)
                 # os.remove(new_filename)
                 return response
@@ -336,13 +339,15 @@ def global_alignment():
             message = "Please upload both files"
             return render_template('global_aligment.html', message=message)
 
-    return render_template('global_aligment.html')
-
 #Local aligment
 # #-------------------------------------------
 @app.route('/localalignment',methods=['GET', 'POST'])
 def local_alignment():
     """Show the local alignment page"""
+    if not logins.is_logged(): return render_template('login.html')
+
+    if request.method == 'GET':
+        return render_template('local_aligment.html')
     if request.method == 'POST':
         # Get the data from the form
         fasta1 = request.files['fasta1local']
@@ -360,11 +365,13 @@ def local_alignment():
         else:
             return render_template('local_aligment.html')
 
-    return render_template('local_aligment.html')
-
 @app.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
     """Show the random sequence page"""
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+
+    if request.method == 'GET':
+        return render_template('random_sequence.html')
     if request.method == 'POST':
         # Get the data from the form
         number = request.form['number']
@@ -378,12 +385,17 @@ def random_sequence():
             daemon = Thread(target=sc.random_sequence_task, args=(number,user_id),daemon=True)
             daemon.start()
             return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
+
     return render_template('random_sequence.html')
 
 
 @app.route('/split_fasta', methods=['GET', 'POST'])
 def split_fasta():
-    ""
+    "Split a fasta file sequence into a desired section"
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+
+    if request.method == 'GET':
+        return render_template('split.html')
     if request.method == 'POST':
         fasta = request.files["split"]
         start = request.form['start']
@@ -398,11 +410,16 @@ def split_fasta():
         else:
             # os.remove(full_path)
             return render_template('split.html', message="File must be in .fasta format and inputs must be numbers bigger tha 0")
+
     return render_template('split.html')
 
 
 @app.route("/complementary", methods=['GET', 'POST'])
 def complementary():
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+
+    if request.method == 'GET':
+        return render_template('complementary.html')
     if request.method == 'POST':
         fasta = request.files["complementary"]
         fasta_ext = fasta.filename
@@ -412,31 +429,42 @@ def complementary():
             deamon = Thread(target=sc.complementary_task, args=(full_path,session.get('user_id')),daemon=True)
             deamon.start()
             return render_template('complementary.html', message="Doing the job")
+
     return render_template('complementary.html')
 
 
 
 @app.route("/blast",methods=['GET', 'POST'])
 def blast():
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+
+    if request.method == 'GET':
+        return render_template('blast.html')
     if request.method == 'POST':
         return render_template('blast.html')
+    
     return render_template('blast.html')
 
 
 @app.route('/history', methods=['GET', 'POST'])
 def history():
     """Show the history page"""
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+
     if request.method == 'GET':
         # Show the history
         user_id = session.get('user_id')
         list_of_results = upload.download_results(user_id)
         results = list_of_results
         return render_template('history.html',results=results)
+
     return render_template('history.html')
 
 @app.route('/history_query', methods=['GET', 'POST'])
 def history_query():
     """Show the history page"""
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+
     if request.method == 'POST':
         # Show the history
         user_id = session.get('user_id')

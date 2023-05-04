@@ -1,5 +1,6 @@
 import model.user as user
 from typing import Union
+from flask  import session
 import model.database as databases
 import mysql.connector
 import hashlib
@@ -51,7 +52,11 @@ def register(user: user.User) -> bool:
     else:
         return False
 
-
+def is_logged():
+    if session.get('username') != None:
+        return True
+    else:
+        return False
 
 # def register(username: str,name: str,surname: str,email: str,password: str,role_id: int) -> bool:
 #     """

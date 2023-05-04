@@ -59,6 +59,10 @@ def random_sequence_task(number,user_id):
     ids = str(id)
     file_up = "dna.fasta"
     query = "random_sequence"
+    print("number")
+    print(number)
+    print("user_id")
+    print(user_id)
     a = upload.upload_results(id,query,user_id)   
     subprocess.run(["./random", number])
     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)

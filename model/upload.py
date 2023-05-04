@@ -11,12 +11,12 @@ def delete_job(id):
     data.commit()
     return data.row_count()
 
-def upload_results(id,query,result,user_id):
+def upload_results(id,query,user_id):
     """Upload the results to the database"""
     tz = pytz.timezone('Europe/Madrid')
     now = datetime.datetime.now(tz)
     s = str(now)
-    data.query(f"INSERT INTO results (id,query,result,user_id,date) VALUES ({id},'{query}','{result}',{user_id},'{s}')")
+    data.query(f"INSERT INTO results (id,query,user_id,start) VALUES ({id},'{query}',{user_id},'{s}')")
     data.commit()
     return True
 

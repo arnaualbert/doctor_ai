@@ -9,6 +9,7 @@ def is_image_file(filepath):
     except:
         return False
 
+
 def is_fasta_file_with_only_ATGC(filename):
     """Check if a file is a fasta file with only ATGC"""
     if filename.endswith('.fasta'):

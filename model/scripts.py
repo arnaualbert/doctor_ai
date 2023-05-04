@@ -8,8 +8,20 @@ import re
 from multiprocessing import Pool
 from random import *
 import subprocess
+import model.user as user
 
 path = os.getcwd()
+
+def tuple_to_object(result):
+    id = result[0]
+    username = result[1]
+    name = result[2]
+    surname = result[3]
+    email = result[4]
+    password = result[5]
+    role_id = result[6]
+
+    return user.User(username,name,surname,email, password, role_id,id)
 
 def save_fasta_file(fasta, directory):
     """

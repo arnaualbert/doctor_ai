@@ -4,6 +4,7 @@ from flask  import session
 import model.database as databases
 import mysql.connector
 import hashlib
+import model.scripts as tools
 
 ### Connect to the database
 conexion = mysql.connector.connect(
@@ -33,7 +34,7 @@ def login(username: str, password:str) -> Union[bool, user.User]:
     if resultado is None:
         return False
     else:
-        return user.User(*resultado)
+        return tools.tuple_to_object(resultado)
 
 def register(user: user.User) -> bool:
     """
@@ -57,26 +58,20 @@ def is_logged():
         return True
     else:
         return False
+    
+def get_user_data_from_database(username)-> Union[bool, user.User]:
 
-# def register(username: str,name: str,surname: str,email: str,password: str,role_id: int) -> bool:
-#     """
-#     Registers a new user with the provided information.
+    # ejecutar una consulta para recuperar los datos del usuario
+    result = data.query(f"SELECT * FROM users WHERE username = '{username}'")
+    if result is None:
+        return False
+    else:
+        return tools.tuple_to_object(result)
 
-#         Parameters:
-#             username (str):  The username for the new user.
-#             name (str): The name of the new user.
-#             surname (str): The surname of the new user.
-#             email (str): The email address of the new user.
-#             password (str): The password for the new user.
-#             role_id (int): The role ID for the new user.
-#         Returns:
-#             True if the user was registered successfully, False otherwise.
-#     """
-#     resultado = data.query(f"SELECT * FROM users WHERE username = '{username}'")
-#     if resultado is None:
-#         data.query(f"INSERT INTO users (username,name,surname,email,pass_hash,role_id) VALUES ('{username}','{name}','{surname}','{email}','{password}',{role_id})")
-#         data.commit()
-#         return True
-#     else:
-#         return False
 
+def edit(username, name, surname, email) -> bool:
+
+    data.query(f"UPDATE users SET name = '{name}',surname = '{surname}',email = '{email}' WHERE username='{username}'")
+    data.commit()
+    
+    return True

@@ -166,6 +166,30 @@ def register():
 
     return render_template('register.html')
 
+@app.route('/edit_account', methods=['GET', 'POST'])
+def edit_account():
+    """Show the edit account page of the app """
+    username:str = session.get('username')
+    user_data: Union[bool, users.User] = logins.get_user_data_from_database(username)
+    name:str = user_data.name
+    surname:str = user_data.surname
+    email:str = user_data.email
+    if request.method == 'POST':
+        new_username:str = request.form['username']
+        new_name:str = request.form['name']
+        new_surname:str = request.form['surname']
+        new_email:str = request.form['email']
+
+        resultado = logins.edit(new_username, new_name, new_surname, new_email)
+        if resultado:
+            message = "Successful edited"
+            return render_template('edit_account.html', message=message)
+        else:
+            message = "Failed edit"
+        return render_template('edit_account.html', message=message,name=new_name,surname=new_surname, username=new_username, email=new_email)
+    
+    return render_template('edit_account.html', name=name,surname=surname, username=username, email=email)
+
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():

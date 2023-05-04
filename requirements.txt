@@ -1,8 +1,13 @@
 absl-py==1.4.0
+aiohttp==3.8.4
+aiosignal==1.3.1
 amqp==5.1.1
 asgiref==3.6.0
 astunparse==1.6.3
+async-timeout==4.0.2
+attrs==23.1.0
 billiard==3.6.4.0
+biopython==1.81
 cachetools==5.3.0
 celery==5.2.7
 certifi==2022.12.7
@@ -19,6 +24,7 @@ flask-mysql-connector==1.1.0
 Flask-SQLAlchemy==3.0.3
 flatbuffers==23.3.3
 fonttools==4.39.3
+frozenlist==1.3.3
 gast==0.4.0
 google-auth==2.17.2
 google-auth-oauthlib==1.0.0
@@ -39,6 +45,7 @@ Markdown==3.4.3
 MarkupSafe==2.1.2
 matplotlib==3.7.1
 ml-dtypes==0.0.4
+multidict==6.0.4
 mysql-connector-python==8.0.32
 numpy==1.23.5
 oauthlib==3.2.2
@@ -73,4 +80,5 @@ waitress==2.1.2
 wcwidth==0.2.6
 Werkzeug==2.2.3
 wrapt==1.14.1
+yarl==1.8.2
 zipp==3.15.0

@@ -1,14 +1,14 @@
-from tensorflow import keras
-from keras.layers import Input, Lambda, Dense, Flatten
-from keras.models import Model
-from keras.applications.vgg16 import VGG16
-from keras.applications.vgg16 import preprocess_input
-from keras.preprocessing import image
-from keras.preprocessing.image import ImageDataGenerator
-from keras.models import Sequential
-import numpy as np
-from glob import glob
-import matplotlib.pyplot as plt
+# from tensorflow import keras
+# from keras.layers import Input, Lambda, Dense, Flatten
+# from keras.models import Model
+# from keras.applications.vgg16 import VGG16
+# from keras.applications.vgg16 import preprocess_input
+# from keras.preprocessing import image
+# from keras.preprocessing.image import ImageDataGenerator
+# from keras.models import Sequential
+# import numpy as np
+# from glob import glob
+# import matplotlib.pyplot as plt
 
 # IMAGE_SIZE = [224, 224]
 
@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt
 #   metrics=['accuracy']
 # )
 
-from keras.preprocessing.image import ImageDataGenerator
+# from keras.preprocessing.image import ImageDataGenerator
 
 # train_datagen = ImageDataGenerator(rescale = 1./255,
 #                                    shear_range = 0.2,
@@ -68,10 +68,13 @@ from keras.preprocessing.image import ImageDataGenerator
 
 
 
+
+
+
 import tensorflow as tf
 from keras.models import load_model
 
-# model.save('chest_xray.h5')
+# model.save('brain.h5')  ### chest_xray.h5
 
 from keras.models import load_model
 
@@ -83,7 +86,7 @@ import numpy as np
 
 model=load_model('chest_xray.h5')
 
-img=tf.keras.utils.load_img('/home/arnaualbert/Desktop/pneumonia_dl/chest_xray_pneumonia/chest_xray/val/NORMAL/NORMAL2-IM-1427-0001.jpeg',target_size=(224,224))
+img=tf.keras.utils.load_img('/home/arnaualbert/Desktop/pneumonia_dl/chest_xray_pneumonia/chest_xray/test/PNEUMONIA/person99_bacteria_473.jpeg',target_size=(224,224))
 
 x = tf.keras.utils.img_to_array(img)
 

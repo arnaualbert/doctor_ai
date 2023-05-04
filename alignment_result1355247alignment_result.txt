@@ -1,3 +1,0 @@
->secuencia_aleatoria 0 AAAAAAAA 8
->secuencia_aleatoria 8 AAAAAAAA 16
-Alignment score: 8

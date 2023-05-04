@@ -1,0 +1,29 @@
+{% include 'menu.html' %}
+<div class="container">
+  <h3>Complementary Sequence</h3>
+
+  <div class="row-cols-4">
+    <form method=post action="/complementary" enctype=multipart/form-data onsubmit="return validarFormulario()">
+      <div class="col">
+        <input class="form-control" type="file" name="complementary" id="formFile"
+          value="{{ request.form['formFile'] }}" accept=".fasta">
+      </div>
+  </div><br>
+  <button class="btn btn-primary" type="submit">Submit</button>
+  <span id="errorMessage">{{message}}</span>
+  </form>
+</div>
+
+<script>
+  function validarFormulario() {
+    var formFile = document.getElementById("formFile").value;
+
+    if (formFile === "") {
+      var errorMessage = document.getElementById("errorMessage");
+      errorMessage.innerHTML = "Please fill the field";
+      return false;
+    }
+    return true;
+  }
+</script>
+</body>

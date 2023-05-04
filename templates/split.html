@@ -1,0 +1,25 @@
+{% include 'menu.html' %}
+
+    <div class="container">
+    <h3>Split</h3>
+        <div class="row-cols-4">
+            <form method=post action="/split_fasta" enctype=multipart/form-data>
+                <div class="col">
+                    <label for="">Fasta</label>
+                    <input class="form-control" type="file" name="split" id="formFile">
+                </div>
+                <div class="col">
+                    <label for="">Start</label>
+                    <input class="form-control" type="number" name="start" id="formFile">
+                </div>
+                <div class="col">
+                    <label for="">End</label>
+                    <input class="form-control" type="number" name="end" id="formFile">
+                </div>
+                <br>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+        {{message}}
+    </div>
+</body

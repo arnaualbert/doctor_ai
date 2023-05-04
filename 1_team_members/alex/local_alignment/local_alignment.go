@@ -18,9 +18,9 @@ func max(a, b int) int {
 func localAlignment(seq1, seq2 string, match, mismatch, gap int) (string, string, int) {
 	n := len(seq1)
 	m := len(seq2)
-	score := make([][]int, n+1)
+	score := make([][]int, n+1) //poner n+1 por 0
 	for i := range score {
-		score[i] = make([]int, m+1)
+		score[i] = make([]int, m+1) //poner m+1 por 0
 	}
 	maxScore := 0
 	maxI := 0

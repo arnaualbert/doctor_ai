@@ -1,29 +1,4 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <title>Doctor AI</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-
-<body class="p-3 m-0 border-0 bd-example">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-              <li class="nav-item">
-                <a class="btn btn-outline-success"  aria-current="page" href="/register">Register</a>
-                <a class="btn btn-outline-success"  aria-current="page" href="/history">History</a>
-              </li>
-            </ul>
-              <a class="btn btn-outline-success" href="/logout" type="submit">Logout</a>
-          </div>
-        </div>
-      </nav><br>
+{% include 'menu.html' %}
     <div class="container text-center">
         <div class=" mt-1 row g-3 gap-3 row-cols-4">
             <div class="card col" style="width: 18rem;">
@@ -54,7 +29,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Random Sequence</h5>
                     <p class="card-text">Create a random sequence as long as you want.</p>
-                    <a class="btn btn-secondary" href="./random_sequence" class="card-link">Try</a>
+                    <a class="btn btn-secondary" href="/random_sequence" class="card-link">Try</a>
 
                 </div>
             </div>
@@ -87,6 +62,27 @@
                     <h5 class="card-title">DNA to ARN</h5>
                     <p class="card-text">Convert a DNA sequence into a ARN.</p>
                     <a class="btn btn-secondary" href="/dnatorna" class="card-link">Try</a>
+                </div>
+            </div>
+            <div class="card col" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Split</h5>
+                    <p class="card-text">Split a fasta.</p>
+                    <a class="btn btn-secondary" href="/split_fasta" class="card-link">Try</a>
+                </div>
+            </div>
+            <div class="card col" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Complementary</h5>
+                    <p class="card-text">Get the complementary sequence.</p>
+                    <a class="btn btn-secondary" href="/complementary" class="card-link">Try</a>
+                </div>
+            </div>
+            <div class="card col" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Blast</h5>
+                    <p class="card-text">Do the Blast with a gived sequence</p>
+                    <a class="btn btn-secondary" href="/blast" class="card-link">Try</a>
                 </div>
             </div>
         </div>

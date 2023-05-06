@@ -9,7 +9,7 @@ This module is used to serve the backend of the application
 """
 
 # Imports of the app
-from flask              import Flask, render_template, request, session,send_file, redirect, url_for
+from flask              import Flask,Blueprint, render_template, request, session,send_file, redirect, url_for
 from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import ThreadPoolExecutor
 from threading          import Thread
@@ -25,12 +25,16 @@ import subprocess
 import hashlib
 import os
 import re
+from app_user import user_controller
+from app_database import database_controller
 executor = ThreadPoolExecutor(5)
 ########
 
 ########
 module_name = __name__
 app = Flask(__name__)
+app.register_blueprint(user_controller)
+app.register_blueprint(database_controller)
 ####NO TOCAR
 ###################
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -107,98 +111,6 @@ def index():
         return render_template('login.html')
     if request.method == 'GET':
         return render_template('login.html')
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    """Show the login form and log the user in if the credentials are correct"""
-    if request.method == 'GET':
-        return render_template('index.html', message=message)
-
-    if request.method == 'POST':
-        # Get the data from the form
-        username: str =  request.form['username']
-        password: str =  request.form['password']
-        resultado: Union[bool, users.User] = logins.login(username, password)
-        # If the credentials are correct log the user in and redirect to the home page else redirect to the login page
-        if resultado:
-            print(resultado)
-            message = "Login successful"
-            session['username'] = resultado.username
-            session["user_id"] = resultado.id
-            print(f"hola {session.get('username')}")
-            session['username'] = username
-            return render_template('index.html', message=message)
-        else:
-            message = 'Login failed'
-            return render_template("login.html", message=message)
-
-@app.route('/logout')
-def logout():
-    """Delete the session data, this will log the user out"""
-    session.pop('username', None)
-    return render_template('login.html')
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    """Show the register page of the app """
-    if request.method == 'GET':
-        roles = (upload.select_from('role_name', 'role'))
-        roles_ids = (upload.select_from('id', 'role'))
-        roles_list = [(r['role_name']) for r in roles]
-        roles_id_list = [(r['id']) for r in roles_ids]
-        roles_p_id = list(zip(roles_list, roles_id_list))
-
-        return render_template('register.html', roles=roles_p_id)
-
-    if request.method == 'POST':
-        # Get the data from the form
-        username: str =  request.form['username']
-        name: str =  request.form['name']
-        surname: str =  request.form['surname']
-        email: str =  request.form['email']
-        password: str =  request.form['password']
-        role_id: int =  request.form['role_id']
-        # Hash the password
-        pass_hash =  hashlib.sha256(password.encode()).hexdigest()
-        # Create the user
-        user = users.User(username, name, surname, email, pass_hash, role_id)
-        # Register the user
-        resultado: bool = logins.register(user)
-        # If the user is registered redirect to the login page else redirect to the register page
-        if resultado:
-            message = "Register successful"
-            return render_template('register.html', message=message)
-        else:
-            message = "Register failed"
-            return render_template('register.html', message=message)
-
-    return render_template('register.html')
-
-@app.route('/edit_account', methods=['GET', 'POST'])
-def edit_account():
-    """Show the edit account page of the app """
-    username:str = session.get('username')
-    user_data: Union[bool, users.User] = logins.get_user_data_from_database(username)
-    name:str = user_data.name
-    surname:str = user_data.surname
-    email:str = user_data.email
-    if request.method == 'POST':
-        new_username:str = request.form['username']
-        new_name:str = request.form['name']
-        new_surname:str = request.form['surname']
-        new_email:str = request.form['email']
-
-        resultado = logins.edit(new_username, new_name, new_surname, new_email)
-        if resultado:
-            message = "Successful edited"
-            return render_template('edit_account.html', message=message,name=new_name,surname=new_surname, username=new_username, email=new_email)
-        else:
-            message = "Failed edit"
-        return render_template('edit_account.html', message=message)
-    
-    return render_template('edit_account.html', name=name,surname=surname, username=username, email=email)
-
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
@@ -472,36 +384,6 @@ def blast():
         return render_template('blast.html')
     
     return render_template('blast.html')
-
-
-@app.route('/history', methods=['GET', 'POST'])
-def history():
-    """Show the history page"""
-    if not logins.is_logged(): return render_template('login.html') # Validate session
-
-    if request.method == 'GET':
-        # Show the history
-        user_id = session.get('user_id')
-        list_of_results = upload.download_results(user_id)
-        results = list_of_results
-        return render_template('history.html',results=results)
-
-    return render_template('history.html')
-
-@app.route('/history_query', methods=['GET', 'POST'])
-def history_query():
-    """Show the history page"""
-    if not logins.is_logged(): return render_template('login.html') # Validate session
-
-    if request.method == 'POST':
-        # Show the history
-        user_id = session.get('user_id')
-        tool = request.form['query_order']
-        list_of_results = upload.select_by_tool(tool,user_id)
-        results = list_of_results
-        return render_template('history.html',results=results)
-    return render_template('history.html')
-
 
 @app.route('/underconstruction', methods=['GET', 'POST'])
 def under_construction():

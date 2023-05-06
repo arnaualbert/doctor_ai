@@ -1,3 +1,0 @@
->secuencia_aleatoria 27 AC 29
->secuencia_aleatoria 27 AC 3
-Alignment score: 2

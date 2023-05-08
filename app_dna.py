@@ -37,6 +37,9 @@ create_directory(RANDOM_SEQ)
 SPLIT_FASTA = os.path.join(path, 'splits')
 create_directory(SPLIT_FASTA)
 
+REVERSE= os.path.join(path, 'reverse')
+create_directory(REVERSE)
+
 
 @dna_controller.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
@@ -148,3 +151,22 @@ def split_fasta():
             return render_template('split.html', message="File must be in .fasta format and inputs must be numbers bigger tha 0")
 
     return render_template('split.html')
+@dna_controller.route('/reverse_complementary',methods=['GET', 'POST'])
+def reverse_complementary():
+    """Show the cds extract page"""
+    if not logins.is_logged(): return render_template('login.html')
+
+    if request.method == 'GET': 
+        return render_template('reverse_complementary.html')
+    if request.method == 'POST':
+        # Get the data from the form
+        file = request.files['reverse_complementary']
+        if file:
+            # Excecute the cds extract program
+            fullroute=sc.save_fasta_file(file,REVERSE)
+            if file.filename.endswith('.fasta'):
+                user_id = session.get('user_id')
+                daemon = Thread(target=sc.reverse_complementary_task, args=(fullroute,user_id))
+                daemon = daemon.start()
+                return render_template('reverse_complementary.html')
+        return render_template('reverse_complementary.html')

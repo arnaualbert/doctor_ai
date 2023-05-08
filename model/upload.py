@@ -16,7 +16,8 @@ def upload_results(id,query,user_id):
     tz = pytz.timezone('Europe/Madrid')
     now = datetime.datetime.now(tz)
     s = str(now)
-    data.query(f"INSERT INTO results (id,query,user_id,start) VALUES ({id},'{query}',{user_id},'{s}')")
+    status = 'in process'
+    data.query(f"INSERT INTO results (id,query,user_id,start, date) VALUES ({id},'{query}',{user_id},'{s}', '{status}')")
     data.commit()
     return True
 

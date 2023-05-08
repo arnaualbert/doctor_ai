@@ -64,10 +64,13 @@ def gb_to_fasta():
         if file:
             filename = file.filename
             file.save(os.path.join(GB2FASTA, filename))
-            fullroute=os.path.join(GB2FASTA, filename)
+            fullroute = os.path.join(GB2FASTA, filename)
             # Excecute the genbank to fasta program
-            if file.filename.endswith('.gb'):
+            if validate.is_genbank(fullroute):
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.genbank_to_fasta, args=(fullroute,user_id))
                 daemon = daemon.start()
                 return render_template('gbtofasta.html')
+            else:  
+                err_msg = "File don't have GenBank format"
+                return render_template('gbtofasta.html', err_msg=err_msg)

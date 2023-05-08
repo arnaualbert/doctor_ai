@@ -1,7 +1,7 @@
 import os
 from PIL import Image 
 
-def is_image_file(filepath):
+def is_image_file(filepath) -> bool:
     """Check if a file is an image trying to open it as an image""" 
     try:
         with Image.open(filepath) as image:
@@ -10,7 +10,7 @@ def is_image_file(filepath):
         return False
 
 
-def is_fasta_file_with_only_ATGC(filename):
+def is_fasta_file_with_only_ATGC(filename) -> bool:
     """Check if a file is a fasta file with only ATGC"""
     if filename.endswith('.fasta'):
         with open(filename) as f:
@@ -25,7 +25,7 @@ def is_fasta_file_with_only_ATGC(filename):
         return False
 
 
-def read_fasta_file(file_path):
+def read_fasta_file(file_path) -> bool:
     """Read a fasta file"""
     file_extension = os.path.splitext(file_path)[1]
     if file_extension not in ['.fasta', '.fa']:
@@ -45,7 +45,7 @@ def count_letters_in_file(filename):
 
     return count
 
-def validate_split_fasta(full_path,start:str,end:str):
+def validate_split_fasta(full_path,start:str,end:str) -> bool:
     """validate if the inputs are correct"""
     if is_fasta_file_with_only_ATGC(full_path) and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
         return True
@@ -53,16 +53,30 @@ def validate_split_fasta(full_path,start:str,end:str):
         return False
 
 
-def validate_local_aligment(fasta1,fasta2,match,mismatch,gap):
+def validate_local_aligment(fasta1,fasta2,match,mismatch,gap) -> bool:
     """validate if the inputs are correct"""
     if is_fasta_file_with_only_ATGC(fasta1) and is_fasta_file_with_only_ATGC(fasta2) and match != None and mismatch != None and gap != None:
         return True
     else:
         return False
 
-def validate_global_aligment(fasta1,fasta2,match,mismatch,gap):
+def validate_global_aligment(fasta1,fasta2,match,mismatch,gap) -> bool:
     """validate if the inputs are correct"""
     if is_fasta_file_with_only_ATGC(fasta1) and is_fasta_file_with_only_ATGC(fasta2) and match != None and mismatch != None and gap != None:
         return True
     else:
         return False
+    
+
+def is_genbank(gb_filepath) -> bool:
+    """Validate if a input file is a genbank file"""   
+    if gb_filepath.endswith(".gb"):
+        with open(gb_filepath, 'r') as file:
+            first_line = file.readline().strip()
+            if first_line.startswith("LOCUS") and "bp" in first_line:
+                return True
+            else:
+                return False
+    else:
+        return False
+

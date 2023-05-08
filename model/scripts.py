@@ -82,6 +82,13 @@ def complementary_task(fasta,user_id):
     subprocess.run(["./complementary",fasta,out_name])
     upload.update_date(id,out_name,user_id)
 
+def reverse_complementary_task(fasta,user_id):
+    id = randint(1, 9999999)
+    out_name = f"{id}reverse_complementary.fasta"
+    query = "reverse_complementary"
+    upload.upload_results(id,query,user_id)
+    subprocess.run(["./reverse_complementary",fasta,out_name])
+    upload.update_date(id,out_name,user_id)
 
 def split_fasta_task(fasta, user_id,start,end):
     query = "split_fasta"

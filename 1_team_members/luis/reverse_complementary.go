@@ -94,13 +94,13 @@ func writeFastaFile(filename string, records []FastaRecord) error {
 }
 
 func main() {
-	if len(os.Args) < 2 {
+	if len(os.Args) < 3 {
 		fmt.Println("Usage: go run main.go <input file>")
 		return
 	}
 
 	inputFile := os.Args[1]
-	outputFile := strings.TrimSuffix(inputFile, ".fasta") + "_complementary.fasta"
+	outputFile := os.Args[2]
 	// Check file extension
 	if !strings.HasSuffix(inputFile, ".fasta") && !strings.HasSuffix(inputFile, ".fa") {
 		fmt.Fprintf(os.Stderr, "Error: Input file must have a .fasta or .fa extension.\n")

@@ -151,6 +151,7 @@ def split_fasta():
             return render_template('split.html', message="File must be in .fasta format and inputs must be numbers bigger tha 0")
 
     return render_template('split.html')
+
 @dna_controller.route('/reverse_complementary',methods=['GET', 'POST'])
 def reverse_complementary():
     """Show the cds extract page"""
@@ -164,7 +165,7 @@ def reverse_complementary():
         if file:
             # Excecute the cds extract program
             fullroute=sc.save_fasta_file(file,REVERSE)
-            if file.filename.endswith('.fasta'):
+            if validate.is_fasta_file_with_only_ATGC(fullroute):
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.reverse_complementary_task, args=(fullroute,user_id))
                 daemon = daemon.start()

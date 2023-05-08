@@ -27,6 +27,9 @@ import os
 import re
 from app_user import user_controller
 from app_database import database_controller
+from app_dna import dna_controller
+from app_align import align_controller
+from app_cds_gb import cds_gb_controller
 executor = ThreadPoolExecutor(5)
 ########
 
@@ -35,6 +38,9 @@ module_name = __name__
 app = Flask(__name__)
 app.register_blueprint(user_controller)
 app.register_blueprint(database_controller)
+app.register_blueprint(dna_controller)
+app.register_blueprint(cds_gb_controller)
+app.register_blueprint(align_controller)
 ####NO TOCAR
 ###################
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -50,35 +56,11 @@ def create_directory(path):
 TOOLS_PATH = os.path.join(path, 'tools')
 create_directory(TOOLS_PATH)
 
-CDSEXT = os.path.join(path, 'cdsext')
-create_directory(CDSEXT)
 
-GB2FASTA = os.path.join(path, 'gb2fasta')
-create_directory(GB2FASTA)
-
-GBLALIGN = os.path.join(path, 'globalAlign')
-create_directory(GBLALIGN)
-
-LCLALIGN = os.path.join(path, 'localAlign')
-create_directory(LCLALIGN)
 
 AIPICS = os.path.join(path, 'pics')
 create_directory(AIPICS)
 
-DNATORNA = os.path.join(path, 'dnatorna')
-create_directory(DNATORNA)
-
-DNATOPROTEIN = os.path.join(path, 'dnaprotein')
-create_directory(DNATOPROTEIN)
-
-RANDOM_SEQ = os.path.join(path, 'randomseqs')
-create_directory(RANDOM_SEQ)
-
-SPLIT_FASTA = os.path.join(path, 'splits')
-create_directory(SPLIT_FASTA)
-
-COMPLEMENTARY_FASTA = os.path.join(path, 'complementary_one')
-create_directory(COMPLEMENTARY_FASTA)
 
 ### ERRORS
 @app.errorhandler(400)
@@ -137,240 +119,6 @@ def iamlr():
             return render_template('ia.html', solve=solve)
         else:
             return render_template('ia.html',solve="It needs to be an image")
-
-@app.route('/dnatoprotein',methods=['GET', 'POST'])
-def DNA_to_protein():
-    """Show the dna to protein page"""
-    if not logins.is_logged(): return render_template('login.html')
-    
-    if request.method == 'GET': 
-        return render_template('dna_protein.html')
-    
-    if request.method == 'POST':
-        # Get the data from the form
-        file = request.files['dnaprotein']
-        if file:
-            id = randint(1,9999999)
-            ids = str(id)
-            filename = ids+file.filename
-            fullroute = sc.save_fasta_file_with_id(id,file,DNATOPROTEIN)
-            # Excecute the dna to protein program
-            if validate.is_fasta_file_with_only_ATGC(fullroute):
-                user_id = session.get('user_id')
-                daemon = Thread(target=sc.dna_to_protein, args=(fullroute,filename,user_id,id))
-                daemon = daemon.start()
-            return render_template('dna_protein.html')  
-
-
-    
-@app.route('/dnatorna',methods=['GET', 'POST'])
-def DNA_to_RNA():
-    """Show the dna to rna page"""
-    if not logins.is_logged(): return render_template('login.html')
-
-    if request.method == 'GET': 
-        return render_template('dna_rna.html')
-    if request.method == 'POST':
-        # Get the data from the form
-        file = request.files['dnarna']
-        if file:
-            id = randint(1,9999999)
-            ids = str(id)
-            filename = ids+file.filename
-            fullroute = sc.save_fasta_file_with_id(id,file,DNATORNA)
-            if validate.is_fasta_file_with_only_ATGC(fullroute):
-                user_id = session.get('user_id')
-                daemon = Thread(target=sc.dna_to_rna, args=(fullroute,filename,user_id,id))
-                daemon = daemon.start()
-                return render_template('dna_rna.html')
-            else:
-                return render_template('dna_rna.html')
-
-@app.route('/cdsextract',methods=['GET', 'POST'])
-def cdsextract():
-    """Show the cds extract page"""
-    if not logins.is_logged(): return render_template('login.html')
-
-    if request.method == 'GET': 
-        return render_template('cds.html')
-    if request.method == 'POST':
-        # Get the data from the form
-        file = request.files['extractcds']
-        if file:
-            # Excecute the cds extract program
-            fullroute=sc.save_fasta_file(file,CDSEXT)
-            if file.filename.endswith('.gb'):
-                user_id = session.get('user_id')
-                daemon = Thread(target=sc.cdsextract_task, args=(fullroute,user_id))
-                daemon = daemon.start()
-                return render_template('cds.html')
-        return render_template('cds.html')
-
-# Genbank to fasta 
-#-------------------------------------------
-
-@app.route('/gbtofasta',methods=['GET', 'POST'])
-def gb_to_fasta():
-    """Show the cds extract page"""
-    if not logins.is_logged(): return render_template('login.html')
-
-    if request.method == 'GET':
-        return render_template('gbtofasta.html')
-    if request.method == 'POST':
-        # Get the data from the form
-        file = request.files['gbfile']
-        if file:
-            filename = file.filename
-            file.save(os.path.join(GB2FASTA, filename))
-            fullroute=os.path.join(GB2FASTA, filename)
-            # Excecute the genbank to fasta program
-            if file.filename.endswith('.gb'):
-                user_id = session.get('user_id')
-                daemon = Thread(target=sc.genbank_to_fasta, args=(fullroute,user_id))
-                daemon = daemon.start()
-                return render_template('gbtofasta.html')
-            
-# Global aligment
-#-------------------------------------------
-@app.route('/globalalignment',methods=['GET', 'POST'])
-def global_alignment():
-    """Gloabal alignment tool
-        - In this verison deletes the result form server
-    """
-    if not logins.is_logged(): return render_template('login.html')
-
-    if request.method == 'GET':
-        return render_template('global_aligment.html')
-    if request.method == 'POST':
-        # Get the data from the form
-        fasta1 = request.files['fasta1']
-        fasta2 = request.files['fasta2']
-
-        match    = request.form['match']
-        mismatch = request.form['mismatch']
-        gap      = request.form['gap']
-        if fasta1 and fasta2:
-            fasta1_filename = fasta1.filename
-            fasta2_filename = fasta2.filename
-
-            fasta1.save(os.path.join(GBLALIGN, fasta1_filename))
-            fasta2.save(os.path.join(GBLALIGN, fasta2_filename))
-
-            fasta1_filepath = os.path.join(GBLALIGN, fasta1_filename)
-            fasta2_filepath = os.path.join(GBLALIGN, fasta2_filename)
-
-            # Execute the global aligment program
-            output = subprocess.run(["./global_aligment_last",fasta1_filepath, fasta2_filepath, match, mismatch, gap], capture_output=True)
-            print(output)
-
-            if len(output.stdout) > 0:
-                message = 'Data file format is not correct.'
-                return render_template('global_aligment.html', message=message)
-            else:   
-                result_id: str = str(randint(1,9999999))
-                user_id:   str = session.get('user_id')
-
-                file_up:      str = "global_alignment_result.txt"
-                new_filename: str = re.sub(r'\.txt$',result_id+'.txt', file_up)
-
-                os.rename('./'+file_up, new_filename)
-                query = "global_alignment"
-                upload.upload_results_global(result_id,query,new_filename,user_id)
-                response = send_file(new_filename,as_attachment=True)
-                # os.remove(new_filename)
-                return response
-
-        if not fasta1 or not fasta2:
-            message = "Please upload both files"
-            return render_template('global_aligment.html', message=message)
-
-#Local aligment
-# #-------------------------------------------
-@app.route('/localalignment',methods=['GET', 'POST'])
-def local_alignment():
-    """Show the local alignment page"""
-    if not logins.is_logged(): return render_template('login.html')
-
-    if request.method == 'GET':
-        return render_template('local_aligment.html')
-    if request.method == 'POST':
-        # Get the data from the form
-        fasta1 = request.files['fasta1local']
-        fasta2 = request.files['fasta2local']
-        match = request.form['match']
-        mismatch = request.form['mismatch']
-        gap = request.form['gap']
-        fasta1local = sc.save_fasta_file(fasta1, LCLALIGN)
-        fasta2local = sc.save_fasta_file(fasta2, LCLALIGN)
-        if validate.validate_local_aligment(fasta1local, fasta2local, match, mismatch, gap) == True:
-            user_id = session.get('user_id')
-            daemon = Thread(target=sc.local, args=(fasta1local, fasta2local, match, mismatch, gap,user_id), daemon=True)
-            daemon.start()
-            return render_template('local_aligment.html')
-        else:
-            return render_template('local_aligment.html')
-
-@app.route('/random_sequence', methods=['GET', 'POST'])
-def random_sequence():
-    """Show the random sequence page"""
-    if request.method == 'POST':
-        # Get the data from the form
-        number = request.form['number']
-        number_int = int(number)
-
-        if number_int <= 0 or number.isnumeric() == False:
-            return render_template('random_sequence.html', message="Number must be greater than 0")
-        else:
-            user_id = session.get('user_id')
-            # daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
-            daemon = Thread(target=sc.random_sequence_task, args=(number,user_id),daemon=True)
-            daemon.start()
-            return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
-    return render_template('random_sequence.html')
-
-
-@app.route('/split_fasta', methods=['GET', 'POST'])
-def split_fasta():
-    "Split a fasta file sequence into a desired section"
-    if not logins.is_logged(): return render_template('login.html') # Validate session
-
-    if request.method == 'GET':
-        return render_template('split.html')
-    if request.method == 'POST':
-        fasta = request.files["split"]
-        start = request.form['start']
-        end = request.form['end']
-        fasta_ext = fasta.filename
-        fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
-        full_path = os.path.join(SPLIT_FASTA,fasta_ext)
-        if validate.validate_split_fasta(full_path,start,end):
-            daemon = Thread(target=sc.split_fasta_task, args=(full_path,session.get('user_id'),start,end),daemon=True)
-            daemon.start()
-            return render_template('split.html', message="Doing the job")
-        else:
-            # os.remove(full_path)
-            return render_template('split.html', message="File must be in .fasta format and inputs must be numbers bigger tha 0")
-
-    return render_template('split.html')
-
-
-@app.route("/complementary", methods=['GET', 'POST'])
-def complementary():
-    if not logins.is_logged(): return render_template('login.html') # Validate session
-
-    if request.method == 'GET':
-        return render_template('complementary.html')
-    if request.method == 'POST':
-        fasta = request.files["complementary"]
-        fasta_ext = fasta.filename
-        fasta.save(os.path.join(COMPLEMENTARY_FASTA,fasta_ext))
-        full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
-        if fasta_ext.endswith(".fasta"):
-            deamon = Thread(target=sc.complementary_task, args=(full_path,session.get('user_id')),daemon=True)
-            deamon.start()
-            return render_template('complementary.html', message="Doing the job")
-
-    return render_template('complementary.html')
 
 
 

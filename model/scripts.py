@@ -88,6 +88,7 @@ def split_fasta_task(fasta, user_id,start,end):
     id = randint(1, 9999999)
     upload.upload_results(id,query,user_id)
     subprocess.run(["./split",fasta,start,end])
+    # subprocess.run(f"./split {fasta} {start} {end} &")
     file_up = f"output_{start}_{end}.fasta"
     new_filename = re.sub(r'\.fasta$', str(id)+'output_'+start+'_'+end+'.fasta', file_up)
     os.rename(file_up, new_filename)

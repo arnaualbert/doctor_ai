@@ -54,10 +54,12 @@ Global aligment function
 			i--
 			j--
 		} else if i > 0 && scoreMatrix[i][j] == scoreMatrix[i-1][j]+gapScore {
+			fmt.Print(seq1)
 			alignedSeq1 = string(seq1[i-1]) + alignedSeq1
 			alignedSeq2 = "-" + alignedSeq2
 			i--
 		} else {
+			fmt.Print(seq1)
 			alignedSeq1 = "-" + alignedSeq1
 			alignedSeq2 = string(seq2[j-1]) + alignedSeq2
 			j--

@@ -143,7 +143,7 @@ def dna_to_protein(fullroute,filename,user_id,id):
     upload.update_date(id,file_up,user_id)
 
 
-def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user_id):
+def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,gapLeft, gapUp,user_id):
     id = randint(1,9999999)
     ids = str(id)
     file_up = "alignment_result.txt"

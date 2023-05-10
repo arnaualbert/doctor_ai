@@ -1,0 +1,5 @@
+Alignment score: 180
+>Aligned sequence 1:
+---------MVLSGEDKS
+>Aligned sequence 2:
+MVLSGEDKS---------

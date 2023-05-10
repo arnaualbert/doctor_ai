@@ -1,0 +1,7 @@
+Alignment score: -122
+>Aligned sequence 1:
+ATCGAGATCAGTCAGGAGATCACATGAGATAAAGACACAGATAGGGTGTC
+CATTTTGATGA
+>Aligned sequence 2:
+--------------------------------------------------
+-----------

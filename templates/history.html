@@ -1,6 +1,8 @@
 {% include 'menu.html' %}
   <form method="post" action="/history_query">
     <div class="form-group " style="margin-left: 30px; margin-right: 70%;margin-bottom: 20px;">
+      
+      <span for="filter">Filter by: </span>
       <select class=" form-select ml-3" name="query_order" id="query_order">
         <option value="random_sequence">random_sequence</option>
         <option value="local_alignment">local_alignment</option>
@@ -33,7 +35,7 @@
         <td>{{ result[4] }}</td>
         <td>{{ result[5]}}</td>
 
-        <td><button class="btn btn-outline-success">Eliminar</button></td>
+        <td><button class="btn btn-outline-danger">Delete</button></td>
 
         <!-- <td><button onclick="deleteRow({{ result[0] }})">Eliminar</button></td> -->
       </tr>

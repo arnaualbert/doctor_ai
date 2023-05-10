@@ -140,10 +140,25 @@ def under_construction():
         return render_template('underconstruction.html')
     return render_template('underconstruction.html')
 
-@app.route('/download/<path:filename>')
-def download_file(filename):
+
+def write_file(data, filename):
+    with open(filename, 'wb+') as f:
+        f.write(data)
+
+
+from io import BytesIO
+@app.route('/download/<int:ident>')
+def download_file(ident):
     """Download a file"""
-    return send_file(filename, as_attachment=True)
+    result = "result"
+    table = "results"
+    asd = upload.select_from_where(result,table,ident)
+    tup = asd[0]
+    bytes_io = BytesIO(tup)
+    # Send the file as an attachment
+    # return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name="myfile.txt")
+    return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name="myfile.txt")
+
 
 ### Create the app
 def create_app():

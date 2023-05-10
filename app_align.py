@@ -98,11 +98,13 @@ def local_alignment():
         match = request.form['match']
         mismatch = request.form['mismatch']
         gap = request.form['gap']
+        gapLeft = request.form['gapLeft']
+        gapUp = request.form['gapUp']
         fasta1local = sc.save_fasta_file(fasta1, LCLALIGN)
         fasta2local = sc.save_fasta_file(fasta2, LCLALIGN)
-        if validate.validate_local_aligment(fasta1local, fasta2local, match, mismatch, gap) == True:
+        if validate.validate_local_aligment(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp) == True:
             user_id = session.get('user_id')
-            daemon = Thread(target=sc.local, args=(fasta1local, fasta2local, match, mismatch, gap,user_id), daemon=True)
+            daemon = Thread(target=sc.local, args=(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp,user_id), daemon=True)
             daemon.start()
             # return "running"
             return render_template('local_aligment.html')

@@ -54,13 +54,14 @@ def register(user: user.User) -> bool:
         return False
 
 def is_logged():
+    """Checks if the user is logged in"""
     if session.get('username') != None:
         return True
     else:
         return False
     
 def get_user_data_from_database(username)-> Union[bool, user.User]:
-
+    """ Get the user data from the database"""
     # ejecutar una consulta para recuperar los datos del usuario
     result = data.query(f"SELECT * FROM users WHERE username = '{username}'")
     if result is None:
@@ -70,7 +71,7 @@ def get_user_data_from_database(username)-> Union[bool, user.User]:
 
 
 def edit(username, name, surname, email) -> bool:
-
+    """Edit the user data in the database"""
     data.query(f"UPDATE users SET name = '{name}',surname = '{surname}',email = '{email}' WHERE username='{username}'")
     data.commit()
     

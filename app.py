@@ -1,6 +1,6 @@
 __authors__ = "Arnau Albert, Vicor Piñana, Alex Varela, Luis Cardenete"
 __credits__ = ["Arnau Albert", "Vicor Piñana", "Alex Varela","Luis Cardenete"]
-__version__ = "2.0"
+__version__ = "4.0"
 __maintainer__ = "Doctor AI"
 __status__ = "Production"
 
@@ -15,6 +15,7 @@ from concurrent.futures import ThreadPoolExecutor
 from threading          import Thread
 from typing             import Union
 from random             import *
+import model.dir_persist as tools_dir
 import model.validators as validate
 import model.scripts    as sc
 import model.login      as logins
@@ -25,14 +26,15 @@ import subprocess
 import hashlib
 import os
 import re
-from app_user import user_controller
+from app_user     import user_controller
 from app_database import database_controller
-from app_dna import dna_controller
-from app_align import align_controller
-from app_cds_gb import cds_gb_controller
+from app_dna      import dna_controller
+from app_align    import align_controller
+from app_cds_gb   import cds_gb_controller
 executor = ThreadPoolExecutor(5)
 ########
-
+# Create tools directorys if not exists already
+tools_dir.create_tools_directory()
 ########
 module_name = __name__
 app = Flask(__name__)

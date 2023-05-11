@@ -13,6 +13,12 @@ import model.user as user
 path = os.getcwd()
 
 def tuple_to_object(result):
+    """ Convert tuple to object 
+    input:
+        result: tuple
+    output:
+        object type (user.User)
+    """
     id = result[0]
     username = result[1]
     name = result[2]
@@ -54,7 +60,13 @@ def save_fasta_file_with_id(id,file, directory):
     return fullroute
 
 def random_sequence_task(number,user_id):
-    """Execute the random sequence program and return the new filename"""
+    """Execute the random sequence program and return the new filename
+    Input:
+        number: number of random sequences
+        user_id: user id
+    Output:
+        Upload results to the database
+    """
     id = randint(1, 9999999)
     ids = str(id)
     file_up = "dna.fasta"
@@ -71,14 +83,16 @@ def random_sequence_task(number,user_id):
     file_to_read = open(new_filename).read()
     upload.update_date(id,file_to_read,user_id)
     os.remove(new_filename)
-             
-    # print(a)     
-    # print(b)
-    # print(new_filename)
-    return new_filename
 
 
 def complementary_task(fasta,user_id):
+    """Execute the complementary program 
+    Input:
+        fasta: fasta file
+        user_id: user id
+    Output:
+        Upload results to the database
+    """
     id = randint(1, 9999999)
     out_name = f"{id}complementary.fasta"
     query = "complementary"
@@ -90,6 +104,13 @@ def complementary_task(fasta,user_id):
     os.remove(fasta)
 
 def reverse_complementary_task(fasta,user_id):
+    """Execute the reverse complementary program
+    Input:
+        fasta: fasta file
+        user_id: user id
+    Output:
+        Upload results to the database
+    """
     id = randint(1, 9999999)
     out_name = f"{id}reverse_complementary.fasta"
     query = "reverse_complementary"
@@ -101,6 +122,15 @@ def reverse_complementary_task(fasta,user_id):
     os.remove(fasta)
 
 def split_fasta_task(fasta, user_id,start,end):
+    """Execute the split fasta program
+    Input:
+        fasta: fasta file
+        user_id: user id
+        start: start position
+        end: end position
+    Output:
+        Upload results to the database
+    """
     query = "split_fasta"
     id = randint(1, 9999999)
     upload.upload_results(id,query,user_id)
@@ -116,6 +146,13 @@ def split_fasta_task(fasta, user_id,start,end):
 
 
 def genbank_to_fasta(fullroute,user_id):
+    """Execute the genbank to fasta program
+    Input:
+        fullroute: fullroute to the fasta file
+        user_id: user id
+    Output: 
+        Upload results to the database
+    """
     id = randint(1,9999999)
     ids = str(id)
     file_up = Path('gb_to_fasta.fasta')
@@ -129,6 +166,13 @@ def genbank_to_fasta(fullroute,user_id):
 
 
 def cdsextract_task(fullroute,user_id):
+    """Execute the cdsextract program
+    Input:
+        fullroute: fullroute to the fasta file
+        user_id: user id
+    Output:
+        Upload results to the database
+    """
     id = randint(1,9999999)
     ids = str(id)
     file_up = Path('resultado.fasta')
@@ -144,6 +188,14 @@ def cdsextract_task(fullroute,user_id):
 
 
 def dna_to_rna(fullroute,filename,user_id,id):
+    """Execute the dna to rna program
+    Input:
+        fullroute: fullroute to the fasta file
+        user_id: user id
+        id: id
+        filename: filename
+    Output:
+        Upload results to the database"""
     query = "dna_to_rna"
     upload.upload_results(id,query,user_id)
     subprocess.run(["./dna_rna",fullroute])
@@ -155,6 +207,15 @@ def dna_to_rna(fullroute,filename,user_id,id):
     os.remove(fullroute)
 
 def dna_to_protein(fullroute,filename,user_id,id):
+    """Execute the dna to protein program
+    Input:
+        fullroute: fullroute to the fasta file
+        user_id: user id
+        id: id
+        filename: filename
+    Output:
+        Upload results to the database
+    """
     query = "dnaprotein"
     upload.upload_results(id,query,user_id)
     subprocess.run(["./dna_protein",fullroute])
@@ -167,6 +228,19 @@ def dna_to_protein(fullroute,filename,user_id,id):
     os.remove(fullroute)
 
 def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,gapLeft, gapUp,user_id):
+    """Execute the local alignment program
+    Input:
+        fasta1_filepath: fasta file
+        fasta2_filepath: fasta file
+        user_id: user id
+        match: match score
+        mismatch: mismatch score
+        gap: gap score
+        gapLeft: gapLeft score
+        gapUp: gapUp score
+    Output:
+        Upload results to the database
+    """
     id = randint(1,9999999)
     ids = str(id)
     file_up = "alignment_result.txt"

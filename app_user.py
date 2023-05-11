@@ -24,6 +24,7 @@ def login():
             message = "Login successful"
             session['username'] = resultado.username
             session["user_id"] = resultado.id
+            session["role_id"] = resultado.role_id
             print(f"hola {session.get('username')}")
             session['username'] = username
             return render_template('index.html', message=message)

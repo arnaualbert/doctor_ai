@@ -59,7 +59,7 @@ def save_fasta_file_with_id(id,file, directory):
     fullroute=os.path.join(directory, filename)
     return fullroute
 
-def random_sequence_task(number,user_id):
+def random_sequence_task(number,user_id,user_filename):
     """Execute the random sequence program and return the new filename
     Input:
         number: number of random sequences
@@ -75,7 +75,7 @@ def random_sequence_task(number,user_id):
     print(number)
     print("user_id")
     print(user_id)
-    a = upload.upload_results(id,query,user_id)   
+    a = upload.upload_results(id,query,user_id,user_filename)   
     subprocess.run(["./random", number])
     new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
     os.rename(file_up, new_filename)
@@ -85,7 +85,7 @@ def random_sequence_task(number,user_id):
     os.remove(new_filename)
 
 
-def complementary_task(fasta,user_id):
+def complementary_task(fasta,user_id,user_filename):
     """Execute the complementary program 
     Input:
         fasta: fasta file
@@ -96,14 +96,14 @@ def complementary_task(fasta,user_id):
     id = randint(1, 9999999)
     out_name = f"{id}complementary.fasta"
     query = "complementary"
-    upload.upload_results(id,query,user_id)
+    upload.upload_results(id,query,user_id,user_filename)
     subprocess.run(["./complementary",fasta,out_name])
     file_to_read = open(out_name).read()
     upload.update_date(id,file_to_read,user_id)
     os.remove(out_name)
     os.remove(fasta)
 
-def reverse_complementary_task(fasta,user_id):
+def reverse_complementary_task(fasta,user_id,user_filename):
     """Execute the reverse complementary program
     Input:
         fasta: fasta file
@@ -114,14 +114,14 @@ def reverse_complementary_task(fasta,user_id):
     id = randint(1, 9999999)
     out_name = f"{id}reverse_complementary.fasta"
     query = "reverse_complementary"
-    upload.upload_results(id,query,user_id)
+    upload.upload_results(id,query,user_id,user_filename)
     subprocess.run(["./reverse_complementary",fasta,out_name])
     file_to_read = open(out_name).read()
     upload.update_date(id,file_to_read,user_id)
     os.remove(out_name)
     os.remove(fasta)
 
-def split_fasta_task(fasta, user_id,start,end):
+def split_fasta_task(fasta, user_id,start,end,user_filename):
     """Execute the split fasta program
     Input:
         fasta: fasta file
@@ -133,7 +133,7 @@ def split_fasta_task(fasta, user_id,start,end):
     """
     query = "split_fasta"
     id = randint(1, 9999999)
-    upload.upload_results(id,query,user_id)
+    upload.upload_results(id,query,user_id,user_filename)
     subprocess.run(["./split",fasta,start,end])
     # subprocess.run(f"./split {fasta} {start} {end} &")
     file_up = f"output_{start}_{end}.fasta"
@@ -145,7 +145,7 @@ def split_fasta_task(fasta, user_id,start,end):
     os.remove(new_filename)
 
 
-def genbank_to_fasta(fullroute,user_id):
+def genbank_to_fasta(fullroute,user_id,user_filename):
     """Execute the genbank to fasta program
     Input:
         fullroute: fullroute to the fasta file
@@ -157,7 +157,7 @@ def genbank_to_fasta(fullroute,user_id):
     ids = str(id)
     file_up = Path('gb_to_fasta.fasta')
     query = "gb_to_fasta"
-    upload.upload_results(id,query,user_id)  
+    upload.upload_results(id,query,user_id,user_filename)  
     subprocess.run(["./genbankToFastaV3",fullroute])
     new_filename = Path(ids+'gb_to_fasta.fasta')
     asd = file_up.rename(new_filename)
@@ -165,7 +165,7 @@ def genbank_to_fasta(fullroute,user_id):
     upload.update_date(id,file_to_read,user_id)
 
 
-def cdsextract_task(fullroute,user_id):
+def cdsextract_task(fullroute,user_id,user_filename):
     """Execute the cdsextract program
     Input:
         fullroute: fullroute to the fasta file
@@ -177,7 +177,7 @@ def cdsextract_task(fullroute,user_id):
     ids = str(id)
     file_up = Path('resultado.fasta')
     query = "cds_extract"
-    upload.upload_results(id,query,user_id)  
+    upload.upload_results(id,query,user_id,user_filename)  
     subprocess.run(["./extract_cds",fullroute])
     new_filename = Path(ids+'resultado.txt')
     asd = file_up.rename(new_filename)
@@ -187,7 +187,7 @@ def cdsextract_task(fullroute,user_id):
     os.remove(asd)
 
 
-def dna_to_rna(fullroute,filename,user_id,id):
+def dna_to_rna(fullroute,filename,user_id,id,user_filename):
     """Execute the dna to rna program
     Input:
         fullroute: fullroute to the fasta file
@@ -197,7 +197,7 @@ def dna_to_rna(fullroute,filename,user_id,id):
     Output:
         Upload results to the database"""
     query = "dna_to_rna"
-    upload.upload_results(id,query,user_id)
+    upload.upload_results(id,query,user_id,user_filename)
     subprocess.run(["./dna_rna",fullroute])
     new_filename = re.sub(r'\.fasta$', '_modified.fasta', filename)
     file_up = "dnatorna/"+new_filename
@@ -206,7 +206,7 @@ def dna_to_rna(fullroute,filename,user_id,id):
     os.remove(file_up)
     os.remove(fullroute)
 
-def dna_to_protein(fullroute,filename,user_id,id):
+def dna_to_protein(fullroute,filename,user_id,id,user_filename):
     """Execute the dna to protein program
     Input:
         fullroute: fullroute to the fasta file
@@ -217,7 +217,7 @@ def dna_to_protein(fullroute,filename,user_id,id):
         Upload results to the database
     """
     query = "dnaprotein"
-    upload.upload_results(id,query,user_id)
+    upload.upload_results(id,query,user_id,user_filename)
     subprocess.run(["./dna_protein",fullroute])
     new_filename = re.sub(r'\.fasta$', '_protein.fasta', filename)
     file_up = "dnaprotein/"+new_filename
@@ -227,7 +227,7 @@ def dna_to_protein(fullroute,filename,user_id,id):
     os.remove(file_up)
     os.remove(fullroute)
 
-def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,gapLeft, gapUp,user_id):
+def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,gapLeft, gapUp,user_id,user_filename):
     """Execute the local alignment program
     Input:
         fasta1_filepath: fasta file
@@ -245,7 +245,7 @@ def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,gapLeft, gapUp,
     ids = str(id)
     file_up = "alignment_result.txt"
     query = "local_alignment"
-    upload.upload_results(id,query,user_id)
+    upload.upload_results(id,query,user_id,user_filename)
     print("running local alignment")
     subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap,gapLeft, gapUp])
     print("finished local alignment")

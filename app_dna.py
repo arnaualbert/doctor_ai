@@ -47,6 +47,7 @@ def random_sequence():
     if request.method == 'POST':
         # Get the data from the form
         number = request.form['number']
+        user_filename = request.form['user_filename']
         number_int = int(number)
 
         if number_int <= 0 or number.isnumeric() == False:
@@ -71,6 +72,7 @@ def DNA_to_protein():
     if request.method == 'POST':
         # Get the data from the form
         file = request.files['dnaprotein']
+        user_filename = request.form['user_filename']
         if file:
             id = randint(1,9999999)
             ids = str(id)
@@ -95,6 +97,7 @@ def DNA_to_RNA():
     if request.method == 'POST':
         # Get the data from the form
         file = request.files['dnarna']
+        user_filename = request.form['user_filename']
         if file:
             id = randint(1,9999999)
             ids = str(id)
@@ -117,6 +120,7 @@ def complementary():
         return render_template('complementary.html')
     if request.method == 'POST':
         fasta = request.files["complementary"]
+        user_filename = request.form['user_filename']
         fasta_ext = fasta.filename
         fasta.save(os.path.join(COMPLEMENTARY_FASTA,fasta_ext))
         full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
@@ -139,6 +143,7 @@ def split_fasta():
         fasta = request.files["split"]
         start = request.form['start']
         end = request.form['end']
+        user_filename = request.form['user_filename']
         fasta_ext = fasta.filename
         fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
         full_path = os.path.join(SPLIT_FASTA,fasta_ext)
@@ -162,6 +167,7 @@ def reverse_complementary():
     if request.method == 'POST':
         # Get the data from the form
         file = request.files['reverse_complementary']
+        user_filename = request.form['user_filename']
         if file:
             # Excecute the cds extract program
             fullroute=sc.save_fasta_file(file,REVERSE)

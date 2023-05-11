@@ -38,6 +38,7 @@ def cdsextract():
     if request.method == 'POST':
         # Get the data from the form
         file = request.files['extractcds']
+        user_filename = request.form['user_filename']
         if file:
             # Excecute the cds extract program
             fullroute=sc.save_fasta_file(file,CDSEXT)
@@ -61,6 +62,7 @@ def gb_to_fasta():
     if request.method == 'POST':
         # Get the data from the form
         file = request.files['gbfile']
+        user_filename = request.form['user_filename']
         if file:
             filename = file.filename
             file.save(os.path.join(GB2FASTA, filename))

@@ -1,7 +1,7 @@
 import os
 from PIL import Image 
 
-def is_image_file(filepath) -> bool:
+def is_image_file(filepath: str) -> bool:
     """Check if a file is an image trying to open it as an image""" 
     try:
         with Image.open(filepath) as image:
@@ -10,7 +10,7 @@ def is_image_file(filepath) -> bool:
         return False
 
 
-def is_fasta_file_with_only_ATGC(filename) -> bool:
+def is_fasta_file_with_only_ATGC(filename: str) -> bool:
     """Check if a file is a fasta file with only ATGC"""
     if filename.endswith('.fasta'):
         with open(filename) as f:
@@ -25,7 +25,7 @@ def is_fasta_file_with_only_ATGC(filename) -> bool:
         return False
 
 
-def read_fasta_file(file_path) -> bool:
+def read_fasta_file(file_path: str) -> bool:
     """Read a fasta file"""
     file_extension = os.path.splitext(file_path)[1]
     if file_extension not in ['.fasta', '.fa']:
@@ -35,7 +35,7 @@ def read_fasta_file(file_path) -> bool:
         return True
 
 
-def count_letters_in_file(filename):
+def count_letters_in_file(filename: str) -> int:
     """Count the number of letters in a file"""
     with open(filename, "r") as file:
         next(file)
@@ -53,14 +53,14 @@ def validate_split_fasta(full_path,start:str,end:str) -> bool:
         return False
 
 
-def validate_local_aligment(fasta1,fasta2,match,mismatch,gap,gapLeft,gapUp) -> bool:
+def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int,gapLeft: int,gapUp: int) -> bool:
     """validate if the inputs are correct"""
     if is_fasta_file_with_only_ATGC(fasta1) and is_fasta_file_with_only_ATGC(fasta2) and match != None and mismatch != None and gap != None:
         return True
     else:
         return False
 
-def validate_global_aligment(fasta1,fasta2,match,mismatch,gap) -> bool:
+def validate_global_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) -> bool:
     """validate if the inputs are correct"""
     if is_fasta_file_with_only_ATGC(fasta1) and is_fasta_file_with_only_ATGC(fasta2) and match != None and mismatch != None and gap != None:
         return True
@@ -68,7 +68,7 @@ def validate_global_aligment(fasta1,fasta2,match,mismatch,gap) -> bool:
         return False
     
 
-def is_genbank(gb_filepath) -> bool:
+def is_genbank(gb_filepath: str) -> bool:
     """Validate if a input file is a genbank file"""   
     if gb_filepath.endswith(".gb"):
         with open(gb_filepath, 'r') as file:

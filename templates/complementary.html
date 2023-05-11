@@ -8,6 +8,10 @@
         <input class="form-control" type="file" name="complementary" id="formFile"
           value="{{ request.form['formFile'] }}" accept=".fasta">
       </div>
+      <div class="col">
+        <label>Filename output</label>
+        <input class="form-control" type="text" name="user_filename" id="user_filename">
+      </div>
   </div><br>
   <button class="btn btn-primary" type="submit">Submit</button>
   <span id="errorMessage">{{message}}</span>

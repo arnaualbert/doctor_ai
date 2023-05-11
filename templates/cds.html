@@ -8,6 +8,10 @@
         <input class="form-control" type="file" name="extractcds" id="formFile" value="{{ request.form['formFile'] }}"
           accept=".gb">
       </div>
+      <div class="col">
+        <label>Filename output</label>
+        <input class="form-control" type="text" name="user_filename" id="user_filename">
+      </div>
   </div><br>
   <button class="btn btn-primary" type="submit">Submit</button>
   <span id="errorMessage">{{message}}</span>

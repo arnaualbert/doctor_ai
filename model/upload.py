@@ -11,12 +11,12 @@ def delete_job(id):
     data.commit()
     return data.row_count()
 
-def upload_results(id,query,user_id):
+def upload_results(id,query,user_id,user_filename):
     """Upload the results to the database"""
     tz = pytz.timezone('Europe/Madrid')
     now = datetime.datetime.now(tz)
     s = str(now)
-    data.query(f"INSERT INTO results (id,query,user_id,start) VALUES ({id},'{query}',{user_id},'{s}')")
+    data.query(f"INSERT INTO results (id,query,user_id,start,user_filename) VALUES ({id},'{query}',{user_id},'{s}','{user_filename}')")
     data.commit()
     return True
 
@@ -54,7 +54,7 @@ def select_from(field, table):
     result = data.fetch_all(f"SELECT {field} FROM {table}")
     return result
 
-def select_from_where(field, table,id):
+def select_from_where(field,field_two, table,id):
     """Download the results from the database"""
-    result = data.query(f"SELECT {field} FROM {table} WHERE id={id}")
+    result = data.query(f"SELECT {field},{field_two} FROM {table} WHERE id={id}")
     return result

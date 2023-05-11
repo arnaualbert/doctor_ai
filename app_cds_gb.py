@@ -44,7 +44,7 @@ def cdsextract():
             fullroute=sc.save_fasta_file(file,CDSEXT)
             if file.filename.endswith('.gb'):
                 user_id = session.get('user_id')
-                daemon = Thread(target=sc.cdsextract_task, args=(fullroute,user_id))
+                daemon = Thread(target=sc.cdsextract_task, args=(fullroute,user_id,user_filename))
                 daemon = daemon.start()
                 return render_template('cds.html')
         return render_template('cds.html')
@@ -70,7 +70,7 @@ def gb_to_fasta():
             # Excecute the genbank to fasta program
             if validate.is_genbank(fullroute):
                 user_id = session.get('user_id')
-                daemon = Thread(target=sc.genbank_to_fasta, args=(fullroute,user_id))
+                daemon = Thread(target=sc.genbank_to_fasta, args=(fullroute,user_id,user_filename))
                 daemon = daemon.start()
                 return render_template('gbtofasta.html')
             else:  

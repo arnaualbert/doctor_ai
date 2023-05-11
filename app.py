@@ -152,12 +152,15 @@ def download_file(ident):
     """Download a file"""
     result = "result"
     table = "results"
-    asd = upload.select_from_where(result,table,ident)
+    filename = "user_filename"
+    asd = upload.select_from_where(result,filename,table,ident)
+    print(asd)
     tup = asd[0]
+    file_to_download = asd[1]
     bytes_io = BytesIO(tup)
     # Send the file as an attachment
     # return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name="myfile.txt")
-    return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name="myfile.txt")
+    return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name=file_to_download)
 
 
 ### Create the app

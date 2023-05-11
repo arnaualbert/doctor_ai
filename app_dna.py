@@ -55,7 +55,7 @@ def random_sequence():
         else:
             user_id = session.get('user_id')
             # daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
-            daemon = Thread(target=sc.random_sequence_task, args=(number,user_id),daemon=True)
+            daemon = Thread(target=sc.random_sequence_task, args=(number,user_id,user_filename),daemon=True)
             daemon.start()
             return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
     return render_template('random_sequence.html')
@@ -81,7 +81,7 @@ def DNA_to_protein():
             # Excecute the dna to protein program
             if validate.is_fasta_file_with_only_ATGC(fullroute):
                 user_id = session.get('user_id')
-                daemon = Thread(target=sc.dna_to_protein, args=(fullroute,filename,user_id,id))
+                daemon = Thread(target=sc.dna_to_protein, args=(fullroute,filename,user_id,id,user_filename))
                 daemon = daemon.start()
             return render_template('dna_protein.html')  
 
@@ -105,7 +105,7 @@ def DNA_to_RNA():
             fullroute = sc.save_fasta_file_with_id(id,file,DNATORNA)
             if validate.is_fasta_file_with_only_ATGC(fullroute):
                 user_id = session.get('user_id')
-                daemon = Thread(target=sc.dna_to_rna, args=(fullroute,filename,user_id,id))
+                daemon = Thread(target=sc.dna_to_rna, args=(fullroute,filename,user_id,id,user_filename))
                 daemon = daemon.start()
                 return render_template('dna_rna.html')
             else:
@@ -125,7 +125,7 @@ def complementary():
         fasta.save(os.path.join(COMPLEMENTARY_FASTA,fasta_ext))
         full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
         if fasta_ext.endswith(".fasta"):
-            deamon = Thread(target=sc.complementary_task, args=(full_path,session.get('user_id')),daemon=True)
+            deamon = Thread(target=sc.complementary_task, args=(full_path,session.get('user_id'),user_filename),daemon=True)
             deamon.start()
             return render_template('complementary.html', message="Doing the job")
 
@@ -148,7 +148,7 @@ def split_fasta():
         fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
         full_path = os.path.join(SPLIT_FASTA,fasta_ext)
         if validate.validate_split_fasta(full_path,start,end):
-            daemon = Thread(target=sc.split_fasta_task, args=(full_path,session.get('user_id'),start,end),daemon=True)
+            daemon = Thread(target=sc.split_fasta_task, args=(full_path,session.get('user_id'),start,end,user_filename),daemon=True)
             daemon.start()
             return render_template('split.html', message="Doing the job")
         else:
@@ -173,7 +173,7 @@ def reverse_complementary():
             fullroute=sc.save_fasta_file(file,REVERSE)
             if validate.is_fasta_file_with_only_ATGC(fullroute):
                 user_id = session.get('user_id')
-                daemon = Thread(target=sc.reverse_complementary_task, args=(fullroute,user_id))
+                daemon = Thread(target=sc.reverse_complementary_task, args=(fullroute,user_id,user_filename))
                 daemon = daemon.start()
                 return render_template('reverse_complementary.html')
         return render_template('reverse_complementary.html')

@@ -13,18 +13,18 @@ def delete_job(id):
 
 def upload_results(id,query,user_id,user_filename):
     """Upload the results to the database"""
-    tz = pytz.timezone('Europe/Madrid')
-    now = datetime.datetime.now(tz)
-    s = str(now)
-    data.query(f"INSERT INTO results (id,query,user_id,start,user_filename) VALUES ({id},'{query}',{user_id},'{s}','{user_filename}')")
+    # tz = pytz.timezone('Europe/Madrid')
+    # now = datetime.datetime.now(tz)
+    # s = str(now)
+    data.query(f"INSERT INTO results (id,query,user_id,user_filename) VALUES ({id},'{query}',{user_id},'{user_filename}')")
     data.commit()
     return True
 
 def update_date(id,result,user_id):
-    tz = pytz.timezone('Europe/Madrid')
-    now = datetime.datetime.now(tz)
-    date = str(now)
-    data.query(f"UPDATE results SET result='{result}',date='{date}' WHERE id={id} AND user_id={user_id}")
+    # tz = pytz.timezone('Europe/Madrid')
+    # now = datetime.datetime.now(tz)
+    # date = str(now)
+    data.query(f"UPDATE results SET result='{result}',date=current_timestamp() WHERE id={id} AND user_id={user_id}")
     data.commit()
     # print("updated")
     return True

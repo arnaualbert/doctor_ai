@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 08, 2023 at 05:49 PM
+-- Generation Time: May 11, 2023 at 05:11 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -33,20 +33,9 @@ CREATE TABLE `results` (
   `result` longblob DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `start` varchar(99) DEFAULT NULL,
-  `date` varchar(99) DEFAULT NULL
+  `date` varchar(99) DEFAULT NULL,
+  `user_filename` varchar(99) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `results`
---
-
-INSERT INTO `results` (`id`, `query`, `result`, `user_id`, `start`, `date`) VALUES
-(532459, 'local_alignment', 0x616c69676e6d656e745f726573756c74353332343539616c69676e6d656e745f726573756c742e747874, 2, '2023-05-06 20:18:31.018143+02:00', '2023-05-06 20:18:53.713311+02:00'),
-(8928092, 'random_sequence', 0x646e613839323830393272616e646f6d2e6661737461, 2, '2023-05-06 20:18:35.608684+02:00', '2023-05-06 20:18:35.625053+02:00'),
-(3937054, 'random_sequence', 0x646e613339333730353472616e646f6d2e6661737461, 2, '2023-05-08 15:44:29.837041+02:00', '2023-05-08 15:44:29.850286+02:00'),
-(2724808, 'gb_to_fasta', 0x3237323438303867625f746f5f66617374612e6661737461, 2, '2023-05-08 17:38:49.849520+02:00', '2023-05-08 17:38:49.874151+02:00'),
-(5693525, 'gb_to_fasta', 0x3536393335323567625f746f5f66617374612e6661737461, 2, '2023-05-08 17:39:30.210228+02:00', '2023-05-08 17:39:30.217754+02:00'),
-(3493382, 'reverse_complementary', 0x33343933333832726576657273655f636f6d706c656d656e746172792e6661737461, 2, '2023-05-08 17:42:20.234444+02:00', '2023-05-08 17:42:20.242862+02:00');
 
 -- --------------------------------------------------------
 

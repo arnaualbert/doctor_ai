@@ -95,6 +95,7 @@ $("#filter-input").on("keyup", function() {
     <thead>
       <tr>
         <th>ID</th>
+        <th>Filename</th>
         <th>Query</th>
         <th>Result</th>
         <th id="start-date-header" class="asc">Start Date</th>
@@ -106,6 +107,7 @@ $("#filter-input").on("keyup", function() {
       {% for result in results %}
       <tr>
         <td>{{ result[0] }}</td>
+        <td>{{ result[6] }}</td>
         <td>{{ result[1] }}</td>
         <td><a class="btn btn-primary" href="{{ url_for('download_file', ident=result[0]) }}">Download</a></td>
         <td>{{ result[4] }}</td>

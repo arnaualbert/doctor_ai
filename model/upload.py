@@ -58,3 +58,8 @@ def select_from_where(field,field_two, table,id):
     """Download the results from the database"""
     result = data.query(f"SELECT {field},{field_two} FROM {table} WHERE id={id}")
     return result
+
+def select_from_where_id(field, table,id):
+    """Download the results from the database"""
+    result = data.query(f"SELECT {field} FROM {table} WHERE id={id}")
+    return result

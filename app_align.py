@@ -105,6 +105,7 @@ def local_alignment():
         fasta1local = sc.save_fasta_file(fasta1, LCLALIGN)
         fasta2local = sc.save_fasta_file(fasta2, LCLALIGN)
         if validate.validate_local_aligment(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp) == True:
+            print("hola")
             user_id = session.get('user_id')
             daemon = Thread(target=sc.local, args=(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp,user_id,user_filename), daemon=True)
             daemon.start()

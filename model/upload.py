@@ -36,7 +36,7 @@ def download_results(user_id):
     return result
 
 def delete_a_results(user_id, id):
-    """Download the results from the database from a specified user"""
+    """Delete the results from the database from a specified user"""
     result = data.long_query(f"DELETE * FROM results WHERE user_id={user_id} AND id='{id}'")
     return result
 

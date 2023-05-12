@@ -31,6 +31,7 @@ from app_database import database_controller
 from app_dna      import dna_controller
 from app_align    import align_controller
 from app_cds_gb   import cds_gb_controller
+from app_chat import chat_controller
 executor = ThreadPoolExecutor(5)
 ########
 # Create tools directorys if not exists already
@@ -43,6 +44,7 @@ app.register_blueprint(database_controller)
 app.register_blueprint(dna_controller)
 app.register_blueprint(cds_gb_controller)
 app.register_blueprint(align_controller)
+app.register_blueprint(chat_controller)
 ####NO TOCAR
 ###################
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -87,7 +89,6 @@ def error_handler(error):
     message = error_codes.get(error.code, "Sorry, an error occurred.")
     return render_template('error.html', message=message), error.code
 ###
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     """Show the principal page of the app"""

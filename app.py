@@ -44,7 +44,7 @@ app.register_blueprint(database_controller)
 app.register_blueprint(dna_controller)
 app.register_blueprint(cds_gb_controller)
 app.register_blueprint(align_controller)
-# app.register_blueprint(chat_controller)
+app.register_blueprint(chat_controller)
 ####NO TOCAR
 ###################
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'

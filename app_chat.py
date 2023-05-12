@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session
+from flask import Flask, Blueprint, render_template, request, session
 from typing             import Union
 import hashlib
 import model.login as logins
@@ -13,5 +13,7 @@ chat_controller = Blueprint('chat_controller', __name__)
 def chat():
     if request.method == "POST":
         message = request.form["message"]
-        print(message)
+        url = f'/{message}'
+        return Flask.redirect(Flask,location=url)
+        
     # pass

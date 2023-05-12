@@ -89,19 +89,6 @@ def error_handler(error):
     message = error_codes.get(error.code, "Sorry, an error occurred.")
     return render_template('error.html', message=message), error.code
 ###
-
-
-@app.route('/chat', methods=['GET', 'POST'])
-def chat():
-    if request.method == "POST":
-        message = request.form["message"]
-        url = f'/{message}'
-        return Flask.redirect(Flask,location=url)
-
-
-    # pass
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     """Show the principal page of the app"""

@@ -1,3 +1,0 @@
->aaaa 33  33
->bbbb 23  23
-Alignment score: 158

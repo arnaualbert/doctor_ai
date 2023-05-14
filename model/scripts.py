@@ -273,13 +273,13 @@ def blosum_local(fasta1_filepath, fasta2_filepath, gap,gap_extend,user_id,user_f
 
     id = randint(1,9999999)
     ids = str(id)
-    file_up = "alignment_result.txt"
+    file_up = "alignment_result_blosum.txt"
     query = "blosum_local_alignment"
     upload.upload_results(id,query,user_id,user_filename)
     print("running local alignment")
     subprocess.run(["./blosum",fasta1_filepath, fasta2_filepath,gap,gap_extend])
     print("finished Blosum local alignment")
-    new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
+    new_filename = re.sub(r'\.txt$',ids+'alignment_result_blosum.txt', file_up)
     print(new_filename)
     os.rename(file_up, new_filename)
     file_to_read = open(new_filename).read()

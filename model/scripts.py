@@ -270,7 +270,17 @@ def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,gapLeft, gapUp,
 
 
 def blosum_local(fasta1_filepath, fasta2_filepath, gap,gap_extend,user_id,user_filename):
-
+    """Execute the local alignment program with blosum
+    Input:
+        fasta1_filepath: fasta file
+        fasta2_filepath: fasta file
+        user_id: user id
+        user_filename: user filename
+        gap: gap score
+        gap_extend: gap extend
+    Output:
+        Upload results to the database
+    """
     id = randint(1,9999999)
     ids = str(id)
     file_up = "alignment_result_blosum.txt"

@@ -142,3 +142,31 @@ def blosum_local_alignment():
             return render_template('blosum_local.html')
         else:
             return render_template('blosum_local.html')
+        
+
+@align_controller.route('/blosum_global',methods=['GET', 'POST'])
+def blosum_global_alignment():
+    """Show the blosum local alignment page"""
+    if not logins.is_logged(): return render_template('login.html')
+
+    if request.method == 'GET':
+        return render_template('blosum_global.html')
+    if request.method == 'POST':
+        # Get the data from the form
+        fasta1 = request.files['fasta1local']
+        fasta2 = request.files['fasta2local']
+        gap = request.form['gap']
+        gap_extend = request.form['gap_extend']
+
+        user_filename = request.form['user_filename']
+        fasta1local = sc.save_fasta_file(fasta1, LCLALIGN)
+        fasta2local = sc.save_fasta_file(fasta2, LCLALIGN)
+        if validate.validate_blosum_local_aligment(fasta1local, fasta2local,gap,gap_extend) == True:
+            print("hola")
+            user_id = session.get('user_id')
+            daemon = Thread(target=sc.blosum_local, args=(fasta1local, fasta2local,gap,gap_extend,user_id,user_filename), daemon=True)
+            daemon.start()
+            # return "running"
+            return render_template('blosum_global.html')
+        else:
+            return render_template('blosum_global.html')

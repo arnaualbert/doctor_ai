@@ -12,6 +12,14 @@ import model.user as user
 
 path = os.getcwd()
 
+def generate_unique_id() -> str:
+    while True:
+        id = str(randint(1, 9999999))
+        result = upload.select_from_where_id("id", "results", id)
+        if result is None:
+            return id
+
+
 def tuple_to_object(result):
     """ Convert tuple to object 
     input:
@@ -69,6 +77,7 @@ def random_sequence_task(number,user_id,user_filename):
     """
     id = randint(1, 9999999)
     ids = str(id)
+    new_id: str = generate_unique_id()
     file_up = "dna.fasta"
     query = "random_sequence"
     print("number")
@@ -77,7 +86,7 @@ def random_sequence_task(number,user_id,user_filename):
     print(user_id)
     a = upload.upload_results(id,query,user_id,user_filename)   
     subprocess.run(["./random", number])
-    new_filename = re.sub(r'\.fasta$', ids+'random.fasta', file_up)
+    new_filename = re.sub(r'\.fasta$', new_id+'random.fasta', file_up)
     os.rename(file_up, new_filename)
     # b = upload.update_date(id,new_filename,user_id)
     file_to_read = open(new_filename).read()

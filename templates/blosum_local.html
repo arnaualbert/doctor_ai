@@ -49,10 +49,10 @@
       function validarFormulario() {
         var fastafile1 = document.getElementById("fastafile1").value;
         var fastafile2 = document.getElementById("fastafile2").value;
-        var match = document.getElementById("gap").value;
-        var mismatch = document.getElementById("gap_extend").value;
+        var gap = document.getElementById("gap").value;
+        var gap_extend = document.getElementById("gap_extend").value;
 
-        if (fastafile1 === "" || fastafile2 === "" || match === "" || mismatch === "" || gap === "") {
+        if (fastafile1 === "" || fastafile2 === "" || gap === "" || gap_extend === "") {
           var errorMessage = document.getElementById("errorMessage");
           errorMessage.innerHTML = "Please fill all the fields";
           return false;

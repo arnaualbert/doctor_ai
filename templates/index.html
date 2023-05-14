@@ -1,10 +1,12 @@
 {% include 'menu.html' %}
     <div class="container text-center">
-        <div class="input-group">
+        <div class="mt-1 row g-3 gap-3 row-cols-1">
+            <div class="col">
             <form method="post" action="/chat" enctype="multipart/form-data">
             <input  type="text"  class="form-control" id="message" name="message"/>
             <button class="btn btn-outline-secondary" type="submit"><i class="fa-regular fa-paper-plane"></i></button>
-            </form>  
+            </form>
+        </div>  
         </div>
         <div class=" mt-1 row g-3 gap-3 row-cols-4">
             <div class="card col" style="width: 18rem;">

@@ -26,15 +26,27 @@ def get_value_by_fuzzy_key(json_obj, search_key):
 json_tools = '''
 {
   "image recognition": "iamlr",
+  "recognize":"iamlr",
+  "image":"iamlr",
+  "to recognize":"iamlr",
+  "detect":"iamlr",
+  "to detect":"iamlr",
+  "local":"localalignment",
+  "lung":"iamlr",
+  "brain":"iamlr",
   "local alignment": "localalignment",
   "global alignment": "globalalignment",
   "random sequence": "random_sequence",
   "extract cds": "cdsextract",
   "gb to fasta": "gbtofasta",
   "dna to protein": "dnatoprotein",
+  "translate this dna":"dnatoprotein",
   "dna to rna": "dnatorna",
+  "to split a fasta":"split_fasta",
   "split fasta": "split_fasta",
+  "to do a complementary":"complementary",
   "complementary": "complementary",
+  "to do a reverse":"reverse_complementary",
   "reverse complementary": "reverse_complementary"
 }
 '''

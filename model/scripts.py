@@ -277,7 +277,7 @@ def blosum_local(fasta1_filepath, fasta2_filepath, gap,gap_extend,user_id,user_f
     query = "blosum_local_alignment"
     upload.upload_results(id,query,user_id,user_filename)
     print("running local alignment")
-    subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath,gap,gap_extend])
+    subprocess.run(["./blosum",fasta1_filepath, fasta2_filepath,gap,gap_extend])
     print("finished Blosum local alignment")
     new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
     print(new_filename)

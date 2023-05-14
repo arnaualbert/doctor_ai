@@ -266,3 +266,24 @@ def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,gapLeft, gapUp,
     os.remove(new_filename)
     os.remove(fasta1_filepath)
     os.remove(fasta2_filepath)
+
+
+
+def blosum_local(fasta1_filepath, fasta2_filepath, gap,gap_extend,user_id,user_filename):
+
+    id = randint(1,9999999)
+    ids = str(id)
+    file_up = "alignment_result.txt"
+    query = "blosum_local_alignment"
+    upload.upload_results(id,query,user_id,user_filename)
+    print("running local alignment")
+    subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath,gap,gap_extend])
+    print("finished Blosum local alignment")
+    new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
+    print(new_filename)
+    os.rename(file_up, new_filename)
+    file_to_read = open(new_filename).read()
+    upload.update_date(id,file_to_read,user_id)
+    os.remove(new_filename)
+    os.remove(fasta1_filepath)
+    os.remove(fasta2_filepath)

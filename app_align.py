@@ -133,10 +133,10 @@ def blosum_local_alignment():
         user_filename = request.form['user_filename']
         fasta1local = sc.save_fasta_file(fasta1, LCLALIGN)
         fasta2local = sc.save_fasta_file(fasta2, LCLALIGN)
-        if validate.validate_local_aligment(fasta1local, fasta2local,gap,gap_extend) == True:
+        if validate.validate_blosum_local_aligment(fasta1local, fasta2local,gap,gap_extend) == True:
             print("hola")
             user_id = session.get('user_id')
-            daemon = Thread(target=sc.local, args=(fasta1local, fasta2local,gap,gap_extend,user_id,user_filename), daemon=True)
+            daemon = Thread(target=sc.blosum_local, args=(fasta1local, fasta2local,gap,gap_extend,user_id,user_filename), daemon=True)
             daemon.start()
             # return "running"
             return render_template('blosum_local.html')

@@ -59,6 +59,13 @@ def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap
         return True
     else:
         return False
+    
+def validate_blosum_local_aligment(fasta1: str,fasta2: str,gap: int,gap_extend: int) -> bool:
+    """validate if the inputs are correct"""
+    if fasta1 !=None and fasta2 != None and gap != None and gap_extend != None:
+        return True
+    else:
+        return False
 
 def validate_global_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) -> bool:
     """validate if the inputs are correct"""

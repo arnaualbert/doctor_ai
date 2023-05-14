@@ -37,7 +37,8 @@ def download_results(user_id):
 
 def delete_a_results(user_id, id):
     """Delete the results from the database from a specified user"""
-    result = data.long_query(f"DELETE * FROM results WHERE user_id={user_id} AND id='{id}'")
+    result = data.long_query(f"DELETE FROM results WHERE user_id={user_id} AND id={id}")
+    data.commit()
     return result
 
 def select_by_tool(tool,urser_id):

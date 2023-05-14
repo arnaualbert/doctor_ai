@@ -166,6 +166,14 @@ def download_file(ident):
     return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name=file_to_download)
 
 
+@app.route('/delete/<int:ident>')
+def delete_file(ident):
+    """Delete a file"""
+    user_id = session.get("user_id")
+    upload.delete_a_results(user_id,ident)
+    list_of_results = upload.download_results(user_id)
+    results = list_of_results
+    return render_template('history.html',results=results)
 ### Create the app
 def create_app():
     return app

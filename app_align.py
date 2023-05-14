@@ -164,7 +164,7 @@ def blosum_global_alignment():
         if validate.validate_blosum_local_aligment(fasta1local, fasta2local,gap,gap_extend) == True:
             print("hola")
             user_id = session.get('user_id')
-            daemon = Thread(target=sc.blosum_local, args=(fasta1local, fasta2local,gap,gap_extend,user_id,user_filename), daemon=True)
+            daemon = Thread(target=sc.blosum_global, args=(fasta1local, fasta2local,gap,gap_extend,user_id,user_filename), daemon=True)
             daemon.start()
             # return "running"
             return render_template('blosum_global.html')

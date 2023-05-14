@@ -1,0 +1,64 @@
+{% include 'menu.html' %}
+
+    <div class="container">
+      <h3>
+        Blosum local alignment
+      </h3>
+      <a class="btn btn-secondary" href="/globalalignment" class="card-link">Try With ADN</a>
+      <form method="post" action="/blosum_global" enctype="multipart/form-data" onsubmit="return validarFormulario()">
+        <div class="row row-cols-2">
+          <div class="col">
+            <div class="form-group">
+              <label for="fasta1">Query</label>
+              <input class="form-control" type="file" id="fastafile1" name="fasta1local" value="{{ request.form['fasta1local'] }}" accept=".fasta">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="fasta2">Target</label>
+              <input class="form-control" type="file" id="fastafile2" name="fasta2local" value="{{ request.form['fasta2local'] }}" accept=".fasta">
+            </div>
+        </div>
+
+            <div class="col">
+              <label>Gap:</label>
+              <div class="form-group">
+              <input class="form-control" type="number" name="gap" id="gap" value="{{ request.form['gap'] }}" >
+            </div>
+            </div>
+
+            <div class="col">
+              <label>Gap Extend:</label>
+              <div class="form-group">
+              <input class="form-control" type="number" name="gap_extend" id="gap_extend" value="{{ request.form['gap_extend'] }}" >
+            </div>
+            </div>
+            
+            <div class="col">
+              <label>Filename output</label>
+              <input class="form-control" type="text" name="user_filename" id="user_filename">
+            </div>
+        </div><br>
+        <button class="btn btn-primary" type="submit">Enviar</button>
+      </form>
+      <span id="errorMessage">{{message}}</span>
+      <span>{{message}}</span>
+    </div>
+
+    <script>
+      function validarFormulario() {
+        var fastafile1 = document.getElementById("fastafile1").value;
+        var fastafile2 = document.getElementById("fastafile2").value;
+        var gap = document.getElementById("gap").value;
+        var gap_extend = document.getElementById("gap_extend").value;
+
+        if (fastafile1 === "" || fastafile2 === "" || gap === "" || gap_extend === "") {
+          var errorMessage = document.getElementById("errorMessage");
+          errorMessage.innerHTML = "Please fill all the fields";
+          return false;
+        }
+        return true;
+      }
+    </script>
+    
+</body>

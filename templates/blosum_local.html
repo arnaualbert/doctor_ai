@@ -2,9 +2,9 @@
 
     <div class="container">
       <h3>
-        Local alignment
+        Blosum local alignment
       </h3>
-      <a class="btn btn-secondary" href="/blosum_local" class="card-link">Try With Proteins</a>
+      <a class="btn btn-secondary" href="/localalignment" class="card-link">Try With ADN</a>
       <form method="post" action="/localalignment" enctype="multipart/form-data" onsubmit="return validarFormulario()">
         <div class="row row-cols-2">
           <div class="col">
@@ -18,40 +18,21 @@
               <label for="fasta2">Target</label>
               <input class="form-control" type="file" id="fastafile2" name="fasta2local" value="{{ request.form['fasta2local'] }}" accept=".fasta">
             </div>
-          </div>
-            <div class="col">
-              <label>Match number:</label>
-              <div class="form-group">
-              <input class="form-control" type="number" name="match" id="match" value="{{ request.form['match'] }}" >
-            </div>
-            </div>
-            <div class="col">
-              <label>Mismatch number:</label>
-              <div class="form-group">
-              <input class="form-control" type="number" name="mismatch" id="mismatch" value="{{ request.form['mismatch'] }}" >
-            </div>
-            </div>
+        </div>
 
             <div class="col">
-              <label>Gap number:</label>
+              <label>Gap:</label>
               <div class="form-group">
               <input class="form-control" type="number" name="gap" id="gap" value="{{ request.form['gap'] }}" >
             </div>
             </div>
 
             <div class="col">
-              <label>Gap Extend Left:</label>
+              <label>Gap Extend:</label>
               <div class="form-group">
-              <input class="form-control" type="number" name="gapLeft" id="gapLeft" value="{{ request.form['gapLeft'] }}" >
+              <input class="form-control" type="number" name="gap_extend" id="gap_extend" value="{{ request.form['gap_extend'] }}" >
             </div>
             </div>
-
-            <div class="col">
-              <label>Gap Extend Up:</label>
-              <div class="form-group">
-              <input class="form-control" type="number" name="gapUp" id="gapUp" value="{{ request.form['gapUp'] }}" >
-            </div>
-            </div><br>
             
             <div class="col">
               <label>Filename output</label>
@@ -68,9 +49,8 @@
       function validarFormulario() {
         var fastafile1 = document.getElementById("fastafile1").value;
         var fastafile2 = document.getElementById("fastafile2").value;
-        var match = document.getElementById("match").value;
-        var mismatch = document.getElementById("mismatch").value;
-        var gap = document.getElementById("gap").value;
+        var match = document.getElementById("gap").value;
+        var mismatch = document.getElementById("gap_extend").value;
 
         if (fastafile1 === "" || fastafile2 === "" || match === "" || mismatch === "" || gap === "") {
           var errorMessage = document.getElementById("errorMessage");

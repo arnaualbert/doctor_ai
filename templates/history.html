@@ -113,7 +113,7 @@ $("#filter-input").on("keyup", function() {
         <td>{{ result[4] }}</td>
         <td>{{ result[5]}}</td>
 
-        <td><button class="btn btn-outline-danger">Delete</button></td>
+        <td><a class="btn btn-outline-danger" href="{{ url_for('delete_file', ident=result[0]) }}">Delete</a></td>
 
         <!-- <td><button onclick="deleteRow({{ result[0] }})">Eliminar</button></td> -->
       </tr>

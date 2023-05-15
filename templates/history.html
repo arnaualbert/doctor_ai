@@ -1,87 +1,10 @@
-<!-- Agrega la siguiente línea en el encabezado <head> de tu página -->
+<!-- JQUERY -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="../static/orderByDate.js"></script>
+  <script></script>
+  <!--  CSS  -->
+  <link href="../static/styles.css" rel="stylesheet">
 
-  <!-- Agrega la siguiente función JavaScript -->
-  <script>
-  $(document).ready(function() {
-    var startDateOrder = 1; // 1 para orden ascendente, -1 para orden descendente
-    var finishDateOrder = 1; // 1 para orden ascendente, -1 para orden descendente
-
-    $("#start-date-header").on("click", function() {
-      startDateOrder *= -1; // Cambia el orden al hacer clic
-    
-    $("#table tbody").html(
-      $("#table tbody tr").toArray().sort(function(a, b) {
-        var dateA = new Date($(a).find("td:nth-child(4)").text());
-        var dateB = new Date($(b).find("td:nth-child(4)").text());
-
-      return startDateOrder * (dateA - dateB);
-    })
-  );
-  
-
-  // Actualiza el estilo visual del encabezado para mostrar el orden actual
-  if (startDateOrder === 1) {
-    $(this).removeClass("desc");
-    $(this).addClass("asc");
-  } else {
-    $(this).removeClass("asc");
-    $(this).addClass("desc");
-  }
-});
-$("#finish-date-header").on("click", function() {
-    finishDateOrder *= -1; // Cambia el orden al hacer clic
-    
-    $("#table tbody").html(
-      $("#table tbody tr").toArray().sort(function(a, b) {
-        var dateC = new Date($(a).find("td:nth-child(5)").text());
-        var dateD = new Date($(b).find("td:nth-child(5)").text());
-
-      return finishDateOrder * (dateC - dateD);
-    })
-  );
-  
-
-  // Actualiza el estilo visual del encabezado para mostrar el orden actual
-  if (finishDateOrder === 1) {
-    $(this).removeClass("desc");
-    $(this).addClass("asc");
-  } else {
-    $(this).removeClass("asc");
-    $(this).addClass("desc");
-  }
-});
-$("#filter-input").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#table tbody tr").filter(function() {
-      var query = $(this).find("td:nth-child(2)").text().toLowerCase();
-      var filename = $(this).find("td:nth-child(3)").text().toLowerCase();
-      var filterMatch = query.indexOf(value) > -1 ||
-                        filename.indexOf(value) > -1;
-      $(this).toggle(filterMatch);
-    });
-  });
-  });
-  
-  </script>
-  <!-- Agrega el estilo CSS para mostrar el orden actual -->
-<style>
-  th#start-date-header {
-    cursor: pointer;
-  }
-  th#start-date-header.asc::after {
-    content: " ▲";
-  }
-  th#start-date-header.desc::after {
-    content: " ▼";
-  }
-  th#finish-date-header.asc::after {
-    content: " ▲";
-  }
-  th#finish-date-header.desc::after {
-    content: " ▼";
-  }
-</style>
 {% include 'menu.html' %}
   <form method="post" action="/history_query">
     <div class="form-group " style="margin-left: 30px; margin-right: 70%;margin-bottom: 20px;">

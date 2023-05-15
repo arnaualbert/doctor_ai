@@ -8,13 +8,14 @@ __status__ = "Production"
 This module is used to serve the backend of the application
 """
 
-# Imports of the app
+# Imports of the app #
 from flask              import Flask,Blueprint, render_template, request, session,send_file, redirect, url_for
 from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import ThreadPoolExecutor
 from threading          import Thread
 from typing             import Union
 from random             import *
+from io                 import BytesIO
 import model.dir_persist as tools_dir
 import model.validators as validate
 import model.scripts    as sc
@@ -33,25 +34,27 @@ from app_align    import align_controller
 from app_cds_gb   import cds_gb_controller
 from app_chat import chat_controller
 executor = ThreadPoolExecutor(5)
-########
-# Create tools directorys if not exists already
+
+# Create tools directorys if not exists already #
 tools_dir.create_tools_directory()
-########
+
+# App controller #
 module_name = __name__
 app = Flask(__name__)
+
+# Blueprints #
 app.register_blueprint(user_controller)
 app.register_blueprint(database_controller)
 app.register_blueprint(dna_controller)
 app.register_blueprint(cds_gb_controller)
 app.register_blueprint(align_controller)
 app.register_blueprint(chat_controller)
-####NO TOCAR
-###################
+
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
 __path__ = os.getcwd()
 path = os.getcwd()
 print(path)
-
 
 def create_directory(path):
     if not os.path.isdir(path):
@@ -60,13 +63,10 @@ def create_directory(path):
 TOOLS_PATH = os.path.join(path, 'tools')
 create_directory(TOOLS_PATH)
 
-
-
 AIPICS = os.path.join(path, 'pics')
 create_directory(AIPICS)
 
-
-### ERRORS
+### ERRORS ###
 @app.errorhandler(400)
 @app.errorhandler(401)
 @app.errorhandler(403)
@@ -89,6 +89,7 @@ def error_handler(error):
     message = error_codes.get(error.code, "Sorry, an error occurred.")
     return render_template('error.html', message=message), error.code
 ###
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     """Show the principal page of the app"""
@@ -143,13 +144,6 @@ def under_construction():
         return render_template('underconstruction.html')
     return render_template('underconstruction.html')
 
-
-def write_file(data, filename):
-    with open(filename, 'wb+') as f:
-        f.write(data)
-
-
-from io import BytesIO
 @app.route('/download/<int:ident>')
 def download_file(ident):
     """Download a file"""
@@ -174,7 +168,8 @@ def delete_file(ident):
     list_of_results = upload.download_results(user_id)
     results = list_of_results
     return render_template('history.html',results=results)
-### Create the app
+    
+### Create the app ###
 def create_app():
     return app
 

@@ -119,7 +119,7 @@ var blosum62 = [26][26]float64{
 	{-4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, 1.0},
 }
 
-func needlemanWunsch(seq1, seq2 string, blosum [][]float64, gapOpenPenalty, gapExtendPenalty, matchScore, mismatchScore float64) (string, string, float64) {
+func needlemanWunsch(seq1, seq2 string, blosum [26][26]float64, gapOpenPenalty, gapExtendPenalty, matchScore, mismatchScore float64) (string, string, float64) {
 	n := len(seq1) + 1
 	m := len(seq2) + 1
 	scoreMatrix := make([][]float64, n)

@@ -39,6 +39,7 @@ json_tools = '''
   "random sequence": "random_sequence",
   "extract cds": "cdsextract",
   "gb to fasta": "gbtofasta",
+  "genbank to fasta": "gbtofasta",
   "dna to protein": "dnatoprotein",
   "translate this dna":"dnatoprotein",
   "dna to rna": "dnatorna",

@@ -1,12 +1,20 @@
 {% include 'menu.html' %}
     <div class="container text-center">
-        <div class="mt-1 row g-3 gap-3 row-cols-1">
+        <!-- <div class="mt-1 row g-3 gap-3 row-cols-1">
             <div class="col">
             <form method="post" action="/chat" enctype="multipart/form-data">
             <input  type="text"  class="form-control" id="message" name="message"/>
             <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-reply"></i></button>
             </form>
-        </div>  
+        </div>   -->
+        <form method="post" action="/chat" enctype="multipart/form-data">
+        <div class="input-group mb-3">
+
+            <input type="text" class="form-control"  id="message" name="message" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa-solid fa-reply"></i></button>
+
+        </div>
+    </form>
         </div>
         <div class="container text-center">
             <div class="mt-5 row">
@@ -90,7 +98,7 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h5 class="card-title">DNA to ARN</h5>
-                            <p class="card-text">Convert a DNA sequence into a ARN.</p>
+                            <p class="card-text">Convert a DNA sequence into a ARN sequence.</p>
                             <a class="btn btn-secondary" href="/dnatorna" class="card-link">Try</a>
                         </div>
                     </div>

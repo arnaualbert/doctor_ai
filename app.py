@@ -163,6 +163,7 @@ def download_file(ident):
 @app.route('/delete/<int:ident>')
 def delete_file(ident):
     """Delete a file"""
+    if not logins.is_logged(): return render_template('login.html')
     user_id = session.get("user_id")
     upload.delete_a_results(user_id,ident)
     list_of_results = upload.download_results(user_id)

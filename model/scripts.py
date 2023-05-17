@@ -215,12 +215,11 @@ def dna_to_rna(fullroute,filename,user_id,id,user_filename):
     query = "dna_to_rna"
     final_filename = user_filename + '.fasta'
     upload.upload_results(id,query,user_id,final_filename)
-    subprocess.run(["./dna_rna",fullroute])
-    new_filename = re.sub(r'\.fasta$', '_modified.fasta', filename)
-    file_up = "dnatorna/"+new_filename
+    subprocess.run(["./dna_rna",fullroute,user_filename])
+    file_up = "./"+user_filename
     file_to_read = open(file_up).read()
     upload.update_date(id,file_to_read,user_id)
-    os.remove(file_up)
+    os.remove(user_filename)
     os.remove(fullroute)
 
 def dna_to_protein(fullroute,filename,user_id,id,user_filename):
@@ -236,13 +235,11 @@ def dna_to_protein(fullroute,filename,user_id,id,user_filename):
     query = "dnaprotein"
     final_filename = user_filename + '.fasta'
     upload.upload_results(id,query,user_id,final_filename)
-    subprocess.run(["./dna_protein",fullroute])
-    new_filename = re.sub(r'\.fasta$', '_protein.fasta', filename)
-    file_up = "dnaprotein/"+new_filename
-    # upload.update_date(id,file_up,user_id)
+    subprocess.run(["./dna_protein",fullroute,user_filename])
+    file_up = "./"+user_filename
     file_to_read = open(file_up).read()
     upload.update_date(id,file_to_read,user_id)
-    os.remove(file_up)
+    os.remove(user_filename)
     os.remove(fullroute)
 
 def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,gapLeft, gapUp,user_id,user_filename):

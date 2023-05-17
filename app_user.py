@@ -42,6 +42,9 @@ def logout():
 @user_controller.route('/register', methods=['GET', 'POST'])
 def register():
     """Show the register page of the app """
+
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+
     if request.method == 'GET':
         roles = (upload.select_from('role_name', 'role'))
         roles_ids = (upload.select_from('id', 'role'))
@@ -78,23 +81,28 @@ def register():
 @user_controller.route('/edit_account', methods=['GET', 'POST'])
 def edit_account():
     """Show the edit account page of the app """
-    username:str = session.get('username')
-    user_data: Union[bool, users.User] = logins.get_user_data_from_database(username)
-    name:str = user_data.name
-    surname:str = user_data.surname
-    email:str = user_data.email
+
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+
+    if request.method == 'GET':
+        username:str = session.get('username')
+        user_data: Union[bool, users.User] = logins.get_user_data_from_database(username)
+        return render_template('edit_account.html', user_data=user_data)
+    
     if request.method == 'POST':
         new_username:str = request.form['username']
         new_name:str = request.form['name']
         new_surname:str = request.form['surname']
         new_email:str = request.form['email']
+        username:str = session.get('username')
 
         resultado = logins.edit(new_username, new_name, new_surname, new_email)
         if resultado:
             message = "Successful edited"
-            return render_template('edit_account.html', message=message,name=new_name,surname=new_surname, username=new_username, email=new_email)
+            username:str = session.get('username')
+            user_data: Union[bool, users.User] = logins.get_user_data_from_database(username)
+            return render_template('edit_account.html', message=message, user_data=user_data)
         else:
             message = "Failed edit"
         return render_template('edit_account.html', message=message)
     
-    return render_template('edit_account.html', name=name,surname=surname, username=username, email=email)

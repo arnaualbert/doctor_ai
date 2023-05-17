@@ -57,27 +57,28 @@ def global_alignment():
         # Validate the form 
         if validate.validate_GA_form(fasta1, fasta2, match, mismatch, gap) and user_filename:
 
+            if validate.is_fasta_file_with_only_ATGC(fasta1_filepath) and validate.check_mime_type(fasta1_filepath) == "text/plain" and validate.is_fasta_file_with_only_ATGC(fasta1_filepath) and validate.check_mime_type(fasta1_filepath) == "text/plain":
+                    
+                fasta1_filename = fasta1.filename
+                fasta2_filename = fasta2.filename
 
-            fasta1_filename = fasta1.filename
-            fasta2_filename = fasta2.filename
+                # Save the files in the server specified path
+                fasta1.save(os.path.join(GBLALIGN, fasta1_filename))
+                fasta2.save(os.path.join(GBLALIGN, fasta2_filename))
 
-            # Save the files in the server specified path
-            fasta1.save(os.path.join(GBLALIGN, fasta1_filename))
-            fasta2.save(os.path.join(GBLALIGN, fasta2_filename))
+                # Get the fastas filepath from the server
+                fasta1_filepath = os.path.join(GBLALIGN, fasta1_filename)
+                fasta2_filepath = os.path.join(GBLALIGN, fasta2_filename)
 
-            # Get the fastas filepath from the server
-            fasta1_filepath = os.path.join(GBLALIGN, fasta1_filename)
-            fasta2_filepath = os.path.join(GBLALIGN, fasta2_filename)
+                # Execute the global aligment program
+                user_id = session.get('user_id')
+                daemon = Thread(target=sc.local, args=(fasta1, fasta2, match, mismatch, gap,user_id,user_filename), daemon=True)
+                daemon.start()
 
-            # Execute the global aligment program
-            user_id = session.get('user_id')
-            daemon = Thread(target=sc.local, args=(fasta1, fasta2, match, mismatch, gap,user_id,user_filename), daemon=True)
-            daemon.start()
-
-            # if len(output.stdout) > 0:
-            #     message = 'Data file format is not correct.'
-            #     return render_template('global_aligment.html', message=message)
-            # else:   
+                # if len(output.stdout) > 0:
+                #     message = 'Data file format is not correct.'
+                #     return render_template('global_aligment.html', message=message)
+                # else:   
                 result_id: str = str(randint(1,9999999))
                 user_id:   str = session.get('user_id')
 
@@ -90,13 +91,13 @@ def global_alignment():
                 response = send_file(new_filename,as_attachment=True)
                 # os.remove(new_filename)
                 return response
+            else:
+                message = "The fastas file does not have the correct format"
+                return render_template('global_aligment.html', message=message)
         else:
             message = "Please fill all the fields"
             return render_template('global_aligment.html', message=message)
-            
-        if not fasta1 or not fasta2:
-            message = "Please upload both files"
-            return render_template('global_aligment.html', message=message)
+
 
 #Local aligment
 # #-------------------------------------------

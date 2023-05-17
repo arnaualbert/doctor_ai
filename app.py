@@ -1,6 +1,6 @@
-__authors__ = "Arnau Albert, Vicor Piñana, Alex Varela, Luis Cardenete"
-__credits__ = ["Arnau Albert", "Vicor Piñana", "Alex Varela","Luis Cardenete"]
-__version__ = "4.0"
+__authors__ = "Arnau Albert, Victor Piñana, Alex Varela, Luis Cardenete"
+__credits__ = ["Arnau Albert", "Victor Piñana", "Alex Varela","Luis Cardenete"]
+__version__ = "5.0"
 __maintainer__ = "Doctor AI"
 __status__ = "Production"
 

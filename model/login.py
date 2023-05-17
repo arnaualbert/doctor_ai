@@ -1,7 +1,7 @@
 import model.user as user
 from typing import Union
 from flask  import session
-import model.database as databases
+import model.Database as databases
 import mysql.connector
 import hashlib
 import model.scripts as tools

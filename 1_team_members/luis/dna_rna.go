@@ -12,7 +12,6 @@ func ReplaceLetterWithU(input string, letter string) string {
     for _, char := range input {
         if !strings.ContainsAny(string(char), "ATGC") {
             fmt.Fprintf(os.Stderr, "Invalid input! Please enter a DNA sequence containing only A, T, G, and C.\n")
-            message="Invalid input! Please enter a DNA sequence containing only A, T, G, and C.\n"
 		    os.Exit(1)
         }
     }
@@ -36,11 +35,13 @@ func ReplaceLetterWithU(input string, letter string) string {
 
 func main() {
     // Get input and output file names and letter to be replaced from command-line arguments
-    if len(os.Args) < 2 {
-        fmt.Println("Please enter an input file name as a command-line argument.")
+    if len(os.Args) < 3 {
+        fmt.Println("Please enter an input file name and output as a command-line argument.")
         os.Exit(1)
     }
     inputFileName := os.Args[1]
+    outputFileName := os.Args[2]
+
 
     // Open the input file
     inputFile, err := os.Open(inputFileName)
@@ -51,7 +52,6 @@ func main() {
     defer inputFile.Close()
 
     // Create the output file
-    outputFileName := strings.TrimSuffix(inputFileName, ".fasta") + "_modified.fasta"
     outputFile, err := os.Create(outputFileName)
     if err != nil {
         fmt.Println("Error creating output file:", err)

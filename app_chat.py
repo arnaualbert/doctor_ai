@@ -34,12 +34,14 @@ json_tools = '''
   "local":"localalignment",
   "lung":"iamlr",
   "brain":"iamlr",
+  "to align":"localalignment",
   "local alignment": "localalignment",
   "global alignment": "globalalignment",
   "random sequence": "random_sequence",
   "extract cds": "cdsextract",
   "gb to fasta": "gbtofasta",
   "genbank to fasta": "gbtofasta",
+  "genbank":"gbtofasta",
   "dna to protein": "dnatoprotein",
   "translate this dna":"dnatoprotein",
   "dna to rna": "dnatorna",
@@ -48,7 +50,9 @@ json_tools = '''
   "to do a complementary":"complementary",
   "complementary": "complementary",
   "to do a reverse":"reverse_complementary",
-  "reverse complementary": "reverse_complementary"
+  "reverse complementary": "reverse_complementary",
+  "logout":"logout",
+  "log out": "logout"
 }
 '''
 

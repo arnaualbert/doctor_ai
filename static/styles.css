@@ -1,15 +1,19 @@
-th#start-date-header {
+/* th#start-date-header {
     cursor: pointer;
-  }
-  th#start-date-header.asc::after {
+}
+th#start-date-header.asc::after {
     content: " ▲";
-  }
-  th#start-date-header.desc::after {
+}
+th#start-date-header.desc::after {
+    content: " ▼";
+  } */
+th#finish-date-header {
+    cursor: pointer;
+}
+th#finish-date-header.asc::after {
+    content: " ▲";
+}
+th#finish-date-header.desc::after {
     content: " ▼";
   }
-  th#finish-date-header.asc::after {
-    content: " ▲";
-  }
-  th#finish-date-header.desc::after {
-    content: " ▼";
-  }
+

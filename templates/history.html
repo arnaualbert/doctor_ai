@@ -1,6 +1,7 @@
 <!-- JQUERY -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="../static/orderByDate.js"></script>
+  <script src="../static/index.js"></script>
   <script></script>
   <!--  CSS  -->
   <link href="../static/styles.css" rel="stylesheet">
@@ -35,14 +36,23 @@
         <td><a class="btn btn-primary" href="{{ url_for('download_file', ident=result[0]) }}">Download</a></td>
         <td>{{ result[4] }}</td>
         <td>{{ result[5] }}</td>
+        <td><a class="btn btn-outline-danger"  onclick="mostrarPantallaEmergente()">Delete</a></td>
 
-        <td><a class="btn btn-outline-danger" href="{{ url_for('delete_file', ident=result[0]) }}">Delete</a></td>
+        <div id="pantalla-emergente">
+          <div id="contenido-pantalla-emergente">
+            <h1>Are you sure?</h1><br>
+            <a class="btn btn-outline-danger" href="{{ url_for('delete_file', ident=result[0]) }}">Yes</a>
+            <a class="btn btn-outline-primary" onclick="ocultarPantallaEmergente()">No</a>
+          </div>
+        </div>
 
   
       </tr>
       {% endfor %}
     </tbody>
   </table>
-</body>
+</body> 
+
+
 
 </html>

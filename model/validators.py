@@ -74,7 +74,7 @@ def validate_blosum_local_aligment(fasta1: str,fasta2: str,gap: int,gap_extend: 
     else:
         return False
 
-def validate_global_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) -> bool:
+def validate_GA_form(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) -> bool:
     """validate if the inputs are correct"""
     if is_fasta_file_with_only_ATGC(fasta1) and is_fasta_file_with_only_ATGC(fasta2) and match != None and mismatch != None and gap != None:
         return True

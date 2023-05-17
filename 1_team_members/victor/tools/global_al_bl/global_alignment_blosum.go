@@ -173,8 +173,8 @@ func needlemanWunsch(seq1, seq2 string, blosum [26][26]float64, gapOpenPenalty, 
 	j := m - 1
 
 	for i > 0 || j > 0 {
-		println(i)
-		println(j)
+		// println(i)
+		// println(j)
 		if pointerMatrix[i][j] == 1 {
 			alignedSeq1 = string(seq1[i-1]) + alignedSeq1
 			alignedSeq2 = string(seq2[j-1]) + alignedSeq2

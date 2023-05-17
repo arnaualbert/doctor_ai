@@ -83,7 +83,9 @@ def DNA_to_protein():
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.dna_to_protein, args=(fullroute,filename,user_id,id,user_filename))
                 daemon = daemon.start()
-            return render_template('dna_protein.html')  
+                return render_template('dna_protein.html',message="Doing the job")
+            else:
+                return render_template('dna_protein.html',message="This is not a fasta file")  
 
 
     
@@ -107,9 +109,9 @@ def DNA_to_RNA():
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.dna_to_rna, args=(fullroute,filename,user_id,id,user_filename))
                 daemon = daemon.start()
-                return render_template('dna_rna.html')
+                return render_template('dna_rna.html',message="Doing the job")
             else:
-                return render_template('dna_rna.html')
+                return render_template('dna_rna.html',message="This is not a fasta file")
             
 
 @dna_controller.route("/complementary", methods=['GET', 'POST'])
@@ -124,10 +126,12 @@ def complementary():
         fasta_ext = fasta.filename
         fasta.save(os.path.join(COMPLEMENTARY_FASTA,fasta_ext))
         full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
-        if fasta_ext.endswith(".fasta"):
+        if validate.is_fasta_file_with_only_ATGC(full_path):
             deamon = Thread(target=sc.complementary_task, args=(full_path,session.get('user_id'),user_filename),daemon=True)
             deamon.start()
             return render_template('complementary.html', message="Doing the job")
+        else:
+            return render_template('complementary.html', message="This is not a fasta file")
 
     return render_template('complementary.html')
 
@@ -171,9 +175,10 @@ def reverse_complementary():
         if file:
             # Excecute the cds extract program
             fullroute=sc.save_fasta_file(file,REVERSE)
-            if validate.is_fasta_file_with_only_ATGC(fullroute):
+            if validate.is_fasta_file_with_only_ATGC(fullroute) and user_filename != "":
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.reverse_complementary_task, args=(fullroute,user_id,user_filename))
                 daemon = daemon.start()
-                return render_template('reverse_complementary.html')
-        return render_template('reverse_complementary.html')
+                return render_template('reverse_complementary.html',message="Doing the job")
+            else:
+                return render_template('reverse_complementary.html',message="File must be in .fasta format")

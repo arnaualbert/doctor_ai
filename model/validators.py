@@ -1,5 +1,12 @@
 import os
 from PIL import Image 
+import magic
+
+
+def check_mime_type(filepath: str) -> str:
+    mime = magic.Magic(mime=True)
+    mime_type = mime.from_file(filepath)
+    return mime_type
 
 def is_image_file(filepath: str) -> bool:
     """Check if a file is an image trying to open it as an image""" 
@@ -47,7 +54,7 @@ def count_letters_in_file(filename: str) -> int:
 
 def validate_split_fasta(full_path,start:str,end:str) -> bool:
     """validate if the inputs are correct"""
-    if is_fasta_file_with_only_ATGC(full_path) and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path):
+    if is_fasta_file_with_only_ATGC(full_path) and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path) and check_mime_type(full_path) == "text/plain":
         return True
     else:
         return False

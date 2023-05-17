@@ -117,6 +117,10 @@ def iamlr():
         # Get the data from the form
         file = request.files['image']
         fullroute = sc.save_fasta_file(file,AIPICS)    
+        import magic
+        mime = magic.Magic(mime=True)
+        mime_type = mime.from_file(fullroute)
+        print(mime_type)
         # Execute the image recognition program
         if validate.is_image_file(fullroute):
             solve = ia.IAML.ask(fullroute)

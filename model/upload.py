@@ -1,4 +1,4 @@
-import model.database as databases
+import model.Database as databases
 from datetime import datetime
 import mysql.connector
 import datetime
@@ -63,4 +63,10 @@ def select_from_where(field,field_two, table,id):
 def select_from_where_id(field, table,id):
     """Download the results from the database"""
     result = data.query(f"SELECT {field} FROM {table} WHERE id={id}")
+    return result
+
+def select_all_where_and(field, table,id):
+    result = data.query(f"SELECT * FROM {table} WHERE id={id}")
+    # SELECT * FROM `results` WHERE user_id = 1 AND id = 123123;
+
     return result

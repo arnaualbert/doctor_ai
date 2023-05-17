@@ -33,11 +33,13 @@ type FastaRecord struct {
 
 
 func main() {
-	if len(os.Args) != 2 {
+	if len(os.Args) != 3 {
 		fmt.Fprintf(os.Stderr, "Usage: %s input.fasta\n", os.Args[0])
         os.Exit(1)
 	}
 	inputFilename := os.Args[1]
+	outputFilename := os.Args[2]
+
 
 	// Check file extension
 	if !strings.HasSuffix(inputFilename, ".fasta") && !strings.HasSuffix(inputFilename, ".fa") {
@@ -58,7 +60,6 @@ func main() {
 	}
 
 	// Write the output FASTA file
-	outputFilename := strings.TrimSuffix(inputFilename, ".fasta") + "_protein.fasta"
 	err = writeFastaFile(outputFilename, fastaRecords)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error writing output FASTA file: %v\n", err)

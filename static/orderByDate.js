@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 $(document).ready(function() {
     var finishDateOrder = 1; // 1 para orden ascendente, -1 para orden descendente
 $("#finish-date-header").on("click", function() {
-=======
+
 $(document).ready(function () {
   var startDateOrder = 1; // 1 para orden ascendente, -1 para orden descendente
   var finishDateOrder = 1; // 1 para orden ascendente, -1 para orden descendente
@@ -34,15 +33,9 @@ $(document).ready(function () {
     finishDateOrder *= -1; // Cambia el orden al hacer clic
 
     $("#table tbody").html(
-<<<<<<< HEAD
       $("#table tbody tr").toArray().sort(function(c, d) {
         var dateC = new Date($(c).find("td:nth-child(5)").text());
         var dateD = new Date($(d).find("td:nth-child(5)").text());
-=======
-      $("#table tbody tr").toArray().sort(function (a, b) {
-        var dateC = new Date($(a).find("td:nth-child(5)").text());
-        var dateD = new Date($(b).find("td:nth-child(5)").text());
->>>>>>> 9b98569c160dc845f8f0412d8c26f11f75972d9d
 
         return finishDateOrder * (dateC - dateD);
       })
@@ -68,9 +61,5 @@ $(document).ready(function () {
       $(this).toggle(filterMatch);
     });
   });
-<<<<<<< HEAD
   
-  });
-=======
-});
->>>>>>> 9b98569c160dc845f8f0412d8c26f11f75972d9d
+  })});

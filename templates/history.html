@@ -36,17 +36,7 @@
         <td><a class="btn btn-primary" href="{{ url_for('download_file', ident=result[0]) }}">Download</a></td>
         <td>{{ result[4] }}</td>
         <td>{{ result[5] }}</td>
-        <td><a class="btn btn-outline-danger"  onclick="mostrarPantallaEmergente()">Delete</a></td>
-
-        <div id="pantalla-emergente">
-          <div id="contenido-pantalla-emergente">
-            <h1>Are you sure?</h1><br>
-            <a class="btn btn-outline-danger" href="{{ url_for('delete_file', ident=result[0]) }}">Yes</a>
-            <a class="btn btn-outline-primary" onclick="ocultarPantallaEmergente()">No</a>
-          </div>
-        </div>
-
-  
+        <td><a class="btn btn-outline-danger" href="{{ url_for('delete_file', ident=result[0]) }}">Delete</a></td>
       </tr>
       {% endfor %}
     </tbody>

@@ -129,6 +129,8 @@ def local_alignment():
             # return "running"
             return render_template('local_aligment.html',message="Running")
         else:
+            os.remove(fasta1local)
+            os.remove(fasta2local)
             return render_template('local_aligment.html',message="Please fill all the fields with the correct output")
         
 #Blosum Local aligment

@@ -1,12 +1,3 @@
-/* th#start-date-header {
-    cursor: pointer;
-}
-th#start-date-header.asc::after {
-    content: " ▲";
-}
-th#start-date-header.desc::after {
-    content: " ▼";
-  } */
 th#finish-date-header {
     cursor: pointer;
 }

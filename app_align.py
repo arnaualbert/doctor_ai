@@ -127,9 +127,9 @@ def local_alignment():
             daemon = Thread(target=sc.local, args=(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp,user_id,user_filename), daemon=True)
             daemon.start()
             # return "running"
-            return render_template('local_aligment.html')
+            return render_template('local_aligment.html',message="Running")
         else:
-            return render_template('local_aligment.html')
+            return render_template('local_aligment.html',message="Please fill all the fields with the correct output")
         
 #Blosum Local aligment
 # #-------------------------------------------

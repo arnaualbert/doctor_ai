@@ -25,9 +25,11 @@ def is_fasta_file_with_only_ATGC(filename: str) -> bool:
             if not first_line.startswith('>') or first_line.startswith(';'):
                 return False
             for line in f:
+                if line.startswith('>'):
+                    continue
                 if any(letter not in 'ATGC' for letter in line.strip()):
                     return False
-            return True
+        return True
     else:
         return False
 

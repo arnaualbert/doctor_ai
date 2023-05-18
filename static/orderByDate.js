@@ -29,7 +29,6 @@ $(document).ready(function () {
     }
   });
   $("#finish-date-header").on("click", function () {
->>>>>>> 9b98569c160dc845f8f0412d8c26f11f75972d9d
     finishDateOrder *= -1; // Cambia el orden al hacer clic
 
     $("#table tbody").html(
@@ -62,4 +61,4 @@ $(document).ready(function () {
     });
   });
   
-  })});
+  })})});

@@ -72,7 +72,7 @@ def global_alignment():
 
                 # Execute the global aligment program
                 user_id = session.get('user_id')
-                daemon = Thread(target=sc.local, args=(fasta1, fasta2, match, mismatch, gap,user_id,user_filename), daemon=True)
+                daemon = Thread(target=sc.run_global_align, args=(fasta1, fasta2, match, mismatch, gap,user_id,user_filename), daemon=True)
                 daemon.start()
 
                 # if len(output.stdout) > 0:

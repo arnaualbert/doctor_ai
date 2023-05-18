@@ -105,13 +105,17 @@ def DNA_to_RNA():
             ids = str(id)
             filename = ids+file.filename
             fullroute = sc.save_fasta_file_with_id(id,file,DNATORNA)
-            if validate.is_fasta_file_with_only_nucleotide(fullroute) and validate.check_mime_type(fullroute) == "text/plain" and user_filename != "":
+            if validate.is_fasta_file_with_only_nucleotide(fullroute) == True and validate.check_mime_type(fullroute) == "text/plain" and user_filename != "":
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.dna_to_rna, args=(fullroute,filename,user_id,id,user_filename))
                 daemon = daemon.start()
                 return render_template('dna_rna.html',message="Doing the job, check the history")
             else:
-                return render_template('dna_rna.html',message="This is not a fasta file and all the fields are required")
+                if validate.is_fasta_file_with_only_nucleotide(fullroute) != True:
+                    message = validate.is_fasta_file_with_only_nucleotide(fullroute)
+                    return render_template('dna_rna.html',message=message)
+                else:
+                    return render_template('dna_rna.html',message="All the fields are required")
             
 
 @dna_controller.route("/complementary", methods=['GET', 'POST'])

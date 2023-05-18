@@ -83,7 +83,7 @@ def DNA_to_protein():
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.dna_to_protein, args=(fullroute,filename,user_id,id,user_filename))
                 daemon = daemon.start()
-                return render_template('dna_protein.html',message="Doing the job")
+                return render_template('dna_protein.html',message="Doing the job, check the history")
             else:
                 return render_template('dna_protein.html',message="This is not a fasta file and all the fields are required")  
 
@@ -109,7 +109,7 @@ def DNA_to_RNA():
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.dna_to_rna, args=(fullroute,filename,user_id,id,user_filename))
                 daemon = daemon.start()
-                return render_template('dna_rna.html',message="Doing the job")
+                return render_template('dna_rna.html',message="Doing the job, check the history")
             else:
                 return render_template('dna_rna.html',message="This is not a fasta file and all the fields are required")
             
@@ -129,7 +129,7 @@ def complementary():
         if validate.is_fasta_file_with_only_ATGC(full_path) and validate.check_mime_type(full_path) == "text/plain" and user_filename != "":
             deamon = Thread(target=sc.complementary_task, args=(full_path,session.get('user_id'),user_filename),daemon=True)
             deamon.start()
-            return render_template('complementary.html', message="Doing the job")
+            return render_template('complementary.html', message="Doing the job, check the history")
         else:
             return render_template('complementary.html', message="This is not a fasta file and all the fields are required")
 
@@ -154,7 +154,7 @@ def split_fasta():
         if validate.validate_split_fasta(full_path,start,end) and validate.check_mime_type(full_path) == "text/plain" and user_filename != "":
             daemon = Thread(target=sc.split_fasta_task, args=(full_path,session.get('user_id'),start,end,user_filename),daemon=True)
             daemon.start()
-            return render_template('split.html', message="Doing the job")
+            return render_template('split.html', message="Doing the job, check the history")
         else:
             # os.remove(full_path)
             return render_template('split.html', message="File must be in .fasta format and inputs must be numbers bigger tha 0")
@@ -179,6 +179,6 @@ def reverse_complementary():
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.reverse_complementary_task, args=(fullroute,user_id,user_filename))
                 daemon = daemon.start()
-                return render_template('reverse_complementary.html',message="Doing the job")
+                return render_template('reverse_complementary.html',message="Doing the job, check the history")
             else:
                 return render_template('reverse_complementary.html',message="File must be in .fasta format and all the fields are required")

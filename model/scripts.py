@@ -47,8 +47,9 @@ def save_fasta_file(fasta, directory):
     Output:
         saved file path
     """
+    id = randint(1, 9999999)
     filename = fasta.filename
-    filepath = os.path.join(directory, filename)
+    filepath = os.path.join(directory,id, filename)
     fasta.save(filepath)
     return filepath
 

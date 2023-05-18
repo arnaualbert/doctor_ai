@@ -176,7 +176,8 @@ func main() {
 	// fmt.Println("Alignment score:", score)
 
 	// Create the result file
-	fileOut, err := os.Create("global_alignment_result.txt")
+
+	fileOut, err := os.Create(os.Args[6])
 	if err != nil {
 		fmt.Println(err)
 		return

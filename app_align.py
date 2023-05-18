@@ -102,6 +102,7 @@ def local_alignment():
         gapLeft = request.form['gapLeft']
         gapUp = request.form['gapUp']
         user_filename = request.form['user_filename']
+        print("ASD")
         fasta1local = sc.save_fasta_file(fasta1, LCLALIGN)
         fasta2local = sc.save_fasta_file(fasta2, LCLALIGN)
         if validate.validate_local_aligment(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp) == True:

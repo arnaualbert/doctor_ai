@@ -126,12 +126,14 @@ def complementary():
         fasta_ext = fasta.filename
         fasta.save(os.path.join(COMPLEMENTARY_FASTA,fasta_ext))
         full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
-        if validate.is_fasta_file_with_only_nucleotide(full_path) and validate.check_mime_type(full_path) == "text/plain" and user_filename != "":
+        if validate.is_fasta_file_with_only_nucleotide(full_path) == True and validate.check_mime_type(full_path) == "text/plain" and user_filename != "":
             deamon = Thread(target=sc.complementary_task, args=(full_path,session.get('user_id'),user_filename),daemon=True)
             deamon.start()
             return render_template('complementary.html', message="Doing the job, check the history")
         else:
-            return render_template('complementary.html', message="This is not a fasta file and all the fields are required")
+            if validate.is_fasta_file_with_only_nucleotide(full_path) != True:
+                message = validate.is_fasta_file_with_only_nucleotide(full_path)
+            return render_template('complementary.html', message=message)
 
     return render_template('complementary.html')
 

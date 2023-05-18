@@ -17,24 +17,24 @@ def is_image_file(filepath: str) -> bool:
         return False
 
 
-def is_fasta_file_with_only_nucleotide(filename: str) -> bool:
+def is_fasta_file_with_only_nucleotide(filename: str) -> bool | str:
     """Check if a file is a fasta file with only ATGC"""
     if check_mime_type(filename) == "text/plain":
         if filename.endswith('.fasta'):
             with open(filename) as f:
                 first_line = f.readline().strip()
                 if not first_line.startswith('>') or first_line.startswith(';'):
-                    return False
+                    return "It needs to start with > to be a fasta file"
                 for line in f:
                     if line.startswith('>'):
                         continue
                     if any(letter not in 'ATGC' for letter in line.strip()):
-                        return False
+                        return "It needs to be a nucleotide"
             return True
         else:
-            return False
+            return "It needs to be a fasta file"
     else:
-        return False
+        return "It's not a fasta file"
 
 def read_fasta_file(file_path: str) -> bool:
     """Read a fasta file"""
@@ -56,12 +56,21 @@ def count_letters_in_file(filename: str) -> int:
 
     return count
 
-def validate_split_fasta(full_path,start:str,end:str) -> bool:
+def validate_split_fasta(full_path,start:str,end:str) -> bool | str:
     """validate if the inputs are correct"""
-    if is_fasta_file_with_only_nucleotide(full_path) and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path) and check_mime_type(full_path) == "text/plain":
+    if is_fasta_file_with_only_nucleotide(full_path) == True and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path) and check_mime_type(full_path) == "text/plain":
         return True
     else:
-        return False
+        if check_mime_type(full_path) != "text/plain":
+            return "File must be in .fasta format"
+        elif int(start)<0:
+            return "Start must be greater than 0"
+        elif int(end)<0:
+            return "End must be greater than 0"
+        elif int(start)>count_letters_in_file(full_path):
+            return "Start must be less than the number of letters in the file"
+        elif int(end)>count_letters_in_file(full_path):
+            return "End must be less than the number of letters in the file"
 
 
 def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int,gapLeft: int,gapUp: int) -> bool:

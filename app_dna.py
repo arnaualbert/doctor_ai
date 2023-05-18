@@ -175,10 +175,11 @@ def reverse_complementary():
         if file:
             # Excecute the cds extract program
             fullroute=sc.save_fasta_file(file,REVERSE)
-            if validate.is_fasta_file_with_only_nucleotide(fullroute) and user_filename != "" and validate.check_mime_type(fullroute) == "text/plain":
+            if validate.is_fasta_file_with_only_nucleotide(fullroute) == True and user_filename != "" and validate.check_mime_type(fullroute) == "text/plain":
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.reverse_complementary_task, args=(fullroute,user_id,user_filename))
                 daemon = daemon.start()
                 return render_template('reverse_complementary.html',message="Doing the job, check the history")
             else:
-                return render_template('reverse_complementary.html',message="File must be in .fasta format and all the fields are required")
+                message =validate.is_fasta_file_with_only_nucleotide(fullroute)
+                return render_template('reverse_complementary.html',message=message)

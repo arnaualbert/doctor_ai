@@ -86,15 +86,18 @@ def validate_GA_form(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) 
         return False
     
 
-def is_genbank(gb_filepath: str) -> bool:
+def is_genbank(gb_filepath: str) -> bool | str:
     """Validate if a input file is a genbank file"""   
     if gb_filepath.endswith(".gb"):
-        with open(gb_filepath, 'r') as file:
-            first_line = file.readline().strip()
-            if first_line.startswith("LOCUS") and "bp" in first_line:
-                return True
-            else:
-                return False
+        if os.stat(gb_filepath).st_size > 0:
+            with open(gb_filepath, 'r') as file:
+                first_line = file.readline().strip()
+                if first_line.startswith("LOCUS") and "bp" in first_line:
+                    return True
+                else:
+                    return "File must be in .gb format"
+        else:
+            return "File is empty"
     else:
-        return False
+        return "File must be in .gb format"
 

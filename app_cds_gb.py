@@ -42,13 +42,13 @@ def cdsextract():
         if file:
             # Excecute the cds extract program
             fullroute=sc.save_fasta_file(file,CDSEXT)
-            if validate.is_genbank(fullroute):
+            if validate.is_genbank(fullroute) == True:
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.cdsextract_task, args=(fullroute,user_id,user_filename))
                 daemon = daemon.start()
                 return render_template('cds.html')
             else:  
-                err_msg = "File don't have GenBank format"
+                err_msg = validate.is_genbank(fullroute)
                 return render_template('cds.html', err_msg=err_msg)
                 
     return render_template('cds.html')

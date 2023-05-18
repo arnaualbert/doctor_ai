@@ -38,7 +38,7 @@ def tuple_to_object(result):
 
     return user.User(username,name,surname,email, password, role_id,id)
 
-def save_fasta_file(fasta, directory):
+def save_fasta_file(fasta, directory) -> Path:
     """
     This function saves a fasta file to a directory and returns the filepath
     Input:
@@ -316,6 +316,36 @@ def blosum_global(fasta1_filepath, fasta2_filepath, gap,gap_extend,user_id,user_
     new_filename = re.sub(r'\.txt$',ids+'alignment_result_blosum.txt', file_up)
     print(new_filename)
     os.rename(file_up, new_filename)
+    file_to_read = open(new_filename).read()
+    upload.update_date(id,file_to_read,user_id)
+    os.remove(new_filename)
+    os.remove(fasta1_filepath)
+    os.remove(fasta2_filepath)
+
+
+def run_global_align(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user_id,user_filename):
+    """Execute the local alignment program
+    Input:
+        fasta1_filepath: fasta file
+        fasta2_filepath: fasta file
+        user_id: user id
+        match: match score
+        mismatch: mismatch score
+        gap: gap score
+        gapLeft: gapLeft score
+        gapUp: gapUp score
+    Output:
+        Upload results to the database
+    """
+    id = generate_unique_id
+    file_up = "alignment_result.txt"
+    query = "global_alignment"
+    final_filename = user_filename + '.txt'
+    upload.upload_results(id,query,user_id,final_filename)
+    print("running global alignment")
+    subprocess.run(["./global_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap, user_filename])
+    print("finished global alignment")
+    new_filename = "./"+user_filename
     file_to_read = open(new_filename).read()
     upload.update_date(id,file_to_read,user_id)
     os.remove(new_filename)

@@ -19,20 +19,22 @@ def is_image_file(filepath: str) -> bool:
 
 def is_fasta_file_with_only_ATGC(filename: str) -> bool:
     """Check if a file is a fasta file with only ATGC"""
-    if filename.endswith('.fasta'):
-        with open(filename) as f:
-            first_line = f.readline().strip()
-            if not first_line.startswith('>') or first_line.startswith(';'):
-                return False
-            for line in f:
-                if line.startswith('>'):
-                    continue
-                if any(letter not in 'ATGC' for letter in line.strip()):
+    if check_mime_type(filename) == "text/plain":
+        if filename.endswith('.fasta'):
+            with open(filename) as f:
+                first_line = f.readline().strip()
+                if not first_line.startswith('>') or first_line.startswith(';'):
                     return False
-        return True
+                for line in f:
+                    if line.startswith('>'):
+                        continue
+                    if any(letter not in 'ATGC' for letter in line.strip()):
+                        return False
+            return True
+        else:
+            return False
     else:
         return False
-
 
 def read_fasta_file(file_path: str) -> bool:
     """Read a fasta file"""

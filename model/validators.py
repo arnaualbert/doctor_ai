@@ -17,7 +17,7 @@ def is_image_file(filepath: str) -> bool:
         return False
 
 
-def is_fasta_file_with_only_ATGC(filename: str) -> bool:
+def is_fasta_file_with_only_nucleotide(filename: str) -> bool:
     """Check if a file is a fasta file with only ATGC"""
     if check_mime_type(filename) == "text/plain":
         if filename.endswith('.fasta'):
@@ -58,7 +58,7 @@ def count_letters_in_file(filename: str) -> int:
 
 def validate_split_fasta(full_path,start:str,end:str) -> bool:
     """validate if the inputs are correct"""
-    if is_fasta_file_with_only_ATGC(full_path) and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path) and check_mime_type(full_path) == "text/plain":
+    if is_fasta_file_with_only_nucleotide(full_path) and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path) and check_mime_type(full_path) == "text/plain":
         return True
     else:
         return False
@@ -66,7 +66,7 @@ def validate_split_fasta(full_path,start:str,end:str) -> bool:
 
 def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int,gapLeft: int,gapUp: int) -> bool:
     """validate if the inputs are correct"""
-    if is_fasta_file_with_only_ATGC(fasta1) and is_fasta_file_with_only_ATGC(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0:
+    if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0:
         return True
     else:
         return False
@@ -80,7 +80,7 @@ def validate_blosum_local_aligment(fasta1: str,fasta2: str,gap: int,gap_extend: 
 
 def validate_GA_form(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) -> bool:
     """validate if the inputs are correct"""
-    if is_fasta_file_with_only_ATGC(fasta1) and is_fasta_file_with_only_ATGC(fasta2) and match != None and mismatch != None and gap != None:
+    if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None:
         return True
     else:
         return False

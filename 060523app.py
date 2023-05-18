@@ -243,7 +243,7 @@ def DNA_to_protein():
             filename = ids+file.filename
             fullroute = sc.save_fasta_file_with_id(id,file,DNATOPROTEIN)
             # Excecute the dna to protein program
-            if validate.is_fasta_file_with_only_ATGC(fullroute):
+            if validate.is_fasta_file_with_only_nucleotide(fullroute):
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.dna_to_protein, args=(fullroute,filename,user_id,id))
                 daemon = daemon.start()
@@ -266,7 +266,7 @@ def DNA_to_RNA():
             ids = str(id)
             filename = ids+file.filename
             fullroute = sc.save_fasta_file_with_id(id,file,DNATORNA)
-            if validate.is_fasta_file_with_only_ATGC(fullroute):
+            if validate.is_fasta_file_with_only_nucleotide(fullroute):
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.dna_to_rna, args=(fullroute,filename,user_id,id))
                 daemon = daemon.start()

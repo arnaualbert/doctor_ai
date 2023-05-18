@@ -57,7 +57,7 @@ def global_alignment():
         # Validate the form 
         if validate.validate_GA_form(fasta1, fasta2, match, mismatch, gap) and user_filename:
 
-            if validate.is_fasta_file_with_only_ATGC(fasta1) and validate.check_mime_type(fasta1) == "text/plain" and validate.is_fasta_file_with_only_ATGC(fasta1_filepath) and validate.check_mime_type(fasta1_filepath) == "text/plain":
+            if validate.is_fasta_file_with_only_nucleotide(fasta1) and validate.check_mime_type(fasta1) == "text/plain" and validate.is_fasta_file_with_only_nucleotide(fasta1_filepath) and validate.check_mime_type(fasta1_filepath) == "text/plain":
                     
                 fasta1_filename = fasta1.filename
                 fasta2_filename = fasta2.filename

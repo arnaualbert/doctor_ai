@@ -79,7 +79,7 @@ def DNA_to_protein():
             filename = ids+file.filename
             fullroute = sc.save_fasta_file_with_id(id,file,DNATOPROTEIN)
             # Excecute the dna to protein program
-            if validate.is_fasta_file_with_only_ATGC(fullroute) and validate.check_mime_type(fullroute) == "text/plain" and user_filename != "":
+            if validate.is_fasta_file_with_only_nucleotide(fullroute) and validate.check_mime_type(fullroute) == "text/plain" and user_filename != "":
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.dna_to_protein, args=(fullroute,filename,user_id,id,user_filename))
                 daemon = daemon.start()
@@ -105,7 +105,7 @@ def DNA_to_RNA():
             ids = str(id)
             filename = ids+file.filename
             fullroute = sc.save_fasta_file_with_id(id,file,DNATORNA)
-            if validate.is_fasta_file_with_only_ATGC(fullroute) and validate.check_mime_type(fullroute) == "text/plain" and user_filename != "":
+            if validate.is_fasta_file_with_only_nucleotide(fullroute) and validate.check_mime_type(fullroute) == "text/plain" and user_filename != "":
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.dna_to_rna, args=(fullroute,filename,user_id,id,user_filename))
                 daemon = daemon.start()
@@ -126,7 +126,7 @@ def complementary():
         fasta_ext = fasta.filename
         fasta.save(os.path.join(COMPLEMENTARY_FASTA,fasta_ext))
         full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
-        if validate.is_fasta_file_with_only_ATGC(full_path) and validate.check_mime_type(full_path) == "text/plain" and user_filename != "":
+        if validate.is_fasta_file_with_only_nucleotide(full_path) and validate.check_mime_type(full_path) == "text/plain" and user_filename != "":
             deamon = Thread(target=sc.complementary_task, args=(full_path,session.get('user_id'),user_filename),daemon=True)
             deamon.start()
             return render_template('complementary.html', message="Doing the job, check the history")
@@ -175,7 +175,7 @@ def reverse_complementary():
         if file:
             # Excecute the cds extract program
             fullroute=sc.save_fasta_file(file,REVERSE)
-            if validate.is_fasta_file_with_only_ATGC(fullroute) and user_filename != "" and validate.check_mime_type(fullroute) == "text/plain":
+            if validate.is_fasta_file_with_only_nucleotide(fullroute) and user_filename != "" and validate.check_mime_type(fullroute) == "text/plain":
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.reverse_complementary_task, args=(fullroute,user_id,user_filename))
                 daemon = daemon.start()

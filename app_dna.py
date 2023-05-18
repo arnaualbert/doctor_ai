@@ -151,13 +151,13 @@ def split_fasta():
         fasta_ext = fasta.filename
         fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
         full_path = os.path.join(SPLIT_FASTA,fasta_ext)
-        if validate.validate_split_fasta(full_path,start,end) and validate.check_mime_type(full_path) == "text/plain" and user_filename != "":
+        if validate.validate_split_fasta(full_path,start,end) == True and user_filename != "":
             daemon = Thread(target=sc.split_fasta_task, args=(full_path,session.get('user_id'),start,end,user_filename),daemon=True)
             daemon.start()
             return render_template('split.html', message="Doing the job, check the history")
         else:
-            # os.remove(full_path)
-            return render_template('split.html', message="File must be in .fasta format and inputs must be numbers bigger tha 0")
+            message = validate.validate_split_fasta(full_path,start,end)
+            return render_template('split.html', message=message)
 
     return render_template('split.html')
 

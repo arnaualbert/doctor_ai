@@ -263,11 +263,9 @@ def local(fasta1_filepath, fasta2_filepath, match, mismatch, gap,gapLeft, gapUp,
     final_filename = user_filename + '.txt'
     upload.upload_results(id,query,user_id,final_filename)
     print("running local alignment")
-    subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap,gapLeft, gapUp])
+    subprocess.run(["./local_alignment",fasta1_filepath, fasta2_filepath, match, mismatch, gap,gapLeft, gapUp, user_filename])
     print("finished local alignment")
-    new_filename = re.sub(r'\.txt$',ids+'alignment_result.txt', file_up)
-    print(new_filename)
-    os.rename(file_up, new_filename)
+    new_filename = "./"+user_filename
     file_to_read = open(new_filename).read()
     upload.update_date(id,file_to_read,user_id)
     os.remove(new_filename)
@@ -289,17 +287,13 @@ def blosum_local(fasta1_filepath, fasta2_filepath, gap,gap_extend,user_id,user_f
         Upload results to the database
     """
     id = randint(1,9999999)
-    ids = str(id)
-    file_up = "alignment_result_blosum.txt"
     query = "blosum_local_alignment"
     final_filename = user_filename + '.txt'
     upload.upload_results(id,query,user_id,final_filename)
     print("running local alignment")
-    subprocess.run(["./blosum",fasta1_filepath, fasta2_filepath,gap,gap_extend])
+    subprocess.run(["./blosum",fasta1_filepath, fasta2_filepath,gap,gap_extend,user_filename])
     print("finished Blosum local alignment")
-    new_filename = re.sub(r'\.txt$',ids+'alignment_result_blosum.txt', file_up)
-    print(new_filename)
-    os.rename(file_up, new_filename)
+    new_filename = "./"+user_filename
     file_to_read = open(new_filename).read()
     upload.update_date(id,file_to_read,user_id)
     os.remove(new_filename)

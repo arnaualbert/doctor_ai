@@ -33,11 +33,7 @@
         <td>{{ result[0] }}</td>
         <td>{{ result[6] }}</td>
         <td>{{ result[1] }}</td>
-        {% if result[5] is none %}
-        <td><i>In proccess</i></td>
-        {% else %}
         <td><a class="btn btn-primary" href="{{ url_for('download_file', ident=result[0]) }}">Download</a></td>
-        {% endif %}
         <td>{{ result[4] }}</td>
         <td>{{ result[5] }}</td>
         <td><a class="btn btn-outline-danger" href="{{ url_for('delete_file', ident=result[0]) }}">Delete</a></td>

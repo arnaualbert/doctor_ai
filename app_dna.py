@@ -159,7 +159,7 @@ def split_fasta():
             message = validate.validate_split_fasta(full_path,start,end)
             return render_template('split.html', message=message)
 
-    return render_template('split.html')
+    # return render_template('split.html')
 
 @dna_controller.route('/reverse_complementary',methods=['GET', 'POST'])
 def reverse_complementary():

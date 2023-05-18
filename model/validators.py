@@ -68,9 +68,15 @@ def validate_split_fasta(full_path,start:str,end:str) -> bool | str:
         elif int(end)<0:
             return "End must be greater than 0"
         elif int(start)>count_letters_in_file(full_path):
-            return "Start must be less than the number of letters in the file"
+            return f"Start must be less than the number of letters in the file it have {count_letters_in_file(full_path)} letters"
         elif int(end)>count_letters_in_file(full_path):
-            return "End must be less than the number of letters in the file"
+            return f"End must be less than the number of letters in the file it have {count_letters_in_file(full_path)} letters"
+        elif start.isnumeric() == False:
+            return "Start must be a number"
+        elif end.isnumeric() == False:
+            return "End must be a number"
+        elif int(start)>int(end):
+            return "Start must be less than End"
 
 
 def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int,gapLeft: int,gapUp: int) -> bool:

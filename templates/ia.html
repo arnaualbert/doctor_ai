@@ -1,14 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Detection Tool</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .image-upload {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+        }
+        .image-upload:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
 {% include 'menu.html' %}
-<div class="container">
-    <h3>IA Pneumonia</h3>
-    <div class="row-cols-4">
-        <form method=post action="/iamlr" enctype=multipart/form-data>
-            <div class="col">
-                <input class="form-control" type="file" name="image" id="formFile">
+<body>
+    <div class="container">
+        <h1 class="mt-4 mb-4">Pneumonia Detection Tool</h1>
+
+        <div class="image-upload">
+            <h4>Select an X-ray image of the lungs</h4>
+            <p>Upload an image file (JPEG or PNG format) of an X-ray picture showing the lungs.</p>
+            <form method=post action="/iamlr" enctype=multipart/form-data>
+                <input type="file" name="image" accept=".jpg,.jpeg,.png" class="form-control">
+                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            </form>
+        </div>
+        {% if isPneumo %}
+        <div class="mt-4">
+            <h4>Result:</h4>
+            <div class="alert alert-info" role="alert">
+                <strong>Pneumonia Detected!</strong> Consult a healthcare professional for further evaluation.
             </div>
-    </div><br>
-    <button class="btn btn-primary" type="submit">Submit</button>
-    </form>
-    {{solve}}
-</div>
+            
+        </div>
+        {% endif %}
+
+        {% if isNormal %}
+        <div class="mt-4">
+            <h4>Result:</h4>
+            <div class="alert alert-success" role="alert">
+                <strong>No Pneumonia Detected!</strong> The lungs appear healthy.
+            </div>
+        </div>
+        {% endif %}
+        {% if solve %}
+        <div class="mt-4">
+            <h4>Result:</h4>
+            <div class="alert alert-danger" role="alert">
+                It needs to be an <strong>image</strong>.
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+</html>

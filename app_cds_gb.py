@@ -77,6 +77,11 @@ def gb_to_fasta():
                 daemon = Thread(target=sc.genbank_to_fasta, args=(fullroute,user_id,user_filename))
                 daemon = daemon.start()
                 return render_template('gbtofasta.html')
-            else:  
-                err_msg = "File don't have GenBank format"
-                return render_template('gbtofasta.html', err_msg=err_msg)
+            else: 
+
+                if validate.is_genbank(fullroute) != True:
+                    message = validate.is_genbank(fullroute)
+                    return render_template('dna_rna.html',message=message)
+                else:
+                    err_msg = "File don't have GenBank format"
+                    return render_template('gbtofasta.html', err_msg=err_msg)

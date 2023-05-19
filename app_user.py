@@ -106,3 +106,9 @@ def edit_account():
             message = "Failed edit"
         return render_template('edit_account.html', message=message)
     
+@user_controller.route('/petition', methods=['GET', 'POST'])
+def petition():
+    """Show the petition page of the app """
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+    pass
+    

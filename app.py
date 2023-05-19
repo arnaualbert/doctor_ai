@@ -106,6 +106,14 @@ def home():
     if request.method == 'GET':
         return render_template('index.html')
 
+@app.route('/main', methods=['GET', 'POST'])
+def main():
+    """Show the home page of the app if the user is logged in"""
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+
+    if request.method == 'GET':
+        return render_template('home.html')
+
 @app.route('/iamlr',methods=['GET', 'POST'])
 def iamlr():
     """Show the image recognition page"""
@@ -124,9 +132,14 @@ def iamlr():
         # Execute the image recognition program
         if validate.is_image_file(fullroute):
             solve = ia.IAML.ask(fullroute)
-            return render_template('ia.html', solve=solve)
+            if solve == 'Result is Pneumonia':
+                isPneumo = True
+                return render_template('ia.html', isPneumo=isPneumo)
+            else:
+                isNormal = True
+                return render_template('ia.html', isNormal=isNormal)
         else:
-            return render_template('ia.html',solve="It needs to be an image")
+            return render_template('ia.html', solve="It needs to be an image")
 
 
 

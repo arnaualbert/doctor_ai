@@ -338,7 +338,7 @@ def run_global_align(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user
     Output:
         Upload results to the database
     """
-    id = generate_unique_id
+    id = generate_unique_id()
     file_up = "alignment_result.txt"
     query = "global_alignment"
     final_filename = user_filename + '.txt'

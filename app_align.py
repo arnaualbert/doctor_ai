@@ -55,33 +55,29 @@ def global_alignment():
         user_filename = request.form['user_filename']
 
         # Get the fastas filepath from the server
-        fasta1_filepath = sc.save_fasta_file(fasta1, LCLALIGN)
-        fasta2_filepath = sc.save_fasta_file(fasta2, LCLALIGN)
-
+        fasta1_filepath = sc.save_fasta_file(fasta1, GBLALIGN)
+        fasta2_filepath = sc.save_fasta_file(fasta2, GBLALIGN)
+        print(fasta1_filepath)
         # Validate the form 
         if validate.validate_GA_form(fasta1_filepath, fasta2_filepath, match, mismatch, gap) and user_filename:  
 
             # Execute the global aligment program
             user_id = session.get('user_id')
-            daemon = Thread(target=sc.run_global_align, args=(fasta1, fasta2, match, mismatch, gap,user_id,user_filename), daemon=True)
+            daemon = Thread(target=sc.run_global_align, args=(fasta1_filepath, fasta2_filepath, match, mismatch, gap,user_id,user_filename), daemon=True)
             daemon.start()
+            # result_id: str = str(randint(1,9999999))
+            # user_id:   str = session.get('user_id')
 
-            # if len(output.stdout) > 0:
-            #     message = 'Data file format is not correct.'
-            #     return render_template('global_aligment.html', message=message)
-            # else:   
-            result_id: str = str(randint(1,9999999))
-            user_id:   str = session.get('user_id')
+            # file_up:      str = "global_alignment_result.txt"
+            # new_filename: str = re.sub(r'\.txt$',result_id+'.txt', file_up)
 
-            file_up:      str = "global_alignment_result.txt"
-            new_filename: str = re.sub(r'\.txt$',result_id+'.txt', file_up)
-
-            os.rename('./'+file_up, new_filename)
-            query = "global_alignment"
-            upload.upload_results_global(result_id,query,new_filename,user_id)
-            response = send_file(new_filename,as_attachment=True)
+            # os.rename('./'+file_up, new_filename)
+            # query = "global_alignment"
+            # upload.upload_results_global(result_id,query,new_filename,user_id)
+            # response = send_file(new_filename,as_attachment=True)
             # os.remove(new_filename)
-            return response
+            message = 'Global alignment in process...'
+            return render_template('global_aligment.html', message=message)
         else:
             message = "The fastas file does not have the correct format"
             return render_template('global_aligment.html', message=message)

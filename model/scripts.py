@@ -108,7 +108,8 @@ def complementary_task(fasta,user_id,user_filename):
         Upload results to the database
     """
     id = randint(1, 9999999)
-    out_name = f"{id}complementary.fasta"
+    # out_name = f"{id}complementary.fasta"
+    out_name = user_filename + '.fasta'
     query = "complementary"
     final_filename = user_filename + '.fasta'
     upload.upload_results(id,query,user_id,final_filename)

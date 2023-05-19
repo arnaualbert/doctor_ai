@@ -4,7 +4,7 @@ import hashlib
 import model.login as logins
 import model.user as users
 import model.upload as upload
-
+import model.scripts as sc
 user_controller = Blueprint('user_controller', __name__)
 
 @user_controller.route('/login', methods=['GET', 'POST'])
@@ -106,9 +106,12 @@ def edit_account():
             message = "Failed edit"
         return render_template('edit_account.html', message=message)
     
-@user_controller.route('/petition', methods=['GET', 'POST'])
+@user_controller.route('/petition_newuser', methods=['GET', 'POST'])
 def petition():
     """Show the petition page of the app """
     if not logins.is_logged(): return render_template('login.html') # Validate session
-    pass
+    if request.method == 'GET':
+        admins = upload.select_from_where_table("users","role_id",1)
+        admins_list = [sc.tuple_to_object(tup) for tup in admins]
+        return render_template('petitions_doctor.html',admins=admins_list)
     

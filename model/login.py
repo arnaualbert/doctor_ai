@@ -5,7 +5,7 @@ import model.Database as databases
 import mysql.connector
 import hashlib
 import model.scripts as tools
-
+import model.petition as petition
 ### Connect to the database
 conexion = mysql.connector.connect(
     host="localhost",
@@ -76,3 +76,12 @@ def edit(username, name, surname, email) -> bool:
     data.commit()
     
     return True
+
+def petition_user(petition: petition.Petition) -> bool and str:
+    if get_user_data_from_database(petition.username) == False:
+        data.query(f"INSERT INTO petitions (admin_petition,username,name,surname,email,role) VALUES ('{petition.admin_petition}','{petition.username}','{petition.name}','{petition.surname}','{petition.email}','{petition.role}')")
+        data.commit()
+        return True
+    else:
+        return "a user with this username already exist"
+    # pass

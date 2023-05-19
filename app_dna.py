@@ -85,7 +85,11 @@ def DNA_to_protein():
                 daemon = daemon.start()
                 return render_template('dna_protein.html',message="Doing the job, check the history")
             else:
-                return render_template('dna_protein.html',message="This is not a fasta file and all the fields are required")  
+                if validate.is_fasta_file_with_only_nucleotide(fullroute) != True:
+                    message = validate.is_fasta_file_with_only_nucleotide(fullroute)
+                    return render_template('dna_rna.html',message=message)
+                else:
+                    return render_template('dna_protein.html',message="This is not a fasta file and all the fields are required")  
 
 
     

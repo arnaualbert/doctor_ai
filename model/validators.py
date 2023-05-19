@@ -77,6 +77,8 @@ def validate_split_fasta(full_path,start:str,end:str) -> bool | str:
             return "End must be a number"
         elif int(start)>int(end):
             return "Start must be less than End"
+        elif is_fasta_file_with_only_nucleotide(full_path) != True:
+            return is_fasta_file_with_only_nucleotide(full_path)
 
 
 def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int,gapLeft: int,gapUp: int) -> bool:

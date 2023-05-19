@@ -17,7 +17,7 @@ def is_image_file(filepath: str) -> bool:
         return False
 
 
-def is_fasta_file_with_only_nucleotide(filename: str) -> bool | str:
+def is_fasta_file_with_only_nucleotide(filename: str) -> bool and str:
     """Check if a file is a fasta file with only ATGC"""
     if check_mime_type(filename) == "text/plain":
         if filename.endswith('.fasta'):
@@ -56,7 +56,7 @@ def count_letters_in_file(filename: str) -> int:
 
     return count
 
-def validate_split_fasta(full_path,start:str,end:str) -> bool | str:
+def validate_split_fasta(full_path,start:str,end:str) -> bool and str:
     """validate if the inputs are correct"""
     if is_fasta_file_with_only_nucleotide(full_path) == True and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path) and check_mime_type(full_path) == "text/plain":
         return True
@@ -77,6 +77,8 @@ def validate_split_fasta(full_path,start:str,end:str) -> bool | str:
             return "End must be a number"
         elif int(start)>int(end):
             return "Start must be less than End"
+        elif is_fasta_file_with_only_nucleotide(full_path) != True:
+            return is_fasta_file_with_only_nucleotide(full_path)
 
 
 def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int,gapLeft: int,gapUp: int) -> bool:
@@ -101,7 +103,7 @@ def validate_GA_form(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) 
         return False
     
 
-def is_genbank(gb_filepath: str) -> bool | str:
+def is_genbank(gb_filepath: str) -> bool and str:
     """Validate if a input file is a genbank file"""   
     if gb_filepath.endswith(".gb"):
         print(os.stat(gb_filepath).st_size)

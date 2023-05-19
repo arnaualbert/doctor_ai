@@ -85,7 +85,11 @@ def DNA_to_protein():
                 daemon = daemon.start()
                 return render_template('dna_protein.html',message="Doing the job, check the history")
             else:
-                return render_template('dna_protein.html',message="This is not a fasta file and all the fields are required")  
+                if validate.is_fasta_file_with_only_nucleotide(fullroute) != True:
+                    message = validate.is_fasta_file_with_only_nucleotide(fullroute)
+                    return render_template('dna_protein.html',message=message)
+                else:
+                    return render_template('dna_protein.html',message="This is not a fasta file and all the fields are required")  
 
 
     
@@ -162,8 +166,12 @@ def split_fasta():
             daemon.start()
             return render_template('split.html', message="Doing the job, check the history")
         else:
-            message = validate.validate_split_fasta(full_path,start,end)
-            return render_template('split.html', message=message)
+            if validate.validate_split_fasta(full_path) != True:
+                message = validate.validate_split_fasta(full_path)
+                return render_template('split.html',message=message)
+            else:
+                message = validate.validate_split_fasta(full_path,start,end)
+                return render_template('split.html', message=message)
 
     # return render_template('split.html')
 

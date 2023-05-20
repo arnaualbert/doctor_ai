@@ -86,7 +86,11 @@ def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap
     if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0:
         return True
     else:
-        if int(gapUp) > 0:
+        if check_mime_type(fasta1) != "text/plain":
+            return "File must be in .fasta format"
+        elif check_mime_type(fasta2) != "text/plain":
+            return "File must be in .fasta format"
+        elif int(gapUp) > 0:
             return "The gap extend Up must be negative"
         elif int(gapLeft) > 0:
             return "The gap extend Left must be negative"
@@ -110,7 +114,11 @@ def validate_blosum_local_aligment(fasta1: str,fasta2: str,gap: int,gap_extend: 
     if fasta1 !=None and fasta2 != None and gap != None and gap_extend != None:
         return True
     else:
-        if gap_extend == None :
+        if check_mime_type(fasta2) != "text/plain":
+            return "File must be in .fasta format"
+        elif check_mime_type(fasta1) != "text/plain":
+            return "File must be in .fasta format"
+        elif gap_extend == None :
             return "You must fill the gap extend input"
         elif gap == None :
             return "You must fill the gap input"
@@ -124,7 +132,11 @@ def validate_GA_form(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) 
     if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None:
         return True
     else:
-        if gap == None :
+        if check_mime_type(fasta2) != "text/plain":
+            return "File must be in .fasta format"
+        elif check_mime_type(fasta1) != "text/plain":
+            return "File must be in .fasta format"
+        elif gap == None :
             return "You must fill the gap input"
         elif mismatch == None :
             return "You must fill the mismatch input"

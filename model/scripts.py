@@ -9,7 +9,7 @@ from multiprocessing import Pool
 from random import *
 import subprocess
 import model.user as user
-
+import model.roles as role
 path = os.getcwd()
 
 def generate_unique_id() -> str:
@@ -37,6 +37,17 @@ def tuple_to_object(result):
     role_id = result[6]
 
     return user.User(username,name,surname,email, password, role_id,id)
+
+def dict_to_role(result):
+    """ Convert tuple to object 
+    input:
+        result: tuple
+    output:
+        object type (user.User)
+    """
+    id = result["id"]
+    role_name = result["role_name"]
+    return role.Roles(id,role_name)
 
 def save_fasta_file(fasta, directory) -> Path:
     """

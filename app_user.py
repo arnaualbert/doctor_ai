@@ -3,6 +3,7 @@ from typing             import Union
 import hashlib
 import model.login as logins
 import model.user as users
+import model.roles as roles
 import model.upload as upload
 import model.scripts as sc
 user_controller = Blueprint('user_controller', __name__)
@@ -46,12 +47,13 @@ def register():
     if not logins.is_logged(): return render_template('login.html') # Validate session
 
     if request.method == 'GET':
-        roles = (upload.select_from('role_name', 'role'))
-        roles_ids = (upload.select_from('id', 'role'))
-        roles_list = [(r['role_name']) for r in roles]
-        roles_id_list = [(r['id']) for r in roles_ids]
-        roles_p_id = list(zip(roles_list, roles_id_list))
-
+        # roles = (upload.select_from('role_name', 'role'))
+        # roles_ids = (upload.select_from('id', 'role'))
+        # roles_list = [(r['role_name']) for r in roles]
+        # roles_id_list = [(r['id']) for r in roles_ids]
+        # roles_p_id = list(zip(roles_list, roles_id_list))
+        roles_list = upload.select_from("*", "role")
+        roles_p_id = [sc.dict_to_role(r) for r in roles_list]
         return render_template('register.html', roles=roles_p_id)
 
     if request.method == 'POST':
@@ -110,8 +112,16 @@ def edit_account():
 def petition():
     """Show the petition page of the app """
     if not logins.is_logged(): return render_template('login.html') # Validate session
-    if request.method == 'GET':
+    if request.method == 'GET' and session.get('role_id') == 2:
         admins = upload.select_from_where_table("users","role_id",1)
         admins_list = [sc.tuple_to_object(tup) for tup in admins]
         return render_template('petitions_doctor.html',admins=admins_list)
-    
+    if request.method == 'POST':
+        pass
+    else:
+        return render_template('error.html', message="Unauthorized access, only doctors can create petitions")
+@user_controller.route('/list_petitions', methods=['GET', 'POST'])
+def list_petitions():
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+    if request.method == 'GET' and session.get('role_id') == 1:
+        pass

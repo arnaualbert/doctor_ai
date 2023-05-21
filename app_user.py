@@ -124,4 +124,8 @@ def petition():
 def list_petitions():
     if not logins.is_logged(): return render_template('login.html') # Validate session
     if request.method == 'GET' and session.get('role_id') == 1:
-        pass
+        user_name = session.get('username')
+        petitions = upload.select_from_where_table("petitions","admin_petition",f"'{user_name}'")
+        print(petitions)
+        return render_template('admin_list_petitions.html', petitions=petitions)
+        # pass

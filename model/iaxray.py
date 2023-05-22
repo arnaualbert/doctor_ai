@@ -28,9 +28,9 @@ class IAML:
         x=np.expand_dims(x, axis=0)
         img_data=preprocess_input(x)
         classes=model.predict(img_data)
-        print(classes)
+        # print(classes)
         result=int(classes[0][0])
-        print(result)
+        # print(result)
         if result==0:
             print("pne")
             return "Result is Pneumonia"

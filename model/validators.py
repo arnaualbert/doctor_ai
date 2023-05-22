@@ -18,7 +18,11 @@ def is_image_file(filepath: str) -> bool:
 
 
 def is_fasta_file_with_only_nucleotide(filename: str) -> bool and str:
-    """Check if a file is a fasta file with only ATGC"""
+    """Check if a file is a fasta file with only ATGC
+    input: str
+    output: bool and str
+    if the file is a fasta file with only ATGC return True
+    else return a message"""
     if check_mime_type(filename) == "text/plain":
         if filename.endswith('.fasta'):
             with open(filename) as f:

@@ -4,6 +4,7 @@ import hashlib
 import model.login as logins
 import model.user as users
 import model.roles as roles
+import model.petition as petition
 import model.upload as upload
 import model.scripts as sc
 user_controller = Blueprint('user_controller', __name__)
@@ -127,5 +128,6 @@ def list_petitions():
         user_name = session.get('username')
         petitions = upload.select_from_where_table("petitions","admin_petition",f"'{user_name}'")
         print(petitions)
-        return render_template('admin_list_petitions.html', petitions=petitions)
+        petition_list = [sc.tuple_to_petition(petition) for petition in petitions]
+        return render_template('admin_list_petitions.html', petitions=petition_list)
         # pass

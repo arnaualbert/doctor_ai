@@ -10,6 +10,7 @@ from random import *
 import subprocess
 import model.user as user
 import model.roles as role
+import model.petition as petition
 path = os.getcwd()
 
 def generate_unique_id() -> str:
@@ -48,6 +49,16 @@ def dict_to_role(result):
     id = result["id"]
     role_name = result["role_name"]
     return role.Roles(id,role_name)
+
+def tuple_to_petition(result):
+    admin_petition = result[0]
+    username = result[1]
+    name = result[2]
+    surname = result[3]
+    email = result[4]
+    roles = "user"
+    return petition.Petition(admin_petition,username,name,surname,email,roles)
+
 
 def save_fasta_file(fasta, directory) -> Path:
     """

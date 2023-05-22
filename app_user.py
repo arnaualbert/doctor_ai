@@ -4,7 +4,7 @@ import hashlib
 import model.login as logins
 import model.user as users
 import model.roles as roles
-import model.petition as petition
+import model.petition as petitiones
 import model.upload as upload
 import model.scripts as sc
 user_controller = Blueprint('user_controller', __name__)
@@ -121,7 +121,14 @@ def petition():
         admins_list = [sc.tuple_to_object(tup) for tup in admins]
         return render_template('petitions_doctor.html',admins=admins_list)
     if request.method == 'POST':
-        pass
+        name = request.form["name"]
+        surname = request.form["surname"]
+        username = request.form["username"]
+        email = request.form["email"]
+        role_id = request.form["role_id"]
+        admin = request.form["admins"]
+        pet = petitiones.Petition(name, surname, username, email, role_id, admin)
+        logins.petition_user(pet)
     else:
         return render_template('error.html', message="Unauthorized access, only doctors can create petitions")
 @user_controller.route('/list_petitions', methods=['GET', 'POST'])

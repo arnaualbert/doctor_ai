@@ -11,6 +11,7 @@ import subprocess
 import model.user as user
 import model.roles as role
 import model.petition as petition
+import model.history as history
 path = os.getcwd()
 
 def generate_unique_id() -> str:
@@ -59,6 +60,16 @@ def tuple_to_petition(result):
     roles = "user"
     return petition.Petition(admin_petition,username,name,surname,email,roles)
 
+
+def tuple_history(results):
+    id = results[0]
+    query = results[1]
+    result = results[2]
+    user_id = results[3]
+    start = results[4]
+    date = results[5]
+    user_filename = results[6]
+    return history.History(id,query,result,user_id,start,date,user_filename)
 
 def save_fasta_file(fasta, directory) -> Path:
     """

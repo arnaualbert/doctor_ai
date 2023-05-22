@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 12, 2023 at 04:42 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Servidor: localhost
+-- Tiempo de generación: 22-05-2023 a las 16:52:38
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,28 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `doctor_ai`
+-- Base de datos: `doctor_ai`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `results`
+-- Estructura de tabla para la tabla `petitions`
+--
+
+CREATE TABLE `petitions` (
+  `admin_petition` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `surname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `results`
 --
 
 CREATE TABLE `results` (
@@ -37,19 +52,10 @@ CREATE TABLE `results` (
   `user_filename` varchar(99) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `results`
---
-
-INSERT INTO `results` (`id`, `query`, `result`, `user_id`, `start`, `date`, `user_filename`) VALUES
-(339528, 'random_sequence', 0x3e73656375656e6369615f616c6561746f7269610a43544743544343414747435443545443475447544143474147475454414154414747414754474147474741414141544154415443434743434341434147474754475441544743434754545441474347410a544147544341474343434141545441544343544154414343475447434141475447435441414741434154470a, 2, '2023-05-11 16:02:55', '2023-05-11 18:02:55', 'hola.fasta'),
-(4309320, 'random_sequence', 0x3e73656375656e6369615f616c6561746f7269610a41435454474141474343545454544341434741435443414741415441545441414154434154415454475447414354474341415443434147414754414141414743544741414343434143544141414747470a435447474341474741434354474354414341435441435447474754435454544741434141544143415443430a, 2, '2023-05-11 16:09:02', '2023-05-11 18:09:07', 'si.fasta'),
-(1213692, 'random_sequence', NULL, 2, '2023-05-11 16:11:41', NULL, 'ssi.fasta');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role`
+-- Estructura de tabla para la tabla `role`
 --
 
 CREATE TABLE `role` (
@@ -58,7 +64,7 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `role`
+-- Volcado de datos para la tabla `role`
 --
 
 INSERT INTO `role` (`id`, `role_name`) VALUES
@@ -69,7 +75,7 @@ INSERT INTO `role` (`id`, `role_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Estructura de tabla para la tabla `users`
 --
 
 CREATE TABLE `users` (
@@ -83,12 +89,12 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `name`, `surname`, `email`, `pass_hash`, `role_id`) VALUES
 (1, 'cardenet', 'Luis', 'Cardenete', 'carde602@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1),
-(2, 'arnau', 'Arnau', 'Albert', 'arnau@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1),
+(2, 'arnau', 'Arnau', 'Albert', 'arnaualbert2@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1),
 (3, 'alex', 'Alex', 'Varela', 'alex@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1),
 (4, 'victor', 'Victor', 'Piñana', 'victor@gmail.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1),
 (5, 'jdoe', 'John', 'Doe', 'jdoe@example.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 2),
@@ -99,26 +105,23 @@ INSERT INTO `users` (`id`, `username`, `name`, `surname`, `email`, `pass_hash`, 
 (10, 'Anneke', 'Anneke', 'Little', 'Anneke@example.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 3),
 (11, 'Argus', 'Argus', 'Vigilante', 'Argus@example.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 3),
 (12, 'Asbjorn', 'Asbjorn', 'Oso', 'Asbjorn@example.com', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 3),
-(13, 'pep', 'aaaa', 'aaa', 'aaa@asdsda', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1),
-(14, 'asdfxcvxzcv', 'nasdasasdfafddame', 'surname', 'email', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1),
-(15, 'asdasdasdasdasdasdas', 'asdasdasdasdasdasdas', 'surname', 'email', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1),
-(16, 'ola', 'ola', 'ola', 'ola', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1),
-(17, 'asd', 'asd', 'asd', 'asd', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1),
-(18, 'fsadf', 'Arnau', 'sadfdf', 'sdf@asd.com', 'asdfsdafsdf', 1),
-(19, 'zxc', 'asd', 'qew', 'asd@asd.com', '2aa696f49b3e47765a7df8f15fa45a40d9ae7d21b21b6630431bc8594e5ae5d6', 3);
+(19, 'zxc', 'asd', 'qew', 'asd@asd.com', '2aa696f49b3e47765a7df8f15fa45a40d9ae7d21b21b6630431bc8594e5ae5d6', 3),
+(20, 'ronaldo', 'lol', 'tiet', 'asd@asd.com', '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6', 3),
+(23, 'pepe', 'pep', 'gordo', 'pep@gmail.com', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', 3),
+(24, 'pepes', 'pep', 'gordo', 'pep@gmail.com', '5fd924625f6ab16a19cc9807c7c506ae1813490e4ba675f843d5a10e0baacdb8', 3);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `role`
+-- Indices de la tabla `role`
 --
 ALTER TABLE `role`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indices de la tabla `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -126,27 +129,27 @@ ALTER TABLE `users`
   ADD KEY `fk_users_role` (`role_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `role`
+-- AUTO_INCREMENT de la tabla `role`
 --
 ALTER TABLE `role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `users`
+-- Filtros para la tabla `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `fk_users_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);

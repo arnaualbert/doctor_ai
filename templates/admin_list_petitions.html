@@ -1,0 +1,25 @@
+{% include 'menu.html' %}
+<table id="table" class="table">
+    <thead>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Role</th>
+    </thead>
+    {% for petition in petitions %}
+    <tr>
+        <td>{{petition.username}}</td>
+        <td>{{petition.name}}</td>
+        <td>{{petition.surname}}</td>
+        <td>{{petition.email}}</td>
+        <td>{{petition.role}}</td>
+        <form action="/list_petitions" method="post">
+        <input  name="petition_user" id="petition_user" type="hidden" value="{{petition.username}}">
+        <td><button type="submit" class="btn btn-primary" id="regis">Register</button></td>
+        </form>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

@@ -9,7 +9,9 @@ from multiprocessing import Pool
 from random import *
 import subprocess
 import model.user as user
-
+import model.roles as role
+import model.petition as petition
+import model.history as history
 path = os.getcwd()
 
 def generate_unique_id() -> str:
@@ -37,6 +39,37 @@ def tuple_to_object(result):
     role_id = result[6]
 
     return user.User(username,name,surname,email, password, role_id,id)
+
+def dict_to_role(result):
+    """ Convert tuple to object 
+    input:
+        result: tuple
+    output:
+        object type (user.User)
+    """
+    id = result["id"]
+    role_name = result["role_name"]
+    return role.Roles(id,role_name)
+
+def tuple_to_petition(result):
+    admin_petition = result[0]
+    username = result[1]
+    name = result[2]
+    surname = result[3]
+    email = result[4]
+    roles = "user"
+    return petition.Petition(admin_petition,username,name,surname,email,roles)
+
+
+def tuple_history(results):
+    id = results[0]
+    query = results[1]
+    result = results[2]
+    user_id = results[3]
+    start = results[4]
+    date = results[5]
+    user_filename = results[6]
+    return history.History(id,query,result,user_id,start,date,user_filename)
 
 def save_fasta_file(fasta, directory) -> Path:
     """

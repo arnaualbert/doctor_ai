@@ -86,21 +86,66 @@ def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap
     if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0:
         return True
     else:
-        return False
+        if check_mime_type(fasta1) != "text/plain":
+            return "File must be in .fasta format"
+        elif check_mime_type(fasta2) != "text/plain":
+            return "File must be in .fasta format"
+        elif int(gapUp) > 0:
+            return "The gap extend Up must be negative"
+        elif int(gapLeft) > 0:
+            return "The gap extend Left must be negative"
+        elif gapUp == None :
+            return "You must fill the gap extend Up input"
+        elif gapLeft == None :
+            return "You must fill the gap extend Left input"
+        elif gap == None :
+            return "You must fill the gap input"
+        elif mismatch == None :
+            return "You must fill the mismatch input"
+        elif match == None :
+            return "You must fill the match input"
+        elif is_fasta_file_with_only_nucleotide(fasta1) != True:
+            return is_fasta_file_with_only_nucleotide(fasta1)
+        elif is_fasta_file_with_only_nucleotide(fasta2) != True:
+            return is_fasta_file_with_only_nucleotide(fasta2)
     
 def validate_blosum_local_aligment(fasta1: str,fasta2: str,gap: int,gap_extend: int) -> bool:
     """validate if the inputs are correct"""
     if fasta1 !=None and fasta2 != None and gap != None and gap_extend != None:
         return True
     else:
-        return False
+        if check_mime_type(fasta2) != "text/plain":
+            return "File must be in .fasta format"
+        elif check_mime_type(fasta1) != "text/plain":
+            return "File must be in .fasta format"
+        elif gap_extend == None :
+            return "You must fill the gap extend input"
+        elif gap == None :
+            return "You must fill the gap input"
+        elif fasta2 == None:
+            return "You must fill Target fasta input"
+        elif fasta1 == None:
+            return "You must fill Query fasta input"
 
 def validate_GA_form(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) -> bool:
     """validate if the inputs are correct"""
     if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None:
         return True
     else:
-        return False
+        if check_mime_type(fasta2) != "text/plain":
+            return "File must be in .fasta format"
+        elif check_mime_type(fasta1) != "text/plain":
+            return "File must be in .fasta format"
+        elif gap == None :
+            return "You must fill the gap input"
+        elif mismatch == None :
+            return "You must fill the mismatch input"
+        elif match == None :
+            return "You must fill the match input"
+        elif is_fasta_file_with_only_nucleotide(fasta1) != True:
+            return is_fasta_file_with_only_nucleotide(fasta1)
+        elif is_fasta_file_with_only_nucleotide(fasta2) != True:
+            return is_fasta_file_with_only_nucleotide(fasta2)
     
 
 def is_genbank(gb_filepath: str) -> bool and str:

@@ -3,7 +3,7 @@ from datetime import datetime
 import mysql.connector
 import datetime
 import pytz
-
+import model.login as login
 data = databases.Database("localhost","root","","doctor_ai")
 
 def delete_job(id): 
@@ -70,3 +70,27 @@ def select_all_where_and(field, table,id):
     # SELECT * FROM `results` WHERE user_id = 1 AND id = 123123;
 
     return result
+
+
+
+def select_from_where_table(table,question,equals):
+    results = data.long_query(f"SELECT * FROM {table} WHERE {question}={equals}")
+    return results
+    # pass
+
+def delete_petitions(user_name):
+    is_created = login.get_user_data_from_database(user_name)
+    if is_created != False:
+        results = data.long_query(f"DELETE FROM petitions WHERE username='{user_name}'")
+        data.commit()
+        return results
+    else:
+        return False
+    
+
+
+# def delete_a_results(user_id, id):
+    # """Delete the results from the database from a specified user"""
+    # result = data.long_query(f"DELETE FROM results WHERE user_id={user_id} AND id={id}")
+    # data.commit()
+    # return result

@@ -1,7 +1,7 @@
 {% include 'menu.html' %}
     <div class="container">
-      <h1>Register</h1>
-      <form method="POST" action="/register">
+      <h1>Register Request</h1>
+      <form method="POST" action="/petition_newuser">
         <div class="form-group" >
           <label for="name">Name:</label>
           <input type="text" class="form-control" id="name" name="name" value="{{ request.form['name'] }}"  required placeholder="Ingresa tu nombre">
@@ -19,18 +19,22 @@
           <input type="email" class="form-control" id="email" name="email" required value="{{ request.form['email'] }}"  placeholder="Ingresa tu correo electrónico">
         </div>
         <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" class="form-control" id="password" name="password" value="{{ request.form['password'] }}" required placeholder="Ingresa tu contraseña">
+          <label for="role_id">Role:</label>
+          <!-- <input type="number" class="form-control" id="role_id" name="role_id" value="1" required min="1" max="3"><br><br> -->
+          <select name="role_id" id="role_id" class="form-select">
+              <option value="user">User</option>
+          </select>
         </div>
         <div class="form-group">
-          <label for="role_id">Role:</label>
-          <select name="role_id" id="role_id" class="form-select">
-            {% for role in roles %}
-            <option value="{{ role.id }}">{{ role.role_name }}</option>
-             {% endfor %}
-          </select>
-          {{ message }}
-        </div><br>
+            <label for="admins">Admin to request:</label>
+            <!-- <input type="number" class="form-control" id="role_id" name="role_id" value="1" required min="1" max="3"><br><br> -->
+            <select name="admins" id="admins" class="form-select">
+              {% for admin in admins %}
+                <option value="{{ admin.username }}">{{ admin.name }}</option>
+              {% endfor %}
+            </select>
+            {{ message }}
+          </div><br>
         <input type="submit" class="btn btn-primary" value="Register"/>
         <button type="button" class="btn btn-primary" onclick="limpiarCampos()">Reset</button><br />
       </form>
@@ -42,12 +46,12 @@
 </html>
 
 <script>
-  function limpiarCampos() {
-    document.getElementById("name").value = "";
-    document.getElementById("surname").value = "";
-    document.getElementById("username").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("password").value = "";
-    document.getElementById("role_id").value = "";
-  }
-</script>
+    function limpiarCampos() {
+      document.getElementById("name").value = "";
+      document.getElementById("surname").value = "";
+      document.getElementById("username").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("password").value = "";
+      document.getElementById("role_id").value = "";
+    }
+  </script>

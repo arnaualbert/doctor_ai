@@ -3,8 +3,10 @@ from typing             import Union
 import hashlib
 import model.login as logins
 import model.user as users
+import model.roles as roles
+import model.petition as petitiones
 import model.upload as upload
-
+import model.scripts as sc
 user_controller = Blueprint('user_controller', __name__)
 
 @user_controller.route('/login', methods=['GET', 'POST'])
@@ -46,12 +48,13 @@ def register():
     if not logins.is_logged(): return render_template('login.html') # Validate session
 
     if request.method == 'GET':
-        roles = (upload.select_from('role_name', 'role'))
-        roles_ids = (upload.select_from('id', 'role'))
-        roles_list = [(r['role_name']) for r in roles]
-        roles_id_list = [(r['id']) for r in roles_ids]
-        roles_p_id = list(zip(roles_list, roles_id_list))
-
+        # roles = (upload.select_from('role_name', 'role'))
+        # roles_ids = (upload.select_from('id', 'role'))
+        # roles_list = [(r['role_name']) for r in roles]
+        # roles_id_list = [(r['id']) for r in roles_ids]
+        # roles_p_id = list(zip(roles_list, roles_id_list))
+        roles_list = upload.select_from("*", "role")
+        roles_p_id = [sc.dict_to_role(r) for r in roles_list]
         return render_template('register.html', roles=roles_p_id)
 
     if request.method == 'POST':
@@ -68,6 +71,9 @@ def register():
         user = users.User(username, name, surname, email, pass_hash, role_id)
         # Register the user
         resultado: bool = logins.register(user)
+        pepe = upload.delete_petitions(user.username)
+        print("pepe")
+        print(pepe)
         # If the user is registered redirect to the login page else redirect to the register page
         if resultado:
             message = "Register successful"
@@ -106,9 +112,40 @@ def edit_account():
             message = "Failed edit"
         return render_template('edit_account.html', message=message)
     
-@user_controller.route('/petition', methods=['GET', 'POST'])
+@user_controller.route('/petition_newuser', methods=['GET', 'POST'])
 def petition():
     """Show the petition page of the app """
     if not logins.is_logged(): return render_template('login.html') # Validate session
-    pass
-    
+    if request.method == 'GET' and session.get('role_id') == 2:
+        admins = upload.select_from_where_table("users","role_id",1)
+        admins_list = [sc.tuple_to_object(tup) for tup in admins]
+        return render_template('petitions_doctor.html',admins=admins_list)
+    if request.method == 'POST':
+        name = request.form["name"]
+        surname = request.form["surname"]
+        username = request.form["username"]
+        email = request.form["email"]
+        role_id = request.form["role_id"]
+        admin = request.form["admins"]
+        pet = petitiones.Petition(name, surname, username, email, role_id, admin)
+        logins.petition_user(pet)
+    else:
+        return render_template('error.html', message="Unauthorized access, only doctors can create petitions")
+@user_controller.route('/list_petitions', methods=['GET', 'POST'])
+def list_petitions():
+    if not logins.is_logged(): return render_template('login.html') # Validate session
+    if request.method == 'GET' and session.get('role_id') == 1:
+        user_name = session.get('username')
+        petitions = upload.select_from_where_table("petitions","admin_petition",f"'{user_name}'")
+        print(petitions)
+        petition_list = [sc.tuple_to_petition(petition) for petition in petitions]
+        return render_template('admin_list_petitions.html', petitions=petition_list)
+    if request.method == 'POST' and session.get('role_id') == 1:
+        petition_user = request.form['petition_user']
+        petitions = upload.select_from_where_table("petitions","username",f"'{petition_user}'")
+        pet = [sc.tuple_to_petition(pet) for pet in petitions]
+        petition_send = pet[0] 
+        roles_list = upload.select_from("*", "role")
+        roles_p_id = [sc.dict_to_role(r) for r in roles_list]
+        return render_template('register_from_petition.html',petition=petition_send,roles=roles_p_id)
+        # pass

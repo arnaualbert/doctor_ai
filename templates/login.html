@@ -1,45 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Log in</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  </head>
-  <body>
-    {% if error %}
-    <p style="color: red">{{ error }}</p>
-    {% endif %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log in</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="../static/orderByDate.js"></script>
+  <script src="../static/index.js"></script>
+  <script></script>
+  <!--  CSS  -->
+  <link href="../static/styles.css" rel="stylesheet">
+</head>
+
+<body>
+  {% if error %}
+  <p style="color: red">{{ error }}</p>
+  {% endif %}
+  <div class="center">
+    <h1>Login</h1>
     <form method="POST" action="/login">
-    <div class="container mt-5">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header">
-              <h4>Log in</h4>
-            </div>
-            <div class="card-body">
-              <form>
-                <div class="form-group">
-                  <label for="usuario">Username:</label>
-                  <input type="text" class="form-control" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                  <label for="contrasena">Password:</label>
-                  <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                <input type="submit" value="Log In" class="btn btn-primary"/>
-                <p style="color: red">{{ message }}</p>
-              </form>
-            </div>
-          </div>
-        </div>
+      <div class="txt_field">
+        <input type="text" id="username" name="username" required>
+        <span></span>
+        <label for="usuario">Username:</label>
       </div>
+      <div class="txt_field">
+        <input type="password" id="password" name="password" required>
+        <span></span>
+        <label for="contrasena">Password:</label>
+      </div>
+      <input type="submit" value="Log In" class="btn btn-primary" />
+      <p style="color: red">{{ message }}</p>
+    </form>
     </div>
-  </form>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  </body>
+</body>
+
 </html>

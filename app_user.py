@@ -113,7 +113,7 @@ def edit_account():
         return render_template('edit_account.html', message=message)
     
 @user_controller.route('/petition_newuser', methods=['GET', 'POST'])
-def petition():
+def petition_newuser():
     """Show the petition page of the app """
     if not logins.is_logged(): return render_template('login.html') # Validate session
     if request.method == 'GET' and session.get('role_id') == 2:
@@ -127,8 +127,13 @@ def petition():
         email = request.form["email"]
         role_id = request.form["role_id"]
         admin = request.form["admins"]
-        pet = petitiones.Petition(name, surname, username, email, role_id, admin)
+        pet = petitiones.Petition(admin,username,name, surname, email, role_id)
         logins.petition_user(pet)
+
+        admins = upload.select_from_where_table("users","role_id",1)
+        admins_list = [sc.tuple_to_object(tup) for tup in admins]
+        return render_template('petitions_doctor.html',admins=admins_list)
+
     else:
         return render_template('error.html', message="Unauthorized access, only doctors can create petitions")
 @user_controller.route('/list_petitions', methods=['GET', 'POST'])
@@ -136,6 +141,7 @@ def list_petitions():
     if not logins.is_logged(): return render_template('login.html') # Validate session
     if request.method == 'GET' and session.get('role_id') == 1:
         user_name = session.get('username')
+        print(user_name)
         petitions = upload.select_from_where_table("petitions","admin_petition",f"'{user_name}'")
         print(petitions)
         petition_list = [sc.tuple_to_petition(petition) for petition in petitions]

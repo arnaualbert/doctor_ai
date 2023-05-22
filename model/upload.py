@@ -75,6 +75,7 @@ def select_all_where_and(field, table,id):
 
 def select_from_where_table(table,question,equals):
     results = data.long_query(f"SELECT * FROM {table} WHERE {question}={equals}")
+    data.commit()
     return results
     # pass
 

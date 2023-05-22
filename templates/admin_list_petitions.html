@@ -14,6 +14,10 @@
         <td>{{petition.surname}}</td>
         <td>{{petition.email}}</td>
         <td>{{petition.role}}</td>
+        <form action="/list_petitions" method="post">
+        <input  name="petition_user" id="petition_user" type="hidden" value="{{petition.username}}">
+        <td><button type="submit" class="btn btn-primary" id="regis">Register</button></td>
+        </form>
     </tr>
     {% endfor %}
 </table>

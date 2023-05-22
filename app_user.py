@@ -130,4 +130,12 @@ def list_petitions():
         print(petitions)
         petition_list = [sc.tuple_to_petition(petition) for petition in petitions]
         return render_template('admin_list_petitions.html', petitions=petition_list)
+    if request.method == 'POST' and session.get('role_id') == 1:
+        petition_user = request.form['petition_user']
+        petitions = upload.select_from_where_table("petitions","username",f"'{petition_user}'")
+        pet = [sc.tuple_to_petition(pet) for pet in petitions]
+        petition_send = pet[0] 
+        roles_list = upload.select_from("*", "role")
+        roles_p_id = [sc.dict_to_role(r) for r in roles_list]
+        return render_template('register_from_petition.html',petition=petition_send,roles=roles_p_id)
         # pass

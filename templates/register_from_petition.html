@@ -1,0 +1,55 @@
+{% include 'menu.html' %}
+    <div class="container">
+      <h1>Register</h1>
+      <form method="POST" action="/register">
+        <div class="form-group" >
+          <label for="name">Name:</label>
+          <input type="text" class="form-control" id="name" name="name" value="{{ petition.name }}"  required placeholder="Ingresa tu nombre">
+        </div>
+        <div class="form-group">
+          <label for="surname">Surname:</label>
+          <input type="text" class="form-control" id="surname" name="surname" value="{{ petition.surname }}"  required placeholder="Ingresa tu apellido">
+        </div>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" class="form-control" id="username" name="username" value="{{ petition.username }}"  required placeholder="Ingresa tu nombre de usuario">
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" name="email" required value="{{ petition.email }}"  placeholder="Ingresa tu correo electrónico">
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" name="password" value="{{ request.form['password'] }}" required placeholder="Ingresa tu contraseña">
+        </div>
+        <div class="form-group">
+          <label for="role_id">Role:</label>
+          <select name="role_id" id="role_id" class="form-select">
+            {% for role in roles %}
+              {% if role.role_name == petition.role %}
+            <option value="{{ role.id }}">{{ role.role_name }}</option>
+              {% endif %}
+             {% endfor %}
+          </select>
+          {{ message }}
+        </div><br>
+        <input type="submit" class="btn btn-primary" value="Register"/>
+        <button type="button" class="btn btn-primary" onclick="limpiarCampos()">Reset</button><br />
+      </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
+<script>
+  function limpiarCampos() {
+    document.getElementById("name").value = "";
+    document.getElementById("surname").value = "";
+    document.getElementById("username").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("role_id").value = "";
+  }
+</script>

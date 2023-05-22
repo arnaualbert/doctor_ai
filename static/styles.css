@@ -8,6 +8,9 @@ th#finish-date-header.desc::after {
     content: " ▼";
   }
 
+.error_msg {
+  color:rgba(255, 54, 54, 0.5)
+}
 #pantalla-emergente {
     display: none;
     position: fixed;

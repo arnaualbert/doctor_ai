@@ -1,0 +1,18 @@
+/* 
+.error_msg {
+  color:rgba(255, 54, 54, 0.5)
+} */
+
+.err_msg {
+  color:rgb(240, 93, 93)
+}
+.success {
+  color: rgb(80, 163, 80)
+}
+.info_msg {
+  color: rgb(93, 93, 93);
+  font-size: 14px;
+  font-style: italic;
+
+
+}

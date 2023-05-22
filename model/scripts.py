@@ -226,14 +226,13 @@ def cdsextract_task(fullroute,user_id,user_filename):
     Output:
         Upload results to the database
     """
-    id = randint(1,9999999)
-    ids = str(id)
+    id = generate_unique_id()
     file_up = Path('resultado.fasta')
     query = "cds_extract"
     final_filename = user_filename + '.fasta'
     upload.upload_results(id,query,user_id,final_filename)  
     subprocess.run(["./extract_cds",fullroute])
-    new_filename = Path(ids+'resultado.txt')
+    new_filename = Path(id  +'resultado.txt')
     asd = file_up.rename(new_filename)
     file_to_read = open(asd).read()
     upload.update_date(id,file_to_read,user_id)

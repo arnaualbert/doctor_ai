@@ -44,9 +44,11 @@ def cdsextract():
             fullroute=sc.save_fasta_file(file,CDSEXT)
             if validate.is_genbank(fullroute) == True:
                 user_id = session.get('user_id')
-                daemon = Thread(target=sc.cdsextract_task, args=(fullroute,user_id,user_filename))
-                daemon = daemon.start()
-                return render_template('cds.html')
+                daemon: Thread = Thread(target=sc.cdsextract_task, args=(fullroute,user_id,user_filename))
+                daemon.start()
+                message = "Running..."
+                info    = "Go to history to see the result"
+                return render_template('cds.html', message=message, info=info)
             else:
                 if validate.is_genbank(fullroute) != True:
                     message = validate.is_genbank(fullroute)
@@ -71,20 +73,29 @@ def gb_to_fasta():
         file = request.files['gbfile']
         user_filename = request.form['user_filename']
         if file:
-            filename = file.filename
-            file.save(os.path.join(GB2FASTA, filename))
-            fullroute = os.path.join(GB2FASTA, filename)
-            # Excecute the genbank to fasta program
-            if validate.is_genbank(fullroute):
-                user_id = session.get('user_id')
-                daemon = Thread(target=sc.genbank_to_fasta, args=(fullroute,user_id,user_filename))
-                daemon = daemon.start()
-                return render_template('gbtofasta.html')
-            else: 
-
-                if validate.is_genbank(fullroute) != True:
-                    message = validate.is_genbank(fullroute)
-                    return render_template('gbtofasta.html',message=message)
-                else:
-                    err_msg = "File don't have GenBank format"
-                    return render_template('gbtofasta.html', err_msg=err_msg)
+            if user_filename:
+                filename = file.filename
+                file.save(os.path.join(GB2FASTA, filename))
+                fullroute = os.path.join(GB2FASTA, filename)
+                # Excecute the genbank to fasta program
+                validate_genbank: Union[str, bool] = validate.is_genbank(fullroute)
+                if validate_genbank == True:
+                    user_id = session.get('user_id')
+                    daemon = Thread(target=sc.genbank_to_fasta, args=(fullroute,user_id,user_filename))
+                    daemon = daemon.start()
+                    message = "Running..."
+                    info    = "Go to history to see the result"
+                    return render_template('gbtofasta.html', message=message, info=info)
+                else: 
+                    if validate.is_genbank(fullroute) != True:
+                        err_msg = validate.is_genbank(fullroute)
+                        return render_template('gbtofasta.html',err_msg=err_msg)
+                    else:
+                        err_msg = "File don't have GenBank format"
+                        return render_template('gbtofasta.html', err_msg=err_msg)
+            else:
+                err_msg = "Please put a filename for the result"
+                return render_template('gbtofasta.html', err_msg=err_msg)
+        else:
+            err_msg = "Please upload a file"
+            return render_template('gbtofasta.html', err_msg=err_msg)

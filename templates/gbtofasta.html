@@ -1,5 +1,7 @@
 {% include 'menu.html' %}
 
+<!-- <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet"> -->
+<link href="../static/text-color.css" rel="stylesheet">
   <div class="container">
     <h3>
       GenBank to Fasta
@@ -17,7 +19,10 @@
     </div><br>
     <button class="btn btn-primary" type="submit">Submit</button>
     </form>
-    {{err_msg}}
+    <p>{{message}}</p>
+    <i class="info_msg">{{info}}</i>
+
+    <p class="err_msg">{{err_msg}}</p>
   </div>
   <!-- <div class="form-group">
           <label for="exampleFormControlTextarea1">Example textarea</label>

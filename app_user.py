@@ -71,6 +71,9 @@ def register():
         user = users.User(username, name, surname, email, pass_hash, role_id)
         # Register the user
         resultado: bool = logins.register(user)
+        pepe = upload.delete_petitions(user.username)
+        print("pepe")
+        print(pepe)
         # If the user is registered redirect to the login page else redirect to the register page
         if resultado:
             message = "Register successful"

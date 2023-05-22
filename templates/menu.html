@@ -1,4 +1,3 @@
-{% if session.role_id == 1 %}
 <!doctype html>
 <html lang="en">
 
@@ -10,54 +9,71 @@
   <title>Doctor AI</title>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/9cb825050b.js" crossorigin="anonymous"></script>
+  <script src="../static/orderByDate.js"></script>
+  <script src="../static/index.js"></script>
+  <script></script>
+  <!--  CSS  -->
+  <link href="../static/styles.css" rel="stylesheet">
 </head>
 
+{% if session.role_id == 1 %}
+
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg" id="id_navbar">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
           <li class="nav-item">
-            <a class="btn btn-outline-success" aria-current="page" href="/home">Tools</a>
-            <a class="btn btn-outline-success" aria-current="page" href="/register">Register</a>
+            <a class="btn" id="button" aria-current="page" href="/home">Tools</a>
+            <a class="btn" id="button" aria-current="page" href="/register">Register</a>
+            <a class="btn" id="button" aria-current="page" href="/list_petitions">Petition List</a>
             <!-- create a request page for admins -->
-            <a class="btn btn-outline-success" aria-current="page" href="/history">History</a>
-            <a class="btn btn-outline-success" aria-current="page" href="/edit_account">Edit Account</a>
+            <a class="btn" id="button" aria-current="page" href="/history">History</a>
+
           </li>
         </ul>
-        <a class="btn btn-outline-success" href="/logout" type="submit">Logout</a>
+        <a class="btn" id="button" aria-current="page" href="/edit_account">Edit Account</a>
+        <a class="btn" id="logout" href="/logout" type="submit">Logout</a>
       </div>
     </div>
   </nav><br>
   {% elif session.role_id == 2 %}
-  <!doctype html>
-  <html lang="en">
-
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <title>Doctor AI</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/9cb825050b.js" crossorigin="anonymous"></script>
-  </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" id="id_navbar">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarScroll">
           <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
             <li class="nav-item">
-              <a class="btn btn-outline-success" aria-current="page" href="/home">Tools</a>
-              <a class="btn btn-outline-success" aria-current="page" href="/petition_newuser">Petition</a>
+              <a class="btn" id="button" aria-current="page" href="/home">Tools</a>
+              <a class="btn" id="button" aria-current="page" href="/petition_newuser">Petition</a>
               <!-- create a request page for admins -->
-              <a class="btn btn-outline-success" aria-current="page" href="/history">History</a>
-              <a class="btn btn-outline-success" aria-current="page" href="/edit_account">Edit Account</a>
+              <a class="btn" id="button" aria-current="page" href="/history">History</a>
+
             </li>
           </ul>
-          <a class="btn btn-outline-success" href="/logout" type="submit">Logout</a>
+          <a class="btn" id="button" aria-current="page" href="/edit_account">Edit Account</a>
+          <a class="btn" id="logout" href="/logout" type="submit">Logout</a>
         </div>
       </div>
     </nav><br>
-    {% endif %}
+    {% elif session.role_id == 3 %}
+
+    <body>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary" id="id_navbar">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+              <li class="nav-item">
+                <a class="btn" id="button" aria-current="page" href="/home">Tools</a>
+                <!-- create a request page for admins -->
+                <a class="btn" id="button" aria-current="page" href="/history">History</a>
+
+              </li>
+            </ul>
+            <a class="btn" id="button" aria-current="page" href="/edit_account">Edit Account</a>
+            <a class="btn" id="logout" href="/logout" type="submit">Logout</a>
+          </div>
+        </div>
+      </nav><br>
+      {% endif %}

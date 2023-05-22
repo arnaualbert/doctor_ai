@@ -43,9 +43,25 @@ th#finish-date-header.desc::after {
 body{
   margin: 0;
   padding: 0;
-  background: #f0eae8;
+  background: #E9E9E5;
   height: 100vh;
   overflow: hidden;
+}
+#id_navbar {
+  background: #52524E;
+}
+
+#button{
+  background: #52524E;
+  color: white;
+}
+
+#logout{
+  color: #EA907A;
+}
+
+#tool{
+  background: #F4F4F4;
 }
 .center{
   position: absolute;

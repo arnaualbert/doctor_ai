@@ -57,11 +57,11 @@ def register():
     if request.method == 'POST':
         # Get the data from the form
         username: str =  request.form['username']
-        name: str =  request.form['name']
-        surname: str =  request.form['surname']
-        email: str =  request.form['email']
+        name:     str =  request.form['name']
+        surname:  str =  request.form['surname']
+        email:    str =  request.form['email']
         password: str =  request.form['password']
-        role_id: int =  request.form['role_id']
+        role_id:  int =  request.form['role_id']
         # Hash the password
         pass_hash =  hashlib.sha256(password.encode()).hexdigest()
         # Create the user
@@ -98,8 +98,8 @@ def edit_account():
 
         resultado = logins.edit(new_username, new_name, new_surname, new_email)
         if resultado:
-            message = "Successful edited"
-            username:str = session.get('username')
+            message:  str = "Successful edited"
+            username: str = session.get('username')
             user_data: Union[bool, users.User] = logins.get_user_data_from_database(username)
             return render_template('edit_account.html', message=message, user_data=user_data)
         else:

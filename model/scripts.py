@@ -171,17 +171,18 @@ def genbank_to_fasta(fullroute,user_id,user_filename):
     Output: 
         Upload results to the database
     """
-    id = randint(1,9999999)
-    ids = str(id)
+    id = generate_unique_id()
     file_up = Path('gb_to_fasta.fasta')
     query = "gb_to_fasta"
     final_filename = user_filename + '.fasta'
     upload.upload_results(id,query,user_id,final_filename)  
     subprocess.run(["./genbankToFastaV3",fullroute])
-    new_filename = Path(ids+'gb_to_fasta.fasta')
-    asd = file_up.rename(new_filename)
-    file_to_read = open(asd).read()
+    new_filename = Path(id+'gb_to_fasta.fasta')
+    new_path = file_up.rename(new_filename)
+    file_to_read = open(new_path).read()
     upload.update_date(id,file_to_read,user_id)
+    os.remove(fullroute)
+    os.remove(new_path)
 
 
 def cdsextract_task(fullroute,user_id,user_filename):

@@ -48,11 +48,6 @@ def register():
     if not logins.is_logged(): return render_template('login.html') # Validate session
 
     if request.method == 'GET':
-        # roles = (upload.select_from('role_name', 'role'))
-        # roles_ids = (upload.select_from('id', 'role'))
-        # roles_list = [(r['role_name']) for r in roles]
-        # roles_id_list = [(r['id']) for r in roles_ids]
-        # roles_p_id = list(zip(roles_list, roles_id_list))
         roles_list = upload.select_from("*", "role")
         roles_p_id = [sc.dict_to_role(r) for r in roles_list]
         return render_template('register.html', roles=roles_p_id)
@@ -120,7 +115,7 @@ def petition_newuser():
         admins = upload.select_from_where_table("users","role_id",1)
         admins_list = [sc.tuple_to_object(tup) for tup in admins]
         return render_template('petitions_doctor.html',admins=admins_list)
-    if request.method == 'POST':
+    if request.method == 'POST' and session.get('role_id') == 2:
         name = request.form["name"]
         surname = request.form["surname"]
         username = request.form["username"]
@@ -155,3 +150,5 @@ def list_petitions():
         roles_p_id = [sc.dict_to_role(r) for r in roles_list]
         return render_template('register_from_petition.html',petition=petition_send,roles=roles_p_id)
         # pass
+    else:
+        return render_template('error.html', message="Unauthorized access, only doctors can create petitions")

@@ -16,14 +16,15 @@
   <link href="../static/styles.css" rel="stylesheet">
 </head>
 
-{% if session.role_id == 1 %}
-
 <body>
   <nav class="navbar navbar-expand-lg" id="id_navbar">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
           <li class="nav-item">
+{% if session.role_id == 1 %}
+
+            <a class="btn" id="button" aria-current="page" href="/main">Home</a>
             <a class="btn" id="button" aria-current="page" href="/about">About Us</a>
             <a class="btn" id="button" aria-current="page" href="/home">Tools</a>
             <a class="btn" id="button" aria-current="page" href="/register">Register</a>
@@ -35,48 +36,32 @@
         </ul>
         <a class="btn" id="button" aria-current="page" href="/edit_account">Edit Account</a>
         <a class="btn" id="logout" href="/logout" type="submit">Logout</a>
-      </div>
-    </div>
-  </nav><br>
+
   {% elif session.role_id == 2 %}
+            <a class="btn" id="button" aria-current="page" href="/main">Home</a>
+            <a class="btn" id="button" aria-current="page" href="/about">About Us</a>
+            <a class="btn" id="button" aria-current="page" href="/home">Tools</a>
+            <a class="btn" id="button" aria-current="page" href="/petition_newuser">Petition</a>
+            <!-- create a request page for admins -->
+            <a class="btn" id="button" aria-current="page" href="/history">History</a>
 
-  <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" id="id_navbar">
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarScroll">
-          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-            <li class="nav-item">
-              <a class="btn" id="button" aria-current="page" href="/about">About Us</a>
-              <a class="btn" id="button" aria-current="page" href="/home">Tools</a>
-              <a class="btn" id="button" aria-current="page" href="/petition_newuser">Petition</a>
-              <!-- create a request page for admins -->
-              <a class="btn" id="button" aria-current="page" href="/history">History</a>
-
-            </li>
-          </ul>
-          <a class="btn" id="button" aria-current="page" href="/edit_account">Edit Account</a>
-          <a class="btn" id="logout" href="/logout" type="submit">Logout</a>
-        </div>
-      </div>
-    </nav><br>
+          </li>
+        </ul>
+        <a class="btn" id="button" aria-current="page" href="/edit_account">Edit Account</a>
+        <a class="btn" id="logout" href="/logout" type="submit">Logout</a>
     {% elif session.role_id == 3 %}
+        <a class="btn" id="button" aria-current="page" href="/main">Home</a>
+        <a class="btn" id="button" aria-current="page" href="/about">About Us</a>
+        <a class="btn" id="button" aria-current="page" href="/home">Tools</a>
+        <!-- create a request page for users -->
+        <a class="btn" id="button" aria-current="page" href="/history">History</a>
 
-    <body>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary" id="id_navbar">
-        <div class="container-fluid">
-          <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-              <li class="nav-item">
-                <a class="btn" id="button" aria-current="page" href="/about">About Us</a>
-                <a class="btn" id="button" aria-current="page" href="/home">Tools</a>
-                <!-- create a request page for users -->
-                <a class="btn" id="button" aria-current="page" href="/history">History</a>
+          </li>
+        </ul>
+        <a class="btn" id="button" aria-current="page" href="/edit_account">Edit Account</a>
+        <a class="btn" id="logout" href="/logout" type="submit">Logout</a>
 
-              </li>
-            </ul>
-            <a class="btn" id="button" aria-current="page" href="/edit_account">Edit Account</a>
-            <a class="btn" id="logout" href="/logout" type="submit">Logout</a>
-          </div>
-        </div>
-      </nav><br>
       {% endif %}
+    </div>
+  </div>
+</nav><br>

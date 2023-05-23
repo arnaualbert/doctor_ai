@@ -126,8 +126,21 @@
 				</li>
 				<li>
 					<h5>Extract CDS</h5>
-					<p>Tool description and instructions.</p>
-				</li>
+					Input: The tool provides an input field where users can upload a Genbank file containing genetic sequence data. Users can either browse their local file system or drag and drop the Genbank file into the input field.
+
+					Name the Result FASTA file: Users need to provide a name for the resulting FASTA file that will contain the extracted coding sequence (CDS) information. This can be done by typing a desired filename in a separate input field.
+					
+					Submit: Once the user has selected the Genbank file and provided a name for the output FASTA file, they click the "Submit" button to initiate the extraction process.
+					
+					Genbank Parsing: The tool parses the uploaded Genbank file to extract the necessary information related to the coding sequences (CDS). This includes identifying the location, start and end positions, and the DNA sequence of each CDS in the Genbank file.
+					
+					Extract CDS Sequences: Based on the parsed Genbank data, the tool extracts the coding sequences (CDS) from the genomic DNA sequence. It retrieves the DNA sequence of each CDS and prepares it for conversion to FASTA format.
+					
+					Convert to FASTA: The extracted CDS sequences are converted into FASTA format, which is a widely used standard for representing nucleotide or protein sequences. Each CDS is represented as a separate entry in the resulting FASTA file.
+					
+					Generate Result FASTA File: The tool generates a new FASTA file with the extracted CDS sequences. The filename provided by the user is used to save the file. The resulting FASTA file can be downloaded or accessed through a link on the tool's interface.
+					
+					Result: The tool displays a message indicating the successful completion of the extraction process. It informs the user that the CDS sequences have been extracted and saved in the specified FASTA file. Users can then use the resulting FASTA file for further analysis or downstream applications, such as sequence alignment or protein prediction.				</li>
 				<li>
 					<h5>Genbank to Fasta</h5>
 					<p>Tool description and instructions.</p>

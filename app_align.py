@@ -32,13 +32,11 @@ create_directory(LCLALIGN)
 #-------------------------------------------
 @align_controller.route('/globalalignment',methods=['GET', 'POST'])
 def global_alignment():
-    """Gloabal alignment tool
-        - In this verison deletes the result form server
-    """
+    """Gloabal alignment tool"""
     # Validate session
     if not logins.is_logged(): return render_template('login.html')
 
-    # GET action
+    # GET action show the page if is logged
     if request.method == 'GET':  
         return render_template('global_aligment.html')
 

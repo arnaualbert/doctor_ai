@@ -1,30 +1,229 @@
 {% include 'menu.html' %}
 
 <body>
-    <h1>About Us</h1>
-
-    <div class="person">
-        <img src="ruta_imagen_1.jpg" alt="Persona 1">
-        <h2>Persona 1</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>
-
-    <div class="person">
-        <img src="ruta_imagen_2.jpg" alt="Persona 2">
-        <h2>Persona 2</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>
-
-    <div class="person">
-        <img src="ruta_imagen_3.jpg" alt="Persona 3">
-        <h2>Persona 3</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>
-
-    <div class="person">
-        <img src="ruta_imagen_4.jpg" alt="Persona 4">
-        <h2>Persona 4</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>
+    <section class="container">
+        <div class="row">
+            <!--Column 1-->
+                <div class="card">
+                    <div class="img-container">
+                        <img src="./static/arnau.jpeg" />
+                    </div>
+                    <h3>Arnau Albert</h3>
+                    <p>Founder</p>
+                    <div class="icons">
+                        <a href="https://www.linkedin.com/in/arnau-albert-sanchez-81211826b/">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/arnaualbert">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="https://www.proven.cat/intraweb/index.php">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            <!--Column 2-->
+                <div class="card">
+                    <div class="img-container">
+                        <img src="./static/alex.jpeg" />
+                    </div>
+                    <h3>Alex Varela</h3>
+                    <p>Founder</p>
+                    <div class="icons">
+                        <a href="https://www.linkedin.com/in/alex-varela-espina-412961250/">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/alezvaes11">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="https://www.proven.cat/intraweb/index.php">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            <!--Column 3-->
+                <div class="card">
+                    <div class="img-container">
+                        <img src="./static/victor.jpeg" />
+                    </div>
+                    <h3>Victor Piñana</h3>
+                    <p>Founder</p>
+                    <div class="icons">
+                        <a href="https://www.linkedin.com/in/victor-pi%C3%B1ana-cort%C3%A9s-7158a4227/">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/TheVic489">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="https://www.proven.cat/intraweb/index.php">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            <!--Column 4-->
+                <div class="card">
+                    <div class="img-container">
+                        <img src="./static/luis.jpeg" />
+                    </div>
+                    <h3>Luis Cardenete</h3>
+                    <p>Founder</p>
+                    <div class="icons">
+                        <a href="https://www.linkedin.com/in/luis-cardenete-mayoral-96767a277/">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/Cardenet">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="https://www.proven.cat/intraweb/index.php">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+        </div>
+    </section>
 </body>
-</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    body {
+        background-color: #f5f5f5;
+    }
+
+    .row {
+        flex-wrap: wrap;
+        padding: 2em 1em;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        max-height: 55em;
+    }
+
+    h1 {
+        width: 100%;
+        text-align: center;
+        font-size: 3.5em;
+        color: #1f003b;
+    }
+
+    .card {
+        box-shadow: 0 0 2.2em rgba(25, 0, 58, 0.1);
+        padding: 3.5em 1em;
+        border-radius: 0.6em;
+        color: #1f003b;
+        cursor: pointer;
+        transition: 0.3s;
+        background-color: #ffffff;
+        margin: 10px;
+        padding: 20px;
+        height: 25em;
+        width: 25em;
+        margin-bottom: 20px;
+    }
+
+    .card .img-container {
+        width: 8em;
+        height: 8em;
+        background-color: #a993ff;
+        padding: 0.5em;
+        border-radius: 50%;
+        margin: 0 auto 2em auto;
+    }
+
+    .card img {
+        width: 100%;
+        border-radius: 50%;
+    }
+
+    .card h3 {
+        font-weight: 500;
+    }
+
+    .card p {
+        font-weight: 300;
+        text-transform: uppercase;
+        margin: 0.5em 0 2em 0;
+        letter-spacing: 2px;
+    }
+
+    .icons {
+        width: 50%;
+        min-width: 180px;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .card a {
+        text-decoration: none;
+        color: inherit;
+        font-size: 1.4em;
+    }
+
+    .card:hover {
+        background: linear-gradient(#6045ea, #8567f7);
+        color: #ffffff;
+    }
+
+    .card:hover .img-container {
+        transform: scale(1.15);
+    }
+
+    @media screen and (min-width: 768px) {
+        section {
+            padding: 1em 7em;
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        section {
+            padding: 1em;
+        }
+
+        .card {
+            padding: 5em 1em;
+        }
+
+        .column {
+            flex: 0 0 33.33%;
+            max-width: 33.33%;
+            padding: 0 1em;
+        }
+    }
+</style>

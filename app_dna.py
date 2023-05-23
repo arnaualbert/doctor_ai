@@ -73,7 +73,9 @@ def DNA_to_protein():
         # Get the data from the form
         file = request.files['dnaprotein']
         user_filename = request.form['user_filename']
-        if file:
+        are_file = file.filename != ""
+        are_user_filename = user_filename != ""
+        if are_file == True and are_user_filename == True:
             id = randint(1,9999999)
             ids = str(id)
             filename = ids+file.filename
@@ -90,7 +92,8 @@ def DNA_to_protein():
                     return render_template('dna_protein.html',message=message)
                 else:
                     return render_template('dna_protein.html',message="This is not a fasta file and all the fields are required")  
-
+        else:
+            return render_template('dna_protein.html',message="All the fields are required")
 
     
 @dna_controller.route('/dnatorna',methods=['GET', 'POST'])
@@ -224,7 +227,7 @@ def reverse_complementary():
                     return render_template('reverse_complementary.html',message="it needs to be a fasta")
                 elif validate.is_fasta_file_with_only_nucleotide(fullroute) != True:
                     message = validate.is_fasta_file_with_only_nucleotide(fullroute)
-                    return render_template('reverse_complementarys.html',message=message)
+                    return render_template('reverse_complementary.html',message=message)
                 message =validate.is_fasta_file_with_only_nucleotide(fullroute)
                 return render_template('reverse_complementary.html',message=message)
         else:

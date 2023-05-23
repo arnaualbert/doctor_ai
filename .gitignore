@@ -6,3 +6,4 @@ model/__pycache__/login.cpython-310.pyc
 model/__pycache__/user.cpython-310.pyc
 model/__pycache__/
 .vscode
+brain.h5

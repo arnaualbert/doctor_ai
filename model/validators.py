@@ -218,7 +218,7 @@ def validate_GA_form(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) 
 
 def is_genbank(gb_filepath: str) -> bool | str:
     """Validate if a input file is a genbank file"""   
-    if gb_filepath.endswith(".gb"):
+    if gb_filepath.endswith(".gb") and check_mime_type(gb_filepath) == "text/plain":
         print(os.stat(gb_filepath).st_size)
         if os.stat(gb_filepath).st_size > 0:
             with open(gb_filepath, 'r') as file:

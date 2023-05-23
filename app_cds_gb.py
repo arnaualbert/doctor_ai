@@ -81,7 +81,7 @@ def gb_to_fasta():
                 fullroute = os.path.join(GB2FASTA, filename)
                 # Excecute the genbank to fasta program
                 validate_genbank: Union[str, bool] = validate.is_genbank(fullroute)
-                if validate_genbank == True:
+                if validate_genbank == True and validate.check_mime_type(fullroute) == "text/plain":
                     user_id = session.get('user_id')
                     daemon = Thread(target=sc.genbank_to_fasta, args=(fullroute,user_id,user_filename))
                     daemon = daemon.start()

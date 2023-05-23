@@ -34,7 +34,7 @@ def is_fasta_file_with_only_nucleotide(filename: str) -> bool and str:
                     for line in f:
                         if line.startswith('>'):
                             continue
-                        if any(letter not in 'ATGC' for letter in line.strip()):
+                        elif any(letter not in 'ATGC' for letter in line.strip()):
                             return "It needs to be a nucleotide"
                         else:
                             return True
@@ -117,12 +117,16 @@ def validate_split_fasta(full_path,start:str,end:str) -> bool and str:
 
 def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int,gapLeft: int,gapUp: int) -> bool:
     """validate if the inputs are correct"""
-    if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0 and check_mime_type(fasta1) == "text/plain" and check_mime_type(fasta2) == "text/plain":
+    if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0 and check_mime_type(fasta1) == "text/plain" and check_mime_type(fasta2) == "text/plain" and fasta1.endswith(".fasta") and fasta2.endswith(".fasta"):
         return True
     else:
         if check_mime_type(fasta1) != "text/plain":
             return "File must be in .fasta format"
         elif check_mime_type(fasta2) != "text/plain":
+            return "File must be in .fasta format"
+        elif fasta1.endswith(".fasta") != True:
+            return "File must be in .fasta format"
+        elif fasta2.endswith(".fasta") != True:
             return "File must be in .fasta format"
         elif int(gapUp) > 0:
             return "The gap extend Up must be negative"

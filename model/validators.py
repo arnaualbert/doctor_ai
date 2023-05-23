@@ -117,7 +117,7 @@ def validate_split_fasta(full_path,start:str,end:str) -> bool and str:
 
 def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int,gapLeft: int,gapUp: int) -> bool:
     """validate if the inputs are correct"""
-    if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0 and check_mime_type(fasta1) == "text/plain":
+    if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0 and check_mime_type(fasta1) == "text/plain" and check_mime_type(fasta2) == "text/plain":
         return True
     else:
         if check_mime_type(fasta1) != "text/plain":

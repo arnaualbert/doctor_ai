@@ -169,8 +169,8 @@ def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap
             return "You must fill the mismatch input"
         elif match == None :
             return "You must fill the match input"
-        elif is_fasta_file_with_only_nucleotide(fasta1) != True:
-            return is_fasta_file_with_only_nucleotide(fasta1)
+        elif is_fasta_file_with_only_nucleotide_only(fasta1) != True:
+            return is_fasta_file_with_only_nucleotide_only(fasta1)
         elif is_fasta_file_with_only_nucleotide(fasta2) != True:
             return is_fasta_file_with_only_nucleotide(fasta2)
     

@@ -48,11 +48,6 @@ def register():
     if not logins.is_logged(): return render_template('login.html') # Validate session
 
     if request.method == 'GET':
-        # roles = (upload.select_from('role_name', 'role'))
-        # roles_ids = (upload.select_from('id', 'role'))
-        # roles_list = [(r['role_name']) for r in roles]
-        # roles_id_list = [(r['id']) for r in roles_ids]
-        # roles_p_id = list(zip(roles_list, roles_id_list))
         roles_list = upload.select_from("*", "role")
         roles_p_id = [sc.dict_to_role(r) for r in roles_list]
         return render_template('register.html', roles=roles_p_id)

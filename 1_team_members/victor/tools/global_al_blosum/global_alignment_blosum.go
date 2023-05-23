@@ -3,96 +3,12 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math"
 	"os"
 	"strconv"
 	"strings"
 )
 
-/*
-Global aligment function
-@input string seq1
-@input string seq1
-@return string alignedSeq1
-@return string alignedSeq1
-*/
-
-// func needlemanWunsch(seq1, seq2 string, blosum [][]float64, gapOpenPenalty, gapExtendPenalty, mismatchScore float64) (string, string, float64) {
-// 	n := len(seq1) + 1
-// 	m := len(seq2) + 1
-// 	scoreMatrix := make([][]float64, n)
-// 	pointerMatrix := make([][]int, n)
-// 	var score float64
-
-// 	for i := 0; i < n; i++ {
-// 		scoreMatrix[i] = make([]float64, m)
-// 		pointerMatrix[i] = make([]int, m)
-// 	}
-
-// 	for i := 1; i < n; i++ {
-// 		scoreMatrix[i][0] = float64(i) * gapExtendPenalty
-// 	}
-
-// 	for j := 1; j < m; j++ {
-// 		scoreMatrix[0][j] = float64(j) * gapExtendPenalty
-// 	}
-
-// 	for i := 1; i < n; i++ {
-// 		for j := 1; j < m; j++ {
-// 			match := scoreMatrix[i-1][j-1]
-// 			if seq1[i-1] == seq2[j-1] {
-// 				match += mismatchScore
-// 			} else {
-// 				match += blosum[int(seq1[i-1]-'A')][int(seq2[j-1]-'A')]
-// 			}
-
-// 			delete := scoreMatrix[i-1][j] - gapOpenPenalty
-// 			insert := scoreMatrix[i][j-1] - gapOpenPenalty
-
-// 			scoreMatrix[i][j] = math.Max(math.Max(match, delete), insert)
-
-// 			if scoreMatrix[i][j] == match {
-// 				pointerMatrix[i][j] = 1
-// 			} else if scoreMatrix[i][j] == delete {
-// 				pointerMatrix[i][j] = 2
-// 			} else {
-// 				pointerMatrix[i][j] = 3
-// 			}
-
-// 			if scoreMatrix[i][j] > score {
-// 				score = scoreMatrix[i][j]
-// 			}
-// 		}
-// 	}
-
-// 	alignedSeq1 := ""
-// 	alignedSeq2 := ""
-
-// 	i := n - 1
-// 	j := m - 1
-
-//		for i > 0 || j > 0 {
-//			if pointerMatrix[i][j] == 1 {
-//				alignedSeq1 = string(seq1[i-1]) + alignedSeq1
-//				alignedSeq2 = string(seq2[j-1]) + alignedSeq2
-//				i--
-//				j--
-//			} else if pointerMatrix[i][j] == 2 {
-//				alignedSeq1 = string(seq1[i-1]) + alignedSeq1
-//				alignedSeq2 = "-" + alignedSeq2
-//				i--
-//			} else {
-//				alignedSeq1 = "-" + alignedSeq1
-//				alignedSeq2 = string(seq2[j-1]) + alignedSeq2
-//				j--
-//			}
-//		}
-//		print(alignedSeq1)
-//		print("\n")
-//		print(alignedSeq2)
-//		return alignedSeq1, alignedSeq2, score
-//	}
-var blosum62 = [26][26]float64{
+var blosum62 = [][]int{
 	{4.0, -1.0, -2.0, -2.0, 0.0, -1.0, -1.0, 0.0, -2.0, -1.0, -1.0, -1.0, -1.0, -2.0, -1.0, 1.0, 0.0, -3.0, -2.0, 0.0, -2.0, -1.0, 0.0, -4.0},
 	{-1.0, 5.0, 0.0, -2.0, -3.0, 1.0, 0.0, -2.0, 0.0, -3.0, -2.0, 2.0, -1.0, -3.0, -2.0, -1.0, -1.0, -3.0, -2.0, -3.0, -1.0, 0.0, -1.0, -4.0},
 	{-2.0, 0.0, 6.0, 1.0, -3.0, 0.0, 0.0, 0.0, 1.0, -3.0, -3.0, 0.0, -2.0, -3.0, -2.0, 1.0, 0.0, -4.0, -2.0, -3.0, 3.0, 0.0, -1.0, -4.0},
@@ -119,68 +35,44 @@ var blosum62 = [26][26]float64{
 	{-4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, -4.0, 1.0},
 }
 
-func needlemanWunsch(seq1, seq2 string, blosum [26][26]float64, gapOpenPenalty, gapExtendPenalty, matchScore, mismatchScore float64) (string, string, float64) {
-	n := len(seq1) + 1
-	m := len(seq2) + 1
-	scoreMatrix := make([][]float64, n)
-	pointerMatrix := make([][]int, n)
-	var score float64
+/*
+Global aligment function
+@input string seq1
+@input string seq1
+@return string alignedSeq1
+@return string alignedSeq1
+*/
+func globalAlignment(seq1 string, seq2 string, gapScore int, blosum62 [][]int) (alignedSeq1, alignedSeq2 string, score int) {
 
-	for i := 0; i < n; i++ {
-		scoreMatrix[i] = make([]float64, m)
-		pointerMatrix[i] = make([]int, m)
+	m, n := len(seq1), len(seq2)
+	scoreMatrix := make([][]int, m+1)
+	for i := range scoreMatrix {
+		scoreMatrix[i] = make([]int, n+1)
 	}
 
-	for i := 1; i < n; i++ {
-		scoreMatrix[i][0] = float64(i) * gapExtendPenalty
+	for i := 1; i <= m; i++ {
+		scoreMatrix[i][0] = scoreMatrix[i-1][0] + gapScore
+	}
+	for j := 1; j <= n; j++ {
+		scoreMatrix[0][j] = scoreMatrix[0][j-1] + gapScore
 	}
 
-	for j := 1; j < m; j++ {
-		scoreMatrix[0][j] = float64(j) * gapExtendPenalty
-	}
-
-	for i := 1; i < n; i++ {
-		for j := 1; j < m; j++ {
-			match := scoreMatrix[i-1][j-1]
-			if seq1[i-1] == seq2[j-1] {
-				match += matchScore
-			} else {
-				match += mismatchScore
-			}
-
-			delete := scoreMatrix[i-1][j] - gapOpenPenalty
-			insert := scoreMatrix[i][j-1] - gapOpenPenalty
-
-			scoreMatrix[i][j] = math.Max(math.Max(match, delete), insert)
-
-			if scoreMatrix[i][j] == match {
-				pointerMatrix[i][j] = 1
-			} else if scoreMatrix[i][j] == delete {
-				pointerMatrix[i][j] = 2
-			} else {
-				pointerMatrix[i][j] = 3
-			}
-			if scoreMatrix[i][j] > score {
-				score = scoreMatrix[i][j]
-			}
+	for i := 1; i <= m; i++ {
+		for j := 1; j <= n; j++ {
+			match := blosum62[getIndex(seq1[i-1])][getIndex(seq2[j-1])]
+			scoreMatrix[i][j] = max(scoreMatrix[i-1][j]+gapScore, scoreMatrix[i][j-1]+gapScore, scoreMatrix[i-1][j-1]+match)
 		}
 	}
 
-	alignedSeq1 := ""
-	alignedSeq2 := ""
-
-	i := n - 1
-	j := m - 1
-
+	i, j := m, n
 	for i > 0 || j > 0 {
-		// println(i)
-		// println(j)
-		if pointerMatrix[i][j] == 1 {
+		match := blosum62[getIndex(seq1[i-1])][getIndex(seq2[j-1])]
+		if i > 0 && j > 0 && scoreMatrix[i][j] == scoreMatrix[i-1][j-1]+match {
 			alignedSeq1 = string(seq1[i-1]) + alignedSeq1
 			alignedSeq2 = string(seq2[j-1]) + alignedSeq2
 			i--
 			j--
-		} else if pointerMatrix[i][j] == 2 {
+		} else if i > 0 && scoreMatrix[i][j] == scoreMatrix[i-1][j]+gapScore {
 			alignedSeq1 = string(seq1[i-1]) + alignedSeq1
 			alignedSeq2 = "-" + alignedSeq2
 			i--
@@ -190,19 +82,66 @@ func needlemanWunsch(seq1, seq2 string, blosum [26][26]float64, gapOpenPenalty, 
 			j--
 		}
 	}
+	score = scoreMatrix[m][n]
 
 	return alignedSeq1, alignedSeq2, score
 }
+func max(a, b, c int) int {
+	if a >= b && a >= c {
+		return a
+	} else if b >= a && b >= c {
+		return b
+	} else {
+		return c
+	}
+}
 
-// func max(values ...int) int {
-// 	maxVal := values[0]
-// 	for _, val := range values {
-// 		if val > maxVal {
-// 			maxVal = val
-// 		}
-// 	}
-// 	return maxVal
-// }
+func getIndex(c byte) int {
+	switch c {
+	case 'A':
+		return 0
+	case 'R':
+		return 1
+	case 'N':
+		return 2
+	case 'D':
+		return 3
+	case 'C':
+		return 4
+	case 'Q':
+		return 5
+	case 'E':
+		return 6
+	case 'G':
+		return 7
+	case 'H':
+		return 8
+	case 'I':
+		return 9
+	case 'L':
+		return 10
+	case 'K':
+		return 11
+	case 'M':
+		return 12
+	case 'F':
+		return 13
+	case 'P':
+		return 14
+	case 'S':
+		return 15
+	case 'T':
+		return 16
+	case 'W':
+		return 17
+	case 'Y':
+		return 18
+	case 'V':
+		return 19
+	default:
+		return -1
+	}
+}
 
 // Función para leer una secuencia de ADN de un archivo fasta
 func read_fasta(filepath string) (string, error) {
@@ -260,34 +199,28 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
 	seq2, err := read_fasta(os.Args[2])
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	gap_open, err := strconv.ParseFloat(os.Args[3], 64)
+
+	gap_score, err := strconv.Atoi(os.Args[3])
 	if err != nil {
-		gap_open = 10.0 // Valor por defecto
+		gap_score = -1.0 // Valor por defecto
 	}
-	gap_extend, err := strconv.ParseFloat(os.Args[4], 64)
-	if err != nil {
-		gap_extend = 0.5 // Valor por defecto
-	}
-	mismatch_score, err := strconv.ParseFloat(os.Args[5], 64)
-	if err != nil {
-		mismatch_score = -1 // Valor por defecto
-	}
-	matchScore := 10.0
+
 	// Aling the ADN sequences
-	alignedSeq1, alignedSeq2, score := needlemanWunsch(seq1, seq2, blosum62, gap_open, gap_extend, mismatch_score, float64(matchScore))
-	fmt.Println("The score is: ", score)
+	alignedSeq1, alignedSeq2, score := globalAlignment(seq1, seq2, gap_score, blosum62)
+
 	// Print result in the terminal
 	// fmt.Println("Aligned sequence 1:", alignedSeq1)
 	// fmt.Println("Aligned sequence 2:", alignedSeq2)
 	// fmt.Println("Alignment score:", score)
 
 	// Create the result file
-	fileOut, err := os.Create("global_alignment_result.txt")
+	fileOut, err := os.Create(os.Args[4])
 	if err != nil {
 		fmt.Println(err)
 		return

@@ -66,13 +66,14 @@ def random_sequence():
                 daemon.start()
                 return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
                 # return render_template('random_sequence.html', message="Number must be greater than 0")
-        else:
-            if are_number == False or are_user_filename == False:
-                return render_template('random_sequence.html', message="All the fields are required")
             elif int(number) >= 1000001:
                 return render_template('random_sequence.html', message="Number must be less than 1000000")
             else:
                 return render_template('random_sequence.html', message="Number must be greater than 0")
+        else:
+            # if are_number == False or are_user_filename == False:
+            return render_template('random_sequence.html', message="All the fields are required")
+
 
             # user_id = session.get('user_id')
             # # daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)

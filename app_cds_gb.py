@@ -72,7 +72,9 @@ def gb_to_fasta():
         # Get the data from the form
         file = request.files['gbfile']
         user_filename = request.form['user_filename']
-        if file:
+        are_file = file.filename != ''
+        are_user_filename = user_filename != ''
+        if are_file == True and are_user_filename == True:
             if user_filename:
                 filename = file.filename
                 file.save(os.path.join(GB2FASTA, filename))

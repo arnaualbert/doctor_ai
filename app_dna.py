@@ -164,6 +164,11 @@ def complementary():
         full_path = os.path.join(COMPLEMENTARY_FASTA,fasta_ext)
         are_file = fasta.filename != "" 
         are_user_filename = user_filename != ""
+        size = os.stat(full_path).st_size
+        print("size")
+        print(size<50000000)
+        print("size")
+        max_size = size<25000000
         if are_file == True and are_user_filename == True:
             if validate.is_fasta_file_with_only_nucleotide(full_path) == True and validate.check_mime_type(full_path) == "text/plain" and user_filename != "":
                 deamon = Thread(target=sc.complementary_task, args=(full_path,session.get('user_id'),user_filename),daemon=True)

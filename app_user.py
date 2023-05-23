@@ -29,7 +29,7 @@ def login():
             session["role_id"] = resultado.role_id
             print(f"hola {session.get('username')}")
             session['username'] = username
-            return render_template('index.html', message=message)
+            return render_template('about_us.html', message=message)
         else:
             message = 'Login failed'
             return render_template("login.html", message=message)

@@ -62,6 +62,11 @@ def tuple_to_petition(result):
 
 
 def tuple_history(results):
+    """ Convert tuple to object
+    input:
+        result: tuple
+    output:
+        object type (history.History)"""
     id = results[0]
     query = results[1]
     result = results[2]

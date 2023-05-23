@@ -161,6 +161,13 @@ def under_construction():
         return render_template('underconstruction.html')
     return render_template('underconstruction.html')
 
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    """Show the view about us"""
+    if request.method == 'POST':
+        return render_template('about_us.html')
+    return render_template('about_us.html')
+
 @app.route('/download/<int:ident>')
 def download_file(ident):
     """Download a file"""

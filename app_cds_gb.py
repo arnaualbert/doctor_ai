@@ -39,24 +39,28 @@ def cdsextract():
         # Get the data from the form
         file = request.files['extractcds']
         user_filename = request.form['user_filename']
-        if file:
-            # Excecute the cds extract program
-            fullroute=sc.save_fasta_file(file,CDSEXT)
-            if validate.is_genbank(fullroute) == True:
-                user_id = session.get('user_id')
-                daemon: Thread = Thread(target=sc.cdsextract_task, args=(fullroute,user_id,user_filename))
-                daemon.start()
-                message = "Running..."
-                info    = "Go to history to see the result"
-                return render_template('cds.html', message=message, info=info)
-            else:
-                if validate.is_genbank(fullroute) != True:
-                    message = validate.is_genbank(fullroute)
-                    return render_template('cds.html',err_msg=message)
-                err_msg = validate.is_genbank(fullroute)
-                return render_template('cds.html', err_msg=err_msg)
-                
-    return render_template('cds.html')
+        are_file = file.filename != ''
+        are_user_filename = user_filename != ''
+        if are_file == True and are_user_filename == True:
+            if file:
+                # Excecute the cds extract program
+                fullroute=sc.save_fasta_file(file,CDSEXT)
+                if validate.is_genbank(fullroute) == True and validate.check_mime_type(fullroute) == "text/plain":
+                    user_id = session.get('user_id')
+                    daemon: Thread = Thread(target=sc.cdsextract_task, args=(fullroute,user_id,user_filename))
+                    daemon.start()
+                    message = "Running..."
+                    info    = "Go to history to see the result"
+                    return render_template('cds.html', message=message, info=info)
+                else:
+                    if validate.is_genbank(fullroute) != True:
+                        message = validate.is_genbank(fullroute)
+                        return render_template('cds.html',err_msg=message)
+                    err_msg = validate.is_genbank(fullroute)
+                    return render_template('cds.html', err_msg=err_msg)
+        else:
+            return render_template('cds.html',err_msg="Please upload a file")      
+    # return render_template('cds.html')
 
 # Genbank to fasta 
 #-------------------------------------------
@@ -72,14 +76,16 @@ def gb_to_fasta():
         # Get the data from the form
         file = request.files['gbfile']
         user_filename = request.form['user_filename']
-        if file:
+        are_file = file.filename != ''
+        are_user_filename = user_filename != ''
+        if are_file == True and are_user_filename == True:
             if user_filename:
                 filename = file.filename
                 file.save(os.path.join(GB2FASTA, filename))
                 fullroute = os.path.join(GB2FASTA, filename)
                 # Excecute the genbank to fasta program
                 validate_genbank: Union[str, bool] = validate.is_genbank(fullroute)
-                if validate_genbank == True:
+                if validate_genbank == True and validate.check_mime_type(fullroute) == "text/plain":
                     user_id = session.get('user_id')
                     daemon = Thread(target=sc.genbank_to_fasta, args=(fullroute,user_id,user_filename))
                     daemon = daemon.start()

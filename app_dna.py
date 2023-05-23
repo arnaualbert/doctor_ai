@@ -51,6 +51,9 @@ def random_sequence():
         number = request.form['number']
         user_filename = request.form['user_filename']
         number_int = int(number)
+        print(number_int)
+        print(user_filename)
+        print(number)
         are_number =  number != ""
         are_user_filename = user_filename != ""
         # if number_int <= 0 or number.isnumeric() == False or user_filename == "" :

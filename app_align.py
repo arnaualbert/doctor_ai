@@ -108,17 +108,29 @@ def local_alignment():
         print("ASD")
         fasta1local = sc.save_fasta_file(fasta1, LCLALIGN)
         fasta2local = sc.save_fasta_file(fasta2, LCLALIGN)
-        if validate.validate_local_aligment(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp) == True:
-            print("hola")
-            user_id = session.get('user_id')
-            daemon = Thread(target=sc.local, args=(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp,user_id,user_filename), daemon=True)
-            daemon.start()
-            # return "running"
-            return render_template('local_aligment.html',message="Running")
+        are_fasta1 = fasta1.filename != ''
+        are_fasta2 = fasta2.filename != ''
+        are_match = match != ''
+        are_mismatch = mismatch != ''
+        are_gap = gap != ''
+        are_gapLeft = gapLeft != ''
+        are_gapUp = gapUp != ''
+        are_user_filename = user_filename != ''
+        if :
+            if validate.validate_local_aligment(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp) == True:
+                print("hola")
+                user_id = session.get('user_id')
+                daemon = Thread(target=sc.local, args=(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp,user_id,user_filename), daemon=True)
+                daemon.start()
+                # return "running"
+                return render_template('local_aligment.html',message="Running")
+            else:
+                message = validate.validate_local_aligment(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp)
+                os.remove(fasta1local)
+                os.remove(fasta2local)
+                return render_template('local_aligment.html',message=message)
         else:
-            message = validate.validate_local_aligment(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp)
-            os.remove(fasta1local)
-            os.remove(fasta2local)
+            message = "all fields are required"
             return render_template('local_aligment.html',message=message)
             # return render_template('local_aligment.html',message="Please fill all the fields with the correct format")
         

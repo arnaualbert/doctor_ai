@@ -150,3 +150,5 @@ def list_petitions():
         roles_p_id = [sc.dict_to_role(r) for r in roles_list]
         return render_template('register_from_petition.html',petition=petition_send,roles=roles_p_id)
         # pass
+    else:
+        return render_template('error.html', message="Unauthorized access, only doctors can create petitions")

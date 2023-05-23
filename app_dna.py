@@ -67,7 +67,7 @@ def random_sequence():
                 return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
                 # return render_template('random_sequence.html', message="Number must be greater than 0")
         else:
-            if number_int >= 1000001:
+            if int(number) >= 1000001:
                 return render_template('random_sequence.html', message="Number must be less than 1000000")
             else:
                 return render_template('random_sequence.html', message="Number must be greater than 0")

@@ -66,7 +66,7 @@ def global_alignment():
         are_gap = gap != ""
         are_user_filename = user_filename != ""
         if are_fasta1 == True and are_fasta2 == True and are_match == True and are_mismatch == True and are_gap == True and are_user_filename == True:
-            if validate.validate_GA_form(fasta1_filepath, fasta2_filepath, match, mismatch, gap) and user_filename and validate.check_mime_type(fasta1_filepath) == "text/plain" and validate.check_mime_type(fasta2_filepath) == "text/plain":  
+            if validate.validate_GA_form(fasta1_filepath, fasta2_filepath, match, mismatch, gap) and user_filename and validate.check_mime_type(fasta1_filepath) == "text/plain" and validate.check_mime_type(fasta2_filepath) == "text/plain" and fasta1.filename.endswith('.fasta') and fasta2.filename.endswith('.fasta'):  
 
                 # Execute the global aligment program
                 user_id = session.get('user_id')

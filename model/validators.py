@@ -35,13 +35,39 @@ def is_fasta_file_with_only_nucleotide(filename: str) -> bool and str:
                         continue
                     if any(letter not in 'ATGC' for letter in line.strip()):
                         return "It needs to be a nucleotide"
-                else:
-                    return True
+                    else:
+                        return True
         else:
             return "It needs to be a fasta file"
     else:
         print(check_mime_type(filename))
         return "It's not a fasta file"
+    
+
+def is_fasta_file_with_only_protein(filename: str) -> bool and str:
+    """Check if a file is a FASTA file with only amino acid sequences
+    input: str
+    output: bool and str
+    if the file is a FASTA file with only amino acid sequences return True
+    else return a message"""
+    if check_mime_type(filename) == "text/plain":
+        if filename.endswith('.fasta'):
+            with open(filename) as f:
+                first_line = f.readline().strip()
+                if not first_line.startswith('>'):
+                    return "It needs to start with > to be a FASTA file"
+                for line in f:
+                    if line.startswith('>'):
+                        continue
+                    if any(letter not in 'ACDEFGHIKLMNPQRSTVWY*' for letter in line.strip()):
+                        return "It needs to be an amino acid sequence"
+                else:
+                    return True
+        else:
+            return "It needs to be a FASTA file"
+    else:
+        return "It's not a FASTA file"
+
 
 def read_fasta_file(file_path: str) -> bool:
     """Read a fasta file"""

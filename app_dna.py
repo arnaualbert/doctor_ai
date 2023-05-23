@@ -104,7 +104,8 @@ def DNA_to_RNA():
         # Get the data from the form
         file = request.files['dnarna']
         user_filename = request.form['user_filename']
-        if file:
+        are_file = file.filename != "" 
+        if are_file == True and user_filename != "":
             id = randint(1,9999999)
             ids = str(id)
             filename = ids+file.filename
@@ -120,7 +121,9 @@ def DNA_to_RNA():
                     return render_template('dna_rna.html',message=message)
                 else:
                     return render_template('dna_rna.html',message="All the fields are required")
-            
+    else:
+        return render_template('dna_rna.html',message="All the fields are required")
+   
 
 @dna_controller.route("/complementary", methods=['GET', 'POST'])
 def complementary():

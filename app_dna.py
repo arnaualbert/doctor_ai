@@ -225,5 +225,5 @@ def reverse_complementary():
                     return render_template('reverse_complementarys.html',message=message)
                 message =validate.is_fasta_file_with_only_nucleotide(fullroute)
                 return render_template('reverse_complementary.html',message=message)
-    else:
-        return render_template('reverse_complementary.html',message="All the fields are required")
+        else:
+            return render_template('reverse_complementary.html',message="All the fields are required")

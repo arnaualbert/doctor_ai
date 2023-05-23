@@ -43,8 +43,7 @@ Global aligment function
 @return string alignedSeq1
 */
 func globalAlignment(seq1, seq2 string, gapScore int, blosum62 [][]int) (alignedSeq1, alignedSeq2 string, score int) {
-	print(seq1, "\n")
-	print(seq2)
+
 	if len(seq2) > len(seq1) {
 		seq1, seq2 = seq2, seq1
 	}

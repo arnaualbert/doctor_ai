@@ -40,7 +40,14 @@
         </div><br>
         <button class="btn btn-primary" type="submit">Enviar</button>
       </form>
-      <span class="err_msg">{{validator}}</span>
+      {% if validator %}
+      <div class="mt-4">
+        <div class="alert alert-danger" role="alert">
+            {{validator}}
+        </div>
+      </div>
+      {% endif %}
+      <!-- <span class="err_msg">{{validator}}</span> -->
       <span class="success">{{message}}</span>
       <br>
       <span class="info_msg">{{info}}</span>

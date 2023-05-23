@@ -33,8 +33,11 @@ def is_fasta_file_with_only_nucleotide_only(filename: str) -> bool and str:
                     return "It needs to start with > to be a fasta file"
                 else:
                     for line in f:
-                        if any(letter not in 'ATGC' for letter in line.strip()):
-                            return "It needs to be a nucleotide"
+                        for letter in line:
+                            if letter not in 'ATGC':
+                                return "It needs to be a nucleotide"
+                        # if any(letter not in 'ATGC' for letter in line.strip()):
+                        #     return "It needs to be a nucleotide"
                         else:
                             return True
         else:

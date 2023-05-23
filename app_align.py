@@ -116,7 +116,7 @@ def local_alignment():
         are_gapLeft = gapLeft != ''
         are_gapUp = gapUp != ''
         are_user_filename = user_filename != ''
-        if :
+        if are_fasta1 == True and are_fasta2 == True and are_match == True and are_mismatch == True and are_gap == True and are_gapLeft == True and are_gapUp == True and are_user_filename == True:
             if validate.validate_local_aligment(fasta1local, fasta2local, match, mismatch, gap,gapLeft,gapUp) == True:
                 print("hola")
                 user_id = session.get('user_id')

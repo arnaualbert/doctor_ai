@@ -59,7 +59,7 @@ def random_sequence():
             print(user_filename)
             print(number)
             # if number_int <= 0 or number.isnumeric() == False or user_filename == "" :
-            if are_number == True and are_user_filename == True and number_int > 0 and number_int < 1000000:
+            if are_number == True and are_user_filename == True and number_int > 0 and number_int < 1000001:
                 user_id = session.get('user_id')
                 # daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
                 daemon = Thread(target=sc.random_sequence_task, args=(number,user_id,user_filename),daemon=True)

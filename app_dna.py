@@ -51,6 +51,7 @@ def random_sequence():
         number = request.form['number']
         user_filename = request.form['user_filename']
         number_int = int(number)
+        print("number_int")
         print(number_int)
         print(user_filename)
         print(number)

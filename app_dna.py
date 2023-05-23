@@ -220,7 +220,9 @@ def reverse_complementary():
                 daemon = daemon.start()
                 return render_template('reverse_complementary.html',message="Doing the job, check the history")
             else:
-                if validate.is_fasta_file_with_only_nucleotide(fullroute) != True:
+                if validate.check_mime_type(fullroute) != "text/plain":
+                    return render_template('reverse_complementary.html',message="it needs to be a fasta")
+                elif validate.is_fasta_file_with_only_nucleotide(fullroute) != True:
                     message = validate.is_fasta_file_with_only_nucleotide(fullroute)
                     return render_template('reverse_complementarys.html',message=message)
                 message =validate.is_fasta_file_with_only_nucleotide(fullroute)

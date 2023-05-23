@@ -115,7 +115,7 @@ def petition_newuser():
         admins = upload.select_from_where_table("users","role_id",1)
         admins_list = [sc.tuple_to_object(tup) for tup in admins]
         return render_template('petitions_doctor.html',admins=admins_list)
-    if request.method == 'POST':
+    if request.method == 'POST' and session.get('role_id') == 2:
         name = request.form["name"]
         surname = request.form["surname"]
         username = request.form["username"]

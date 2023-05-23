@@ -44,21 +44,35 @@ create_directory(REVERSE)
 @dna_controller.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
     """Show the random sequence page"""
+    if request.method == 'GET':
+        return render_template('random_sequence.html')
     if request.method == 'POST':
         # Get the data from the form
         number = request.form['number']
         user_filename = request.form['user_filename']
         number_int = int(number)
-
-        if number_int <= 0 or number.isnumeric() == False or user_filename == "":
-            return render_template('random_sequence.html', message="Number must be greater than 0")
-        else:
+        are_number =  number != ""
+        are_user_filename = user_filename != ""
+        # if number_int <= 0 or number.isnumeric() == False or user_filename == "" :
+        if are_number == True and are_user_filename == True and number_int > 0 and number_int < 1000000:
             user_id = session.get('user_id')
             # daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
             daemon = Thread(target=sc.random_sequence_task, args=(number,user_id,user_filename),daemon=True)
             daemon.start()
             return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
-    return render_template('random_sequence.html')
+            # return render_template('random_sequence.html', message="Number must be greater than 0")
+        else:
+            if number_int >= 1000001:
+                return render_template('random_sequence.html', message="Number must be less than 1000000")
+            else:
+                return render_template('random_sequence.html', message="Number must be greater than 0")
+
+            # user_id = session.get('user_id')
+            # # daemon = Thread(target=random_sequence_task, args=(number,user_id),daemon=True)
+            # daemon = Thread(target=sc.random_sequence_task, args=(number,user_id,user_filename),daemon=True)
+            # daemon.start()
+            # return render_template('random_sequence.html', message="Your random sequence is in progress, it's going to be stored in your history")
+    # return render_template('random_sequence.html')
 
 
 @dna_controller.route('/dnatoprotein',methods=['GET', 'POST'])

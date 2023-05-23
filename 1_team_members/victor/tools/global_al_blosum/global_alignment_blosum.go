@@ -42,8 +42,12 @@ Global aligment function
 @return string alignedSeq1
 @return string alignedSeq1
 */
-func globalAlignment(seq1 string, seq2 string, gapScore int, blosum62 [][]int) (alignedSeq1, alignedSeq2 string, score int) {
-
+func globalAlignment(seq1, seq2 string, gapScore int, blosum62 [][]int) (alignedSeq1, alignedSeq2 string, score int) {
+	print(seq1, "\n")
+	print(seq2)
+	if len(seq2) > len(seq1) {
+		seq1, seq2 = seq2, seq1
+	}
 	m, n := len(seq1), len(seq2)
 	scoreMatrix := make([][]int, m+1)
 	for i := range scoreMatrix {
@@ -64,9 +68,31 @@ func globalAlignment(seq1 string, seq2 string, gapScore int, blosum62 [][]int) (
 		}
 	}
 
+	// i, j := m, n
+	// for i > 0 || j > 0 {
+	// 	match := blosum62[getIndex(seq1[i-1])][getIndex(seq2[j-1])]
+	// 	if i > 0 && j > 0 && scoreMatrix[i][j] == scoreMatrix[i-1][j-1]+match {
+	// 		alignedSeq1 = string(seq1[i-1]) + alignedSeq1
+	// 		alignedSeq2 = string(seq2[j-1]) + alignedSeq2
+	// 		i--
+	// 		j--
+	// 	} else if i > 0 && scoreMatrix[i][j] == scoreMatrix[i-1][j]+gapScore {
+	// 		alignedSeq1 = string(seq1[i-1]) + alignedSeq1
+	// 		alignedSeq2 = "-" + alignedSeq2
+	// 		i--
+	// 	} else {
+	// 		alignedSeq1 = "-" + alignedSeq1
+	// 		alignedSeq2 = string(seq2[j-1]) + alignedSeq2
+	// 		j--
+	// 	}
+	// }
 	i, j := m, n
 	for i > 0 || j > 0 {
-		match := blosum62[getIndex(seq1[i-1])][getIndex(seq2[j-1])]
+		match := 0
+		if i > 0 && j > 0 {
+			match = blosum62[getIndex(seq1[i-1])][getIndex(seq2[j-1])]
+		}
+
 		if i > 0 && j > 0 && scoreMatrix[i][j] == scoreMatrix[i-1][j-1]+match {
 			alignedSeq1 = string(seq1[i-1]) + alignedSeq1
 			alignedSeq2 = string(seq2[j-1]) + alignedSeq2
@@ -76,7 +102,7 @@ func globalAlignment(seq1 string, seq2 string, gapScore int, blosum62 [][]int) (
 			alignedSeq1 = string(seq1[i-1]) + alignedSeq1
 			alignedSeq2 = "-" + alignedSeq2
 			i--
-		} else {
+		} else if j > 0 {
 			alignedSeq1 = "-" + alignedSeq1
 			alignedSeq2 = string(seq2[j-1]) + alignedSeq2
 			j--
@@ -173,6 +199,46 @@ func read_fasta(filepath string) (string, error) {
 	return seq.String(), nil
 }
 
+// Function to read a DNA sequence from a FASTA file
+func read_fasta_v2(filepath string) (string, error) {
+	// Open the input file
+	file, err := os.Open(filepath)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+
+	// Create a scanner to read lines from the file
+	scanner := bufio.NewScanner(file)
+
+	// Skip the first line (header)
+	if !scanner.Scan() {
+		if err := scanner.Err(); err != nil {
+			return "", err
+		}
+		return "", nil
+	}
+
+	// Read the sequence lines
+	var seqLines []string
+	for scanner.Scan() {
+		line := scanner.Text()
+		if strings.HasPrefix(line, ">") {
+			break // Reached the start of another sequence or end of file
+		}
+		seqLines = append(seqLines, line)
+	}
+
+	// Join the sequence lines into a single string
+	sequence := strings.Join(seqLines, "")
+
+	if err := scanner.Err(); err != nil {
+		return "", err
+	}
+
+	return sequence, nil
+}
+
 /*
  */
 func splitString(input string, lineLength int) string {
@@ -200,15 +266,15 @@ func main() {
 		return
 	}
 
-	seq2, err := read_fasta(os.Args[2])
+	seq2, err := read_fasta_v2(os.Args[2])
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
+	print(seq2)
 	gap_score, err := strconv.Atoi(os.Args[3])
 	if err != nil {
-		gap_score = -1.0 // Valor por defecto
+		gap_score = 10.0 // Valor por defecto
 	}
 
 	// Aling the ADN sequences

@@ -65,7 +65,7 @@ def count_letters_in_file(filename: str) -> int:
 
 def validate_split_fasta(full_path,start:str,end:str) -> bool and str:
     """validate if the inputs are correct"""
-    if full_path != None and start != None and end != None and is_fasta_file_with_only_nucleotide(full_path) == True and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path) and check_mime_type(full_path) == "text/plain":
+    if is_fasta_file_with_only_nucleotide(full_path) == True and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path) and check_mime_type(full_path) == "text/plain":
         return True
     else:
         if check_mime_type(full_path) != "text/plain":

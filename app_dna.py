@@ -159,23 +159,28 @@ def split_fasta():
         end = request.form['end']
         user_filename = request.form['user_filename']
         # print(fasta.filename == "")
-        is_done = fasta.filename == ""
-        print(is_done)
-        if is_done != True:
+        are_file = fasta.filename != "" 
+        are_start = start != ""
+        are_end = end != ""
+        if are_file == True and are_start == True and are_end == True:
             fasta_ext = fasta.filename
             fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
             full_path = os.path.join(SPLIT_FASTA,fasta_ext)
             if validate.validate_split_fasta(full_path,start,end) == True and user_filename != "":
                 daemon = Thread(target=sc.split_fasta_task, args=(full_path,session.get('user_id'),start,end,user_filename),daemon=True)
                 daemon.start()
-            return render_template('split.html', message="Doing the job, check the history")
-        else:
-            if is_done == True:
+                return render_template('split.html', message="Doing the job, check the history")
+            elif validate.validate_split_fasta(full_path,start,end) != True:
+                message = validate.validate_split_fasta(full_path,start,end)
+                return render_template('split.html',message=message)
+            else:
                 message = "All the fields are required"
                 return render_template('split.html', message=message)
-            elif validate.validate_split_fasta(full_path) != True:
-                message = validate.validate_split_fasta(full_path)
-                return render_template('split.html',message=message)
+        else:
+            if are_file == False or are_start == False or are_end == False:
+                message = "All the fields are required"
+                return render_template('split.html', message=message)
+            # elif validate.validate_split_fasta(full_path) != True:
 
             # elif:
             #     message = validate.validate_split_fasta(full_path,start,end)

@@ -129,10 +129,11 @@ def iamlr():
         mime = magic.Magic(mime=True)
         mime_type = mime.from_file(fullroute)
         print(mime_type)
+        model_h5 = request.form['model']
         # Execute the image recognition program
         if validate.is_image_file(fullroute):
-            solve = ia.IAML.ask(fullroute)
-            if solve == 'Result is Pneumonia':
+            solve = ia.IAML.ask(fullroute,model_h5)
+            if solve == 'BAD':
                 isPneumo = True
                 return render_template('ia.html', isPneumo=isPneumo)
             else:

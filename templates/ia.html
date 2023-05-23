@@ -26,6 +26,12 @@
             <h4>Select an X-ray image of the lungs</h4>
             <p>Upload an image file (JPEG or PNG format) of an X-ray picture showing the lungs.</p>
             <form method=post action="/iamlr" enctype=multipart/form-data>
+                <select name="model" id="" class="form-select">
+                    <option value="brain.h5">Brain</option>
+                    <option value="chest_xray.h5">Lungs</option>
+                </select>
+                <br>
+                <br>
                 <input type="file" name="image" accept=".jpg,.jpeg,.png" class="form-control">
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
             </form>
@@ -34,7 +40,7 @@
         <div class="mt-4">
             <h4>Result:</h4>
             <div class="alert alert-info" role="alert">
-                <strong>Pneumonia Detected!</strong> Consult a healthcare professional for further evaluation.
+                <strong>Detected!</strong>
             </div>
             
         </div>
@@ -44,7 +50,7 @@
         <div class="mt-4">
             <h4>Result:</h4>
             <div class="alert alert-success" role="alert">
-                <strong>No Pneumonia Detected!</strong> The lungs appear healthy.
+                <strong>Everything looks good!</strong>
             </div>
         </div>
         {% endif %}

@@ -24,6 +24,7 @@ def is_fasta_file_with_only_nucleotide(filename: str) -> bool and str:
     if the file is a fasta file with only ATGC return True
     else return a message"""
     if check_mime_type(filename) == "text/plain":
+        print(check_mime_type(filename))
         if filename.endswith('.fasta'):
             with open(filename) as f:
                 first_line = f.readline().strip()
@@ -34,10 +35,12 @@ def is_fasta_file_with_only_nucleotide(filename: str) -> bool and str:
                         continue
                     if any(letter not in 'ATGC' for letter in line.strip()):
                         return "It needs to be a nucleotide"
-            return True
+                else:
+                    return True
         else:
             return "It needs to be a fasta file"
     else:
+        print(check_mime_type(filename))
         return "It's not a fasta file"
 
 def read_fasta_file(file_path: str) -> bool:
@@ -87,7 +90,7 @@ def validate_split_fasta(full_path,start:str,end:str) -> bool and str:
 
 def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int,gapLeft: int,gapUp: int) -> bool:
     """validate if the inputs are correct"""
-    if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0:
+    if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0 and check_mime_type(fasta1) == "text/plain":
         return True
     else:
         if check_mime_type(fasta1) != "text/plain":

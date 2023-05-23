@@ -121,8 +121,8 @@ def DNA_to_RNA():
                     return render_template('dna_rna.html',message=message)
                 else:
                     return render_template('dna_rna.html',message="All the fields are required")
-    else:
-        return render_template('dna_rna.html',message="All the fields are required")
+        else:
+            return render_template('dna_rna.html',message="All the fields are required")
    
 
 @dna_controller.route("/complementary", methods=['GET', 'POST'])

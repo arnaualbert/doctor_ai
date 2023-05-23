@@ -182,18 +182,23 @@ def blosum_global_alignment():
         # Get the data from the form
         fasta1 = request.files['fasta1local']
         fasta2 = request.files['fasta2local']
-        gap = request.form['gap']
-        gap_extend = request.form['gap_extend']
+        gap_penalty = request.form['gap']
+
 
         user_filename = request.form['user_filename']
         fasta1local = sc.save_fasta_file(fasta1, LCLALIGN)
         fasta2local = sc.save_fasta_file(fasta2, LCLALIGN)
-        if validate.validate_blosum_local_aligment(fasta1local, fasta2local,gap,gap_extend) == True:
+        validator =  validate.validate_blosum_global_aligment(fasta1local, fasta2local,gap_penalty)
+        print(validator)
+        if validator == True:
             print("hola")
             user_id = session.get('user_id')
-            daemon = Thread(target=sc.blosum_global, args=(fasta1local, fasta2local,gap,gap_extend,user_id,user_filename), daemon=True)
+            daemon = Thread(target=sc.blosum_global, args=(fasta1local, fasta2local,gap_penalty, user_id,user_filename), daemon=True)
             daemon.start()
             # return "running"
-            return render_template('blosum_global.html')
+            message = 'Running...'
+            info = 'Check the history to see the results'
+            return render_template('blosum_global.html', message=message, info=info)
         else:
-            return render_template('blosum_global.html')
+            # err_msg = 'Please fill all the fields'
+            return render_template('blosum_global.html', validator=validator)

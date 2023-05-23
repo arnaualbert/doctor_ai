@@ -1,9 +1,15 @@
 {% include 'menu.html' %}
-
+<link href="../static/text-color.css" rel="stylesheet">
     <div class="container">
       <h3>
         Blosum global alignment
       </h3>
+      <ul>
+        <li>Two protein sequences of similar length</li>
+        <li>Finds the best alignment of the two protein sequences</li>
+        <li>Finds the score of that alignment using the BLOSUM matrix</li>
+        <li>Includes ALL amino acids from both sequences in the alignment and the score</li>
+      </ul>      
       <a class="btn btn-secondary" href="/globalalignment" class="card-link">Try With ADN</a>
       <form method="post" action="/blosum_global" enctype="multipart/form-data" onsubmit="return validarFormulario()">
         <div class="row row-cols-2">
@@ -21,19 +27,12 @@
         </div>
 
             <div class="col">
-              <label>Gap:</label>
+              <label>Gap Penalty:</label>
               <div class="form-group">
-              <input class="form-control" type="number" name="gap" id="gap" value="{{ request.form['gap'] }}" >
+              <input class="form-control" type="number" name="gap" id="gap" value="{{ request.form['gap_penalty'] }}" >
             </div>
             </div>
-
-            <div class="col">
-              <label>Gap Extend:</label>
-              <div class="form-group">
-              <input class="form-control" type="number" name="gap_extend" id="gap_extend" value="{{ request.form['gap_extend'] }}" >
-            </div>
-            </div>
-            
+        
             <div class="col">
               <label>Filename output</label>
               <input class="form-control" type="text" name="user_filename" id="user_filename">
@@ -41,8 +40,10 @@
         </div><br>
         <button class="btn btn-primary" type="submit">Enviar</button>
       </form>
-      <span id="errorMessage">{{message}}</span>
-      <span>{{message}}</span>
+      <span class="err_msg">{{validator}}</span>
+      <span class="success">{{message}}</span>
+      <br>
+      <span class="info_msg">{{info}}</span>
     </div>
 
     <script>

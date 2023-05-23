@@ -342,17 +342,16 @@ def blosum_local(fasta1_filepath, fasta2_filepath, gap,gap_extend,user_id,user_f
     os.remove(fasta1_filepath)
     os.remove(fasta2_filepath)
 
-def blosum_global(fasta1_filepath, fasta2_filepath, gap,gap_extend,user_id,user_filename):
-    id = randint(1,9999999)
-    ids = str(id)
-    file_up = "global_alignment_result.txt"
-    query = "blosum_global_alignment"
+def blosum_global(fasta1_filepath, fasta2_filepath, gap_penalty, user_id,user_filename):
+    id = generate_unique_id()
+    file_up = "blosum_global_align.txt"
+    query = "Blosum Global Alignment"
     final_filename = user_filename + '.txt'
     upload.upload_results(id,query,user_id,final_filename)
     print("running global alignment")
-    subprocess.run(["./global_alignment_blosum",fasta1_filepath, fasta2_filepath,gap,gap_extend])
+    subprocess.run(["./global_alignment_blosum",fasta1_filepath, fasta2_filepath,gap_penalty, final_filename])
     print("finished Blosum global alignment")
-    new_filename = re.sub(r'\.txt$',ids+'alignment_result_blosum.txt', file_up)
+    new_filename = re.sub(r'\.txt$',id+'alignment_result_blosum.txt', file_up)
     print(new_filename)
     os.rename(file_up, new_filename)
     file_to_read = open(new_filename).read()

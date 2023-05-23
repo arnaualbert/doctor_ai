@@ -194,6 +194,24 @@ def validate_blosum_local_aligment(fasta1: str,fasta2: str,gap: int,gap_extend: 
             return "You must fill Target fasta input"
         elif fasta1 == None:
             return "You must fill Query fasta input"
+        
+
+def validate_blosum_global_aligment(fasta1: str,fasta2: str,gap_penalty: int) -> bool:
+    """validate if the inputs are correct"""
+    if fasta1 !=None and fasta2 != None and gap_penalty != None:
+        return True
+    else:
+        if check_mime_type(fasta2) != "text/plain":
+            return "File must be in .fasta format"
+        elif check_mime_type(fasta1) != "text/plain":
+            return "File must be in .fasta format"
+        elif gap_penalty == None :
+            return "You must fill the gap penalty input"
+        elif fasta2 == None:
+            return "You must fill Target fasta input"
+        elif fasta1 == None:
+            return "You must fill Query fasta input"
+
 
 def validate_GA_form(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) -> bool:
     """validate if the inputs are correct"""

@@ -17,6 +17,36 @@ def is_image_file(filepath: str) -> bool:
         return False
 
 
+
+def is_fasta_file_with_only_nucleotide_only(filename: str) -> bool and str:
+    """Check if a file is a fasta file with only ATGC
+    input: str
+    output: bool and str
+    if the file is a fasta file with only ATGC return True
+    else return a message"""
+    if check_mime_type(filename) == "text/plain":
+        print(check_mime_type(filename))
+        if filename.endswith('.fasta'):
+            with open(filename) as f:
+                first_line = f.readline().strip()
+                if not first_line.startswith('>') or first_line.startswith(';'):
+                    return "It needs to start with > to be a fasta file"
+                else:
+                    for line in f:
+                        for letter in line:
+                            if letter not in 'ATGC':
+                                return "It needs to be a nucleotide"
+                        # if any(letter not in 'ATGC' for letter in line.strip()):
+                        #     return "It needs to be a nucleotide"
+                            else:
+                                return True
+        else:
+            return "It needs to be a fasta file"
+    else:
+        print(check_mime_type(filename))
+        return "It's not a fasta file"
+
+
 def is_fasta_file_with_only_nucleotide(filename: str) -> bool and str:
     """Check if a file is a fasta file with only ATGC
     input: str
@@ -24,21 +54,51 @@ def is_fasta_file_with_only_nucleotide(filename: str) -> bool and str:
     if the file is a fasta file with only ATGC return True
     else return a message"""
     if check_mime_type(filename) == "text/plain":
+        print(check_mime_type(filename))
         if filename.endswith('.fasta'):
             with open(filename) as f:
                 first_line = f.readline().strip()
                 if not first_line.startswith('>') or first_line.startswith(';'):
                     return "It needs to start with > to be a fasta file"
-                for line in f:
-                    if line.startswith('>'):
-                        continue
-                    if any(letter not in 'ATGC' for letter in line.strip()):
-                        return "It needs to be a nucleotide"
-            return True
+                else:
+                    for line in f:
+                        if line.startswith('>'):
+                            continue
+                        elif any(letter not in 'ATGC' for letter in line.strip()):
+                            return "It needs to be a nucleotide"
+                        else:
+                            return True
         else:
             return "It needs to be a fasta file"
     else:
+        print(check_mime_type(filename))
         return "It's not a fasta file"
+    
+
+def is_fasta_file_with_only_protein(filename: str) -> bool and str:
+    """Check if a file is a FASTA file with only amino acid sequences
+    input: str
+    output: bool and str
+    if the file is a FASTA file with only amino acid sequences return True
+    else return a message"""
+    if check_mime_type(filename) == "text/plain":
+        if filename.endswith('.fasta'):
+            with open(filename) as f:
+                first_line = f.readline().strip()
+                if not first_line.startswith('>'):
+                    return "It needs to start with > to be a FASTA file"
+                for line in f:
+                    if line.startswith('>'):
+                        continue
+                    if any(letter not in 'ACDEFGHIKLMNPQRSTVWY*' for letter in line.strip()):
+                        return "It needs to be an amino acid sequence"
+                else:
+                    return True
+        else:
+            return "It needs to be a FASTA file"
+    else:
+        return "It's not a FASTA file"
+
 
 def read_fasta_file(file_path: str) -> bool:
     """Read a fasta file"""
@@ -87,12 +147,16 @@ def validate_split_fasta(full_path,start:str,end:str) -> bool and str:
 
 def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int,gapLeft: int,gapUp: int) -> bool:
     """validate if the inputs are correct"""
-    if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0:
+    if is_fasta_file_with_only_nucleotide_only(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0 and check_mime_type(fasta1) == "text/plain" and check_mime_type(fasta2) == "text/plain" and fasta1.endswith(".fasta") and fasta2.endswith(".fasta"):
         return True
     else:
         if check_mime_type(fasta1) != "text/plain":
             return "File must be in .fasta format"
         elif check_mime_type(fasta2) != "text/plain":
+            return "File must be in .fasta format"
+        elif fasta1.endswith(".fasta") != True:
+            return "File must be in .fasta format"
+        elif fasta2.endswith(".fasta") != True:
             return "File must be in .fasta format"
         elif int(gapUp) > 0:
             return "The gap extend Up must be negative"
@@ -154,7 +218,7 @@ def validate_GA_form(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) 
 
 def is_genbank(gb_filepath: str) -> bool and str:
     """Validate if a input file is a genbank file"""   
-    if gb_filepath.endswith(".gb"):
+    if gb_filepath.endswith(".gb") and check_mime_type(gb_filepath) == "text/plain":
         print(os.stat(gb_filepath).st_size)
         if os.stat(gb_filepath).st_size > 0:
             with open(gb_filepath, 'r') as file:

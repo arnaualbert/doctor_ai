@@ -158,20 +158,32 @@ def split_fasta():
         start = request.form['start']
         end = request.form['end']
         user_filename = request.form['user_filename']
-        fasta_ext = fasta.filename
-        fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
-        full_path = os.path.join(SPLIT_FASTA,fasta_ext)
-        if validate.validate_split_fasta(full_path,start,end) == True and user_filename != "":
-            daemon = Thread(target=sc.split_fasta_task, args=(full_path,session.get('user_id'),start,end,user_filename),daemon=True)
-            daemon.start()
+        # print(fasta.filename == "")
+        is_done = fasta.filename == ""
+        print(is_done)
+        if is_done != True:
+            fasta_ext = fasta.filename
+            fasta.save(os.path.join(SPLIT_FASTA,fasta_ext))
+            full_path = os.path.join(SPLIT_FASTA,fasta_ext)
+            if validate.validate_split_fasta(full_path,start,end) == True and user_filename != "":
+                daemon = Thread(target=sc.split_fasta_task, args=(full_path,session.get('user_id'),start,end,user_filename),daemon=True)
+                daemon.start()
             return render_template('split.html', message="Doing the job, check the history")
         else:
-            if validate.validate_split_fasta(full_path) != True:
+            if is_done == True:
+                message = "All the fields are required"
+                return render_template('split.html', message=message)
+            elif validate.validate_split_fasta(full_path) != True:
                 message = validate.validate_split_fasta(full_path)
                 return render_template('split.html',message=message)
+
+            # elif:
+            #     message = validate.validate_split_fasta(full_path,start,end)
+            #     return render_template('split.html', message=message)
             else:
-                message = validate.validate_split_fasta(full_path,start,end)
+                message = "All the fields are required"
                 return render_template('split.html', message=message)
+
 
     # return render_template('split.html')
 

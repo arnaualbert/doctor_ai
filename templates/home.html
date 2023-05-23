@@ -1,171 +1,61 @@
-	{% include 'menu.html' %}
+{% include 'menu.html' %}
 
-		<div class="container" style="height: 99%; overflow: auto;">
-			<h1 class="mt-4 mb-4">Bioinformatics Tools</h1>
-			<ol>
-				<li>
-                    <div class="container">
-                        <h3>Image Recognition</h3>
-						<ol>
-							<li>
-								<p>
-									<strong>Input:</strong> The tool provides an
-									input field where users can upload an image
-									file containing an X-ray picture of the
-									lungs. Users can either browse their local
-									file system or drag and drop the image file
-									into the input field.
-								</p>
-							</li>
-							<li>
-								<p>
-									<strong>Submit:</strong> Once the user has
-									selected the image file, they click the
-									"Submit" button to initiate the analysis
-									process.
-								</p>
-							</li>
-							<li>
-								<p>
-									<strong>Image Processing:</strong> The tool
-									performs image processing techniques to
-									enhance the X-ray image and extract relevant
-									features. This may involve adjusting
-									contrast, resizing, or applying filters to
-									improve the accuracy of the analysis.
-								</p>
-							</li>
-							<li>
-								<p>
-									<strong>Feature Extraction:</strong> The
-									tool analyzes the processed image to extract
-									meaningful features that can help identify
-									signs of pneumonia. This can include
-									characteristics such as areas of opacity,
-									consolidation, or infiltrates in the lung
-									regions.
-								</p>
-							</li>
-							<li>
-								<p>
-									<strong>Machine Learning Model:</strong> The
-									tool employs a trained machine learning
-									model specifically designed for pneumonia
-									detection. The model has been trained on a
-									large dataset of X-ray images, including
-									both pneumonia-positive and
-									pneumonia-negative cases.
-								</p>
-							</li>
-							<li>
-								<p>
-									<strong>Prediction:</strong> The extracted
-									features from the image are fed into the
-									machine learning model, which makes a
-									prediction regarding the presence of
-									pneumonia. The model classifies the image as
-									either "Pneumonia Detected" or "No Pneumonia
-									Detected" based on the learned patterns and
-									features.
-								</p>
-							</li>
-							<li>
-								<p>
-									<strong>Result:</strong> The tool displays
-									the prediction result to the user. If the
-									model detects pneumonia in the uploaded
-									X-ray image, it presents a message
-									indicating that pneumonia is detected and
-									recommends the user to consult a healthcare
-									professional. If no pneumonia is detected,
-									it displays a message stating that no
-									pneumonia is detected, providing some relief
-									to the user.
-								</p>
-							</li>
-							<li>
-								<p>
-									<strong>Additional Information:</strong>
-									Alongside the result, the tool can provide
-									additional information such as the
-									confidence score or probability of the
-									prediction to indicate the model's level of
-									certainty.
-								</p>
-							</li>
-							<li>
-								<p>
-									<strong>Important Note:</strong> It's
-									important to note that the accuracy and
-									reliability of the tool heavily depend on
-									the quality of the training data, the
-									performance of the machine learning model,
-									and the accuracy of the feature extraction
-									techniques employed. Continuous refinement
-									and evaluation of the model are necessary to
-									ensure the tool's effectiveness in pneumonia
-									detection. Additionally, the tool should
-									always be used as a supportive tool and not
-									a substitute for professional medical
-									diagnosis.
-								</p>
-							</li>
-						</ol>
-					</div>
-				</li>
-				<li>
-					<h5>Extract CDS</h5>
-					Input: The tool provides an input field where users can upload a Genbank file containing genetic sequence data. Users can either browse their local file system or drag and drop the Genbank file into the input field.
+<div class="container" style="height: 99%; overflow: auto;">
+	<h1 class="mt-4 mb-4">Bioinformatics Tools</h1>
+	<ol>
+		<li>
+			<h5>Image Recognition</h5>
+			<p>Tool description and instructions.</p>
+		</li>
+		<li>
+			<h5>Extract CDS</h5>
+			<p>Tool description and instructions.</p>
+		</li>
+		<li>
+			<h5>Genbank to Fasta</h5>
+			<p>Tool description and instructions.</p>
+		</li>
+		<li>
+			<h5>DNA to Protein</h5>
+			<p>Tool description and instructions.</p>
+		</li>
+		<li>
+			<h5>DNA to RNA</h5>
+			<p>Tool description and instructions.</p>
+		</li>
+		<li>
+			<h5>Complementary Sequence</h5>
+			<p>Tool description and instructions.</p>
+		</li>
+		<li>
+			<h5>Split Fasta</h5>
+			<p>Tool description and instructions.</p>
+		</li>
+		<li>
+			<h5>Global Alignment</h5>
+			<p>Tool description and instructions.</p>
+		</li>
+		<li>
+			<h5>Local Alignment</h5>
+			<p>Tool description and instructions.</p>
+		</li>
+		<li>
+			<h5>Reverse Complementary</h5>
+			<p>Tool description and instructions.</p>
+		</li>
+		<li>
+			<h5>Random Sequence</h5>
+			<p>Tool description and instructions.</p>
+		</li>
+		<li>
+			<h5>Random Sequence</h5>
+			<p>Tool description and instructions.</p>
+		</li>
+	</ol>
+</div>
 
-					Name the Result FASTA file: Users need to provide a name for the resulting FASTA file that will contain the extracted coding sequence (CDS) information. This can be done by typing a desired filename in a separate input field.
-					
-					Submit: Once the user has selected the Genbank file and provided a name for the output FASTA file, they click the "Submit" button to initiate the extraction process.
-					
-					Genbank Parsing: The tool parses the uploaded Genbank file to extract the necessary information related to the coding sequences (CDS). This includes identifying the location, start and end positions, and the DNA sequence of each CDS in the Genbank file.
-					
-					Extract CDS Sequences: Based on the parsed Genbank data, the tool extracts the coding sequences (CDS) from the genomic DNA sequence. It retrieves the DNA sequence of each CDS and prepares it for conversion to FASTA format.
-					
-					Convert to FASTA: The extracted CDS sequences are converted into FASTA format, which is a widely used standard for representing nucleotide or protein sequences. Each CDS is represented as a separate entry in the resulting FASTA file.
-					
-					Generate Result FASTA File: The tool generates a new FASTA file with the extracted CDS sequences. The filename provided by the user is used to save the file. The resulting FASTA file can be downloaded or accessed through a link on the tool's interface.
-					
-					Result: The tool displays a message indicating the successful completion of the extraction process. It informs the user that the CDS sequences have been extracted and saved in the specified FASTA file. Users can then use the resulting FASTA file for further analysis or downstream applications, such as sequence alignment or protein prediction.				</li>
-				<li>
-					<h5>Genbank to Fasta</h5>
-					<p>Tool description and instructions.</p>
-				</li>
-				<li>
-					<h5>DNA to Protein</h5>
-					<p>Tool description and instructions.</p>
-				</li>
-				<li>
-					<h5>DNA to RNA</h5>
-					<p>Tool description and instructions.</p>
-				</li>
-				<li>
-					<h5>Complementary Sequence</h5>
-					<p>Tool description and instructions.</p>
-				</li>
-				<li>
-					<h5>Split Fasta</h5>
-					<p>Tool description and instructions.</p>
-				</li>
-				<li>
-					<h5>Global Alignment</h5>
-					<p>Tool description and instructions.</p>
-				</li>
-				<li>
-					<h5>Local Alignment</h5>
-					<p>Tool description and instructions.</p>
-				</li>
-				<li>
-					<h5>Reverse Complementary</h5>
-					<p>Tool description and instructions.</p>
-				</li>
-			</ol>
-		</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	</body>
 </html>

@@ -209,7 +209,9 @@ def reverse_complementary():
         # Get the data from the form
         file = request.files['reverse_complementary']
         user_filename = request.form['user_filename']
-        if file:
+        are_file = file.filename != ""
+        are_user_filename = user_filename != ""
+        if are_file == True and are_user_filename == True:
             # Excecute the cds extract program
             fullroute=sc.save_fasta_file(file,REVERSE)
             if validate.is_fasta_file_with_only_nucleotide(fullroute) == True and user_filename != "" and validate.check_mime_type(fullroute) == "text/plain":
@@ -223,3 +225,5 @@ def reverse_complementary():
                     return render_template('reverse_complementarys.html',message=message)
                 message =validate.is_fasta_file_with_only_nucleotide(fullroute)
                 return render_template('reverse_complementary.html',message=message)
+    else:
+        return render_template('reverse_complementary.html',message="All the fields are required")

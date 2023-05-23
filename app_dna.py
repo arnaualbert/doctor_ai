@@ -81,7 +81,7 @@ def DNA_to_protein():
             filename = ids+file.filename
             fullroute = sc.save_fasta_file_with_id(id,file,DNATOPROTEIN)
             # Excecute the dna to protein program
-            if validate.is_fasta_file_with_only_nucleotide(fullroute) and validate.check_mime_type(fullroute) == "text/plain" and user_filename != "" and fullroute.endswith(".fasta"):
+            if validate.is_fasta_file_with_only_nucleotide(fullroute) and validate.check_mime_type(fullroute) == "text/plain" and user_filename != "" and file.filename.endswith(".fasta"):
                 user_id = session.get('user_id')
                 daemon = Thread(target=sc.dna_to_protein, args=(fullroute,filename,user_id,id,user_filename))
                 daemon = daemon.start()

@@ -152,7 +152,7 @@ def validate_GA_form(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) 
             return is_fasta_file_with_only_nucleotide(fasta2)
     
 
-def is_genbank(gb_filepath: str) -> bool | str:
+def is_genbank(gb_filepath: str) -> bool and str:
     """Validate if a input file is a genbank file"""   
     if gb_filepath.endswith(".gb"):
         print(os.stat(gb_filepath).st_size)

@@ -140,7 +140,7 @@ func main() {
 		seq2 += scanner2.Text()
 	}
 
-	outputFile, err := os.Create("alignment_result_blosum.txt")
+	outputFile, err := os.Create(os.Args[5])
 	if err != nil {
 		panic(err)
 	}

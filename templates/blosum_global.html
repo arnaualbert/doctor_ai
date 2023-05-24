@@ -3,13 +3,7 @@
     <div class="container">
       <h3>
         Blosum global alignment
-      </h3>
-      <ul>
-        <li>Two protein sequences of similar length</li>
-        <li>Finds the best alignment of the two protein sequences</li>
-        <li>Finds the score of that alignment using the BLOSUM matrix</li>
-        <li>Includes ALL amino acids from both sequences in the alignment and the score</li>
-      </ul>      
+      </h3>   
       <a class="btn btn-secondary" href="/globalalignment" class="card-link">Try With ADN</a>
       <form method="post" action="/blosum_global" enctype="multipart/form-data" onsubmit="return validarFormulario()">
         <div class="row row-cols-2">
@@ -42,15 +36,13 @@
       </form>
       {% if validator %}
       <div class="mt-4">
-        <div class="alert alert-danger" role="alert">
-            {{validator}}
-        </div>
+            <p>{{validator}}</p>
       </div>
       {% endif %}
       <!-- <span class="err_msg">{{validator}}</span> -->
-      <span class="success">{{message}}</span>
+      <p>{{message}}</p>
       <br>
-      <span class="info_msg">{{info}}</span>
+      <p >{{info}}</p>
     </div>
 
     <script>

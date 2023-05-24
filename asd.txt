@@ -1,0 +1,31 @@
+Alignment score: -534
+>Aligned sequence 1:
+CGTTAAGCGATTCGTATTAAACATGTTCATGCCAAGGAGCGGGATTACCC
+TGGATGGTTAAATGAAACCATGTCTGGCCCGCAAGCTTCTGACGGCTTCA
+CCTTCAAACCCCTCCTTCGGAAAACGGGAGTCGCTCGAACTGCTAGGAAG
+TGGGCACATGGCCTGGTGGTCAGAATGTGTTAGTGGCCGGCGTGCAATAA
+AACTGGTAGTCGGCCACAATCTGCGTTAGTCTCCCGTGGTTGCCATGACG
+CGCTTGCAGCTTTATAGGGTTAGTTATAATTCCCTTTTGGCGTGTCCTGA
+TGAACTCTACGGGGAACTAGATCTCGTAGACATAAGGACGTGCTCGGCTC
+TACCAAGTGGCCGGAGGGGCTAGGGTAATGTGGCGTCGTGCGGTCACCAT
+CAAAGGCCTGGCAAGATGTTTAGTTCTGTGTCGGAAGCTATTACGCCAAG
+CAACGGATTGAGTGTAGGTAAAGCGCAGTCTAGAATTCCGAGATACCTGT
+CGCATAGTGCCCCGCCGGTCGCGGAATGTTAGACGTCGCGGCTTATTGGA
+CGCCCGAGGAGCGAGAATGTCAGTAATTATCGAGTTGAATCTCCCGGCCG
+AGGCACGGAGAGTCATACGTTGCGACCCGGTAGCGGCGATTTACACTAGT
+AGGTATGGCAGGAACCACAAACAGCCCC
+>Aligned sequence 2:
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+------------------G--AG-----ATC--------T-T--------
+-----------G--A-A-----CG---C---A-----G-------C----
+-----T--------------------CC

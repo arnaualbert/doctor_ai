@@ -74,10 +74,14 @@ def register():
         # If the user is registered redirect to the login page else redirect to the register page
         if resultado:
             message = "Register successful"
-            return render_template('register.html', message=message)
+            roles_list = upload.select_from("*", "role")
+            roles_p_id = [sc.dict_to_role(r) for r in roles_list]
+            return render_template('register.html', message=message,roles=roles_p_id)
         else:
             message = "Register failed"
-            return render_template('register.html', message=message)
+            roles_list = upload.select_from("*", "role")
+            roles_p_id = [sc.dict_to_role(r) for r in roles_list]
+            return render_template('register.html', message=message,roles=roles_p_id)
     else:
         return render_template('error.html', message="Unauthorized access, only doctors can create petitions")
 

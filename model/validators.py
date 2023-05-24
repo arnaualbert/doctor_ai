@@ -101,7 +101,10 @@ def is_fasta_file_with_only_protein(filename: str) -> bool and str:
 
 
 def read_fasta_file(file_path: str) -> bool:
-    """Read a fasta file"""
+    """Read a fasta file
+    input:
+    file_path: str
+    output: bool"""
     file_extension = os.path.splitext(file_path)[1]
     if file_extension not in ['.fasta', '.fa']:
         # raise ValueError("File must be in .fasta or .fa format")
@@ -111,7 +114,10 @@ def read_fasta_file(file_path: str) -> bool:
 
 
 def count_letters_in_file(filename: str) -> int:
-    """Count the number of letters in a file"""
+    """Count the number of letters in a file
+    input:
+    filename: str
+    output: int"""
     with open(filename, "r") as file:
         next(file)
         count = 0
@@ -121,7 +127,12 @@ def count_letters_in_file(filename: str) -> int:
     return count
 
 def validate_split_fasta(full_path,start:str,end:str) -> bool and str:
-    """validate if the inputs are correct"""
+    """validate if the inputs are correct
+    input:
+    full_path: str
+    start: str
+    end: str
+    output: bool and str"""
     if is_fasta_file_with_only_nucleotide(full_path) == True and int(start)>0 and int(end)>0 and start.isnumeric() and end.isnumeric() and int(start)<=count_letters_in_file(full_path) and int(end)<=count_letters_in_file(full_path) and check_mime_type(full_path) == "text/plain":
         return True
     else:
@@ -146,7 +157,16 @@ def validate_split_fasta(full_path,start:str,end:str) -> bool and str:
 
 
 def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int,gapLeft: int,gapUp: int) -> bool:
-    """validate if the inputs are correct"""
+    """validate if the inputs are correct
+    input:
+    fasta1: str
+    fasta2: str
+    match: int
+    mismatch: int
+    gap: int
+    gapLeft: int
+    gapUp: int
+    output: bool"""
     if is_fasta_file_with_only_nucleotide_only(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None and gapLeft != None and gapUp != None and int(gapLeft) < 0 and int(gapUp) < 0 and check_mime_type(fasta1) == "text/plain" and check_mime_type(fasta2) == "text/plain" and fasta1.endswith(".fasta") and fasta2.endswith(".fasta"):
         return True
     else:
@@ -178,7 +198,12 @@ def validate_local_aligment(fasta1: str,fasta2: str,match: int,mismatch: int,gap
             return is_fasta_file_with_only_nucleotide(fasta2)
     
 def validate_blosum_local_aligment(fasta1: str,fasta2: str,gap: int,gap_extend: int) -> bool:
-    """validate if the inputs are correct"""
+    """validate if the inputs are correct
+    input:
+        fasta1: str
+        fasta2: str
+        gap: int
+        gap_extend: int"""
     if fasta1 !=None and fasta2 != None and gap != None and gap_extend != None:
         return True
     else:
@@ -197,7 +222,11 @@ def validate_blosum_local_aligment(fasta1: str,fasta2: str,gap: int,gap_extend: 
         
 
 def validate_blosum_global_aligment(fasta1: str,fasta2: str,gap_penalty: int) -> bool:
-    """validate if the inputs are correct"""
+    """validate if the inputs are correct
+    input:
+        fasta1: str
+        fasta2: str
+        gap_penalty: int"""
     validator_fasta1_result = is_fasta_file_with_only_protein(fasta1)
     validator_fasta2_result = is_fasta_file_with_only_protein(fasta2)
     print(validator_fasta1_result)
@@ -214,7 +243,13 @@ def validate_blosum_global_aligment(fasta1: str,fasta2: str,gap_penalty: int) ->
         return validator_fasta1_result
     
 def validate_GA_form(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) -> bool:
-    """validate if the inputs are correct"""
+    """validate if the inputs are correct
+    input:
+        fasta1: str
+        fasta2: str
+        match: int
+        mismatch: int
+        gap: int"""
     if is_fasta_file_with_only_nucleotide(fasta1) and is_fasta_file_with_only_nucleotide(fasta2) and match != None and mismatch != None and gap != None:
         return True
     else:
@@ -235,7 +270,9 @@ def validate_GA_form(fasta1: str,fasta2: str,match: int,mismatch: int,gap: int) 
     
 
 def is_genbank(gb_filepath: str) -> bool and str:
-    """Validate if a input file is a genbank file"""   
+    """Validate if a input file is a genbank file
+    input:
+        gb_filepath: str"""   
     if gb_filepath.endswith(".gb") and check_mime_type(gb_filepath) == "text/plain":
         print(os.stat(gb_filepath).st_size)
         if os.stat(gb_filepath).st_size > 0:

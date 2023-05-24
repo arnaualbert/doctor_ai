@@ -116,7 +116,9 @@ def main():
 
 @app.route('/iamlr',methods=['GET', 'POST'])
 def iamlr():
-    """Show the image recognition page"""
+    """Show the image recognition page
+    it returns the result of the image recognition if everything is ok
+    else show an error message"""
     if not logins.is_logged(): return render_template('login.html')
 
     if request.method == 'GET':

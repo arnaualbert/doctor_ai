@@ -30,7 +30,9 @@ create_directory(GB2FASTA)
 
 @cds_gb_controller.route('/cdsextract',methods=['GET', 'POST'])
 def cdsextract():
-    """Show the cds extract page"""
+    """Show the cds extract page
+    if not logged, redirect to login page
+    if fails return a message"""
     if not logins.is_logged(): return render_template('login.html')
 
     if request.method == 'GET': 
@@ -67,7 +69,8 @@ def cdsextract():
 
 @cds_gb_controller.route('/gbtofasta',methods=['GET', 'POST'])
 def gb_to_fasta():
-    """Show the cds extract page"""
+    """Show the gb to fasta page
+    if fails return a message"""
     if not logins.is_logged(): return render_template('login.html')
 
     if request.method == 'GET':

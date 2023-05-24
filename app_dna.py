@@ -44,6 +44,7 @@ create_directory(REVERSE)
 @dna_controller.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
     """Show the random sequence page"""
+    if not logins.is_logged(): return render_template('login.html')
     if request.method == 'GET':
         return render_template('random_sequence.html')
     if request.method == 'POST':

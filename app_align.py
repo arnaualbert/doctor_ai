@@ -167,9 +167,9 @@ def blosum_local_alignment():
             daemon = Thread(target=sc.blosum_local, args=(fasta1local, fasta2local,gap,gap_extend,user_id,user_filename), daemon=True)
             daemon.start()
             # return "running"
-            return render_template('blosum_local.html')
+            return render_template('blosum_local.html',message="Running")
         else:
-            return render_template('blosum_local.html')
+            return render_template('blosum_local.html',message="Please fill all the fields with the correct format")
         
 
 @align_controller.route('/blosum_global',methods=['GET', 'POST'])

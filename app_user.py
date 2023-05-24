@@ -43,16 +43,18 @@ def logout():
 
 @user_controller.route('/register', methods=['GET', 'POST'])
 def register():
-    """Show the register page of the app """
+    """Show the register page of the app
+    if not logged in redirect to the login page
+    if logged show the register page and create the user"""
 
     if not logins.is_logged(): return render_template('login.html') # Validate session
 
-    if request.method == 'GET':
+    if request.method == 'GET' and session.get('role_id') == 1:
         roles_list = upload.select_from("*", "role")
         roles_p_id = [sc.dict_to_role(r) for r in roles_list]
         return render_template('register.html', roles=roles_p_id)
 
-    if request.method == 'POST':
+    if request.method == 'POST'  and session.get('role_id') == 1:
         # Get the data from the form
         username: str =  request.form['username']
         name:     str =  request.form['name']
@@ -76,12 +78,15 @@ def register():
         else:
             message = "Register failed"
             return render_template('register.html', message=message)
+    else:
+        return render_template('error.html', message="Unauthorized access, only doctors can create petitions")
 
-    return render_template('register.html')
 
 @user_controller.route('/edit_account', methods=['GET', 'POST'])
 def edit_account():
-    """Show the edit account page of the app """
+    """Show the edit account page of the app
+    if not logged in redirect to the login page
+    if logged show the edit account page"""
 
     if not logins.is_logged(): return render_template('login.html') # Validate session
 
@@ -109,7 +114,11 @@ def edit_account():
     
 @user_controller.route('/petition_newuser', methods=['GET', 'POST'])
 def petition_newuser():
-    """Show the petition page of the app """
+    """Show the petition page of the app
+    if not logged in redirect to the login page
+    if logged in and admin redirect to the doctor petition page
+    if logged in and user or admin redirect to the error page
+    """
     if not logins.is_logged(): return render_template('login.html') # Validate session
     if request.method == 'GET' and session.get('role_id') == 2:
         admins = upload.select_from_where_table("users","role_id",1)
@@ -133,6 +142,10 @@ def petition_newuser():
         return render_template('error.html', message="Unauthorized access, only doctors can create petitions")
 @user_controller.route('/list_petitions', methods=['GET', 'POST'])
 def list_petitions():
+    """Show the list of petitions page of the app 
+    if not logged in redirect to the login page
+    if logged in and admin redirect to the admin page
+    if logged in and user or doctor redirect to the error page"""
     if not logins.is_logged(): return render_template('login.html') # Validate session
     if request.method == 'GET' and session.get('role_id') == 1:
         user_name = session.get('username')

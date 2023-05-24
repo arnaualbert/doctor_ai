@@ -132,11 +132,17 @@ def petition_newuser():
         role_id = request.form["role_id"]
         admin = request.form["admins"]
         pet = petitiones.Petition(admin,username,name, surname, email, role_id)
-        logins.petition_user(pet)
-
-        admins = upload.select_from_where_table("users","role_id",1)
-        admins_list = [sc.tuple_to_object(tup) for tup in admins]
-        return render_template('petitions_doctor.html',admins=admins_list)
+        done = logins.petition_user(pet)
+        print("SSSss")
+        print(done)
+        if done == True:
+            admins = upload.select_from_where_table("users","role_id",1)
+            admins_list = [sc.tuple_to_object(tup) for tup in admins]
+            return render_template('petitions_doctor.html',admins=admins_list,message="Petition successful")
+        else:
+            admins = upload.select_from_where_table("users","role_id",1)
+            admins_list = [sc.tuple_to_object(tup) for tup in admins]
+            return render_template('petitions_doctor.html',admins=admins_list,message="Error, try again with different username")
 
     else:
         return render_template('error.html', message="Unauthorized access, only doctors can create petitions")

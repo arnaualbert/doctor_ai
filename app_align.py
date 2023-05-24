@@ -32,7 +32,8 @@ create_directory(LCLALIGN)
 #-------------------------------------------
 @align_controller.route('/globalalignment',methods=['GET', 'POST'])
 def global_alignment():
-    """Gloabal alignment tool"""
+    """Gloabal alignment tool
+    if fails return a message"""
     # Validate session
     if not logins.is_logged(): return render_template('login.html')
 
@@ -95,7 +96,8 @@ def global_alignment():
 # #-------------------------------------------
 @align_controller.route('/localalignment',methods=['GET', 'POST'])
 def local_alignment():
-    """Show the local alignment page"""
+    """Show the local alignment page
+    if fails return a message"""
     if not logins.is_logged(): return render_template('login.html')
 
     if request.method == 'GET':
@@ -143,7 +145,8 @@ def local_alignment():
 # #-------------------------------------------
 @align_controller.route('/blosum_local',methods=['GET', 'POST'])
 def blosum_local_alignment():
-    """Show the blosum local alignment page"""
+    """Show the blosum local alignment page
+    if fails return a message"""
     if not logins.is_logged(): return render_template('login.html')
 
     if request.method == 'GET':
@@ -171,7 +174,8 @@ def blosum_local_alignment():
 
 @align_controller.route('/blosum_global',methods=['GET', 'POST'])
 def blosum_global_alignment():
-    """Show the blosum local alignment page"""
+    """Show the blosum global alignment page
+    if fails return a message"""
     if not logins.is_logged(): return render_template('login.html')
 
     if request.method == 'GET':

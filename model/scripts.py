@@ -45,7 +45,7 @@ def dict_to_role(result):
     input:
         result: tuple
     output:
-        object type (user.User)
+        object type (role.Roles)
     """
     id = result["id"]
     role_name = result["role_name"]

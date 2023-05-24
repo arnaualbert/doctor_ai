@@ -174,18 +174,20 @@ def about():
 @app.route('/download_file',methods=['GET', 'POST'])
 def download_file():
     """Download a file"""
+    if not logins.is_logged(): return render_template('login.html')
     if request.method == 'POST':
+        #Request the data
         result = "result"
         table = "results"
         filename = "user_filename"
         ident = request.form["ident"]
+        # Select the file
         asd = upload.select_from_where(result,filename,table,ident)
         print(asd)
         tup = asd[0]
         file_to_download = asd[1]
         bytes_io = BytesIO(tup)
         # Send the file as an attachment
-        # return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name="myfile.txt")
         return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name=file_to_download)
 
 
@@ -194,8 +196,10 @@ def delete_file():
     """Delete a file"""
     if not logins.is_logged(): return render_template('login.html')
     if request.method == 'POST':
+        #Request the data
         ident = request.form["ident"]
         user_id = session.get("user_id")
+        # Delete the file
         upload.delete_a_results(user_id,ident)
         list_of_results = upload.download_results(user_id)
         results = list_of_results

@@ -43,7 +43,9 @@ create_directory(REVERSE)
 
 @dna_controller.route('/random_sequence', methods=['GET', 'POST'])
 def random_sequence():
-    """Show the random sequence page"""
+    """Show the random sequence page
+    if not logged, redirect to login page
+    if fails return a message"""
     if not logins.is_logged(): return render_template('login.html')
     if request.method == 'GET':
         return render_template('random_sequence.html')
@@ -123,7 +125,8 @@ def DNA_to_protein():
 def DNA_to_RNA():
     """Show the dna to rna page
     if not logged in redirect to login page
-    else show the dna to rna page"""
+    else show the dna to rna page
+    if fails return a message"""
     if not logins.is_logged(): return render_template('login.html')
 
     if request.method == 'GET': 
@@ -157,7 +160,8 @@ def DNA_to_RNA():
 def complementary():
     """Show the complementary page
     if not logged in redirect to login page
-    else show the complementary page"""
+    else show the complementary page
+    if fails return a message"""
     if not logins.is_logged(): return render_template('login.html') # Validate session
 
     if request.method == 'GET':
@@ -190,7 +194,8 @@ def complementary():
 
 @dna_controller.route('/split_fasta', methods=['GET', 'POST'])
 def split_fasta():
-    "Split a fasta file sequence into a desired section"
+    """Split a fasta file sequence into a desired section
+    if fails return a message"""
     if not logins.is_logged(): return render_template('login.html') # Validate session
 
     if request.method == 'GET':
@@ -237,7 +242,8 @@ def split_fasta():
 @dna_controller.route('/reverse_complementary',methods=['GET', 'POST'])
 def reverse_complementary():
     """Show the cds extract page
-    if not logged in redirect to login page"""
+    if not logged in redirect to login page
+    if fails return a message"""
     if not logins.is_logged(): return render_template('login.html')
 
     if request.method == 'GET': 

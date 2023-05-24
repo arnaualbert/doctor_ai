@@ -13,6 +13,7 @@ from fuzzywuzzy import process
 chat_controller = Blueprint('chat_controller', __name__)
 
 def get_value_by_fuzzy_key(json_obj, search_key):
+    """Get the value of a key in a json object"""
     keys = json_obj.keys()
     closest_match = process.extractOne(search_key, keys)
     print(closest_match)
@@ -60,10 +61,12 @@ json_tools = '''
 @chat_controller.route('/chat', methods=['GET', 'POST'])
 def chat():
     if request.method == "POST":
+        # Get the data from the form
         message = request.form["message"]
         parsed_data = json.loads(json_tools)
         url = get_value_by_fuzzy_key(parsed_data, message)
         urls = f'/{url}'
+        # redirect
         return Flask.redirect(Flask,location=urls)
         
     # pass

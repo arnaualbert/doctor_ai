@@ -169,31 +169,61 @@ def about():
         return render_template('about_us.html')
     return render_template('about_us.html')
 
-@app.route('/download/<int:ident>')
-def download_file(ident):
+# @app.route('/download/<int:ident>')
+# def download_file(ident):
+#     """Download a file"""
+#     result = "result"
+#     table = "results"
+#     filename = "user_filename"
+#     asd = upload.select_from_where(result,filename,table,ident)
+#     print(asd)
+#     tup = asd[0]
+#     file_to_download = asd[1]
+#     bytes_io = BytesIO(tup)
+#     # Send the file as an attachment
+#     # return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name="myfile.txt")
+#     return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name=file_to_download)
+
+
+
+@app.route('/download_file',methods=['GET', 'POST'])
+def download_file():
     """Download a file"""
-    result = "result"
-    table = "results"
-    filename = "user_filename"
-    asd = upload.select_from_where(result,filename,table,ident)
-    print(asd)
-    tup = asd[0]
-    file_to_download = asd[1]
-    bytes_io = BytesIO(tup)
-    # Send the file as an attachment
-    # return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name="myfile.txt")
-    return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name=file_to_download)
+    if request.method == 'POST':
+        result = "result"
+        table = "results"
+        filename = "user_filename"
+        ident = request.form["ident"]
+        asd = upload.select_from_where(result,filename,table,ident)
+        print(asd)
+        tup = asd[0]
+        file_to_download = asd[1]
+        bytes_io = BytesIO(tup)
+        # Send the file as an attachment
+        # return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name="myfile.txt")
+        return send_file(bytes_io,mimetype="text/plain",as_attachment=True,download_name=file_to_download)
 
+# @app.route('/delete/<int:ident>')
+# def delete_file(ident):
+#     """Delete a file"""
+#     if not logins.is_logged(): return render_template('login.html')
+#     user_id = session.get("user_id")
+#     upload.delete_a_results(user_id,ident)
+#     list_of_results = upload.download_results(user_id)
+#     results = list_of_results
+#     return render_template('history.html',results=results)
 
-@app.route('/delete/<int:ident>')
-def delete_file(ident):
+@app.route('/delete_file',methods=['GET', 'POST'])
+def delete_file():
     """Delete a file"""
     if not logins.is_logged(): return render_template('login.html')
-    user_id = session.get("user_id")
-    upload.delete_a_results(user_id,ident)
-    list_of_results = upload.download_results(user_id)
-    results = list_of_results
-    return render_template('history.html',results=results)
+    if request.method == 'POST':
+        ident = request.form["ident"]
+        user_id = session.get("user_id")
+        upload.delete_a_results(user_id,ident)
+        list_of_results = upload.download_results(user_id)
+        results = list_of_results
+        return render_template('history.html',results=results)
     
 ### Create the app ###
 def create_app():

@@ -36,11 +36,19 @@
         {% if result[5] is none %}
         <td><i>In proccess</i></td>
         {% else %}
-        <td><a class="btn btn-primary" href="{{ url_for('download_file', ident=result[0]) }}">Download</a></td>
+        <!-- <td><a class="btn btn-primary" href="{{ url_for('download_file', ident=result[0]) }}">Download</a></td> -->
+        <form action="/download_file" method="post">
+          <input  name="ident" id="ident" type="hidden" value="{{ result[0] }}">
+          <td><button type="submit" class="btn btn-primary" id="regis">Download</button></td>
+          </form>
         {% endif %}
         <td>{{ result[4] }}</td>
         <td>{{ result[5] }}</td>
-        <td><a class="btn btn-outline-danger" href="{{ url_for('delete_file', ident=result[0]) }}">Delete</a></td>
+        <!-- <td><a class="btn btn-outline-danger" href="{{ url_for('delete_file', ident=result[0]) }}">Delete</a></td> -->
+        <form action="/delete_file" method="post">
+          <input  name="ident" id="ident" type="hidden" value="{{ result[0] }}">
+          <td><button type="submit" class="btn btn-outline-danger" id="del">Delete</button></td>
+          </form>
       </tr>
       {% endfor %}
     </tbody>

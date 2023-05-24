@@ -121,7 +121,9 @@ def DNA_to_protein():
     
 @dna_controller.route('/dnatorna',methods=['GET', 'POST'])
 def DNA_to_RNA():
-    """Show the dna to rna page"""
+    """Show the dna to rna page
+    if not logged in redirect to login page
+    else show the dna to rna page"""
     if not logins.is_logged(): return render_template('login.html')
 
     if request.method == 'GET': 
@@ -153,6 +155,9 @@ def DNA_to_RNA():
 
 @dna_controller.route("/complementary", methods=['GET', 'POST'])
 def complementary():
+    """Show the complementary page
+    if not logged in redirect to login page
+    else show the complementary page"""
     if not logins.is_logged(): return render_template('login.html') # Validate session
 
     if request.method == 'GET':
@@ -231,7 +236,8 @@ def split_fasta():
 
 @dna_controller.route('/reverse_complementary',methods=['GET', 'POST'])
 def reverse_complementary():
-    """Show the cds extract page"""
+    """Show the cds extract page
+    if not logged in redirect to login page"""
     if not logins.is_logged(): return render_template('login.html')
 
     if request.method == 'GET': 

@@ -22,6 +22,12 @@ class IAML:
         pass
 
     def ask(img_path,model_h5):
+        """make the prediction
+        input:
+            img_path: the path of the image
+            model_h5: the model
+        output:
+            result: the result of the prediction"""
         model=load_model(f'{model_h5}')
         img=tf.keras.utils.load_img(img_path,target_size=(224,224))
         x = tf.keras.utils.img_to_array(img)
